@@ -1,0 +1,18 @@
+Error: Line 11: Variable: 'fooVariable' is undeclared!
+ >      if(fooVariable == 7){
+ >         ^
+ > DIAGNOSIS: Variable 'fooVariable' was not found in the current scope,
+ > however it does exist in a different scope within Matching.c. Unfortunately
+ > that scope is not visibile to the scope including line 11 (the current scope
+ > - which began on line 10). The occurance(s) of 'fooVariable' and the line
+ > number of the scope appear below.
+ >   Variable Name                               Exists in Scope visible from:
+ >   fooVariable                                 Line 4 to 7
+ > If you would like to use one of the versions of 'fooVariable' listed above
+ > on line 11 you could move fooVariable's declaration to line 3 (giving it
+ > global scope), or alternatively if you want to declare a distinct variable
+ > called 'fooVariable' to use on line 11 then declare it at the beginning of
+ > the current scope which starts on line 10.
+ > See NCC Error Code 125 for more details. Alternatively rerun NCC with the -s
+ > flag to print a break down of the variable scopes.
+A total of 1 Errors / Warnings were found.

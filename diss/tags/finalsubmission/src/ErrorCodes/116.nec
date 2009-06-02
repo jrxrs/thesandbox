@@ -1,0 +1,43 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 116 - Else Bracket/Block Convention Warning - [File: 116.nec]
+
+SYNOPSIS: This help file contains information about warnings issued when using
+brackets and/or blocks with the else section of an if-else control statement.
+
+EXPLANATION: This warning will not prevent an otherwise valid C program from 
+compiling correctly however when other errors are present in the code this 
+warning might help stop unintended consequences and improve programming style.
+Code ambiguity might make a programmers' code more difficult to read and 
+understand because the flow of control through the Else statement as a whole 
+might become unclear. By encouraging all single statements in an Else statement 
+to be enclosed in their own block {...} the chances of code ambiguity are 
+reduced.
+
+EXAMPLE: The following section of code is valid however it's use would cause a
+warning to be printed in programs where other errors are detected:
+
+    //IF-ELSE
+    if(x == 0){
+        y++; 
+    }
+    else
+        y--;
+
+SOLUTIONS: The solution in this case is to enclose the statement in the 'else' 
+section of the if-else statement inside it's own block as you would a group of
+statements:
+
+    //IF-ELSE
+    if(x == 0){
+        y++; 
+    }
+    else{
+        y--;
+    }
+
+Finished Printing NCC Error Code 116
+
+########################This line is 80 characters long########################

@@ -1,0 +1,56 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 101 - Incorrect Number of Arguments - [File: 101.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling a 
+defined function with the wrong number of arguments.
+
+EXPLANATION: A function is always declared with a specific number of arguments,
+every time a function is called it must be done so with exactly that number of
+arguments otherwise the function call is illegal. This type of error can occur
+either when a function call has too few arguments or too many arguments, the 
+example below follows the former case. 
+
+EXAMPLE: A function is declared like so:
+
+    int myFunction(int a)
+    {
+        <function body>
+    }
+
+Later in the code the programmer calls the function:
+
+    x = myFunction();
+
+This is an error because the function 'myFunction' has been called with no 
+arguments (0) when it should be called with one integer (int) argument.
+
+SOLUTIONS: The programmer has three possible options fix this problem. 
+
+ONE: The function call is altered to include an integer as an argument:
+
+    x = myFunction(y);
+
+TWO: The function itself is re-defined so that it no long excepts an argument:
+[Warning: Beware, this solution could invalid other calls to this function!]
+
+    int myFunction()
+    {
+        <function body>
+    }
+
+THREE: A new function with the same functionality as 'myFunction' is declared:
+
+    int mySecondFunction()
+    {
+        <function body>
+    }
+
+Finished Printing NCC Error Code 101
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: too few arguments to function `function' or
+## error: too many arguments to function `function'

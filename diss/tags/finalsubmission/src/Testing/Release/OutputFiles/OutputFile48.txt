@@ -1,0 +1,29 @@
+GCC: PrintfBadC.c: main: 9: warning: int format, pointer arg (arg 3)
+Warning: Line: 9: 'printf' conversion character/argument type mismatch.
+ >      printf("Int = %d\nChar = %c\nFloat = %f\nString = %s", b, d, a, c);
+ >      ^
+ > DIAGNOSIS: The 2nd conversion character/argument pair are not the same
+ > type.
+ > Format string expected 'int' but 'char' was found in the arguments!
+Warning: Line: 9: 'printf' conversion character/argument type mismatch.
+ >      printf("Int = %d\nChar = %c\nFloat = %f\nString = %s", b, d, a, c);
+ >      ^
+ > DIAGNOSIS: The 3rd conversion character/argument pair are not the same
+ > type.
+ > Format string expected 'char' but 'string' was found in the arguments!
+Warning: Line: 9: 'printf' conversion character/argument type mismatch.
+ >      printf("Int = %d\nChar = %c\nFloat = %f\nString = %s", b, d, a, c);
+ >      ^
+ > DIAGNOSIS: The 4th conversion character/argument pair are not the same
+ > type.
+ > Format string expected 'float' but 'int' was found in the arguments!
+Warning: Line: 9: 'printf' conversion character/argument type mismatch.
+ >      printf("Int = %d\nChar = %c\nFloat = %f\nString = %s", b, d, a, c);
+ >      ^
+ > DIAGNOSIS: The 5th conversion character/argument pair are not the same
+ > type.
+ > Format string expected 'string' but 'float' was found in the arguments!
+ > See NCC Error Code 123 for more details.
+A total of 2 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

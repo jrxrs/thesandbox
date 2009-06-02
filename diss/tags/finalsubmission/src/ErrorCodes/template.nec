@@ -1,0 +1,24 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: xxx - Title - [File: xxx.nec]
+
+SYNOPSIS: This help file contains information about errors made when
+
+EXPLANATION: 
+
+EXAMPLE:
+
+SOLUTIONS: 
+
+ONE:
+
+TWO:
+
+THREE:
+
+Finished Printing NCC Error Code xxx
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:

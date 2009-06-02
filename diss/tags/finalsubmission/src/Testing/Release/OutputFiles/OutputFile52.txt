@@ -1,0 +1,25 @@
+Error: Line: 9: The 2nd argument to 'scanf' is not an address in memory
+ > (pointer).
+ >      scanf("%d %c %f", a, b, c);
+ >        ^
+ > DIAGNOSIS: Argument 'a' is not an address in memory.
+ > If 'a' is a variable insert a '&' character in order to point to its'
+ > address in memory.
+Error: Line: 9: The 3rd argument to 'scanf' is not an address in memory
+ > (pointer).
+ >      scanf("%d %c %f", a, b, c);
+ >                           ^
+ > DIAGNOSIS: Argument 'b' is not an address in memory.
+ > If 'b' is a variable insert a '&' character in order to point to its'
+ > address in memory.
+Error: Line: 9: The 4th argument to 'scanf' is not an address in memory
+ > (pointer).
+ >      scanf("%d %c %f", a, b, c);
+ >                              ^
+ > DIAGNOSIS: Argument 'c);' is not an address in memory.
+ > If 'c);' is a variable insert a '&' character in order to point to its'
+ > address in memory.
+ > See NCC Error Code 124 for more details.
+A total of 1 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

@@ -1,0 +1,53 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 126 - Function Redefined (Defined Twice) - [File: 126.nec]
+
+SYNOPSIS: This help file contains information about errors made when a function
+is redefined within the same file or is identically defined twice. 
+
+EXPLANATION: Each function in a C program must have a unique name to reference
+it. Two functions with the same name my not be distinguishable at runtime and
+would therefore cause unpredictable behaviour.  
+
+EXAMPLE: In the code below the function 'convert' is declared twice:
+
+    int convert(int a)
+    {
+        <function body>
+    }
+    
+    ...
+    
+    int convert(char a)
+    {
+        <function body>
+    }
+
+These function definitions amount to the same thing.
+
+SOLUTION: To fix this error one or both of the functions must be renamed:
+
+    int convertInt(int a)
+    {
+        <function body>
+    }
+    
+    ...
+    
+    int convertChar(char a)
+    {
+        <function body>
+    }
+
+Finished Printing NCC Error Code 126
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## tester.c:11: error: conflicting types for 'function'
+## tester.c:6: error: previous definition of 'function' was here
+## However GCC does often picks line number+1 to report this error so we need 
+## to catch that as well.
+## This is achieved by incrementing the line number associated with the 
+## NccError by one.

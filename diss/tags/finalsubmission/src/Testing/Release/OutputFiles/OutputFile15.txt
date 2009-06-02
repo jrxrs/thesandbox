@@ -1,0 +1,30 @@
+GCC: Semis.c: torf: 5: warning: unused variable `y'
+Error: Line 5: no viable alternative at input 'x':
+ >      int y = x
+ >              ^
+ > See NCC Error Code 112 for more details.
+Error: Line 12: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 11):
+ >      return 0
+ >              ^
+ > See NCC Error Code 107 for more details.
+Error: Line 23: A semicolon ';' was expected but 'printf' was found!
+ >      printf("2\n");
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 22):
+ >      printf("TRUE\n")
+ >                      ^
+ > See NCC Error Code 107 for more details.
+Error: Line 27: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 26):
+ >      printf("FALSE\n")
+ >                       ^
+ > See NCC Error Code 107 for more details.
+A total of 5 Errors / Warnings were found.

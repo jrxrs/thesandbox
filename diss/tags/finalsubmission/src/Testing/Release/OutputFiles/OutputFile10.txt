@@ -1,0 +1,4 @@
+Error: Line 5: A semicolon ';' was expected but 'return' was found!
+ >      return 0;
+ >      ^
+A total of 1 Errors / Warnings were found.

@@ -1,0 +1,9 @@
+GCC: DoubleDeclare.c: main: 5: warning: unused variable `var'
+Error: Line 9: Variable 'var' has already been declared in this function!
+ >      int var = 12345;
+ >          ^
+ > DIAGNOSIS: The problem arises becuase the variable 'var' has already been
+ > declared on line 5 of this function:
+ >      int var = 0;
+ > See NCC Error Code 110 for more details.
+A total of 2 Errors / Warnings were found.

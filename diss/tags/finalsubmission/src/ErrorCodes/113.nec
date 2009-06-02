@@ -1,0 +1,39 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 113 - Misplaced Declaration - [File: 113.nec]
+
+SYNOPSIS: This help file contains information about errors made when a 
+declaration (of any kind; variable, function, etc.) is found in the wrong
+place in a function. 
+
+EXPLANATION: All variable declarations in C functions must be placed at the 
+very beginning of the function's body. This is a common error for programmers
+who have previous experience with a more modern language such as Java.
+Other reasons this error could be reported include declaring a function or 
+other kind of structure (struct, union, enum) within a function. 
+
+EXAMPLE: A variable is declared halfway through a function:
+
+    int myFunction()
+    {
+        <function body part 1>
+        int myVar = 7;
+        <function body part 2>
+    }
+
+SOLUTION: Move the declaration of the variable to the beginning of the function
+definition:
+
+    int myFunction()
+    {
+    	int myVar = 7;
+        <entire function body>
+    } 
+
+Finished Printing NCC Error Code 113
+
+########################This line is 80 characters long########################
+## GCC will not return any sort of error or warning in this case. Therefore the
+## error number must be placed on the printRegardless list in AllErrorPrinter.

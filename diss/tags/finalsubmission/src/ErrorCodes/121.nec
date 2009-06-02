@@ -1,0 +1,32 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 121 - getchar() Call Error - [File: 121.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling 
+the getchar() function from the Standard C I/O Library (stdio.h).
+
+EXPLANATION: Typical misuse of this function might include passing arguments to
+the function.
+
+EXAMPLE: The code below is not a correct call to getchar() as it includes a 
+character argument:
+
+    ...
+    char c;
+    c = getchar('x');
+    ...
+
+SOLUTION: Remove the argument to the function:
+
+    ...
+    char c;
+    c = getchar();
+    ...
+
+Finished Printing NCC Error Code 121
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: too many arguments to function `getchar'

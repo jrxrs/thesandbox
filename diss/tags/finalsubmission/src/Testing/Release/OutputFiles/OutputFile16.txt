@@ -1,0 +1,16 @@
+Error: Line 5: Expecting '(' but found 'x'!
+ >      if x == 1{
+ >         ^
+ > See NCC Error Code 108 for more details.
+Error: Line 5: Expecting ')' but found '{'!
+ >      if x == 1{
+ >               ^
+ > See NCC Error Code 108 for more details.
+Warning: Line 5: Poor block conversion after 'if'.
+ >      if x == 1{
+ >      ^
+ > DIAGNOSIS: The statement(s) in the 'if' section of the if control statement
+ > beginning on line 5 are not enclosed by curly brackets, this may result in
+ > code ambiguity.
+ > See NCC Error Code 118 for more details
+A total of 3 Errors / Warnings were found.

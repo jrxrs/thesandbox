@@ -1,0 +1,27 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 202 - scanf(...) Conversion Characters - [File: 202.nec]
+
+SYNOPSIS: This help file contains information about the valid conversion 
+characters that can be used in in the printf formatting string.
+
+Notes: The valid string format characters for scanf:
+Character   Argument Type: Printed as
+    d       int *; decimal integer
+    i       int *; integer, hexadecimal, octal
+    o       int *; octal integer
+    u       unsigned int*; unsigned decimal integer
+    x       int *; hexadecimal integer
+    c       char *; characters
+    s       char *; character string
+  e,f,g     float *; floating point number
+    %       literal %; no assignment is made
+
+Table from: Kernighan B. W. & Ritchie D. M, The C Programming Language, Second 
+Edition. Prentice Hall: New Jersey. p. 158. 
+
+Finished Printing NCC Error Code 202
+
+########################This line is 80 characters long########################

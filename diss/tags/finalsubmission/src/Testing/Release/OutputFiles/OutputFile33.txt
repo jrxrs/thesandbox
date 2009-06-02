@@ -1,0 +1,9 @@
+Error: Line 5: Variable 'x' has the same name as parameter belonging to this
+ > function!
+ >      int x;
+ >          ^
+ > DIAGNOSIS: The problem arises becuase the parameter (declared on line 3) has
+ > the same name as a variable declared later in the function (on line 5):
+ >      int functionA(int x)
+ > See NCC Error Code 109 for more details.
+A total of 1 Errors / Warnings were found.

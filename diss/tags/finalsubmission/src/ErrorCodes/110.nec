@@ -1,0 +1,35 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 110 - Variable Declared Twice - [File: 110.nec]
+
+SYNOPSIS: This help file contains information about errors made when a variable
+is declared twice in the same function.
+
+EXPLANATION: In C variable name can only be used once per function, if the same
+variable name could be used twice then it would be impossible to tell which
+instance the reference was too. This will be the case regardless of the type 
+of variables in use (e.g. using a char and and an int).  
+
+EXAMPLE: Two variables are declared with the same name:
+
+    int x = 0;
+    <more variable declarations>
+    int x = 4; 
+
+Clearly there is no method of differentiating between the two variables called
+'x'. Therefore the program is not valid and an error message is printed. 
+
+SOLUTION: Rename one of the variables to another unique variable name: 
+
+    int x = 0;
+    <more variable declarations>
+    int eX = 4;
+
+Finished Printing NCC Error Code 110
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: redefinition of 'variable'
+## error: redeclaration of 'x' with no linkage

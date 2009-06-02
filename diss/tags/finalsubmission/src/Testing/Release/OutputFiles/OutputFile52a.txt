@@ -1,0 +1,1 @@
+ncc: Output: 'a.out' was successfully generated!

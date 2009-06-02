@@ -1,0 +1,7 @@
+Error: Line 5: Function 'putchar' has been called with too few arguments.
+ >      putchar();
+ >      ^
+ > DIAGNOSIS: To fix the error ensure only one char (or int) argument is passed
+ > to 'putchar'
+ > See NCC Error Code 122 for more details.
+A total of 1 Errors / Warnings were found.

@@ -1,0 +1,11 @@
+GCC: NoFun.c: functionY: -10: oFun.c: undefined reference to `doesNotExist'
+GCC: NoFun.c: functionY: -10: ld returned 1 exit status
+GCC: NoFun.c: functionY: 10: warning: implicit declaration of function
+ > `doesNotExist'
+Error: Line 10: Function: 'doesNotExist' is undefined!
+ >      doesNotExist(y);
+ >      ^
+ > DIAGNOSIS: 'doesNotExist' could not be located in NoFun.c
+ > To fix the error declare a new function called 'doesNotExist' in NoFun.c
+ > See NCC Error Code 103 for more details.
+A total of 4 Errors / Warnings were found.

@@ -1,0 +1,10 @@
+GCC: TooFewArgs.c: main: 10: warning: unused variable `b'
+Error: Line 12: Function: 'add' has been called with incorrect arguments!
+ >      printf("Sum = %d\n", add(a));
+ >                           ^
+ > DIAGNOSIS: 'add' was called with 1 argument(s) - However according to its
+ > definition (Line 3) it should have been called with 2 argument(s):
+ >      int add(int x, int y)
+ >          ^
+ > See NCC Error Code 101 for more details.
+A total of 2 Errors / Warnings were found.

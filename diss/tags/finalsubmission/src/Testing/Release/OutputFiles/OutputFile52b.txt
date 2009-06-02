@@ -1,0 +1,19 @@
+GCC: ScanfBadE.c: main: 10: warning: char format, pointer arg (arg 5)
+Warning: Line: 10: The 3rd argument to 'scanf' is already an address in memory
+ > (pointer).
+ >      scanf("%d %s %d %s", &day, &monthname, &year, &p);
+ >                                 ^
+ > DIAGNOSIS: Argument '&monthname' is already an address in memory
+ > (pointer/array), therefore '&' probably doesn't need to be used in order to
+ > assign a value to it.
+ > The warning can therefore be removed by deleting the & character.
+Warning: Line: 10: The 5th argument to 'scanf' is already an address in
+ > memory (pointer).
+ >      scanf("%d %s %d %s", &day, &monthname, &year, &p);
+ >                                                    ^
+ > DIAGNOSIS: Argument '&p);' is already an address in memory (pointer/array),
+ > therefore '&' probably doesn't need to be used in order to assign a value to
+ > it.
+ > The warning can therefore be removed by deleting the & character.
+ > See NCC Error Code 124 for more details.
+A total of 2 Errors / Warnings were found.

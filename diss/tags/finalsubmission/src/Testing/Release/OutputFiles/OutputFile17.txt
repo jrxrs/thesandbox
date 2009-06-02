@@ -1,0 +1,12 @@
+GCC: Test4.c: foo: 8: error: syntax error before "int"
+Error: Line 8: Expecting '}' but found 'int'!
+ >      int main(void)
+ >      ^
+ > DIAGNOSIS: It appears that line 8 contains the beginning of a function
+ > definition. Unfortunately the closing '}' from the previous function was
+ > missing. To fix this error close the previous function in the file with a
+ > '}'
+ > See NCC Error Code 113 for more details.
+GCC: Test4.c: foo: 12: warning: `return' with a value, in function returning
+ > void
+A total of 3 Errors / Warnings were found.

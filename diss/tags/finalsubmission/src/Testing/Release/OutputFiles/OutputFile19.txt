@@ -1,0 +1,12 @@
+Error: Line 8: Function: 'functionX' has been redefined (defined twice)!
+ >      char functionX(int y, char z)
+ >           ^
+ > DIAGNOSIS: The function 'functionX' defined on Line 8 has the same name as a
+ > function defined on line 1:
+ >      int functionX(int x)
+ >          ^
+ > To fix this error rename one or both of the functions so their names are
+ > unique.
+ > See NCC Error Code 126 for more details.
+GCC: RedefFun.c: main: 20: error: too few arguments to function `functionX'
+A total of 2 Errors / Warnings were found.

@@ -1,0 +1,30 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 106 - Assignment Missing Value - [File: 106.nec]
+
+SYNOPSIS: This help file contains information about errors made when assigning
+a variable a value.
+
+EXPLANATION: This error occurs when a variable is assigned a value using an
+assignment operator (e.g. =, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=) but the
+value following the assignment operator is invalid or missing.
+
+EXAMPLE: The programmer wishes to assign a variable value but forgets to write
+its value. e.g.
+
+    x = ;
+
+The value should have come before the semicolon (';').
+
+SOLUTION: Add the missing value where it should be:
+
+    x = 7;
+
+Finished Printing NCC Error Code 106
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## new.c:X: error: syntax error before ';' token
+## The line number must match also!

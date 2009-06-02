@@ -1,0 +1,9 @@
+Error: Line 6: Expecting ')' but found ';'!
+ >      printf("legal exit\n";
+ >                           ^
+ > See NCC Error Code 108 for more details.
+Error: Line 9: Expecting '}' but found 'else'!
+ >      else{
+ >      ^
+ > See NCC Error Code 108 for more details.
+A total of 2 Errors / Warnings were found.

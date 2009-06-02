@@ -1,0 +1,66 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 124 - scanf(...) Call Error - [File: 124.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling 
+the scanf(...) function from the Standard C I/O Library (stdio.h).
+
+EXPLANATION: scanf(...) is a function from the Standard C I/O Library (stdio.h)
+used to read formatted text from the standard input stream, stdin. scanf(...) 
+accepts a variable number of arguments dependent on the number of conversion 
+characters included in the formatting String (the first argument to scanf).
+All arguments passed to scanf after the formatted string must be pointers (or
+references to memory locations of variables - this can be achieved using the &
+character - see below). 
+See NCC Error Code 202 for a list of valid conversion characters for use with 
+scanf(...).
+
+EXAMPLES: The following examples are instances of incorrect calls to the scanf
+function: 
+
+    int day, year;
+    char monthname[20], *p;
+    ...
+    p = monthname;
+    ...
+    scanf("%f %c %d", &day, monthname, &year);   //(1)
+    scanf("%d %s %d %s", day, monthname, &year); //(2a)
+    scanf("%d %s", &day, &monthname, &year);     //(2b)
+    ...
+
+(1) The first argument after the formatted String is not of type float.
+    Variable 'monthname' is not a char but a pointer to char, it should 
+    therefore be formatted to be stored as a String using %s rather than as a 
+    single char.
+(2a)The number of arguments after the formatted String does not equal the 
+    number of conversion characters in the formatting String. In this case 
+    there are too many conversion characters.
+    The first argument after the formatted String is also just a variable and
+    not a pointer to a variable (an address in memory). 
+(2b)The number of arguments after the formatted String does not equal the 
+    number of conversion characters in the formatting String. In this case 
+    there are too many arguments after the formatted String.
+    The second argument after the formatted String (3rd argument to scanf) is
+    also incorrect as the & is this case will point to the address of a pointer
+    to a pointer and not a pointer to an array of char (string).
+
+SOLUTIONS: 
+
+    int day, year;
+    char monthname[20], *p;
+    ...
+    p = monthname;
+    ...
+    scanf("%d %s %d %s", &day, monthname, &year, p);
+    ...
+
+Finished Printing NCC Error Code 124
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## (1) warning: unknown conversion type character
+## (2) warning ... too ... arguments for format
+## (3) warning ... format, different type arg
+## (4) warning: format argument is not a pointer

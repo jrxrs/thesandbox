@@ -1,0 +1,13 @@
+GCC: MissTypeAfter.c: functionY: -10: issTypeAfter.c: undefined reference to
+ > `unctonX'
+GCC: MissTypeAfter.c: functionY: -10: ld returned 1 exit status
+GCC: MissTypeAfter.c: functionY: 10: warning: implicit declaration of function
+ > `unctonX'
+Error: Line 10: Function: 'unctonX' is undefined!
+ >      unctonX(y);
+ >      ^
+ > DIAGNOSIS: 'unctonX' could not be located but it could have an attempt to
+ > call 'functionX'. If it was retype the function call, if not declare a new
+ > function called 'unctonX' in MissTypeAfter.c
+ > See NCC Error Code 103 for more details.
+A total of 4 Errors / Warnings were found.

@@ -1,0 +1,13 @@
+Error: Line 5: A semicolon ';' was expected but 'return' was found!
+ >      return 0;
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 3):
+ >      int x
+ >           ^
+ > See NCC Error Code 107 for more details.
+A total of 1 Errors / Warnings were found.
+
+Verbatim GCC Output:
+Test1.c: In function `main':
+Test1.c:5: error: syntax error before "return"

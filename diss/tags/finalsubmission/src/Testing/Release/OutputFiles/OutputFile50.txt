@@ -1,0 +1,12 @@
+Warning: Line: 10: The 'scanf' format string includes too many conversion
+ > characters for the number of arguments passed.
+ >      scanf("%d %c %f %s", &a, &b, &c);
+ >      ^
+ > DIAGNOSIS: The formatted string in scanf contains 4 conversion characters
+ > however it was only passed 3 valid arguments.
+ > To fix the error remove the extra conversion character(s) in the format
+ > string or include another argument(s).
+ > See NCC Error Code 124 for more details.
+A total of 1 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

@@ -1,0 +1,52 @@
+Error: Line 40: Variable: 'var4' is undeclared!
+ >      printf("\tvar4 = %d\n\tvar5 = %d\n\tvar6 = %d\n", var4, var5, var6);
+ >                                                        ^
+ > DIAGNOSIS: Variable 'var4' was not found in the current scope, however it
+ > does exist in a different scope within MultiScopeN.c. Unfortunately that
+ > scope is not visibile to the scope including line 40 (the current scope -
+ > which began on line 6). The occurance(s) of 'var4' and the line number of
+ > the scope appear below.
+ >   Variable Name                               Exists in Scope visible from:
+ >   var4                                        Line 24 to 35
+ > If you would like to use one of the versions of 'var4' listed above on line
+ > 40 you could move var4's declaration to line 3 (giving it global scope), or
+ > alternatively if you want to declare a distinct variable called 'var4' to
+ > use on line 40 then declare it at the beginning of the current scope which
+ > starts on line 6.
+ > See NCC Error Code 125 for more details. Alternatively rerun NCC with the -s
+ > flag to print a break down of the variable scopes.
+Error: Line 40: Variable: 'var5' is undeclared!
+ >      printf("\tvar4 = %d\n\tvar5 = %d\n\tvar6 = %d\n", var4, var5, var6);
+ >                                                              ^
+ > DIAGNOSIS: Variable 'var5' was not found in the current scope, however it
+ > does exist in a different scope within MultiScopeN.c. Unfortunately that
+ > scope is not visibile to the scope including line 40 (the current scope -
+ > which began on line 6). The occurance(s) of 'var5' and the line number of
+ > the scope appear below.
+ >   Variable Name                               Exists in Scope visible from:
+ >   var5                                        Line 24 to 35
+ > If you would like to use one of the versions of 'var5' listed above on line
+ > 40 you could move var5's declaration to line 3 (giving it global scope), or
+ > alternatively if you want to declare a distinct variable called 'var5' to
+ > use on line 40 then declare it at the beginning of the current scope which
+ > starts on line 6.
+ > See NCC Error Code 125 for more details. Alternatively rerun NCC with the -s
+ > flag to print a break down of the variable scopes.
+Error: Line 40: Variable: 'var6' is undeclared!
+ >      printf("\tvar4 = %d\n\tvar5 = %d\n\tvar6 = %d\n", var4, var5, var6);
+ >                                                                    ^
+ > DIAGNOSIS: Variable 'var6' was not found in the current scope, however it
+ > does exist in a different scope within MultiScopeN.c. Unfortunately that
+ > scope is not visibile to the scope including line 40 (the current scope -
+ > which began on line 6). The occurance(s) of 'var6' and the line number of
+ > the scope appear below.
+ >   Variable Name                               Exists in Scope visible from:
+ >   var6                                        Line 24 to 35
+ > If you would like to use one of the versions of 'var6' listed above on line
+ > 40 you could move var6's declaration to line 3 (giving it global scope), or
+ > alternatively if you want to declare a distinct variable called 'var6' to
+ > use on line 40 then declare it at the beginning of the current scope which
+ > starts on line 6.
+ > See NCC Error Code 125 for more details. Alternatively rerun NCC with the -s
+ > flag to print a break down of the variable scopes.
+A total of 3 Errors / Warnings were found.

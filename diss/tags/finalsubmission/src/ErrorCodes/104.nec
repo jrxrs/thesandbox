@@ -1,0 +1,52 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 104 - Function Call Before Declaration - [File: 104.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling a 
+function which is declared later in file.  
+
+EXPLANATION: In the C Programming Language a function must be declared in the 
+file before it can be referenced (called) by another function.   
+
+EXAMPLE: The programmer has two functions:
+
+    int main(void)
+    {
+        myFunction(5);
+    }
+    
+    void myFunction(int i)
+    {
+        <function body>
+    }
+
+The call to 'myFunction' in 'main' occurs before 'myFunction' is declared in
+file.
+
+SOLUTION: The easiest way to solve this error is to move the declared of 
+myFunction above the 'main' function in the file:  
+
+    void myFunction(int i)
+    {
+        <function body>
+    }
+
+    int main(void)
+    {
+        myFunction(5);
+    }
+
+Note: Please note that the other method of solving this error is to use 
+function prototypes, while a function prototype is completely valid from a C
+language perspective NCC cannot currently parse function prototypes. Unexpected
+behaviour may reult from their use.
+
+Finished Printing NCC Error Code 104
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## warning: implicit declaration of function `function'
+## error: previous implicit declaration of 'function' was here
+## The line number and function name must match also!

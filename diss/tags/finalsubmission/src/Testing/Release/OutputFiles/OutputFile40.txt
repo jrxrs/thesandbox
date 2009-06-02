@@ -1,0 +1,9 @@
+NCC Output: 
+
+ncc: Output: 'a.out' was successfully generated!
+
+Generated Program Output (Correct - As Expected):
+
+Please enter a character: l
+
+You entered: l

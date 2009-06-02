@@ -1,0 +1,26 @@
+Error: Line 9: no viable alternative at character '':
+ > 	return 0;
+ > 	^
+ > DIAGNOSIS: '' is not a valid character in a C source file, please delete
+ > it!
+ > See NCC Error Code 114 for more details.
+Error: Line 12: no viable alternative at character '£':
+ > 	£
+ > 	^
+ > DIAGNOSIS: '£' is not a valid character in a C source file, please delete
+ > it!
+ > See NCC Error Code 114 for more details.
+Error: Line 19: no viable alternative at character '¿':
+ > 	if(torf((int) argv[0])){¿
+ > 	                        ^
+ > DIAGNOSIS: '¿' is not a valid character in a C source file, please delete
+ > it!
+ > See NCC Error Code 114 for more details.
+Error: Line 29: no viable alternative at character '@':
+ > 	@
+ > 	^
+ > DIAGNOSIS: '@' is not a valid character in a C source file, please delete
+ > it!
+ > See NCC Error Code 114 for more details.
+A total of 4 Errors / Warnings were found.
+
