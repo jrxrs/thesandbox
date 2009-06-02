@@ -1,0 +1,12 @@
+GCC: HelloWorldNoHash.c: main: 3: warning: implicit declaration of function
+ > `printf'
+Error: Line 3: Function: 'printf' is undefined!
+ >      printf("Hello World!\n");
+ >      ^
+ > DIAGNOSIS: 'printf' could not be located in HelloWorldNoHash.c
+ > To fix the error declare a new function called 'printf' in
+ > HelloWorldNoHash.c
+ > See NCC Error Code 103 for more details.
+A total of 2 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

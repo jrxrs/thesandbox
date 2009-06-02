@@ -1,0 +1,47 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 122 - putchar(...) Call Error - [File: 122.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling 
+the putchar(...) function from the Standard C I/O Library (stdio.h).
+
+EXPLANATION: The putchar(...) function from the Standard I/O Library (stdio.h)
+is used to write one character at a time to the Standard Output Stream, stdout.
+Calling putchar(c) is therefore equivalent to calling putc(c, stdout).
+putchar(...) excepts exactly one char argument, not more, no less. It can also
+legally be passed int arguments as these will be automatically cast to char by
+the compiler at runtime.    
+
+EXAMPLES: The following examples of putchar(...) usage are not correct:
+
+    float i = 0.999;
+    ...
+    putchar("g");      //The argument is encapsulated as a String.
+    putchar('g\n');    //No valid single character is passed.
+    putchar('g', 'f'); //Two characters are passed.
+    putchar(i);        //Argument is a float, not a char/int.
+    ... 
+
+SOLUTIONS: The following line correct the errors found above by ensuring 
+exactly one argument of the correct type is passed to putchar(...):
+
+    float i = 0.999;
+    ...
+    putchar('g');
+    putchar('g'); putchar('\n'); //Alternatively use prtinf(...)
+    putchar('g'); putchar('f'); //Alternatively use prtinf(...)
+    printf("%f", i);
+    ...
+    
+Note: To print the float variable 'i' in the example above printf(...) must be 
+used instrea of putchar(...), see NCC Error Code 123 for more details.  
+
+Finished Printing NCC Error Code 122
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## contains("passing arg 1 of `putchar' makes") or more generally
+## error: too few arguments to function `putchar'
+## Also qualifies for print regardless.

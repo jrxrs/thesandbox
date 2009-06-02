@@ -1,0 +1,13 @@
+GCC: WrongArgTypes.c: main: 10: warning: unused variable `c'
+Error: Line 12: Function: 'add' has been called with incorrect argument types!
+ >      printf("Sum = %d\n", add(a, b));
+ >                               ^
+ > DIAGNOSIS: add was called with arguments of the following types:
+ >      add(float, float)
+ > However according to its definition (Line 3) it should have been called:
+ >      add(int, int)
+ > Adjust the order or type of the arguments on line 12 to fix the error
+ > See NCC Error Code 102 for more details.
+A total of 2 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

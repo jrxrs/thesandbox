@@ -1,0 +1,9 @@
+Error: Line 6: Variable: 'variabeTSpellWrng' is undeclared!
+ >      variabeTSpellWrng++;
+ >      ^
+ > DIAGNOSIS: 'variabeTSpellWrng' could not be located in any visible scope but
+ > it could have been an attempt to reference 'variableToSpellWrong'. If it was
+ > correct the variable name, if not declare a new variable called
+ > 'variabeTSpellWrng' after the '{' on line 5.
+ > See NCC Error Code 125 for more details.
+A total of 1 Errors / Warnings were found.

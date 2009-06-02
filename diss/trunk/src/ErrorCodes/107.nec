@@ -1,0 +1,43 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 107 - Missing Semicolon - [File: 107.nec]
+
+SYNOPSIS: This help file contains information about errors made when a 
+semicolon is missing from the end of a statement or line.
+
+EXPLANATION: The semicolon character ';' is used in the C Programming Language 
+to terminate statements. Every single statement must be finished with a 
+semicolon to terminate it correctly, if the semicolon is missing the compiler
+will report the error and attempt to accurately indicate where the semicolon
+might be missing from.
+
+EXAMPLE: The programmer misses a semicolon from the end of a variable 
+declaration. e.g.
+
+5   int u = x++
+6   
+7   return u;
+
+In this situation the compiler would output a message similar to this:
+
+Error: Line 7: A semicolon ';' was expected but 'return' was found!
+    return u;
+    ^
+DIAGNOSIS: It is probable that the semicolon ';' is missing on the previous 
+line (Line: 5):
+    int u = x++
+               ^
+
+SOLUTION: Insert a semicolon where the ^ arrow indicates:  
+
+5   int u = x++;
+6   
+7   return u;
+
+Finished Printing NCC Error Code 107
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: syntax error before xyz //just general syntax error

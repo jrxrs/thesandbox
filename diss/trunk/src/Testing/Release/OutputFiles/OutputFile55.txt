@@ -1,0 +1,16 @@
+Warning: Line 9: Poor block conversion after 'else'.
+ >      else
+ >      ^
+ > DIAGNOSIS: The statement(s) in the 'else' section of the if-else control
+ > statement beginning on line 9 are not enclosed by curly brackets, this may
+ > result in code ambiguity.
+ > See NCC Error Code 116 for more details
+Error: Line 14: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 13):
+ >      return 0
+ >              ^
+ > See NCC Error Code 107 for more details.
+A total of 2 Errors / Warnings were found.

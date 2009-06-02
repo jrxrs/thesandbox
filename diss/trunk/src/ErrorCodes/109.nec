@@ -1,0 +1,38 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 109 - Parameter Redeclared As Variable - [File: 109.nec]
+
+SYNOPSIS: This help file contains information about errors made when a variable
+is given the same name as a parameter to the function in which the variable is
+declared.
+
+EXPLANATION: Every variable in C must uniquely resolve to a single Token in a 
+given scope (function or code block). A parameter effectively becomes a 
+variable inside a function so it is illegal to declare a variable by the same
+name as one of the functions parameters.  
+
+EXAMPLE: An except from the beginning of a function: 
+
+    int taskSelect(int task)
+    {
+        int task = 7;
+        <function body>
+
+Both the variable 'task' and the function parameter 'task' resolve to the same
+symbol.
+
+SOLUTION: One of items must be renamed to eliminate the clash: 
+
+    int taskSelect(int task)
+    {
+    	int innerTask = 7;
+    	<function body>
+
+Finished Printing NCC Error Code 109
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: 'x' redeclared as different kind of symbol
+## error: previous definition of 'y' was here

@@ -1,0 +1,16 @@
+Warning: Line 6:  Poor block conversion after 'switch'.
+ >      switch(x)
+ >      ^
+ > DIAGNOSIS: The case statement(s) in the options section of the 'switch'
+ > control statement beginning on line 6 are not enclosed by curly brackets,
+ > this may result in code ambiguity.
+ > See NCC Error Code 119 for more details
+Error: Line 11: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 10):
+ >      return 0
+ >              ^
+ > See NCC Error Code 107 for more details.
+A total of 2 Errors / Warnings were found.

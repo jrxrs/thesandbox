@@ -1,0 +1,31 @@
+NCC Output: 
+
+ncc: Output: 'a.out' was successfully generated!
+
+Generated Program Output (Correct - As Expected):
+
+Global Scope (Level 0):
+globalVariable = 7
+        Scope Level 1:
+        var1 = 1
+        var2 = 2
+        var3 = 3
+                Scope Level 2:
+                var1 = 4
+                var2 = 5
+                var3 = 6
+                        Scope Level 3:
+                        var1 = 4
+                        var2 = 5
+                        var3 = 6
+                        var4 = 7
+                        var5 = 8
+                        var6 = 9
+                        fParamOne = 11111
+                        fParamTwo = R
+                        globalVariable = 0
+        Double check original level 0 & 1 variables:
+        var1 = 1
+        var2 = 2
+        var3 = 3
+        globalVariable = 7

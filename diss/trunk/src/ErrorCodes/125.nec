@@ -1,0 +1,88 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 125 - Reference to Undeclared Variable - [File: 125.nec]
+
+SYNOPSIS: This help file contains information about errors made when 
+referencing a variable that is not declared in the current scope or any scope
+visible from the current scope.  
+
+EXPLANATION: All variables in C are declared at the beginning of a new scope 
+(with the exception of function parameters which are declared in function 
+definitions [See NCC Error Code 109 for more details]). Generally a new scope
+begins when a new block is opened '{' and ends when that block closes '}'. For
+more details on the scope of variables see the help file for command line 
+option '-s'.
+If a variable cannot be found in this or any previous (but still open) scope 
+then the variable is said to be undefined. 
+
+APPROACH: NCC deals with references to undeclared variables in one of three 
+ways. 
+(1) First it searches all currently visible scopes and attempts to find a 
+    match which is close to the undeclared variable name. 
+(2) If no match is found it then moves on to consider all the scopes in the 
+    program including all control blocks and functions. The algorithm only
+    considers exact matches at this point and if one is found then error 
+    message printed gives details of how to use that instance of the variable
+    else where in the file (i.e. where the error was detected).
+(3) Finally if no match for the variable is found anywhere in the entire source
+    the the error message explains how and where to declare it so that it can 
+    be used in the location of the error.        
+
+EXAMPLE: The function below contains variable (x) that has not been declared in
+any scope visible from the current one:
+
+    int myFunction(void)
+    {
+        int t, b = 9;
+        t = b + 7 + x;
+        
+        return t; 
+    }
+
+SOLUTIONS: The undeclared variable (x) must be declared in the current or in a
+scope that is still visible from the scope of myFunction. All three of the 
+solutions below are valid when fixing this problem - Scopes can therefore be a
+difficult concept to grasp.
+
+ONE: Declare variable x as a global variable, visible in all scopes throughout
+the file:
+
+    int x = 3;
+    
+    int myFunction(void)
+    {
+        int t, b = 9;
+        t = b + 7 + x;
+        
+        return t; 
+    } 
+
+TWO: Declare variable x as a parameter to the function myFunction:
+
+    int myFunction(int x)
+    {
+        int t, b = 9;
+        t = b + 7 + x;
+        
+        return t; 
+    }
+
+THREE: Finally variable x could be declared as a local variable:
+
+    int myFunction(void)
+    {
+        int t, b = 9, x = 3;
+        t = b + 7 + x;
+        
+        return t; 
+    }
+
+Finished Printing NCC Error Code 125
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## new.c:7: error: `x' undeclared (first use in this function)
+## new.c:7: error: (Each undeclared identifier is reported only once
+## new.c:7: error: for each function it appears in.)

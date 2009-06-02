@@ -1,0 +1,7 @@
+Error: Line 9: Function 'getchar' has been called with arguments but should not
+ > have been.
+ >      getchar(c);
+ >      ^
+ > DIAGNOSIS: To fix the error remove the argument in the call to 'getchar'
+ > See NCC Error Code 121 for more details.
+A total of 1 Errors / Warnings were found.

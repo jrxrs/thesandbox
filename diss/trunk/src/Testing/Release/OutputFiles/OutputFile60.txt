@@ -1,0 +1,3 @@
+Error: NoMain.c does not contain a 'main' function!
+ > See NCC Error Code 111 for more details.
+A total of 1 Errors / Warnings were found.

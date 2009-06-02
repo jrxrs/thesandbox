@@ -1,0 +1,2344 @@
+/** ANSI C ANTLR v3 grammar
+
+Translated from Jutta Degener's 1995 ANSI C yacc grammar by Terence Parr
+July 2006.  The lexical rules were taken from the Java grammar.
+
+Jutta says: "In 1985, Jeff Lee published his Yacc grammar (which
+is accompanied by a matching Lex specification) for the April 30, 1985 draft
+version of the ANSI C standard.  Tom Stockfisch reposted it to net.sources in
+1987; that original, as mentioned in the answer to question 17.25 of the
+comp.lang.c FAQ, can be ftp'ed from ftp.uu.net,
+   file usenet/net.sources/ansi.c.grammar.Z.
+I intend to keep this version as close to the current C Standard grammar as
+possible; please let me know if you discover discrepancies. Jutta Degener, 1995"
+
+Generally speaking, you need symbol table info to parse C; typedefs
+define types and then IDENTIFIERS are either types or plain IDs.  I'm doing
+the min necessary here tracking only type names.  This is a good example
+of the global scope (called Symbols).  Every rule that declares its usage
+of Symbols pushes a new copy on the stack effectively creating a new
+symbol scope.  Also note rule declaration declares a rule scope that
+lets any invoked rule see isTypedef boolean.  It's much easier than
+passing that info down as parameters.  Very clean.  Rule
+direct_declarator can then easily determine whether the IDENTIFIER
+should be declared as a type name.
+
+I have only tested this on a single file, though it is 3500 lines.
+
+This grammar requires ANTLR v3 (3.0b3 or higher)
+
+Terence Parr
+July 2006
+*/
+grammar C;
+options {
+    backtrack=true;
+    memoize=true;
+    k=2;
+}
+
+/*
+ * Note (1): When using the Symbols scope the first job when a new scope is 
+ * 			 initialised should be to set the new symbol tables startLine 
+ *			 variable. Then the final job should be to set the symbol tables 
+ *			 endLine variable. Note that both of these tasks can take place in
+ *			 either the rules section or the @init and @after code blocks. 
+ *			 You'll also need to set the boolean variables when each value is 
+ * 			 set so that other rules do not overwrite the values with their own.
+ * Note (2): A Scopes beginning is usually set to be the line on which the 
+ * 			 opening '{' occurs. Likewise a scopes end is the line the closing
+ *			 '}' appears however the values can also be assigned in the @init
+ *			 and @after sections of code by examining the token stream.
+ * Note (3): 'struct's and 'union's are not included as scope, it's not that 
+ * 			 they can't be, just that at this stage it wonudn't provide any 
+ * 			 useful information, possibly resulting in confusion.   
+ */
+scope Symbols {
+	Set types; // only track types in order to get parser working
+	NccSymbolTable symTbl;
+	boolean stStartLineSet;
+	boolean stEndLineSet;
+	boolean decFun;
+	boolean gettingFunArgs;
+	NccFunction workingFunction;
+}
+
+@header{
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+import compiler.tools.*;
+}
+
+@members {
+	
+	/***********************************/
+	/* Required ANTLR Method Overrides */
+	/***********************************/
+	
+	/**
+	 * Override the mismatch method to allow errors for missing semicolons to
+	 * be both reported NCC style and recovered from ANTLR style. This ANTLR
+	 * recovery allows parsing to continue after the missing token has been
+	 * discovered.
+	 */
+	protected void mismatch(IntStream input, int ttype, BitSet follow) throws RecognitionException
+	{
+		MismatchedTokenException mte = new MismatchedTokenException(ttype, input);
+		recoverFromMismatchedToken(input, mte, ttype, follow);
+		
+		/*
+		 * Handle expected semicolons...
+		 */ 
+		if(mte.expecting == 24){ //24 is the integer constant for a semicolon, ';', as defined in C.tokens
+			expectingSemiColonErrorPrinter(";", mte.token.getText(), mte.line, mte.charPositionInLine);
+		}
+		/*
+		 * Handle the rest with a generic NCC error message (a formatted 
+		 * version of the antlr error).
+		 */
+		else{
+			expectingGenericErrorPrinter(tokenNames[mte.expecting], mte.token.getText(), mte.line, mte.charPositionInLine);
+		}
+	}
+
+	/************************/
+	/* General Housekeeping */
+	/************************/
+	
+	/*
+	 * Data structure containing the command line options
+	 */
+	private CommandLineOptions clo;
+	
+	/**
+	 * Initialise the Command Line Options data structure up;
+	 */
+	public void setCommandLineOptions(CommandLineOptions clo)
+	{
+		this.clo = clo;
+	} 
+	
+	/*
+	 * A note on some of the flags contained in CommandLineOptions...
+	 * 
+	 * dFlag
+	 *
+	 * The Diagnostics variable determines whether or not the extra diagnostic
+	 * messages should be printed or not, by default they are printed however 
+	 * This can be turned off using the command line switch "-d".
+	 */
+	
+	/*
+	 * This boolean value keeps track of whether this is the first or second
+	 * parse of a file, if it's the first then the value will be false because
+	 * it has not been parsed before, however if it is the second parse then
+	 * further checks and statistics can be used to help the user.
+	 */
+	private boolean preparsed = false;
+	
+	/**
+	 * Sets the value of the preparsed variable.
+	 *
+	 * @param fort	A boolean value, false for 1st parse, true for 2nd.
+	 */
+	public void setPreparsed(boolean fort)
+	{
+		preparsed = fort;
+	}
+	
+	/************************/
+	/* Source Code Handling */
+	/************************/
+	
+	/*
+	 * General Global Variables 
+	 */
+	public NccSourceHandler sh;
+	public boolean sourcePrintingEnabled = true;
+	
+	/**
+	 * Enable/Disable source printing.
+	 *
+	 * @param boo	The value to set source printing to.
+	 */
+	public void setupSourcePrinting(boolean boo)
+	{
+		sh = new NccSourceHandler(clo.fName);
+		sourcePrintingEnabled = boo;
+	}
+	
+	/**
+	 * Print a line of source code from the file.
+	 *
+	 * @param line	The line number to print from the file.
+	 * @return 		The line from the source file.
+	 */
+	public String printSourceLine(int line)
+	{
+		if(sourcePrintingEnabled == false){
+			return "Source Printing is currently DISABLED!";
+		}
+		else{
+			return sh.getLineNumber(line);
+		}
+	}
+
+	/*************/
+	/* Functions */
+	/*************/
+
+	/*
+	 * Track a list of all the functions that are declared in the file.
+	 */
+	private ArrayList<NccFunction> functions = new ArrayList<NccFunction>();
+	private ArrayList<NccFunction> completeListOfFunctions = new ArrayList<NccFunction>();
+	
+	/**
+	 * Get the list of functions.
+	 */
+	public ArrayList<NccFunction> getFunctions()
+	{
+		return functions;
+	}
+	
+	/**
+	 * Sets the complete list of functions so it can be used to help give
+	 * better error messages.
+	 *
+	 * @param listOfFunctions	The list of NccFunctions
+	 */
+	public void setCompleteListOfFunctions(ArrayList<NccFunction> listOfFunctions)
+	{
+		completeListOfFunctions = listOfFunctions;
+	}
+
+	/**
+	 * Print the list of functions that have been collected. 
+	 */
+	public void printGeneratedFunctions()
+	{
+		for(int i = 0; i < functions.size(); i++){
+			NccFunction f = functions.get(i);
+			f.printFunctionDetails();
+		}
+	}
+	
+	/**
+	 * Iterate thru the list of functions to see if the function that has been 
+	 * called has been declared or not.
+	 *
+	 * @param fName		The name of the function to look for. 
+	 * @return			True if the function name is declared already. False
+	 *					if it is not.
+	 * @throws FunctionUndefinedException	Thrown if the function does not exist.
+	 */
+	public boolean functionDefined(String fName) throws FunctionUndefinedException
+	{
+		for(int i = 0 ; i < functions.size(); i++){
+			NccFunction f = functions.get(i);
+			if(f.getName().equals(fName)){
+				//System.out.println(fName + " found in list of functions.");
+				return true;
+			}
+		}
+		throw new FunctionUndefinedException();
+	}
+	
+	/**
+	 * Iterate thru the list of functions and return the function object if
+	 * it exists.
+	 *
+	 * @param fName		The name of the function to look for. 
+	 * @return			The NccFunction if it exists.
+	 * @throws FunctionUndefinedException	Thrown if the function does not exist.
+	 */
+	public NccFunction getNccFunction(String fName) throws FunctionUndefinedException
+	{
+		if(functionDefined(fName)){
+			for(int i = 0 ; i < functions.size(); i++){
+				NccFunction f = functions.get(i);
+				if(f.getName().equals(fName)){
+					//System.out.println(fName + " found in list of functions.");
+					return f;
+				}
+			}
+		}
+		throw new FunctionUndefinedException();
+	}
+	
+	/******************************************/
+	/* Warnings @ Version 1 - Not being used! */
+	/******************************************/
+	
+	/**
+	 * This method formats and prints the warnings associated with assignments.
+	 *
+	 * @param t			The NccToken (the lvalue in the assignment).
+	 * @param type		The type of the rvalue.
+	 * @param text		The text of the rvalue.
+	 * @param line		The line that caused the warning.
+	 * @param charPos	The position in the line that caused the problem.
+	 */
+	public void assignemntWarningPrinter(NccToken t, String type, int line, String text, int charPos)
+	{
+		if(t.getTokenType().equals(type)){
+			//Assignment should be ok
+		}
+		else{
+			System.out.println("Warning: Line " + line + ": Possible type incompatibility:");
+			if(sourcePrintingEnabled){
+				System.out.println("\t" + printSourceLine(line));
+				System.out.println("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			System.out.println("\tVariable '" + t.getId() + "' (Declared on Line: " + t.getDeclLine() + ") is of type '" + t.getTokenType() + "' but '" + text + "' is of type '" + type + "'");
+		}
+	}
+	
+	/**********/
+	/* Errors */
+	/**********/
+	
+	/*
+	 * Stores the list of NCC Error messages generated. 
+	 */
+	private ArrayList<NccError> listOfErrors = new ArrayList<NccError>();
+	
+	/**
+	 * This method returns the list of NCC Error messages generated.
+	 */
+	public ArrayList<NccError> getNccErrors()
+	{
+		return listOfErrors;
+	}
+	
+	/* 
+	 * Notes: 
+	 * (1) There is not point generating error messages if preparsed == false
+	 *     as this would just waste processor time.
+	 * (2) When adding the final line of an error message use addText and not
+	 *     addTextln because the final line will be inserted when the actual
+	 *     message is printed in the AllErrorPrinter class.
+	 * (3) As of 15/02/08 all syntax errors have had to be labelled with the
+	 *     error number 999 to make linking NCC and GCC error possible. This is
+	 *     due to the poor error reporting of syntax errors in GCC by default. 
+	 */
+	
+	/**
+	 * NCC Error Number(s): 103 (Print Regardless) & 104
+	 *
+	 * This method creates an error message when a function is called but
+	 * is undeclared by the programmer.
+	 *
+	 * @param fName		The name of the undefined function.
+	 * @param line		The line on which the undefined function call appears. 
+	 * @param charPos	The position in the line the undefined function call appears.
+	 */
+	public void functionUndefinedExceptionErrorPrinter(String fName, int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Function: '" + fName + "' is undefined!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			NccFunction matched = null;
+			if(clo.dFlag){
+				ArrayList<String> temp = new ArrayList<String>();
+				
+				//Check One - Direct Comparison
+				for(int a = 0; a < completeListOfFunctions.size(); a++){
+					String one = completeListOfFunctions.get(a).getName();
+					temp.add(one);
+					if(one.equals(fName)){
+						matched = completeListOfFunctions.get(a);
+						break;
+					}
+				}
+				
+				//Check Two - Breakdown Compare
+				if(matched != null){
+					/*
+					 * In this situation the function is declared but the function
+					 * call occurs before the definition, hence the error.
+					 */
+					curErr.addTextln("DIAGNOSIS: The call to function '" + fName + "' on Line " + line + 
+									 " is made before the function is declared on Line " + matched.getLine()
+									 + ".\nMove " + fName + "'s definition above Line " + line + " to fix the error.");
+					curErr.addText("See NCC Error Code 104 for more details.");
+				}
+				else{
+					String closeMatch = NccStringCompare.comp(temp, fName);
+					if(closeMatch.equals("NO MATCH")){
+						//There was no close match so tell them to declare the function from scratch
+						curErr.addTextln("DIAGNOSIS: '" + fName + "' could not be located in " + clo.fName);
+						curErr.addTextln("To fix the error declare a new function called '" + fName + "' in " + clo.fName);
+						curErr.addText("See NCC Error Code 103 for more details.");
+					}
+					else{
+						//There was a close match, ask whether they meant to call the close match?
+						curErr.addTextln("DIAGNOSIS: '" + fName + "' could not be located but it could have " + 
+										 "an attempt to call '" + closeMatch + "'. If it was retype the function " +
+										 "call, if not declare a new function called '" + fName + "' in " + clo.fName);
+						curErr.addText("See NCC Error Code 103 for more details.");
+					}
+				}
+			}
+			if(matched != null){
+				curErr.setErrorNumber(104);
+			}
+			else{
+				curErr.setErrorNumber(103);
+			}
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 126 (GccError Number: 104)
+	 *
+	 * This method creates an error message when a function redefined or defined twice.
+	 *
+	 * @param fName		The name of the redefined function.
+	 * @param line		The line on which the redefined function definition appears. 
+	 * @param charPos	The position in the line the redefined function definition appears.
+	 * @param origFun	The original NccFunction defined with the same name. 
+	 */
+	public void functionRedefinedError(String fName, int line, int charPos, NccFunction origFun)
+	{
+		if(preparsed){
+			/*
+			 * Note: The line number assignment is a special case here because GCC reports
+			 * this type of error the line after the function is redefined...
+			 * However we still want to report the error on the line on which it occured
+			 * so we can't reference curErr.getLine() as the line number for this error, 
+			 * therefore always use the line variable passed as a param!
+			 * By the way this does not matter as the line numbers are only associated 
+			 * with individual errors to allow GCC and NCC matching, as long as we don't 
+			 * print them to the user at any point there is no consequence.
+			 */
+			NccError curErr = new NccError(line + 1);
+			curErr.addTextln("Error: Line " + line + ": Function: '" + fName + "' has been redefined (defined twice)!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addTextln("DIAGNOSIS: The function '" + fName + "' defined on Line " + line + 
+								 " has the same name as a function defined on line " + origFun.getLine() + ":");
+				if(sourcePrintingEnabled){
+					curErr.addTextln("\t" + printSourceLine(origFun.getLine()));
+					curErr.addTextln("\t" + sh.generateWhiteSpace(origFun.getCharPos(), origFun.getLine()) + "^");
+				}
+				curErr.addTextln("To fix this error rename one or both of the functions so their names are unique.");
+				curErr.addText("See NCC Error Code 126 for more details.");
+			}
+			curErr.setErrorNumber(104);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 101
+	 *
+	 * This method creates an error message when a function is called but
+	 * the call is made with incorrect arguments according to the definition
+	 * of the function.
+	 *
+	 * @param f			The NccFunction called with the wrong args.
+	 * @param line		The line on which the function call appears. 
+	 * @param charPos	The position in the line the function call appears.
+	 * @param noArgs	The number of args this function was called with.
+	 */
+	public void functionArgumentExceptionErrorPrinter(NccFunction f, int line, int charPos, int noArgs)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Function: '" + f.getName() + "' has been called with incorrect arguments!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addTextln("DIAGNOSIS: '" + f.getName() + "' was called with " + noArgs + 
+								 " argument(s) - However according to its definition (Line " 
+								 + f.getLine() + ") it should have been called with " + f.getNoArgs() 
+								 + " argument(s):");
+				if(sourcePrintingEnabled){
+					curErr.addTextln("\t" + printSourceLine(f.getLine()));
+					curErr.addTextln("\t" + sh.generateWhiteSpace(f.getCharPos(), f.getLine()) + "^");
+				}
+				curErr.addText("See NCC Error Code 101 for more details.");
+			}
+			curErr.setErrorNumber(101);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 102 (Print Regardless)
+	 *
+	 * This method creates an error message when a function is called with
+	 * the correct number of arguments but the incorrect order or type of
+	 * arguments causes an error.
+	 *
+	 * @param f			The NccFunction called with the wrong args.
+	 * @param line		The line on which the function call appears. 
+	 * @param charPos	The position in the line the functions args appear.
+	 * @param callTypes	The type of the args this function was called with.
+	 */
+	public void functionCallArgTypeExceptionErrorPrinter(NccFunction f, int line, int charPos, ArrayList<String> callTypes)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Function: '" + f.getName() + "' has been called with incorrect argument types!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addTextln("DIAGNOSIS: " + f.getName() + " was called with arguments of the following types:");
+				curErr.addText("\t" + f.getName() + "("); 
+				for(int a = 0; a < callTypes.size(); a++){
+					curErr.addText(callTypes.get(a));
+					if(a == callTypes.size()-1){
+						curErr.addText(")\n");
+					}
+					else{
+						curErr.addText(", ");
+					}
+				}
+				curErr.addTextln("However according to its definition (Line " + f.getLine() + ") it should have been called:");
+				curErr.addText("\t" + f.getName() + "(");
+				for(int a = 0; a < f.getArgsArrayList().size(); a++){
+					curErr.addText(f.getArgsArrayList().get(a).getType());
+					if(a == f.getArgsArrayList().size()-1){
+						curErr.addText(")\n");
+					}
+					else{
+						curErr.addText(", ");
+					}
+				}
+				curErr.addTextln("Adjust the order or type of the arguments on line " + line + " to fix the error");
+				curErr.addText("See NCC Error Code 102 for more details.");
+			}
+			curErr.setErrorNumber(102);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 125
+	 *
+	 * This method creates an error message when a variable is referenced but
+	 * is undeclared by the programmer.
+	 *
+	 * @param varName	The name of the undeclared variable.
+	 * @param line		The line on which the undeclared variable appears. 
+	 * @param charPos	The position in the line the undeclared variable appears.
+	 */
+	public void variableUndeclaredExceptionErrorPrinter(String varName, int line, int charPos)
+	{
+		/*
+		 * Need to stop the compiler reporting NULL as a undeclared variable name 
+		 * if <stdio.h> has not been included. Same goes for EOF (End-Of-File).
+		 */
+		if( (preparsed) && !(varName.equals("NULL")) && !(varName.equals("EOF")) ){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Variable: '" + varName + "' is undeclared!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			/*
+			 * By the time we're here we know that the variable does not exist 
+			 * in the current scope or any other previous scope that is still 
+			 * visible from the current scope. In a similar manner to the method
+			 * used to identify possible function calls we'll search the entire
+			 * list of all symbol tables (from all scopes) that was compiled in
+			 * the pre-process (pre-parse).
+			 */
+			if(clo.dFlag){
+				/*
+				 * This section of code performs up to two checks on each 
+				 * undeclared variable. The first check is throughout the 
+				 * visible scope (from this scope) looking for close matches
+				 * that could indicate a typo. The second set of checks takes
+				 * place over all of the scope in the entire program and looks
+				 * for extact name matches.
+				 */
+				//Get a list of all of the symbols that are visible.
+				ArrayList<String> temp = new ArrayList<String>();
+				for(int s = Symbols_stack.size()-1; s >= 0; s--){
+					Symbols_scope scope = (Symbols_scope)Symbols_stack.get(s);
+					temp.addAll(scope.symTbl.returnAllSymbols());
+				}
+				String closeMatch = NccStringCompare.comp(temp, varName);
+				if(!closeMatch.equals("NO MATCH")){
+					/*
+					 * There was a close match, ask whether they meant to 
+					 * reference the close match?
+					 */
+					curErr.addTextln("DIAGNOSIS: '" + varName + "' could not be located in any visible scope " + 
+									 "but it could have been an attempt to reference '" + closeMatch + 
+									 "'. If it was correct the variable name, if not declare a new variable called '" + varName + 
+									 "' after the '{' on line " + $Symbols::symTbl.getStartLine() + ".");
+					curErr.addText("See NCC Error Code 125 for more details."); 
+				}
+				else{
+					/*
+					 * There was no close match! - Check the rest of the scopes.
+					 * vnmfnvs = Variable Name Matches From Non-Visible Scopes
+					 */
+					ArrayList<VarMatch> vnmfnvs = new ArrayList<VarMatch>();
+					vnmfnvs = matchOverAllScopes(varName);
+					if(vnmfnvs.size() == 0){
+						curErr.addTextln("DIAGNOSIS: There were no exact matches for variable '" + varName + "' anywhere else in " + clo.fName);
+						curErr.addTextln("To fix this error declare varaible '" + varName + "' after the '{' on line " + $Symbols::symTbl.getStartLine() + "."); 
+					}
+					else{
+						curErr.addTextln("DIAGNOSIS: Variable '" + varName + "' was not found in the current scope, however it does exist in a different scope within " + clo.fName + ". Unfortunately that scope is not " +
+										 "visibile to the scope including line " + line + " (the current scope - which began on line " + $Symbols::symTbl.getStartLine() + "). The occurance(s) of '" + varName + "' and the line number of the scope " +
+										 "appear below.");
+						curErr.addTextln("  Variable Name                               Exists in Scope visible from:");
+						String space = " ";
+						String ws = "";
+						int x = 44;
+						while(x - varName.length() > 0){
+							ws = ws.concat(space);
+							x--;
+						}
+						for(int f = 0; f < vnmfnvs.size(); f++){
+							VarMatch vm = vnmfnvs.get(f);
+							curErr.addTextln("  " + varName + ws + "Line " + vm.scopeStart + " to " + vm.scopeEnd);
+						}
+						curErr.addTextln("If you would like to use one of the versions of '" + varName + "' listed above on line " + line +
+										 " you could move " + varName + "'s declaration to line " + entireListOfSymbols.get(entireListOfSymbols.size()-1).getStartLine() + 
+										 " (giving it global scope), or alternatively if you want to declare a distinct variable called '" + varName + "' to use on line " + line +
+										 " then declare it at the beginning of the current scope which starts on line " + $Symbols::symTbl.getStartLine() + ".");
+					}
+					curErr.addText("See NCC Error Code 125 for more details. ");
+					if(!clo.scopeDetail){
+						curErr.addText("Alternatively rerun NCC with the -s flag to print a break down of the variable scopes.");
+					}
+				}
+			}
+			curErr.setErrorNumber(125);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 105 (Syntax - 999)
+	 *
+	 * This method creates an error message when a variable is initialised with an '=' sign
+	 * but nothing follows the equals sign. e.g.
+	 *     int x = ;
+	 * The initial int value is missing hence the error.
+	 *
+	 * @param line		The line on which the erroneous variable initialisation appears.
+	 * @param charPos	The position in the line the erroneous variable initialisation appears. 
+	 */
+	public void missingInitializerErrorPrinter(int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Variable initialised to nothing!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addText("See NCC Error Code 105 for more details.");
+			}
+			//105 is a syntax error therefore has to be set to errorNumber 999
+			curErr.setErrorNumber(999);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 106  (Syntax - 999)
+	 *
+	 * This method creates an error message when a variable is assigned with an
+	 * assignment operator, but nothing follows the assignment operator e.g.
+	 *     x = ;
+	 * The assigned value is missing hence the error.
+	 *
+	 * @param line		The line on which the erroneous assignment appears.
+	 * @param charPos	The position in the line the erroneous assignment appears. 
+	 */
+	public void missingAssignmentValueErrorPrinter(int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Variable assignment value missing!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addText("See NCC Error Code 106 for more details.");
+			}
+			//106 is a syntax error therefore has to be set to errorNumber 999
+			curErr.setErrorNumber(999);
+			listOfErrors.add(curErr);
+		}
+	}
+		
+	/**
+	 * NCC Error Number(s): 107 (Syntax - 999)
+	 *
+	 * This method creates an error message when the parser is expecting a 
+	 * semicolon but gets something different.
+	 *
+	 * @param expecting		The token (represented in String form) that the 
+	 * 						parser was expecting. 		
+	 * @param got			The token (represented in String form) that the
+	 *						parser read when it was expected the expected 
+	 *						param. 
+	 * @param line			The line on which the erroneous assignment appears.
+	 * @param charPos		The position in the line the erroneous assignment 
+	 *						appears. 
+	 */
+	public void expectingSemiColonErrorPrinter(String expecting, String got, int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": A semicolon ';' was expected but '" + 
+							 got + "' was found!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				if(sourcePrintingEnabled){
+					String worker = printSourceLine(line);
+					//Test worker to see if it's a control statement?
+					if( (worker.contains("do")) || (worker.contains("for")) || (worker.contains("if")) || (worker.contains("switch")) || (worker.contains("while")) ){
+						curErr.addTextln("DIAGNOSIS: This line appears to be a control statement," +
+										 " the semicolon ';' could be missing from the " +
+										 "statement before the ^ arrow.");
+					}
+					else{
+						while((worker = printSourceLine(--line)) != null){ //passing 0 (zero) here is OK as it will just return null anyway!
+							if(worker.equals("")){
+								//skip to the next line 
+							}
+							else{
+								curErr.addTextln("DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous line (Line: " + line + "):");
+								curErr.addTextln("\t" + worker);
+								String space = " ";
+								String ws = "";
+								for(int w = 0; w < worker.length(); w++){
+									ws = ws.concat(space);
+								}
+								curErr.addTextln("\t" + ws + "^");
+								break; //we've found and added the line we need, break from the while loop
+							}
+						}
+					}
+				}
+				curErr.addText("See NCC Error Code 107 for more details.");
+			}
+			//107 is a syntax error therefore has to be set to errorNumber 999 
+			curErr.setErrorNumber(999);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * NCC Error Number(s): 108 (Syntax - 999) & 113 (Print Regardless)
+	 *
+	 * This method creates an error message when the parser is expecting a 
+	 * generic token but gets something unexpected.
+	 *
+	 * @param expecting		The token (represented in String form) that the 
+	 * 						parser was expecting. 		
+	 * @param got			The token (represented in String form) that the
+	 *						parser read when it was expected the expected 
+	 *						param. 
+	 * @param line			The line on which the erroneous assignment appears.
+	 * @param charPos		The position in the line the erroneous assignment 
+	 *						appears. 
+	 */
+	public void expectingGenericErrorPrinter(String expecting, String got, int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Expecting " + expecting + " but found '" + 
+							 got + "'!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				/*
+				 * On the whole diagnostics here is quite difficult as these 
+				 * are just generic error message, however some errors can
+				 * be detected and diagnosed further. 
+				 */
+				if( (isValidType(got)) && (expecting.equals("'}'")) ){
+					/*
+					 * In this case the user has probably tried to declare a
+					 * variable in the wrong place i.e. after the first proper
+					 * line of code, GCC won't throw an error for this however
+					 * NCC will fail to parse this code correctly.
+					 */
+					boolean thinkThisWasAFunctionDeclaration = false;
+					for(int f = 0; f < completeListOfFunctions.size(); f++){
+						//System.out.println("LOC: " + printSourceLine(line));
+						//System.out.println("Fname: " + completeListOfFunctions.get(f).getName());
+						if(printSourceLine(line).contains(completeListOfFunctions.get(f).getName())){
+							thinkThisWasAFunctionDeclaration = true;
+						}
+						//System.out.println(thinkThisWasAFunctionDeclaration);
+					}
+					if(thinkThisWasAFunctionDeclaration){
+						//The declaration is the beginning of a new function.
+						 curErr.addTextln("DIAGNOSIS: It appears that line " + line + " contains the" +
+									 " beginning of a function definition. Unfortunately the closing '}'" +
+									 " from the previous function was missing." +
+									 " To fix this error close the previous function in the file with a '}'");
+						curErr.addText("See NCC Error Code 113 for more details.");
+						curErr.setErrorNumber(113);
+					}
+					else{
+						//The declaration is a variable
+						curErr.addTextln("DIAGNOSIS: It appears that line " + line + " contains a variable" +
+									 " declaration. All variables must be declared together at the very" +
+									 " beginning of the function in which they will be used. To fix this " +
+									 " error move the declaration on line " + line);
+						curErr.addText("See NCC Error Code 113 for more details.");
+						curErr.setErrorNumber(113);
+					}
+				}
+				else{
+					//message is generic and we're not diagnosing (or we can't?)
+					curErr.addText("See NCC Error Code 108 for more details.");
+					//108 is a syntax error therefore has to be set to errorNumber 999
+					curErr.setErrorNumber(999);
+				}
+			}
+			else{
+				//message is generic and we're not diagnosing
+				curErr.addText("See NCC Error Code 108 for more details.");
+				//108 is a syntax error therefore has to be set to errorNumber 999
+				curErr.setErrorNumber(999);
+			}
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * This method creates an error message when a variable is declared that
+	 * has already been declared as a param to a fuction.
+	 *
+	 * @param reDec		The NccToken that was declared but that already existed
+	 *					as a parameter to the function this variable was 
+	 *					declared in.
+	 * @param alDec		The NccToken that represents the param.
+	 * @param line		The line on which the redeclaration occurs.
+	 * @param charPos	The position in the line the redeclaration occurs.
+	 */
+	public void variableParamRedeclarationErrorPrinter(NccToken reDec, NccToken alDec, int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Variable '" + reDec.getId() + "' has the same name as parameter belonging to this function!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addTextln("DIAGNOSIS: The problem arises becuase the parameter (declared on line " + alDec.getDeclLine() +
+								 ") has the same name as a variable declared later in the function (on line " + reDec.getDeclLine() + "):");
+				if(sourcePrintingEnabled){
+					curErr.addTextln("\t" + printSourceLine(alDec.getDeclLine()));
+				}
+				curErr.addText("See NCC Error Code 109 for more details.");
+			}
+			curErr.setErrorNumber(109);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/**
+	 * This method creates an error message when a variable is declared that
+	 * has already been declared earlier in a fuction.
+	 *
+	 * @param reDec		The NccToken that was declared but that already existed
+	 *					in the function.
+	 * @param alDec		The NccToken that represents the first declaration of 
+	 *					this variable.
+	 * @param line		The line on which the redeclaration occurs.
+	 * @param charPos	The position in the line the redeclaration occurs.
+	 */
+	public void variableRedeclarationErrorPrinter(NccToken reDec, NccToken alDec, int line, int charPos)
+	{
+		if(preparsed){
+			NccError curErr = new NccError(line);
+			curErr.addTextln("Error: Line " + line + ": Variable '" + reDec.getId() + "' has already been declared in this function!");
+			if(sourcePrintingEnabled){
+				curErr.addTextln("\t" + printSourceLine(line));
+				curErr.addTextln("\t" + sh.generateWhiteSpace(charPos, line) + "^");
+			}
+			if(clo.dFlag){
+				curErr.addTextln("DIAGNOSIS: The problem arises becuase the variable '" + alDec.getId() + "' has already been declared on line " + alDec.getDeclLine() + " of this function:");
+				if(sourcePrintingEnabled){
+					curErr.addTextln("\t" + printSourceLine(alDec.getDeclLine()));
+				}
+				curErr.addText("See NCC Error Code 110 for more details.");
+			}
+			curErr.setErrorNumber(110);
+			listOfErrors.add(curErr);
+		}
+	}
+	
+	/*********************************************/
+	/* Assignments @ Version 1 - Not being used! */
+	/*********************************************/
+	
+	/**
+	 * This method assigns a variable to a variable (values) after performing
+	 * the correct checks.
+	 *
+	 * @param lhs		The token on the left hand side of the assignment.
+	 * @param rhs		The token on the right hand side of the assignment.
+	 * @param line		The line the assignment takes place on.
+	 * @param charPos	The position in the line that caused the problem.  
+	 */
+	public void assignVarToVar(NccToken lhs, NccToken rhs, int line, int charPos)
+	{
+		System.out.println("Assigning Var to Var!");
+		if(lhs.getTokenType().equals(rhs.getTokenType())){
+			//Assignment should be ok!
+			System.out.println("OK!");
+		}
+		else{
+			assignemntWarningPrinter(lhs, rhs.getTokenType(), line, rhs.getId(), charPos);
+		}
+	}
+
+	/*******************************/
+	/* Symbol Table and Types etc. */
+	/*******************************/
+
+	/*
+	 * This allows types to be used from includes.
+	 */
+	private HashSet<String> passingTypes = new HashSet<String>();
+	
+	/**
+	 * Sets the list of passing types so it can be used to help give
+	 * better error messages.
+	 *
+	 * @param passingTypes	The list of passingTypes
+	 */
+	public void addPassingTypes(String t)
+	{
+		passingTypes.add(t);
+	}
+	
+	/*
+	 * A Global Symbol Table.
+	 */
+	private ArrayList<NccSymbolTable> entireListOfSymbols = new ArrayList<NccSymbolTable>(); 
+	
+	/**
+	 * Get the entire list of all scopes and symbol tables.
+	 *
+	 * @return	The entire list of all scopes and symbol tables.
+	 */
+	public ArrayList<NccSymbolTable> getEntireListOfSymbols()
+	{
+		return entireListOfSymbols;
+	}
+	
+	/**
+	 * Set the entire list of scopes and symbol tables.
+	 *
+	 * @param elos	The entire list of all scopes and symbol tables.
+	 */
+	public void setEntireListOfSymbols(ArrayList<NccSymbolTable> elos)
+	{
+		entireListOfSymbols = elos;
+	}
+	
+	/**
+	 * Add a symbol table to the list of symbol tables in all scopes (elos).   
+	 */
+	public void addToEntireListOfSymbols(NccSymbolTable nst)
+	{
+		entireListOfSymbols.add(nst);
+	}
+	
+	/**
+	 * A Small Inner Class to make returning matches in the method below quick.
+	 */
+	public static class VarMatch
+	{
+		public String matched;
+		public int scopeStart;
+		public int scopeEnd;
+		
+		/**
+		 * Constructor
+		 */
+		public VarMatch(String matched, int scopeStart, int scopeEnd)
+		{
+			this.matched = matched;
+			this.scopeStart = scopeStart;
+			this.scopeEnd = scopeEnd;
+		}
+    };
+	
+	/**
+	 * This method searches through all the scope from the entire program 
+	 * (a list comipled during the pre-parse) and finds exact matches.
+	 * 
+	 * It would be possile to use the same method as the function matching 
+	 * procss uses (see NccStringComapre) but I'm not convinced this will ass
+	 * any value to the error message returned. 
+	 */
+	public ArrayList<VarMatch> matchOverAllScopes(String vName)
+	{
+		ArrayList<VarMatch> retVal = new ArrayList<VarMatch>();
+		for(int t = 0; t < entireListOfSymbols.size(); t++){
+			NccSymbolTable nst = entireListOfSymbols.get(t);
+			if(nst.contains(vName)){
+				retVal.add(new VarMatch(vName, nst.getStartLine(), nst.getEndLine()));
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * Look through the list of types stacks to see whether the type has been 
+	 * declared or not. Also check the list of types from any includes.
+	 *
+	 * @param name	The name of the type to check exists.
+	 * @return		True if the name is a type, false if not.
+	 */
+	boolean isTypeName(String name) 
+	{
+		for(int i = Symbols_stack.size()-1; i>=0; i--) {
+			Symbols_scope scope = (Symbols_scope)Symbols_stack.get(i);
+			if( scope.types.contains(name) ){
+				return true;
+			}
+		}
+		if(passingTypes.contains(name)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * This method assess whether the string it is passed is a valid type name
+	 * or not.
+	 *
+	 * @param s		The String to look up as a type name.
+	 * @return 		A boolean - true if the String was a valid type, false 
+	 *				otherwise. 
+	 */
+	public boolean isValidType(String s)
+	{
+		if( (s.equals("char")) || (s.equals("short")) || 
+			(s.equals("int")) || (s.equals("long")) || 
+			(s.equals("float")) || (s.equals("double")) || 
+			(s.equals("signed")) || (s.equals("unsigned")) || 
+			(s.equals("struct")) || (s.equals("union")) || 
+			(s.equals("enum")) || (isTypeName(s)) ){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Iterate thru the list of scopes and their symbol tables to see if the 
+	 * variable we have has been declared or not.
+	 * 
+	 * @param id	The id of the variable to look for in the symbol table(s).
+	 * @return		True if the variable exists in the symbol table.
+	 * @throws VariableUndeclaredException	If the variable cannot be located
+	 *										in the symbol table. 
+	 */
+	boolean idDefined(String id) throws VariableUndeclaredException
+	{
+		for(int s = Symbols_stack.size()-1; s >= 0; s--){
+			Symbols_scope scope = (Symbols_scope)Symbols_stack.get(s);
+			if(scope.symTbl.contains(id)){
+				//System.out.println(id + " found in symbol table.");
+				return true;
+			}
+		}
+		throw new VariableUndeclaredException();
+	}
+	
+	/**
+	 * Iterate thru the list of scopes and their symbol tables to get the 
+	 * variable we what to look at.
+	 *
+	 * @param id	The id of the variable to return.
+	 * @return		The NccToken that this id refers too. 
+	 * @throws VariableUndeclaredException	If the variable cannot be located
+	 *										in the symbol table. 
+	 */
+	NccToken getDefined(String id) throws VariableUndeclaredException
+	{
+		if(idDefined(id)){
+			for(int s = Symbols_stack.size()-1; s >= 0; s--){
+				Symbols_scope scope = (Symbols_scope)Symbols_stack.get(s);
+				if(scope.symTbl.contains(id)){
+					return scope.symTbl.get(id);
+				}
+			}
+		}
+		throw new VariableUndeclaredException();
+	}
+	
+	/**
+	 * Does the same as the method above but doesn't look at the very top stack.
+	 * Iterate thru the list of scopes and their symbol tables to see if the 
+	 * variable we have has been declared or not.
+	 * 
+	 * @param id	The id of the variable to look for in the symbol table(s).
+	 * @return		True if the variable exists in the symbol table. 
+	 */
+	boolean idDefinedPrev(String id)
+	{
+		for(int s = Symbols_stack.size()-2; s >= 0; s--){
+			Symbols_scope scope = (Symbols_scope)Symbols_stack.get(s);
+			if(scope.symTbl.contains(id)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Does the same as the method above but doesn't look at the very top stack.
+	 * Iterate thru the list of scopes and their symbol tables to get the 
+	 * variable we what to look at.
+	 *
+	 * @param id	The id of the variable to return.
+	 * @return		The NccToken that this id refers too. 
+	 */
+	NccToken getDefinedPrev(String id)
+	{
+		if(idDefinedPrev(id)){
+			for(int s = Symbols_stack.size()-2; s >= 0; s--){
+				Symbols_scope scope = (Symbols_scope)Symbols_stack.get(s);
+				if(scope.symTbl.contains(id)){
+					return scope.symTbl.get(id);
+				}
+			}
+		}
+		return null;
+	}
+	
+	/************************/
+	/* Post Processing Jobs */
+	/************************/
+	
+	/*
+	 * Store all of the jobs that need to be completed once the parsing is complete. 
+	 */
+	private ArrayList<NccPostProcessorJob> listOfJobs = new ArrayList<NccPostProcessorJob>();
+	
+	/**
+	 * Return the list of jobs that require post processing.
+	 * 
+	 * @return	The list of jobs that require post processing.
+	 */
+	public ArrayList<NccPostProcessorJob> getListOfJobs()
+	{
+		return listOfJobs;
+	}
+}
+
+// Main ANTLR Code
+
+translation_unit
+scope Symbols; // entire file is a scope
+@init {
+  $Symbols::types = new HashSet<String>();
+  $Symbols::symTbl = new NccSymbolTable();
+  $Symbols::stStartLineSet = false;
+  //Set the value of the start of this scope
+  if($Symbols::stStartLineSet == false){
+  	$Symbols::symTbl.setStartLine(input.LT(1).getLine());
+  	$Symbols::stStartLineSet = true;
+  }
+  $Symbols::stEndLineSet = false;
+  $Symbols::decFun = false;
+  $Symbols::gettingFunArgs = false;
+}
+@after {
+  //Set the value of the end of this scope
+  if($Symbols::stEndLineSet == false){
+  	$Symbols::symTbl.setEndLine(input.LT(-1).getLine());
+  	$Symbols::stEndLineSet = true;
+  }
+  //Print the symbols in this symbol table.
+  //$Symbols::symTbl.printSymbols();
+  /*
+   * Add this symbol table to the list of all symbol tables, i.e. preserve
+   * but only do so if the file is undergoing its first parse otherwise we'll
+   * end up with multiple copies of identical symbol tables dispersed 
+   * throughout the data structure. 
+   */
+  if(!preparsed){
+  	addToEntireListOfSymbols($Symbols::symTbl);
+  }
+}
+	: external_declaration+
+	;
+
+/** Either a function definition or any other kind of C decl/def.
+ *  The LL(*) analysis algorithm fails to deal with this due to
+ *  recursion in the declarator rules.  I'm putting in a
+ *  manual predicate here so that we don't backtrack over
+ *  the entire function.  Further, you get a better error
+ *  as errors within the function itself don't make it fail
+ *  to predict that it's a function.  Weird errors previously.
+ *  Remember: the goal is to avoid backtrack like the plague
+ *  because it makes debugging, actions, and errors harder.
+ *
+ *  Note that k=1 results in a much smaller predictor for the 
+ *  fixed lookahead; k=2 made a few extra thousand lines. ;)
+ *  I'll have to optimize that in the future.
+ */
+external_declaration
+options {k=1;}
+	: ( declaration_specifiers? declarator declaration* '{' )=> function_definition
+	| declaration
+	;
+
+function_definition
+scope Symbols; // put parameters and locals into same scope for now
+@init {
+  $Symbols::types = new HashSet<String>();
+  $Symbols::symTbl = new NccSymbolTable();
+  $Symbols::stStartLineSet = false;
+  //Set the value of the start of this scope
+  if($Symbols::stStartLineSet == false){
+  	$Symbols::symTbl.setStartLine(input.LT(1).getLine());
+  	$Symbols::stStartLineSet = true;
+  }
+  $Symbols::stEndLineSet = false;
+  $Symbols::decFun = true;
+  $Symbols::gettingFunArgs = false;
+  $Symbols::workingFunction = new NccFunction();
+}
+@after {
+  //Set the value of the end of this scope
+  if($Symbols::stEndLineSet == false){
+  	$Symbols::symTbl.setEndLine(input.LT(-1).getLine());
+  	$Symbols::stEndLineSet = true;
+  }
+  //Print the symbols in this symbol table.
+  //$Symbols::symTbl.printSymbols();
+  functions.add($Symbols::workingFunction);
+  /*
+   * Add this symbol table to the list of all symbol tables, i.e. preserve
+   * but only do so if the file is undergoing its first parse otherwise we'll
+   * end up with multiple copies of identical symbol tables dispersed 
+   * throughout the data structure. 
+   */
+  if(!preparsed){
+  	addToEntireListOfSymbols($Symbols::symTbl);
+  }
+}
+	:	declaration_specifiers? { 
+									$Symbols::workingFunction.setType($declaration_specifiers.text); 
+									//System.out.println("function_definition:"); 
+									//System.out.println("FUNCTION type: " + $declaration_specifiers.text);
+								} declarator
+		(	declaration+ compound_statement	// K&R style
+		|	compound_statement				// ANSI style
+		)
+	;
+
+declaration
+scope {
+  boolean isTypedef;
+  String varType;
+}
+@init {
+  $declaration::isTypedef = false;
+  $declaration::varType = "nothing at the moment!";
+}
+	: 'typedef' declaration_specifiers? {$declaration::isTypedef=true;}
+	  init_declarator_list ';' // special case, looking for typedef	
+	| declaration_specifiers {$declaration::varType=$declaration_specifiers.text;} init_declarator_list? ';'
+	;
+
+declaration_specifiers
+	:   (   storage_class_specifier
+		|   type_specifier
+        |   type_qualifier
+        )+
+	;
+
+init_declarator_list
+	: init_declarator (',' init_declarator)*
+	;
+
+init_declarator
+	: declarator ('=' initializer 	{
+										String tmp = $declarator.text;
+										String tmpEdit = $declarator.text;
+										try{
+											if(tmp.contains("*")){
+												tmpEdit = "";
+												char[] tmpChars = tmp.toCharArray();
+												for(int x = 0; x < tmpChars.length; x++){
+													if(Character.toString(tmpChars[x]).equals("*")){
+														//do nothing
+													}
+													else{
+														tmpEdit = tmpEdit.concat(Character.toString(tmpChars[x])); 
+													}
+												}
+											}
+					 						if(idDefined(tmpEdit)){
+												NccToken t = getDefined(tmpEdit);
+												t.setValue($initializer.text);
+											}
+					 					}
+					 					catch(VariableUndeclaredException e0){
+					 						if($declarator.text.contains("*")){
+					 							//For pointers
+					 							variableUndeclaredExceptionErrorPrinter(tmpEdit, $declarator.start.getLine(), $declarator.start.getCharPositionInLine()+1);
+					 						}
+					 						else{
+					 							//Normal case
+					 							variableUndeclaredExceptionErrorPrinter($declarator.text, $declarator.start.getLine(), $declarator.start.getCharPositionInLine());
+					 						}
+					 					}
+									} 
+								  )?
+	;
+
+storage_class_specifier
+	: 'extern'
+	| 'static'
+	| 'auto'
+	| 'register'
+	;
+
+type_specifier
+	: 'void'
+	| 'char'
+	| 'short'
+	| 'int'
+	| 'long'
+	| 'float'
+	| 'double'
+	| 'signed'
+	| 'unsigned'
+	| struct_or_union_specifier
+	| enum_specifier
+	| type_id
+	;
+
+type_id
+    :   {isTypeName(input.LT(1).getText())}? IDENTIFIER
+//    	{System.out.println($IDENTIFIER.text+" is a type");}
+    ;
+
+struct_or_union_specifier
+options {k=3;}
+scope Symbols; // structs are scopes
+@init {
+  $Symbols::types = new HashSet<String>();
+  $Symbols::symTbl = new NccSymbolTable();
+  $Symbols::stStartLineSet = false;
+  $Symbols::stEndLineSet = false;
+  $Symbols::decFun = false;
+  $Symbols::gettingFunArgs = false;
+}
+@after {
+  //Print the symbols in this symbol table.
+  //$Symbols::symTbl.printSymbols();
+  /*
+   * Add this symbol table to the list of all symbol tables, i.e. preserve
+   * but only do so if the file is undergoing its first parse otherwise we'll
+   * end up with multiple copies of identical symbol tables dispersed 
+   * throughout the data structure. 
+   */
+  if(!preparsed){
+  	addToEntireListOfSymbols($Symbols::symTbl);
+  }
+}
+	: struct_or_union IDENTIFIER? '{' struct_declaration_list '}'
+	| struct_or_union IDENTIFIER
+	;
+
+struct_or_union
+	: 'struct'
+	| 'union'
+	;
+
+struct_declaration_list
+	: struct_declaration+
+	;
+
+struct_declaration
+	: specifier_qualifier_list struct_declarator_list ';'
+	;
+
+specifier_qualifier_list
+	: ( type_qualifier | type_specifier )+
+	;
+
+struct_declarator_list
+	: struct_declarator (',' struct_declarator)*
+	;
+
+struct_declarator
+	: declarator (':' constant_expression)?
+	| ':' constant_expression
+	;
+
+enum_specifier
+options {k=3;}
+	: 'enum' '{' enumerator_list '}'
+	| 'enum' IDENTIFIER '{' enumerator_list '}'
+	| 'enum' IDENTIFIER
+	;
+
+enumerator_list
+	: enumerator (',' enumerator)*
+	;
+
+enumerator
+	: IDENTIFIER ('=' constant_expression)?
+	;
+
+type_qualifier
+	: 'const'
+	| 'volatile'
+	;
+
+declarator
+scope {
+  boolean isPointer;
+}
+@init {
+  $declarator::isPointer = false;
+}
+	: pointer? direct_declarator
+	| pointer
+	;
+
+direct_declarator
+scope {
+  NccToken lastAdded;
+}
+@init {
+  $direct_declarator::lastAdded = null;
+}
+	:   (	IDENTIFIER
+			{
+				//System.out.println("$Symbols.size() = " + $Symbols.size() + " $declaration.size() = " + $declaration.size());
+				// Deal with TypeDefs first.
+				if ($declaration.size()>0&&$declaration::isTypedef) {
+					$Symbols::types.add($IDENTIFIER.text);
+					passingTypes.add($IDENTIFIER.text);
+					//System.out.println("define type "+$IDENTIFIER.text);
+				}
+				//Parsing function declaration
+				else if(($Symbols::decFun == true) && ($Symbols::gettingFunArgs == false))
+				{
+					//Check the function name does not already exist in the list we're building
+					NccFunction checker = null;
+					try{
+						checker = getNccFunction($IDENTIFIER.text);
+						/*
+						 * Note: This is not the normal path of operation - we're checking 
+						 *		 for errors here.
+						 *
+						 * If no exception is thrown then the function already exists! 
+						 * Error: Give the function a differnet name temporarily for this
+						 * parse and add it (with the different name) to the list of functions.
+						 * Then print an error to notify the user.
+						 */
+						$Symbols::workingFunction.setName($IDENTIFIER.text + "_2");
+						functionRedefinedError($IDENTIFIER.text, $IDENTIFIER.line, $IDENTIFIER.pos, checker);
+					}
+					catch(FunctionUndefinedException fue){
+						/*
+						 * This is the normal path, the error free path.
+						 * 
+						 * The function we're looking to define does not exist already so 
+						 * define it with it's full name.
+						 */
+						 $Symbols::workingFunction.setName($IDENTIFIER.text);
+					}
+					//Fill in the rest of the functions details
+					$Symbols::workingFunction.setLine($IDENTIFIER.line);
+					$Symbols::workingFunction.setCharPos($IDENTIFIER.pos);
+					$Symbols::decFun = false;
+					$Symbols::gettingFunArgs = true;
+					//System.out.println("FUNCTION name: " + $IDENTIFIER.text + " on Line: " + $IDENTIFIER.line);
+				}
+				//Getting parameter details (also setting params up as variable for this scope [only])
+				else if($Symbols::gettingFunArgs == true){
+					$Symbols::workingFunction.setNoArgs($Symbols::workingFunction.getNoArgs() + 1);
+					$Symbols::workingFunction.addArg(new NccFunctionArg($parameter_declaration::paramType, $IDENTIFIER.text));
+					//Create the new NccToken
+					//System.out.println("Found Param Token: " + $IDENTIFIER.text + " on Line: " + $IDENTIFIER.line + " of Type: " + $parameter_declaration::paramType);
+					NccToken tok = new NccToken($IDENTIFIER.text, $IDENTIFIER.line, $parameter_declaration::paramType, true);
+					$Symbols::symTbl.put(tok.getId(), tok);
+					//Set the variable as a pointer if it was declared as such
+					if($declarator::isPointer == true){
+						tok.setArray(0);
+					}
+					$direct_declarator::lastAdded = tok;
+				}
+				//Deal with variable declarations next.
+				else if($declaration.size()>0){
+					//System.out.println("direct_declarator from distant declaration:");
+					//System.out.println("IDENTIFIER: " + $IDENTIFIER.text + " on line: " + $IDENTIFIER.line + " of type: " + $declaration::varType);
+					//Create and add a new Token to the NccSymbolTable of this scope.
+					NccToken tok = new NccToken($IDENTIFIER.text, $IDENTIFIER.line, $declaration::varType);
+					if($Symbols::symTbl.contains(tok.getId())){
+						//Get the token with the same name 
+						NccToken alDec = $Symbols::symTbl.get(tok.getId());
+						variableRedeclarationErrorPrinter(tok, alDec, $IDENTIFIER.line, $IDENTIFIER.pos);
+					}
+					else if(idDefinedPrev(tok.getId())){
+						//back in second level of scope the token returned must be a param token!
+						//System.out.println("Found is prev stack!!!");
+						NccToken alDec = getDefinedPrev(tok.getId());
+						if(alDec.isParam()){
+							variableParamRedeclarationErrorPrinter(tok, alDec, $IDENTIFIER.line, $IDENTIFIER.pos);
+						}
+						else{
+							//the declaration is valid
+							$Symbols::symTbl.put(tok.getId(), tok);
+							//Set the variable as a pointer if it was declared as such
+							if($declarator::isPointer == true){
+								tok.setArray(0);
+							}
+							$direct_declarator::lastAdded = tok;
+						}
+					}
+					else{
+						//the token does not already exist in this scope thus the declaration is valid
+						$Symbols::symTbl.put(tok.getId(), tok);
+						//Set the variable as a pointer if it was declared as such
+						if($declarator::isPointer == true){
+							tok.setArray(0);
+						}
+						$direct_declarator::lastAdded = tok;
+					}
+				}
+				//Should never get here (I hope!)
+				else{
+					//System.out.println("In direct_declarator but shouln't be here!");
+				}
+			}
+		|	'(' declarator ')'
+		)
+        declarator_suffix*
+	;
+
+declarator_suffix
+	:   '[' constant_expression ']'	{
+										/*
+										 * Make changes to the last token to be added to the symbol
+										 * table in this scope. When we get to this point it means 
+										 * the variable (or param) that has been declared bust have
+										 * been declared as an array so this needs to be reflected
+										 * in the Token by switching NccToken.isArray to true and
+										 * setting the size of the array (constant_expression).
+										 */
+										if($direct_declarator::lastAdded != null){
+											//System.out.println("Array: " + $direct_declarator::lastAdded.getId() + ", size: " + $constant_expression.text);
+											$direct_declarator::lastAdded.setArray(Integer.parseInt($constant_expression.text));
+										}
+									}
+    |   '[' ']'	{
+					//Still an array (as above) but no size set
+					if($direct_declarator::lastAdded != null){
+						//System.out.println("Array: " + $direct_declarator::lastAdded.getId() + ", size: not set");
+						$direct_declarator::lastAdded.setArray(0);
+					}
+    			}
+    |   '(' parameter_type_list ')'
+    |   '(' identifier_list ')'
+    |   '(' ')'
+	;
+
+pointer
+	: '*' type_qualifier+ pointer?	{
+										$declarator::isPointer = true;
+									}
+	| '*' pointer	{
+						$declarator::isPointer = true;
+					}
+	| '*'	{
+				$declarator::isPointer = true;
+			}
+	;
+
+parameter_type_list
+	: parameter_list (',' '...')?
+	;
+
+parameter_list
+	: parameter_declaration (',' parameter_declaration)*
+	;
+
+parameter_declaration
+scope{
+  String paramType;
+}
+@init{
+  $parameter_declaration::paramType = "no param type yet!";
+}
+	: declaration_specifiers 	{
+									$parameter_declaration::paramType = $declaration_specifiers.text;
+									//System.out.println("parameter_declaration:");
+									//System.out.println("parameter found, type: " + $declaration_specifiers.text);
+								} 
+							 (declarator|abstract_declarator)*
+	;
+
+identifier_list
+	: a=IDENTIFIER 	{
+						//System.out.println("identifier_list:"); 
+						//System.out.println("IDENTIFIER: " + $a.text + " on line: " + $a.line + " of type: " + $a.type);
+					}
+	  (',' b=IDENTIFIER 	{
+	  							//System.out.println("identifier_list:"); 
+	  							//System.out.println("IDENTIFIER: " + $b.text + " on line: " + $b.line + " of type: " + $b.type);
+	  						} 
+	  					)*
+	;
+
+type_name
+	: specifier_qualifier_list abstract_declarator?
+	;
+
+abstract_declarator
+	: pointer direct_abstract_declarator?
+	| direct_abstract_declarator
+	;
+
+direct_abstract_declarator
+	:	( '(' abstract_declarator ')' | abstract_declarator_suffix ) abstract_declarator_suffix*
+	;
+
+abstract_declarator_suffix
+	:	'[' ']'
+	|	'[' constant_expression ']'
+	|	'(' ')'
+	|	'(' parameter_type_list ')'
+	;
+	
+initializer
+	: assignment_expression
+	| '{' initializer_list ','? '}'
+	;
+	catch[NoViableAltException nvae]{
+		if(nvae.token.getText().equals(";")){
+			missingInitializerErrorPrinter(nvae.line, nvae.charPositionInLine);
+		}
+		else{
+			throw nvae;
+		}
+	}
+
+initializer_list
+	: initializer (',' initializer)*
+	;
+
+// Expressions
+
+argument_expression_list
+	:   a=assignment_expression {
+									/*
+									 * Determine the type of the argument e.g. variable = 4 etc.
+									 * if it is a variable then get its type and store it in the arraylist
+									 * otherwise switch on the type as normal and store.
+									 *
+									 * Need to vet the strings to make sure that they are formatted if the
+									 * argument is a pointer '&' or '*' etc.
+									 */
+									String name = $a.text;
+									int type = $a.start.getType();
+									if(name.startsWith("*")){
+										StringTokenizer st = new StringTokenizer(name, "*");
+										while(st.hasMoreTokens()){
+											name = st.nextToken();
+										}
+										if(type == 52){
+											type = 4;
+										}
+									}
+									else if(name.startsWith("&")){
+										StringTokenizer st = new StringTokenizer(name, "&");
+										while(st.hasMoreTokens()){
+											name = st.nextToken();
+										}
+										if(type == 63){
+											type = 4;
+										}
+									}
+									switch(type){
+										//Argument is a variable
+							 			case 4:  try{
+							 						if(idDefined(name)){
+							 							NccToken u = getDefined(name);
+							 							//Check to see if the variable is an array/pointer?
+							 							if(u.isArray()){
+							 								$postfix_expression::listOfArgTypes.add(u.getTokenType() + " aorp");
+							 							}
+							 							else{
+							 								$postfix_expression::listOfArgTypes.add(u.getTokenType());
+							 							}
+							 						}
+							 					 }
+							 					 catch(VariableUndeclaredException e0){
+							 					 	/*
+							 					 	 * Catch the error here but don't do anything about 
+							 					 	 * it as the variableUndeclaredExceptionErrorPrinter
+							 					 	 * method will already have been called.
+							 					 	 */
+							 					 }
+							 					 break;
+							 			//Argument is a hex
+							 			case 5:  //System.out.println("Argument type: " + $a.start.getType());
+							 					 $postfix_expression::listOfArgTypes.add("hex"); 
+							 					 break;
+							 			//Argument is an octal
+							 			case 6:  //System.out.println("Argument type: " + $a.start.getType());
+							 					 $postfix_expression::listOfArgTypes.add("octal");
+							 					 break;
+							 			//Argument is an int
+							 			case 7:  $postfix_expression::listOfArgTypes.add("int");
+							 					 break;
+							 			//Argument is a char
+							 			case 8:  $postfix_expression::listOfArgTypes.add("char");
+							 					 break;
+							 			//Argument is a string
+							 			case 9:  $postfix_expression::listOfArgTypes.add("string");
+							 					 break;
+							 			//Argument is a float
+							 			case 10: $postfix_expression::listOfArgTypes.add("float");
+							 					 break;
+							 			//Default case - currently unhandled Internel Parser Type
+							 			default: //System.out.println("Unhandled Type: " + $a.start.getType()); 
+							 					 break;
+							 		}
+								} 
+		(',' b=assignment_expression {
+										/*
+										 * Need to vet the strings to make sure that they are formatted if the
+										 * argument is a pointer '&' or '*' etc.
+										 */
+										String name = $b.text;
+										int type = $b.start.getType();
+										if(name.startsWith("*")){
+											StringTokenizer st = new StringTokenizer(name, "*");
+											while(st.hasMoreTokens()){
+												name = st.nextToken();
+											}
+											if(type == 52){
+												type = 4;
+											}
+										}
+										else if(name.startsWith("&")){
+											StringTokenizer st = new StringTokenizer(name, "&");
+											while(st.hasMoreTokens()){
+												name = st.nextToken();
+											}
+											if(type == 63){
+												type = 4;
+											}
+										}
+										switch(type){
+											//Argument is a variable
+								 			case 4:  try{
+								 						if(idDefined(name)){
+								 							NccToken u = getDefined(name);
+								 							//Check to see if the variable is an array/pointer?
+								 							if(u.isArray()){
+								 								$postfix_expression::listOfArgTypes.add(u.getTokenType() + " aorp");
+								 							}
+								 							else{
+								 								$postfix_expression::listOfArgTypes.add(u.getTokenType());
+								 							}
+								 						}
+								 					 }
+								 					 catch(VariableUndeclaredException e0){
+								 					 	/*
+							 					 	 	 * Catch the error here but don't do anything about 
+							 					 	 	 * it as the variableUndeclaredExceptionErrorPrinter
+							 					 	 	 * method will already have been called.
+							 					 	 	 */
+								 					 	//System.out.println("This might cause double reporting of undeclared variables!");
+								 					 	//variableUndeclaredExceptionErrorPrinter($b.text, $b.start.getLine(), $b.start.getCharPositionInLine());
+								 					 }
+								 					 break;
+								 			//Argument is a hex
+								 			case 5:  //System.out.println("Argument type: " + $b.start.getType());
+								 					 $postfix_expression::listOfArgTypes.add("hex");
+								 					 break;
+								 			//Argument is an octal
+								 			case 6:  //System.out.println("Argument type: " + $b.start.getType());
+								 					 $postfix_expression::listOfArgTypes.add("octal");
+								 					 break;
+								 			//Argument is an int
+								 			case 7:  $postfix_expression::listOfArgTypes.add("int");
+								 					 break;
+								 			//Argument is a char
+								 			case 8:  $postfix_expression::listOfArgTypes.add("char");
+								 					 break;
+								 			//Argument is a string
+								 			case 9:  $postfix_expression::listOfArgTypes.add("string");
+								 					 break;
+								 			//Argument is a float
+								 			case 10: $postfix_expression::listOfArgTypes.add("float");
+								 					 break;
+								 			//Default case - currently unhandled Internel Parser Type
+								 			default: //System.out.println("Unhandled Type: " + $b.start.getType()); 
+								 					 break;
+								 		}
+									 } )*
+	;
+
+additive_expression
+	: (multiplicative_expression) ('+' multiplicative_expression | '-' multiplicative_expression)*
+	;
+
+multiplicative_expression
+	: (cast_expression) ('*' cast_expression | '/' cast_expression | '%' cast_expression)*
+	;
+
+cast_expression
+	: '(' type_name ')' cast_expression
+	| unary_expression
+	;
+
+unary_expression
+	: postfix_expression
+	| '++' unary_expression
+	| '--' unary_expression
+	| unary_operator cast_expression
+	| 'sizeof' '(' type_name ')'
+	| 'sizeof' unary_expression
+	;
+
+postfix_expression
+scope {
+  NccFunction calledFunction;
+  ArrayList<String> listOfArgTypes;
+}
+@init {
+  $postfix_expression::calledFunction = null;
+  $postfix_expression::listOfArgTypes = new ArrayList<String>();
+}
+	:   primary_expression
+        (   '[' expression ']'
+        |   '(' ')'							 {
+        										//Function called with no arguments
+        										try{
+        											if($postfix_expression::calledFunction != null){
+        												if($postfix_expression::calledFunction.isHashIncluded()){
+        													/*
+        													 * If the call is a call to getchar(), putchar(), printf(...) or scanf(...)
+        													 * then it needs to be post processed so create the Analysis Job...
+        													 */
+        													String fn = $postfix_expression::calledFunction.getName();
+        													if( (fn.equals("getchar")) || (fn.equals("putchar")) 
+        															|| (fn.equals("printf")) || (fn.equals("scanf")) ){
+        														NccPostProcessorJob job = new NccPostProcessorJob(fn.toUpperCase(), $primary_expression.start.getLine());
+        														listOfJobs.add(job);
+        														//System.out.println(fn + " has been called (line: " + $primary_expression.start.getLine() + ") and is being processed!");
+        														//There is no point adding arguments to the Anaylsis job here as it will have been called with no args.
+        													}
+        													else{
+        														//System.out.println("A #included function has been called: " + fn);
+        													}
+        												}
+        												else if($postfix_expression::calledFunction.getNoArgs() == 0){
+        													//The function call is ok!
+        												}
+        												else{
+        													//The number of arguments exceeds the defined number, print error!
+        													throw new FunctionArgumentException();
+        												}
+        											}
+        											else{
+        												//The error regarding the function not being defined should have been printed already
+        											}
+        										}
+        										catch(FunctionArgumentException e){
+        											functionArgumentExceptionErrorPrinter($postfix_expression::calledFunction, $primary_expression.start.getLine(), $primary_expression.start.getCharPositionInLine(), 0);
+        										}
+        									 }        
+        |   '(' argument_expression_list ')' {
+        										//Function called with one or more arguments
+        										int called = $postfix_expression::listOfArgTypes.size();
+        										try{
+        											if($postfix_expression::calledFunction != null){
+        												if($postfix_expression::calledFunction.isHashIncluded()){
+        													/*
+        													 * If the call is a call to getchar(), putchar(), printf(...) or scanf(...)
+        													 * then it needs to be post processed so create the Analysis Job...
+        													 */
+        													String fn = $postfix_expression::calledFunction.getName();
+        													if( (fn.equals("getchar")) || (fn.equals("putchar")) 
+        															|| (fn.equals("printf")) || (fn.equals("scanf")) ){
+        														NccPostProcessorJob job = new NccPostProcessorJob(fn.toUpperCase(), $primary_expression.start.getLine());
+        														job.setArgTokenList($postfix_expression::listOfArgTypes);
+        														listOfJobs.add(job);
+        														//System.out.println(fn + " has been called (line: " + $primary_expression.start.getLine() + ") and is being post processed!");
+        													}
+        													else{
+        														//System.out.println("A #included function has been called: " + fn);
+        													}
+        												}
+        												else if(called != $postfix_expression::calledFunction.getNoArgs()){
+        													throw new FunctionArgumentException();
+        												}
+        												else{
+        													//The function has been called with the correct number of args, check types.
+        													ArrayList<NccFunctionArg> argList = $postfix_expression::calledFunction.getArgsArrayList();
+        													for(int x = 0; x < argList.size(); x++){
+        														if(argList.get(x).getType().equals($postfix_expression::listOfArgTypes.get(x))){
+        															//Types match therefore continue
+        														}
+        														else{
+        															throw new FunctionCallArgTypeException();
+        														}
+        													}
+        												}        												
+        											}
+        											else{
+        												//The error regarding the function not being defined should have been printed already
+        											}
+        										}
+        										catch(FunctionArgumentException e0){
+        											functionArgumentExceptionErrorPrinter($postfix_expression::calledFunction, $primary_expression.start.getLine(), $primary_expression.start.getCharPositionInLine(), called);
+        										}
+        										catch(FunctionCallArgTypeException e1){
+        											functionCallArgTypeExceptionErrorPrinter($postfix_expression::calledFunction, $primary_expression.start.getLine(), $argument_expression_list.start.getCharPositionInLine(), $postfix_expression::listOfArgTypes);
+        										} 
+        									 }
+        |   '.' a=IDENTIFIER  {
+        						//System.out.println("postfix_expression:"); 
+        						//System.out.println("IDENTIFIER: " + $a.text + " on line: " + $a.line + " of type: " + $a.type);
+        					  }
+        |   '->' b=IDENTIFIER {
+        						//System.out.println("postfix_expression:"); 
+        						//System.out.println("IDENTIFIER: " + $b.text + " on line: " + $b.line + " of type: " + $b.type);
+        					  }
+        |   '++'
+        |   '--'
+        )*
+	;
+
+unary_operator
+	: '&'
+	| '*'
+	| '+'
+	| '-'
+	| '~'
+	| '!'
+	;
+
+primary_expression
+	: IDENTIFIER {
+					//System.out.println("primary_expression:"); 
+					//System.out.println("IDENTIFIER: " + $IDENTIFIER.text + " on line: " + $IDENTIFIER.line + " of type: " + $IDENTIFIER.type);
+					
+					//Display the next token on the input stream using lookahead (LA)										
+					//System.out.println("input.LA(1) = " + input.LA(1));
+					
+					if(input.LA(1) == 48){
+						//IDENTIFIER is a function call
+						try{
+							if(functionDefined($IDENTIFIER.text)){
+								//Function Exists
+								$postfix_expression::calledFunction = getNccFunction($IDENTIFIER.text);
+							}
+						}
+						catch(FunctionUndefinedException e){
+							boolean funHashIncluded = false;
+							for(int i = 0 ; i < completeListOfFunctions.size(); i++){
+								if(completeListOfFunctions.get(i).getName().equals($IDENTIFIER.text)){
+									if(completeListOfFunctions.get(i).isHashIncluded()){
+										//the function is from a #include...
+										funHashIncluded = true;
+										$postfix_expression::calledFunction = completeListOfFunctions.get(i);
+										break;
+									}
+								}
+							}
+							if(!funHashIncluded){
+								functionUndefinedExceptionErrorPrinter($IDENTIFIER.text, $IDENTIFIER.line, $IDENTIFIER.pos);
+							}
+						}
+					}
+					else{
+						//IDENTIFIER is a variable, need to check the Token exists in the symbol table.
+					 	try{
+							if(idDefined($IDENTIFIER.text)){
+								//Variable Exists
+						 	}
+					 	}
+					 	catch(VariableUndeclaredException e){
+					 		variableUndeclaredExceptionErrorPrinter($IDENTIFIER.text, $IDENTIFIER.line, $IDENTIFIER.pos);
+					 	}
+					}
+				 }
+	| constant
+	| '(' expression ')'
+	;
+
+constant
+    :   HEX_LITERAL
+    |   OCTAL_LITERAL
+    |   DECIMAL_LITERAL
+    |	CHARACTER_LITERAL
+	|	STRING_LITERAL
+    |   FLOATING_POINT_LITERAL
+    ;
+
+// Logic
+
+expression
+	: assignment_expression (',' assignment_expression)*
+	;
+
+constant_expression
+	: conditional_expression
+	;
+
+assignment_expression
+	: lvalue assignment_operator a=assignment_expression {
+														 	//System.out.println("assignment_expression:");
+														 	//System.out.println("lvalue: " + $lvalue.text + " assignment_operator: " + $assignment_operator.text + " assignment_expression: " + $a.text + " type: " + $a.start.getType());
+														 	/*
+														 	//Need to check the Token (variable) exists, then get it's type and check that the assignment is legal i.e. could flag up when ' is used for a
+														 	//string or " for a char,  maybe even when the var doesn't exist of when the constant it's self is a var (think the Token.type should be 4 in this case), but this close to pointers etc.
+														 	//Need a type argument method.
+														 	try{
+																if(idDefined($lvalue.text)){
+																	//parse the 2nd assignment_expression (a) and check against the type of the token that was found in the nearest scope.
+															 		NccToken t = getDefined($lvalue.text);
+															 		//parseAssignedType();
+															 		int newValueInternalType = $a.start.getType();
+															 		switch(newValueInternalType){
+															 			//Assignment rvalue is a variable
+															 			case 4:  try{
+															 						if(idDefined($a.text)){
+															 							NccToken u = getDefined($a.text);
+															 							assignVarToVar(t, u, $a.start.getLine(), $a.start.getCharPositionInLine());
+															 						}
+															 					 }
+															 					 catch(VariableUndeclaredException e0){
+															 					 	variableUndeclaredExceptionErrorPrinter($a.text, $a.start.getLine(), $a.start.getCharPositionInLine());
+															 					 }
+															 					 break;
+															 			//Assignment rvalue is a hex
+															 			case 5:  //System.out.println("Assignment type: " + newValueInternalType); 
+															 					 break;
+															 			//Assignment rvalue is an octal
+															 			case 6:  //System.out.println("Assignment type: " + newValueInternalType);
+															 					 break;
+															 			//Assignment rvalue is an int
+															 			case 7:  assignemntWarningPrinter(t, "int", $lvalue.start.getLine(), $a.text, $a.start.getCharPositionInLine());
+															 					 break;
+															 			//Assignment rvalue is a char
+															 			case 8:  assignemntWarningPrinter(t, "char", $lvalue.start.getLine(), $a.text, $a.start.getCharPositionInLine());
+															 					 break;
+															 			//Assignment rvalue is a string
+															 			case 9:  assignemntWarningPrinter(t, "string", $lvalue.start.getLine(), $a.text, $a.start.getCharPositionInLine());
+															 					 break;
+															 			//Assignment rvalue is a float
+															 			case 10: assignemntWarningPrinter(t, "float", $lvalue.start.getLine(), $a.text, $a.start.getCharPositionInLine());
+															 					 break;
+															 			//Default case - currently unhandled Internel Parser Type
+															 			default: //System.out.println("Unhandled Type: " + newValueInternalType); 
+															 					 break;
+															 		}
+															 		if($assignment_operator.text.equals("=")){
+															 			t.setValue($a.text);
+															 		}
+															 	}
+														 	}
+														 	catch(VariableUndeclaredException e){
+														 		variableUndeclaredExceptionErrorPrinter($lvalue.text, $lvalue.start.getLine(), $lvalue.start.getCharPositionInLine());
+														 	}*/
+													     }
+	| conditional_expression
+	;
+	catch[NoViableAltException nvae]{
+		if(nvae.token.getText().equals(";")){
+			missingAssignmentValueErrorPrinter(nvae.line, nvae.charPositionInLine);
+		}
+		else{
+			throw nvae;
+		}
+	}
+	
+lvalue
+	:	unary_expression
+	;
+
+assignment_operator
+	: '='
+	| '*='
+	| '/='
+	| '%='
+	| '+='
+	| '-='
+	| '<<='
+	| '>>='
+	| '&='
+	| '^='
+	| '|='
+	;
+
+conditional_expression
+	: logical_or_expression ('?' expression ':' conditional_expression)?
+	;
+
+logical_or_expression
+	: logical_and_expression ('||' logical_and_expression)*
+	;
+
+logical_and_expression
+	: inclusive_or_expression ('&&' inclusive_or_expression)*
+	;
+
+inclusive_or_expression
+	: exclusive_or_expression ('|' exclusive_or_expression)*
+	;
+
+exclusive_or_expression
+	: and_expression ('^' and_expression)*
+	;
+
+and_expression
+	: equality_expression ('&' equality_expression)*
+	;
+equality_expression
+	: relational_expression (('=='|'!=') relational_expression)*
+	;
+
+relational_expression
+	: shift_expression (('<'|'>'|'<='|'>=') shift_expression)*
+	;
+
+shift_expression
+	: additive_expression (('<<'|'>>') additive_expression)*
+	;
+
+// Statements
+
+statement
+	: labeled_statement
+	| compound_statement
+	| expression_statement
+	| selection_statement
+	| iteration_statement
+	| jump_statement
+	;
+
+labeled_statement
+	: IDENTIFIER ':' statement
+	| 'case' constant_expression ':' statement
+	| 'default' ':' statement
+	;
+
+compound_statement
+scope Symbols; // blocks have a scope of symbols
+@init {
+  $Symbols::types = new HashSet<String>();
+  $Symbols::symTbl = new NccSymbolTable();
+  $Symbols::stStartLineSet = false;
+  $Symbols::stEndLineSet = false;
+  $Symbols::decFun = false;
+  $Symbols::gettingFunArgs = false;
+}
+@after {
+  //Print the symbols in this symbol table.
+  //$Symbols::symTbl.printSymbols();
+  /*
+   * Add this symbol table to the list of all symbol tables, i.e. preserve
+   * but only do so if the file is undergoing its first parse otherwise we'll
+   * end up with multiple copies of identical symbol tables dispersed 
+   * throughout the data structure. 
+   */
+  if(!preparsed){
+  	addToEntireListOfSymbols($Symbols::symTbl);
+  }
+}
+	: a='{' {
+				if($Symbols::stStartLineSet == false){
+					$Symbols::symTbl.setStartLine($a.line);
+					$Symbols::stStartLineSet = true;
+				}
+			} 
+		  declaration* statement_list? b='}'	{
+		  											if($Symbols::stEndLineSet == false){
+														$Symbols::symTbl.setEndLine($b.line);
+														$Symbols::stEndLineSet = true;
+													}
+		  										}
+	;
+
+statement_list
+	: statement+
+	;
+
+expression_statement
+	: ';'
+	| expression ';'
+	;
+
+selection_statement
+	//'if' '(' expression ')' statement (options {k=1; backtrack=false;}:'else' statement)?
+	: i='if' 
+			{
+				NccPostProcessorJob job = new NccPostProcessorJob("IF", $i.line);
+				listOfJobs.add(job);
+			}
+			 '(' expression ')' statement (options {k=1; backtrack=false;}:e='else' 
+			 																		{
+			 																			if(input.LA(1) == 91){
+			 																				//Ignore the else 
+			 																			}
+			 																			else{
+			 																				NccPostProcessorJob job = new NccPostProcessorJob("ELSE", $e.line);
+			 																				listOfJobs.add(job);
+			 																			}
+			 																		}
+			 																		statement)?
+	| s='switch' '(' expression ')' statement 	{
+													NccPostProcessorJob job = new NccPostProcessorJob("SWITCH", $s.line);
+			 										listOfJobs.add(job);
+												}
+	;
+
+iteration_statement
+	: w='while' '(' expression ')' statement	{
+													NccPostProcessorJob job = new NccPostProcessorJob("WHILE", $w.line);
+			 										listOfJobs.add(job);
+												}
+	| d='do' statement dw='while' '(' expression ')' ';'	{
+															NccPostProcessorJob job = new NccPostProcessorJob("DO", $d.line);
+			 												listOfJobs.add(job);
+			 												NccPostProcessorJob jobTwo = new NccPostProcessorJob("DOWHILE", $dw.line);
+			 												listOfJobs.add(jobTwo);
+														}
+	| f='for' '(' expression_statement expression_statement expression? ')' statement	{
+																							NccPostProcessorJob job = new NccPostProcessorJob("FOR", $f.line);
+			 																				listOfJobs.add(job);
+																						}
+	;
+
+jump_statement
+	: 'goto' IDENTIFIER ';'
+	| 'continue' ';'
+	| 'break' ';'
+	| 'return' ';'
+	| 'return' expression ';'
+	;
+
+
+// Lexical Rules
+
+IDENTIFIER
+	:	LETTER (LETTER|'0'..'9')*
+	;
+	
+fragment
+LETTER
+	:	'$'
+	|	'A'..'Z'
+	|	'a'..'z'
+	|	'_'
+	;
+
+CHARACTER_LITERAL
+    :   '\'' ( EscapeSequence | ~('\''|'\\') ) '\''
+    ;
+
+STRING_LITERAL
+    :  '"' ( EscapeSequence | ~('\\'|'"') )* '"'
+    ;
+
+HEX_LITERAL : '0' ('x'|'X') HexDigit+ IntegerTypeSuffix? ;
+
+DECIMAL_LITERAL : ('0' | '1'..'9' '0'..'9'*) IntegerTypeSuffix? ;
+
+OCTAL_LITERAL : '0' ('0'..'7')+ IntegerTypeSuffix? ;
+
+fragment
+HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment
+IntegerTypeSuffix
+	:	('u'|'U')? ('l'|'L')
+	|	('u'|'U')  ('l'|'L')?
+	;
+
+FLOATING_POINT_LITERAL
+    :   ('0'..'9')+ '.' ('0'..'9')* Exponent? FloatTypeSuffix?
+    |   '.' ('0'..'9')+ Exponent? FloatTypeSuffix?
+    |   ('0'..'9')+ Exponent FloatTypeSuffix?
+    |   ('0'..'9')+ Exponent? FloatTypeSuffix
+	;
+
+fragment
+Exponent : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
+
+fragment
+FloatTypeSuffix : ('f'|'F'|'d'|'D') ;
+
+fragment
+EscapeSequence
+    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    |   OctalEscape
+    ;
+
+fragment
+OctalEscape
+    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7')
+    ;
+
+fragment
+UnicodeEscape
+    :   '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+    ;
+
+WS  :  (' '|'\r'|'\t'|'\u000C'|'\n') {$channel=HIDDEN;}
+    ;
+
+COMMENT
+    :   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+    ;
+
+LINE_COMMENT
+    : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+    ;
+
+// ignore #line info for now
+LINE_COMMAND 
+    : '#' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+    ;

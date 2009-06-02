@@ -1,0 +1,29 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 114 - Illegal Character in Source - [File: 114.nec]
+
+SYNOPSIS: This help file contains information about errors reporting illegal
+characters in the source (*.c) file.  
+
+EXPLANATION: Some characters are not valid characters for use in a C program as
+they hold no meaning to the compiler. If they are included the program will not
+parse correctly.  
+
+EXAMPLE: There are many characters that have no use in C and as such cause
+errors, a few examples include:
+
+ONE: '¬'
+
+TWO: '£'
+
+THREE: '@' etc.
+
+SOLUTION: Remove the illegal character.  
+
+Finished Printing NCC Error Code 114
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: stray 'xyz' in program

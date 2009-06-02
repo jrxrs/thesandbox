@@ -1,0 +1,32 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 201 - printf(...) Conversion Characters - [File: 201.nec]
+
+SYNOPSIS: This help file contains information about the valid conversion 
+characters that can be used in in the printf formatting string. 
+
+Notes: The valid string format characters for printf:
+Character   Argument Type: Printed as
+   d,i      int; decimal number
+    o       int; octal number
+   x,X      int; hexadecimal number
+    u       int; unsigned decimal number
+    c       int; single char
+    s       char *; prints a string "", terminated by '\0'
+    f       double; [-]m.dddddd
+   e,E      double; [-]m.dddddde+-xx or [-]m.ddddddE+-xx 
+   g,G      double; prints %f or %[e,E] as appropriate
+    p       void *; pointer
+    %       print a & character
+
+Valid Characters for formatting conversion characters.
+.*, .#, -, +, ' '(space), ', I, hh, h, l, ll, j, z, L,
+
+Table from: Kernighan B. W. & Ritchie D. M, The C Programming Language, Second 
+Edition. Prentice Hall: New Jersey. p. 154. 
+
+Finished Printing NCC Error Code 201
+
+########################This line is 80 characters long########################

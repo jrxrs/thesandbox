@@ -1,0 +1,55 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+## Using tabs in this file is not advised!
+
+Usage: ncc [options] file
+
+    --help          Prints this help information.
+    -d              Switches off the extra diagnostic messages NCC generates.
+    -g              Forces NCC to output GCC's output verbatim in addition to 
+                    its' default output.
+                    Note: -g cannot be used at the same time as -v.
+    -n              Forces NCC to output its complete output verbatim (i.e.
+                    without performing filtering based on the GCC output) in 
+                    addition to its' default output.
+                    Note: -n cannot be used at the same time as -v.
+    -o <file>       Place the output of gcc into <file>.
+    -p xxx          Prints additional error specific help information regarding
+                    selected topics. [Where xxx is a 3 digit NCC Error Code].
+    -p 000          Prints the list of Errors and NCC Error Codes.
+    -p lib          Prints a list of the C Libraries that NCC implements.
+    -s              Outputs a series of formatted tables detailing all the 
+                    scopes in the program and what variables are visible 
+                    within which lines of the program.
+    -v              Verbose mode prints the list of NCC errors generated in 
+                    full followed by the list of GCC errors generated. 
+                    Notes: -No combination of NCC & GCC errors will take place.
+                           -The -v switch cannot be used at the same time as 
+                            either the -g or -n switches.
+
+Note: The Novice C Compiler (ncc) is only capable of compiling simple programs.
+      A maximum of one .c file can be passed to the application at a time.
+      Because of this 'extern' declarations are rarely handled correctly.  
+      Passing a file with any extension other than .c will cause the program to
+      exit returning an appropriate error message.
+      NCC Error Message Output: If a line begins " > " it means it is either a
+      continuation of the line above or the continuation of the current error
+      message.
+
+Known Issues: (1) Function prototypes are not parsed correctly - a function 
+                  prototype is currently parsed as a series of variable 
+                  declarations. This is an NCC error only and does not affect
+                  the program output by GCC. Unfortunately it may
+                  result in misleading output under the -s flag and possible
+                  error message confusion when using function prototypes. 
+                  The simplest way to avoid experiencing a problem is not to 
+                  use function prototypes and to only call function defined
+                  above the location of the call (see NCC Error Code 104).
+              (2) All pre-processor directives with the exception of #include
+                  are unimplemented and cannot therefore be used reliably in 
+                  files to be compiled with NCC.
+
+The Novice C Compiler - Version 1.0 
+
+########################This line is 80 characters long########################

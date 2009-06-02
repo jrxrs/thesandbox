@@ -1,0 +1,16 @@
+Error: Line 5: The argument passed to 'putchar' was not a valid char or int.
+ > 'putchar' was in fact passed a float.
+ >      putchar(0.987654321);
+ >      ^
+ > DIAGNOSIS: To fix the error ensure the value or variable argument passed to
+ > 'putchar' is a char or an int.
+ > See NCC Error Code 122 for more details.
+Error: Line 8: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 7):
+ >      return 0
+ >              ^
+ > See NCC Error Code 107 for more details.
+A total of 2 Errors / Warnings were found.

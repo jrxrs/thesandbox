@@ -1,0 +1,12 @@
+Error: Line 13: Expecting '}' but found 'int'!
+ >      int main(void)
+ >      ^
+ > DIAGNOSIS: It appears that line 13 contains the beginning of a function
+ > definition. Unfortunately the closing '}' from the previous function was
+ > missing. To fix this error close the previous function in the file with a
+ > '}'
+ > See NCC Error Code 113 for more details.
+GCC: MissBraceFun.c: functionY: 14: warning: 'main' is normally a non-static
+ > function
+GCC: MissBraceFun.c: functionY: 23: error: syntax error at end of input
+A total of 3 Errors / Warnings were found.

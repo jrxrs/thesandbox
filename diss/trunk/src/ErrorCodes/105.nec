@@ -1,0 +1,37 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 105 - Variable Missing Initialiser - [File: 105.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling a 
+initialising a variable.
+
+EXPLANATION: This error occurs when a variable is initialised upon declaration
+using the '=' sign but the value following the '=' sign is invalid or missing.
+
+EXAMPLE: The programmer declares a variable and forgets to write its initial 
+value. e.g.
+
+    int x = ;
+
+The value should have come before the semicolon (';'). 
+
+SOLUTIONS: The programmer has two options to fix this error:
+
+ONE: Add the missing value where it should be:
+
+    int x = 7;
+
+TWO: Remove the '=' sign and set the variables value later:
+
+    int x;
+    <more code>
+    x = 7;
+
+Finished Printing NCC Error Code 105
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## new.c:X: error: syntax error before ';' token
+## The line number must match also!

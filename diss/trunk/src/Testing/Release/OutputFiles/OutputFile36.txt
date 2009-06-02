@@ -1,0 +1,9 @@
+Error: Line 5: Variable: 'y' is undeclared!
+ >      if(x == y){
+ >              ^
+ > DIAGNOSIS: There were no exact matches for variable 'y' anywhere else in
+ > Undeclared.c
+ > To fix this error declare varaible 'y' after the '{' on line 2.
+ > See NCC Error Code 125 for more details. Alternatively rerun NCC with the -s
+ > flag to print a break down of the variable scopes.
+A total of 1 Errors / Warnings were found.

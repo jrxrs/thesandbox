@@ -1,0 +1,16 @@
+Warning: Line 6:  Poor block conversion after 'while'.
+ >      while(x > 0)
+ >      ^
+ > DIAGNOSIS: The statement(s) in the 'while' section of the while control
+ > statement beginning on line 6 are not enclosed by curly brackets, this may
+ > result in code ambiguity.
+ > See NCC Error Code 120 for more details
+Error: Line 10: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 9):
+ >      return 0
+ >              ^
+ > See NCC Error Code 107 for more details.
+A total of 2 Errors / Warnings were found.

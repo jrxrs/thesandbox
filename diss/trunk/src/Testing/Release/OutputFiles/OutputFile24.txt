@@ -1,0 +1,10 @@
+Error: Line 3: Function: 'functionX' is undefined!
+ >      functionX(y);
+ >      ^
+ > DIAGNOSIS: The call to function 'functionX' on Line 3 is made before the
+ > function is declared on Line 7.
+ > Move functionX's definition above Line 3 to fix the error.
+ > See NCC Error Code 104 for more details.
+A total of 1 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

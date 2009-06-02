@@ -1,0 +1,41 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 108 - Generic Syntax Error - [File: 108.nec]
+
+SYNOPSIS: This help file contains information about errors made with general
+use of the C syntax.
+
+EXPLANATION: This is a generic error message printed when the C syntax has been
+misused. The compiler prints a section of the code with incorrect syntax and 
+informs the user what it was expecting to find when it came across this error. 
+
+EXAMPLE: There are many different situations where this error message could be
+seen, for instance with the following code:
+
+10      if(x == 0{
+11          y++;
+12      }
+
+In this situation the second bracket on the 'if' statement is missing so the 
+error message might look something like this:
+
+    Error: Line 10: Expecting ')' but '{' was found!
+        if(x == 0{
+                 ^
+
+SOLUTIONS: The solution to the problem above would be to insert the ')' where
+the ^ arrow indicates. e.g.
+
+10      if(x == 0){
+11          y++;
+12      }    
+
+In general NCC will attempt to include a solution to the error in the message.
+
+Finished Printing NCC Error Code 108
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## error: syntax error before '{' token

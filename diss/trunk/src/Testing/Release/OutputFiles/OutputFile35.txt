@@ -1,0 +1,16 @@
+Error: Line 12: A semicolon ';' was expected but '}' was found!
+ >      }
+ >      ^
+ > DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous
+ > line (Line: 11):
+ >      printf("False!\n")
+ >                        ^
+ > See NCC Error Code 107 for more details.
+Error: Line 14: Expecting '}' but found 'int'!
+ >      int returnValue = 0;
+ >      ^
+ > DIAGNOSIS: It appears that line 14 contains a variable declaration. All
+ > variables must be declared together at the very beginning of the function in
+ > which they will be used. To fix this  error move the declaration on line 14
+ > See NCC Error Code 113 for more details.
+A total of 2 Errors / Warnings were found.

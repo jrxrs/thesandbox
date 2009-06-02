@@ -1,0 +1,37 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 120 - While Bracket/Block Convention Warning - [File: 120.nec]
+
+SYNOPSIS: This help file contains information about warnings issued when using
+brackets and/or blocks with a while control statement.
+
+EXPLANATION: This warning will not prevent an otherwise valid C program from 
+compiling correctly however when other errors are present in the code this 
+warning might help stop unintended consequences and improve programming style.
+Code ambiguity might make a programmers' code more difficult to read and 
+understand because the flow of control through the While loop as a whole 
+might become unclear. By encouraging all single statements in a While loop 
+to be enclosed in their own block {...} the chances of code ambiguity are 
+reduced.
+
+EXAMPLE: The following section of code is valid however it's use would cause a
+warning to be printed in programs where other errors are detected:
+
+    //WHILE LOOP
+    while(x < 6)
+        x++;
+
+SOLUTIONS: The solution in this case is to enclose the statement in the 'while' 
+section of the while loop inside it's own block as you would a group of
+statements:
+
+    //WHILE LOOP
+    while(x < 6){
+        x++;
+    }
+
+Finished Printing NCC Error Code 120
+
+########################This line is 80 characters long########################

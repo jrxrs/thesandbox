@@ -1,0 +1,47 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 103 - Function Undefined/Mistyped - [File: 103.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling a 
+function which is either undefined or incorrectly typed.
+
+EXPLANATION: Wherever possible NCC attempts to match mistyped function calls 
+with the correct defined function, indicating any such match. If however a 
+close match could not be found then NCC will report the function as undefined -
+in which case a new function should be defined.     
+
+EXAMPLE A (Close Match): Two functions are defined by the programmer:
+
+    int matching(int a int b)
+    {
+        <function body>
+    }
+    
+    int myFunction(int x, int y)
+    {
+        <function body>
+    }
+
+Later in the code the programmer types:
+
+    myfunctio(1, 2);
+
+This is an attempt to call 'myFunction' but the call is mistyped. NCC will 
+identify the close match so a correction can be made.  
+
+SOLUTION A (Close Match): Correct the typographical error in the function call:  
+
+    myFunction(1, 2);
+
+EXAMPLE B (No Match): If no close match could be found then a new function 
+should be declared. 
+
+SOLUTION B (No Match): Declare a new function with the desired name.  
+
+Finished Printing NCC Error Code 103
+
+########################This line is 80 characters long########################
+## GCC will not return any sort of error or warning in this case. Therefore the
+## error number must be placed on the printRegardless list in AllErrorPrinter.

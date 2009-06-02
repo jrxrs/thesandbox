@@ -1,0 +1,37 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 102 - Incorrect Argument Types - [File: 102.nec]
+
+SYNOPSIS: This help file contains information about errors made when calling a 
+defined function with the correct number of arguments but where the arguments
+are of the wrong type.
+
+EXPLANATION: A function must always be called with its arguments (whether they
+be constants or declared variables) in the correct order. If a function 
+accepting one integer argument is called with one float argument then an error
+will arise because the argument types are not compatible.   
+
+EXAMPLE: A function is declared:
+
+    int myFunction(int x, float y)
+    {
+        <function body>
+    }
+
+Later the programmer calls the function passing the correct number of arguments
+but passes them in the wrong order:
+
+    myFunction(0.123, 6);
+
+SOLUTIONS: The solution to is to alter the function call such that the function
+arguments are passed in the correct order:
+
+    myFunction(6, 0.123);
+
+Finished Printing NCC Error Code 102
+
+########################This line is 80 characters long########################
+## GCC will not return any sort of error or warning in this case. Therefore the
+## error number must be placed on the printRegardless list in AllErrorPrinter.

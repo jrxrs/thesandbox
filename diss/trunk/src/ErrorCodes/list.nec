@@ -1,0 +1,36 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+Code    Error
+000     Prints this list.
+101     Incorrect Number of Arguments.
+102     Incorrect Argument Types
+103     Function Undefined/Mistyped
+104     Function Call Before Declaration
+105     Variable Missing Initialiser
+106     Assignment Missing Value
+107     Missing Semicolon
+108     Generic Syntax Error
+109     Parameter Redeclared As Variable
+110     Variable Declared Twice
+111     Missing 'main' Function
+112     Generic No Viable Alternative Error
+113     Misplaced Declaration
+114     Illegal Character in Source
+115     Do-While Bracket/Block Convention Warning
+116     Else Bracket/Block Convention Warning
+117     For Bracket/Block Convention Warning
+118     If Bracket/Block Convention Warning
+119     Switch Bracket/Block Convention Warning
+120     While Bracket/Block Convention Warning
+121     getchar() Call Error 
+122     putchar(...) Call Error
+123     printf(...) Call Error
+124     scanf(...) Call Error
+125     Reference to Undeclared Variable
+126     Function Redefined (Defined Twice)
+201     printf(...) Conversion Characters
+202     scanf(...) Conversion Characters
+
+########################This line is 80 characters long########################

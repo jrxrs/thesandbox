@@ -1,0 +1,37 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Implements the following Standard C Libraries:
+
+Library         #include
+
+Assert          <assert.h>
+Complex         <complex.h>
+Ctype           <ctype.h>
+Errno           <errno.h>
+Fenv            <fenv.h>
+Float           <float.h>
+Inttypes        <inttypes.h>
+Iso646          <iso646.h>
+Limits          <limits.h>
+Locale          <locale.h>
+Malloc          <malloc.h>
+Math            <math.h>
+Setjmp          <setjmp.h>
+Signal          <signal.h>
+Stdarg          <stdarg.h>
+Stdbool         <stdbool.h>
+Stddef          <stddef.h>
+Stdint          <stdint.h>
+Stdio           <stdio.h>
+Stdlib          <stdlib.h>
+String          <string.h>
+Tgmath          <tgmath.h>
+Time            <time.h>
+Wchar           <wchar.h>
+Wctype          <wctype.h>
+
+At present NCC does not permit the use of use user defined header files. Sorry! 
+
+########################This line is 80 characters long########################

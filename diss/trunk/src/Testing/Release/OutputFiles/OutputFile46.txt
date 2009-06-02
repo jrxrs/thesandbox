@@ -1,0 +1,11 @@
+Warning: Line: 9: 'printf' called with too many arguments.
+ >      printf("Int = %d\nChar = %c\nFloat = %f\n", a, b, c, d);
+ >      ^
+ > DIAGNOSIS: The formatted string in printf contains 3 conversion characters
+ > however it was passed 4 valid arguments.
+ > To fix the error include an extra conversion character(s) in the format
+ > string or remove the appropriate argument(s).
+ > See NCC Error Code 123 for more details.
+A total of 1 Errors / Warnings were found.
+
+ncc: Output: 'a.out' was successfully generated!

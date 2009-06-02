@@ -1,0 +1,48 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 112 - Generic No Viable Alternative Error - [File: 112.nec]
+
+SYNOPSIS: This help file contains information about generic syntax errors.
+
+EXPLANATION: A No Viable Alternative Error is usually the result of a syntax 
+error.
+
+Finished Printing NCC Error Code 112
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## Some kind of syntax error. At the moment I can't reliably specify a 112 as
+## they seem to be an ANTLR catch all, therefore for the time being this will
+## be added to the print regardless list.
+## 
+## There are lots of ways a 112 could be printed, at the moment I one I have
+## found (that registers as a syntax error) is the following:
+## #include <stdio.h>
+## 
+## int function(int x, char y)
+## {
+## 	int a = 0;
+## 	int b = 0
+## 	int error = 0;
+## return 0;
+## }
+## which prints:
+## Error: Line 7: A semicolon ';' was expected but 'int' was found!
+## 	int error = 0;
+## 	^
+## DIAGNOSIS: It is probable that the semicolon ';' is missing from a previous line (Line: 6):
+## 	int b
+## 	     ^
+## See NCC Error Code 107 for more details.
+## GCC: tester.c: function: 9: error: `b' undeclared (first use in this function)
+## GCC: tester.c: function: 9: error: (Each undeclared identifier is reported only once
+## GCC: tester.c: function: 9: error: for each function it appears in.)
+## 
+## Verbatim GCC Output:
+## tester.c: In function `function':
+## tester.c:7: error: syntax error before "int"
+## tester.c:9: error: `b' undeclared (first use in this function)
+## tester.c:9: error: (Each undeclared identifier is reported only once
+## tester.c:9: error: for each function it appears in.)

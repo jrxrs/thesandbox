@@ -1,0 +1,22 @@
+## Novice C Compiler Help File.
+## This is the pre-formatted help file.
+## "##" Denotes a comment or blank line which is not to be printed.
+
+NCC Error Code: 111 - Missing 'main' Function - [File: 111.nec]
+
+SYNOPSIS: This help file contains information about the Missing 'main' Function
+error message.
+
+EXPLANATION: Every C program must contain a function called 'main'. 
+By convention this function is usually the last function declared in a .c file
+and it becomes the entry point at execution of the program, i.e. the first code
+to be executed would be the code inside the 'main' function. 
+
+If a .c file does not contain a 'main' function it will not compile correctly.
+
+Finished Printing NCC Error Code 111
+
+########################This line is 80 characters long########################
+## Error only to be printed when the following error is received from GCC:
+## undefined reference to `main'
+## GccError number = 111

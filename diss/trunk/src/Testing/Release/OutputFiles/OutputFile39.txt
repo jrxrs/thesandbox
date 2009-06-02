@@ -1,0 +1,5 @@
+Error: Line 5: Variable assignment value missing!
+ >      x = ;
+ >          ^
+ > See NCC Error Code 106 for more details.
+A total of 1 Errors / Warnings were found.
