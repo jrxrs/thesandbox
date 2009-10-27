@@ -21,6 +21,7 @@ public class SlowPerson extends Person
     }
 
     // DON'T DO THIS!
+    @Override 
     public boolean isBabyBoomer() {
         // Unnecessary allocation of expensive object
         Calendar gmtCal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
