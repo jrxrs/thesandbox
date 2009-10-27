@@ -10,4 +10,4 @@ A selection of useful resources for various Programming Languages
 
 == Mutable & Immutable Objects ==
 
-[http://www.javaranch.com/journal/2003/04/immutable.html Java Ranch - Mutable and Immutable Objects]
+[http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
