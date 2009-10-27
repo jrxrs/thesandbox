@@ -1,0 +1,13 @@
+#summary A selection of useful resources.
+
+<wiki:toc max_depth="2" />
+
+= Resources =
+
+A selection of useful resources for various Programming Languages
+
+= Java =
+
+== Mutable & Immutable Objects ==
+
+[http://www.javaranch.com/journal/2003/04/immutable.html Java Ranch - Mutable and Immutable Objects]
