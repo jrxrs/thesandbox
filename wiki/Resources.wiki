@@ -1,10 +1,6 @@
-#summary A selection of useful resources.
+#summary A selection of useful resources for various Programming Languages.
 
 <wiki:toc max_depth="2" />
-
-= Resources =
-
-A selection of useful resources for various Programming Languages
 
 = Java =
 
