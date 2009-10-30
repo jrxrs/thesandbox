@@ -4,6 +4,20 @@
 
 = Java =
 
+== P.I.E. - The Pillars of Object Orientation ==
+
+=== Polymorphism ===
+
+[http://en.wikipedia.org/wiki/Polymorphism_in_object-oriented_programming Wikipedia: Polymorphism]
+
+=== Inheritance ===
+
+[http://en.wikipedia.org/wiki/Inheritance_(computer_science) Wikipedia: Inheritance]
+
+=== Encapsulation ===
+
+[http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
+
 == Mutable & Immutable Objects ==
 
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
