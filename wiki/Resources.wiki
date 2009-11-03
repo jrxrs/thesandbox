@@ -21,3 +21,13 @@
 == Mutable & Immutable Objects ==
 
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
+
+= XML =
+
+== SAX & DOM ==
+
+SAX - Event Driven, stack based parsing, akin to shift-reduce mechanism employed by bottom-up parsers. [http://en.wikipedia.org/wiki/Simple_API_for_XML Wikipedia]
+
+DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia]
+
+[http://onjava.com/onjava/2002/06/26/xml.html SAX & DOM, the Basics]
