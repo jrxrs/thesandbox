@@ -18,6 +18,18 @@
 
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
 
+== Autoboxing ==
+
+Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guilde]
+
+== Imports & Performace ==
+
+Did some research and it seems that conventional wisdom suggests that using imports with the wild card character, of the form:
+{{{
+import javax.swing.*;
+}}}
+does not impact runtime performance. There is however a valid case for specifying exactly the classes you wish to import as detailed in [http://www.javafaq.nu/java-article914.html this article].
+
 == Mutable & Immutable Objects ==
 
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
