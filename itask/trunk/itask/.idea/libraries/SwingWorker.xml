@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SwingWorker">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/swingworker/1.2/swing-worker-1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../libs/swingworker/1.2/swing-worker-doc-1.2.zip!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/swingworker/1.2/swing-worker-src-1.2.zip!/src/java" />
+    </SOURCES>
+  </library>
+</component>
