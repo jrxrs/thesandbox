@@ -4,15 +4,7 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
-import org.jdesktop.application.TaskMonitor;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Properties;
 import javax.swing.*;
 
 /**
@@ -28,11 +20,6 @@ public class ITaskView extends FrameView
     private ResourceMap resourceMap;
     private ActionMap actionMap;
 
-    // Properties
-    private Properties userProps;
-    private static final String REP_PATH    = "repository";
-    private static final String NOT_SET     = "null";
-
     // GUI bits
     private JPanel mainPanel, statusPanel;
     private JMenuBar menuBar;
@@ -41,6 +28,7 @@ public class ITaskView extends FrameView
     private Status status = Status.NOPATH;
 
     private JDialog aboutBox;
+    private JDialog settingsDialog;
 
     /* Status enum for setting the App Status */
     public static enum Status {
@@ -67,9 +55,10 @@ public class ITaskView extends FrameView
         resourceMap = getResourceMap();
         actionMap = app.getContext().getActionMap(ITaskView.class, this);
 
-        loadUserProperties();
+        processProperties();
 
         initComponents();
+        bgScan();
     }
 
     @Action
@@ -84,94 +73,48 @@ public class ITaskView extends FrameView
 
     @Action
     public void showSettings() {
-        System.out.println("Showing settings!");
+        if (settingsDialog == null) {
+            JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
+            settingsDialog = new ITaskSettings(mainFrame);
+            settingsDialog.setLocationRelativeTo(mainFrame);
+        }
+        ITaskApp.getApplication().show(settingsDialog);
     }
 
-    private void writeTheseProps(File f, Properties p) throws Exception {
-        FileOutputStream fos = new FileOutputStream(f);
-        String username = System.getProperty("user.name");
-        p.storeToXML(fos, resourceMap.getString("Application.title")
-                + " Settings for " + username);
-        fos.close();
-    }
-
-    private File newDefaultProps(File propsFile) throws Exception {
-        Properties freshProperties = new Properties();
-        freshProperties.put(REP_PATH, NOT_SET);
-        writeTheseProps(propsFile, freshProperties);
-        return propsFile;
-    }
-
-    private File rinse(File props) throws Exception {
-        if(props.exists() && props.isFile())
-            return props;
-        else if(props.createNewFile())
-            return newDefaultProps(props);
-        else return null;
-    }
-
-    private File propsExist() throws Exception {
-        String propsFileName = "iTaskSettings.xml";
-        String home = System.getProperty("user.home");
-        File homeDir = new File(home);
-        if(homeDir.exists() && homeDir.isDirectory()) {
-            File iTaskHome = new File(homeDir, ".".concat(resourceMap.getString("Application.title")));
-            File props = new File(iTaskHome, propsFileName);
-            if(iTaskHome.exists() && iTaskHome.isDirectory()) {
-                return rinse(props);
-            } else {
-                if(iTaskHome.mkdir() && props.createNewFile())
-                    return newDefaultProps(props);
-                else return null;
-            }
-        } else { //Could not fine user.home - try current directory
-            String curDir = System.getProperty("user.dir");
-            File props = new File(curDir, propsFileName);
-            return rinse(props);
+    private void processProperties() {
+        if(ITaskProperties.NOT_SET.equals(ITaskProperties.getInstance()
+                .get(ITaskProperties.REP_PATH, ITaskProperties.NOT_SET))) {
+            status = Status.NOPATH;
+        } else {
+            status = Status.SCANNING;
         }
     }
 
-    private void loadUserProperties() {
-        try {
-            File props = propsExist();
-            if(props != null) {
-                System.out.println("props file found at " + props.getPath());
-                FileInputStream fis = new FileInputStream(props);
-                userProps = new Properties();
-                userProps.loadFromXML(fis);
-                fis.close();
-                if(NOT_SET.equals(userProps.getProperty(REP_PATH, NOT_SET))) {
-                    status = Status.NOPATH;
-                } else {
-                    status = Status.SCANNING;
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    private void bgScan() {
+        progressBar.setIndeterminate(true);
     }
 
     private void initComponents() {
 
-        getFrame().setIconImage(((ImageIcon)resourceMap.getIcon("mainFrame.icon")).getImage());
+        getFrame().setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
         mainPanel = new JPanel();
 
         statusPanel = new JPanel();
-        javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
+        JSeparator statusPanelSeparator = new JSeparator();
         statusMessageLabel = new JLabel();
         statusAnimationLabel = new JLabel();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = new JProgressBar();
 
         mainPanel.setName("mainPanel"); // NOI18N
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGap(0, 252, Short.MAX_VALUE)
         );
 
@@ -182,34 +125,34 @@ public class ITaskView extends FrameView
         statusMessageLabel.setName("statusMessageLabel"); // NOI18N
         statusMessageLabel.setText(resourceMap.getString(status.getResource()));
 
-        statusAnimationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        statusAnimationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         statusAnimationLabel.setName("statusAnimationLabel"); // NOI18N
 
         progressBar.setName("progressBar"); // NOI18N
 
-        javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
+        GroupLayout statusPanelLayout = new GroupLayout(statusPanel);
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            statusPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(statusPanelSeparator, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
                 .addContainerGap())
         );
         statusPanelLayout.setVerticalGroup(
-            statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            statusPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(statusPanelLayout.createSequentialGroup()
-                .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(statusPanelSeparator, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(statusPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(statusMessageLabel)
                     .addComponent(statusAnimationLabel)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3))
         );
 

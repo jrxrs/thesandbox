@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
-Class-Path: lib/AppFramework.jar lib/swing-worker.jar
+Class-Path: lib/AppFramework.jar lib/swing-worker.jar lib/jgoodies-for
+ ms.jar
 Main-Class: org.thesandbox.itask.ITaskApp
 

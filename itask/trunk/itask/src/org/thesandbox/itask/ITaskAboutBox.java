@@ -14,7 +14,7 @@ import java.awt.*;
  * @author jrxrs
  * @date 30-Nov-2009
  */
-public class ITaskAboutBox extends javax.swing.JDialog
+public class ITaskAboutBox extends JDialog
 {
     private ResourceMap resourceMap;
     private ActionMap actionMap;
@@ -35,14 +35,15 @@ public class ITaskAboutBox extends javax.swing.JDialog
         dispose();
     }
 
-    private void gbAdd(JComponent parent, GridBagLayout gridbag,
+    private void gbAdd(JComponent parent, GridBagLayout gridBag,
                        GridBagConstraints c, Component comp) {
-         gridbag.setConstraints(comp, c);
-         parent.add(comp);
-     }
-
+        gridBag.setConstraints(comp, c);
+        parent.add(comp);
+    }
 
     private void initComponents() {
+
+        setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
 
         closeButton = new JButton();
         JLabel appTitleLabel = new JLabel();
@@ -55,7 +56,7 @@ public class ITaskAboutBox extends javax.swing.JDialog
         JLabel appDescLabel = new JLabel();
         JLabel imageLabel = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(resourceMap.getString("title")); // NOI18N
         setModal(true);
         setName("aboutBox"); // NOI18N
