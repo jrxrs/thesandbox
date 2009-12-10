@@ -31,8 +31,10 @@ public class ITaskProperties {
     private ResourceMap resourceMap;
     private File pFile;
     private final String propsFileName = "iTaskSettings.xml";
-    public static final String REP_PATH    = "repository";
-    public static final String NOT_SET     = "null";
+    public static final String REP_PATH         = "repository";
+    public static final String RESCAN_PERIOD    = "rescan";
+    public static final String NOT_SET          = "null";
+    public static final int    RESCAN_DEFAULT   = 300;
 
     private ITaskProperties() {
         userProperties = new Properties();
@@ -81,6 +83,7 @@ public class ITaskProperties {
 
     private File newDefaultProps(File propsFile) throws Exception {
         userProperties.put(REP_PATH, NOT_SET);
+        userProperties.put(RESCAN_PERIOD, String.valueOf(RESCAN_DEFAULT));
         writeProps(propsFile);
         return propsFile;
     }

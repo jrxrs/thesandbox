@@ -1,11 +1,21 @@
 package org.thesandbox.itask;
 
+import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.layout.FormLayout;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
 
 import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The main iTask application frame.
@@ -21,19 +31,22 @@ public class ITaskView extends FrameView
     private ActionMap actionMap;
 
     // GUI bits
-    private JPanel mainPanel, statusPanel;
-    private JMenuBar menuBar;
+    private JPanel mainPanel;
     private JProgressBar progressBar;
     private JLabel statusAnimationLabel, statusMessageLabel;
-    private Status status = Status.NOPATH;
+    private JMenuItem rescanMenuItem;
+
+    private Status status = Status.NO_PATH;
+    private int dlCount;
 
     private JDialog aboutBox;
-    private JDialog settingsDialog;
+
+    private Timer rescanTimer;
 
     /* Status enum for setting the App Status */
     public static enum Status {
-        NOPATH("status.NoRepPath.text"),
-        NODOWNLOADS("status.NoDownloads.text"),
+        NO_PATH("status.NoRepPath.text"),
+        NO_DOWNLOADS("status.NoDownloads.text"),
         SCANNING("status.Scanning.text"),
         DOWNLOADING("status.Downloading.text"),
         COMPLETE("status.DownloadingComplete.text");
@@ -55,10 +68,19 @@ public class ITaskView extends FrameView
         resourceMap = getResourceMap();
         actionMap = app.getContext().getActionMap(ITaskView.class, this);
 
+        dlCount = 0;
+
         processProperties();
 
         initComponents();
-        bgScan();
+        if(status == Status.SCANNING)
+            bgScan();
+        startTimer();
+    }
+
+    @Action
+    public void rescan() {
+         bgScan();
     }
 
     @Action
@@ -71,52 +93,108 @@ public class ITaskView extends FrameView
         ITaskApp.getApplication().show(aboutBox);
     }
 
+    /**
+     * Create a new Setting dialog to allow the user to view and/or alter their
+     * settings. 
+     */
     @Action
     public void showSettings() {
-        if (settingsDialog == null) {
-            JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
-            settingsDialog = new ITaskSettings(mainFrame);
-            settingsDialog.setLocationRelativeTo(mainFrame);
-        }
+        JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
+        ITaskSettings settingsDialog = new ITaskSettings(mainFrame);
+        settingsDialog.setLocationRelativeTo(mainFrame);
+
+        /* Need to catch a save on settings and make sure we reconfigure the
+         * timer and rescan the directory structure after we exit on safe.
+         * Maybe we could prompt the user to tell us if they wish to rescan? */
+
         ITaskApp.getApplication().show(settingsDialog);
     }
 
     private void processProperties() {
         if(ITaskProperties.NOT_SET.equals(ITaskProperties.getInstance()
                 .get(ITaskProperties.REP_PATH, ITaskProperties.NOT_SET))) {
-            status = Status.NOPATH;
+            status = Status.NO_PATH;
         } else {
             status = Status.SCANNING;
         }
     }
 
+    public void setStatus(Status newStatus) {
+        status = newStatus;
+        statusMessageLabel.setText(resourceMap.getString(status.getResource()));
+        switch(status) {
+            case COMPLETE:
+                progressBar.setValue(0);
+                break;
+            case NO_DOWNLOADS:
+                progressBar.setIndeterminate(false);
+                break;
+            case DOWNLOADING:
+                progressBar.setIndeterminate(true);
+                break;
+        }
+    }
+
     private void bgScan() {
+        setStatus(Status.SCANNING);
         progressBar.setIndeterminate(true);
+        rescanMenuItem.setEnabled(false);
+        BGRepScan task = new BGRepScan();
+        task.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+                if("progress".equals(evt.getPropertyName())) {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setValue((Integer)evt.getNewValue());
+                }
+            }
+        });
+
+        task.execute();
+    }
+
+    private void startTimer() {
+        rescanTimer = new Timer();
+        try {
+            int duration = Integer.parseInt(ITaskProperties.getInstance()
+                    .get(ITaskProperties.RESCAN_PERIOD));
+            if(duration > 30) {
+                duration *= 1000;
+                rescanTimer.scheduleAtFixedRate(new TimerScan(), duration, duration);
+            }
+        } catch(NumberFormatException nfe) { }
+    }
+
+    private void reconfigureTimer() {
+        rescanTimer.cancel();
+        rescanTimer.purge();
+        startTimer();
+    }
+
+    private class TimerScan extends TimerTask {
+
+        @Override
+        public void run() {
+            bgScan();
+        }
     }
 
     private void initComponents() {
 
         getFrame().setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
+        getFrame().setPreferredSize(new Dimension(750, 500));
         mainPanel = new JPanel();
 
-        statusPanel = new JPanel();
+        JPanel statusPanel = new JPanel();
         JSeparator statusPanelSeparator = new JSeparator();
         statusMessageLabel = new JLabel();
         statusAnimationLabel = new JLabel();
         progressBar = new JProgressBar();
 
         mainPanel.setName("mainPanel"); // NOI18N
-
-        GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 252, Short.MAX_VALUE)
-        );
+        mainPanel.setBorder(BorderFactory.createTitledBorder(
+                resourceMap.getString("mainPanel.border.text")));
+        mainPanel.setLayout(new GridLayout(0, 1));
+        mainPanel.add(new JLabel(resourceMap.getIcon("downloading.gif")));
 
         statusPanel.setName("statusPanel"); // NOI18N
 
@@ -127,6 +205,7 @@ public class ITaskView extends FrameView
 
         statusAnimationLabel.setHorizontalAlignment(SwingConstants.LEFT);
         statusAnimationLabel.setName("statusAnimationLabel"); // NOI18N
+        statusAnimationLabel.setText(String.valueOf(dlCount));
 
         progressBar.setName("progressBar"); // NOI18N
 
@@ -156,16 +235,17 @@ public class ITaskView extends FrameView
                 .addGap(3, 3, 3))
         );
 
-        setComponent(mainPanel);
+        setComponent(new JScrollPane(mainPanel));
         setMenuBar(getITaskViewMenuBar());
         setStatusBar(statusPanel);
     }
 
     private JMenuBar getITaskViewMenuBar() {
-        menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu();
         JMenuItem exitMenuItem = new JMenuItem();
+        rescanMenuItem = new JMenuItem();
         JMenu optionsMenu = new JMenu();
         JMenuItem settingsMenuItem = new JMenuItem();
         JMenu helpMenu = new JMenu();
@@ -176,6 +256,10 @@ public class ITaskView extends FrameView
         // File menu
         fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
+
+        rescanMenuItem.setAction(actionMap.get("rescan"));
+        rescanMenuItem.setName("rescanMenuItem");
+        fileMenu.add(rescanMenuItem);
 
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
@@ -204,5 +288,84 @@ public class ITaskView extends FrameView
         menuBar.add(helpMenu);
 
         return menuBar;
+    }
+
+    /**
+     * Inner class to handle scanning the iPlayer Repository for files.
+     */
+    class BGRepScan extends SwingWorker<List<IPlayerDownload>, IPlayerDownload>
+    {
+        private final List<IPlayerDownload> downloads;
+        private Status localStatus = Status.COMPLETE;
+
+        public BGRepScan() {
+            this.downloads = new ArrayList<IPlayerDownload>();
+        }
+
+        @Override
+        public List<IPlayerDownload> doInBackground() {
+            File repDir = new File(ITaskProperties.getInstance().get(ITaskProperties.REP_PATH));
+            if(repDir.isDirectory()) {
+                File[] folders = repDir.listFiles();
+                ArrayList<File> temp = new ArrayList<File>(folders.length);
+
+                /* Get rid of the cache directory */
+                for(File f : folders) {
+                    if(!f.getName().equalsIgnoreCase("cache"))
+                        temp.add(f);
+                }
+
+                for(File f : temp) {
+                    if(isCancelled())
+                        break;
+                    IPlayerDownload ipdl = IPlayerDownload.parse(f);
+                    downloads.add(ipdl);
+                    publish(ipdl);
+                    setProgress((downloads.size() / temp.size()) * 100);
+                }
+            }
+            return downloads;
+        }
+
+        @Override
+        protected void process(List<IPlayerDownload> chunks) {
+            for(IPlayerDownload ipdl : chunks) {
+                statusAnimationLabel.setText(String.valueOf(dlCount++));
+            }
+        }
+
+        @Override
+        public void done() {
+            FormLayout layout = new FormLayout("pref, 10dlu, pref:grow, 5dlu, pref", "");
+            DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+            for(IPlayerDownload ipdl : downloads) {
+                try {
+                    builder.appendSeparator(ipdl.getTitle());
+                    JLabel pic = new JLabel(new ImageIcon(ipdl.getIcon().getImage()
+                            .getScaledInstance(320, -1, Image.SCALE_SMOOTH )));
+                    builder.append(pic);
+                    builder.append(ipdl.getTitle());
+                    if(!ipdl.isComplete())
+                        builder.append(new JLabel(resourceMap.getIcon("downloading.gif")));
+                    builder.nextLine();
+                } catch(NullPointerException npe) {
+                    //ignore
+                }
+            }
+            mainPanel.removeAll();
+            mainPanel.add(builder.getPanel());
+            statusAnimationLabel.setText(String.valueOf(downloads.size()));
+            dlCount = 0;
+            if(downloads.size() == 0) {
+                localStatus = Status.NO_DOWNLOADS;
+            } else {
+                for(IPlayerDownload i : downloads) {
+                    if(!i.isComplete())
+                        localStatus = Status.DOWNLOADING;
+                }
+            }
+            setStatus(localStatus);
+            rescanMenuItem.setEnabled(true);
+        }
     }
 }

@@ -3,6 +3,8 @@ package org.thesandbox.itask;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
+import java.awt.SplashScreen;
+
 /**
  * The main class of the iTask application.
  *
@@ -41,6 +43,7 @@ public class ITaskApp extends SingleFrameApplication
      * Main method launching the application.
      */
     public static void main(String[] args) {
+        SplashScreen.getSplashScreen();
         launch(ITaskApp.class, args);
     }
 }

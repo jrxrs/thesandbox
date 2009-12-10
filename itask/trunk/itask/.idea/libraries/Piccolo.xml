@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Piccolo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/piccolo/1.04/Piccolo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/piccolo/1.04/1.04-src.zip!/piccolo-1.04/src" />
+    </SOURCES>
+  </library>
+</component>
