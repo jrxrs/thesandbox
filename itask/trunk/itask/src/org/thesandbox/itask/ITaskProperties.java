@@ -5,7 +5,10 @@ import org.jdesktop.application.ResourceMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Enumeration;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Properties container for the iTask application.
@@ -13,11 +16,13 @@ import java.util.Properties;
  *
  * Created by IntelliJ IDEA.
  *
+ * Date: 05-Dec-2009
  * @author jrxrs
- * @date 05-Dec-2009
  */
 
 public class ITaskProperties {
+    private static Logger logger = Logger.getLogger(ITaskProperties.class.getCanonicalName());
+
     private static ITaskProperties cInstance = null;
 
     public static ITaskProperties getInstance() {
@@ -33,8 +38,10 @@ public class ITaskProperties {
     private final String propsFileName = "iTaskSettings.xml";
     public static final String REP_PATH         = "repository";
     public static final String RESCAN_PERIOD    = "rescan";
+    public static final String STALE_PERIOD     = "stale";
     public static final String NOT_SET          = "null";
     public static final int    RESCAN_DEFAULT   = 300;
+    public static final int    STALE_DEFAULT    = 300;
 
     private ITaskProperties() {
         userProperties = new Properties();
@@ -64,13 +71,17 @@ public class ITaskProperties {
             try {
                 writeProps(pFile);
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.log(Level.WARNING, "Exception thrown in Properties", e);
             }
         }
     }
 
     public void dump() {
-        userProperties.list(System.out);
+        Enumeration e = userProperties.propertyNames();
+        while(e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            logger.log(Level.INFO, key + ": " + userProperties.get(key));
+        }
     }
 
     private void writeProps(File f) throws Exception {
@@ -84,6 +95,7 @@ public class ITaskProperties {
     private File newDefaultProps(File propsFile) throws Exception {
         userProperties.put(REP_PATH, NOT_SET);
         userProperties.put(RESCAN_PERIOD, String.valueOf(RESCAN_DEFAULT));
+        userProperties.put(STALE_PERIOD, String.valueOf(STALE_DEFAULT));
         writeProps(propsFile);
         return propsFile;
     }
@@ -119,14 +131,14 @@ public class ITaskProperties {
         try {
             pFile = propsExist();
             if(pFile != null) {
-                System.out.println("props file found at " + pFile.getPath());
+                logger.log(Level.INFO, "Using Properties at: " + pFile.getPath());
                 FileInputStream fis = new FileInputStream(pFile);
                 userProperties.loadFromXML(fis);
                 fis.close();
                 dump();
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Exception thrown in Properties", e);
         }
     }
 }

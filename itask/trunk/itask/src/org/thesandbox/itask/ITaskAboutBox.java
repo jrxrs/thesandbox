@@ -5,6 +5,13 @@ import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The iTask About box.
@@ -16,6 +23,7 @@ import java.awt.*;
  */
 public class ITaskAboutBox extends JDialog
 {
+    private static Logger logger = Logger.getLogger(ITaskAboutBox.class.getCanonicalName());    
     private ResourceMap resourceMap;
     private ActionMap actionMap;
     private JButton closeButton;
@@ -89,6 +97,22 @@ public class ITaskAboutBox extends JDialog
 
         appHomepageLabel.setText(resourceMap.getString("appHomepageLabel.text")); // NOI18N
         appHomepageLabel.setName("appHomepageLabel"); // NOI18N
+        appHomepageLabel.addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if(Desktop.isDesktopSupported()) {
+                    try {
+                        Desktop.getDesktop().browse(new URI(
+                                resourceMap.getString("Application.homepage")));
+                    } catch(URISyntaxException urise) {
+                        logger.log(Level.WARNING, "Incorrect URI", urise);
+                    } catch(IOException ioe) {
+                        logger.log(Level.WARNING, "General IO Error", ioe);
+                    }
+                }
+            }
+        });
 
         appDescLabel.setText(resourceMap.getString("appDescLabel.text")); // NOI18N
         appDescLabel.setName("appDescLabel"); // NOI18N

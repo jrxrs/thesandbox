@@ -16,8 +16,8 @@ import java.text.NumberFormat;
  *
  * Created by IntelliJ IDEA.
  *
+ * Date: 30-Nov-2009
  * @author jrxrs
- * @date 30-Nov-2009
  */
 public class ITaskSettings extends JDialog
 {
@@ -26,9 +26,9 @@ public class ITaskSettings extends JDialog
 
     // GUI bits
     private JFileChooser jfc;
-    private JButton saveButton, cancelButton;
+    private JButton saveButton;
     private JTextField repPath;
-    private JFormattedTextField rescanDuration;
+    private JFormattedTextField rescanDuration, stalePeriod;
 
     public ITaskSettings(Frame parent) {
         super(parent);
@@ -42,6 +42,10 @@ public class ITaskSettings extends JDialog
 
     @Action
     public void browsePath() {
+        String t = ITaskProperties.getInstance().get(ITaskProperties.REP_PATH);
+        if(!ITaskProperties.NOT_SET.equals(t)) {
+            jfc.setCurrentDirectory(new File(t));
+        }
         if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File chosen = jfc.getSelectedFile();
             repPath.setText(chosen.getPath());
@@ -63,7 +67,9 @@ public class ITaskSettings extends JDialog
         ITaskProperties.getInstance().set(
                 ITaskProperties.REP_PATH, repPath.getText(), false);
         ITaskProperties.getInstance().set(
-                ITaskProperties.RESCAN_PERIOD, rescanDuration.getText(), true);
+                ITaskProperties.RESCAN_PERIOD, rescanDuration.getText(), false);
+        ITaskProperties.getInstance().set(
+                ITaskProperties.STALE_PERIOD, stalePeriod.getText(), true);
     }
 
     private void initComponents() {
@@ -77,11 +83,11 @@ public class ITaskSettings extends JDialog
         jfc.setDialogTitle(resourceMap.getString("browsePath.title"));
 
         saveButton = new JButton();
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         JLabel repPathLabel = new JLabel();
         JButton browsePath = new JButton();
         JLabel rescanDurationLabel = new JLabel();
-        JLabel secondsLabel = new JLabel();
+        JLabel stalePeriodLabel = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(resourceMap.getString("title"));
@@ -105,20 +111,25 @@ public class ITaskSettings extends JDialog
         rescanDurationLabel.setText(resourceMap.getString("rescanDurationLabel.text"));
         rescanDurationLabel.setName("rescanDurationLabel");
 
-        secondsLabel.setText(resourceMap.getString("secondsLabel.text"));
-        secondsLabel.setName("secondsLabel");
+        String seconds = resourceMap.getString("secondsLabel.text");
+
+        stalePeriodLabel.setFont(stalePeriodLabel.getFont().deriveFont(stalePeriodLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        stalePeriodLabel.setText(resourceMap.getString("stalePeriodLabel.text"));
+        stalePeriodLabel.setName("stalePeriodLabel");
 
         repPath = new JTextField(ITaskProperties.getInstance().get(ITaskProperties.REP_PATH));
         rescanDuration = new JFormattedTextField(NumberFormat.getIntegerInstance());
         rescanDuration.setText(ITaskProperties.getInstance().get(ITaskProperties.RESCAN_PERIOD));
+        stalePeriod = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        stalePeriod.setText(ITaskProperties.getInstance().get(ITaskProperties.STALE_PERIOD));
 
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
 
         // Build form
         FormLayout layout = new FormLayout(
-                "right:pref, 3dlu, 30dlu, 3dlu, pref, 3dlu, pref:grow, 3dlu, pref, 3dlu, pref",  // cols (x)
-                "pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref"); // rows (y)
+                "right:pref, 3dlu, 30dlu, 3dlu, pref, 3dlu, pref:grow, 3dlu, pref, 3dlu, pref", // cols (x)
+                "pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref");            // rows (y)
 
         // Specify columns that have equal widths.
         layout.setColumnGroups(new int[][]{{9, 11}});
@@ -139,18 +150,21 @@ public class ITaskSettings extends JDialog
         // Row 5
         builder.add(rescanDurationLabel, cc.xy(1, 5));
         builder.add(rescanDuration, cc.xy(3, 5));
-        builder.add(secondsLabel, cc.xy(5, 5));
+        builder.addLabel(seconds, cc.xy(5, 5));
 
         // Row 7
-        builder.addSeparator("", cc.xyw(1, 7, 11));
+        builder.add(stalePeriodLabel, cc.xy(1, 7));
+        builder.add(stalePeriod, cc.xy(3, 7));
+        builder.addLabel(seconds, cc.xy(5, 7));
 
         // Row 9
-        builder.add(saveButton, cc.xy(9, 9));
-        builder.add(cancelButton, cc.xy(11, 9));
+        builder.addSeparator("", cc.xyw(1, 9, 11));
+
+        // Row 11
+        builder.add(saveButton, cc.xy(9, 11));
+        builder.add(cancelButton, cc.xy(11, 11));
 
         c.add(builder.getPanel(), BorderLayout.CENTER);
-
-//        setPreferredSize(new Dimension(500, 500));
 
         pack();
     }

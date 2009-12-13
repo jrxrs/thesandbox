@@ -4,6 +4,8 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
 import java.awt.SplashScreen;
+import java.io.IOException;
+import java.util.logging.*;
 
 /**
  * The main class of the iTask application.
@@ -15,6 +17,8 @@ import java.awt.SplashScreen;
  */
 public class ITaskApp extends SingleFrameApplication
 {
+    private static Logger logger = Logger.getLogger(ITaskApp.class.getCanonicalName());
+
     /**
      * At start up create and show the main frame of the application.
      */
@@ -43,6 +47,16 @@ public class ITaskApp extends SingleFrameApplication
      * Main method launching the application.
      */
     public static void main(String[] args) {
+        /* Set up Logging */
+        try {
+            Handler fh = new FileHandler("%t/itask.log");
+            fh.setFormatter(new SimpleFormatter());
+            Logger.getLogger("").addHandler(fh);
+            logger.log(Level.INFO, "Application Started");
+        } catch(IOException ioe) {
+            System.err.println("Could not open log file: itask.log");
+        }
+
         SplashScreen.getSplashScreen();
         launch(ITaskApp.class, args);
     }

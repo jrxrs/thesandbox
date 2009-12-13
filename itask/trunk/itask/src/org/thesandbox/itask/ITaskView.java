@@ -6,27 +6,39 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
+import org.thesandbox.itask.tasks.ITask;
+import org.thesandbox.itask.tasks.Shutdown;
+import org.thesandbox.itask.tasks.WindowsShutdown;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The main iTask application frame.
  *
  * Created by IntelliJ IDEA.
  *
+ * Date: 30-Nov-2009
  * @author jrxrs
- * @date 30-Nov-2009
  */
 public class ITaskView extends FrameView
 {
+    private static Logger logger = Logger.getLogger(ITaskView.class.getCanonicalName());
+
     private ResourceMap resourceMap;
     private ActionMap actionMap;
 
@@ -49,7 +61,8 @@ public class ITaskView extends FrameView
         NO_DOWNLOADS("status.NoDownloads.text"),
         SCANNING("status.Scanning.text"),
         DOWNLOADING("status.Downloading.text"),
-        COMPLETE("status.DownloadingComplete.text");
+        COMPLETE("status.DownloadingComplete.text"),
+        STALE("status.StaleDownloads.text");
 
         private String resource;
 
@@ -84,6 +97,17 @@ public class ITaskView extends FrameView
     }
 
     @Action
+    public void configTrig() {
+        new Thread(new WindowsShutdown(Shutdown.Option.RESTART,
+                                       Shutdown.Option.FORCE)).start();
+    }
+
+    @Action
+    public void iplayer() {
+        desktopBrowse(resourceMap.getString("iplayer.url"));
+    }
+
+    @Action
     public void showAboutBox() {
         if (aboutBox == null) {
             JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
@@ -95,7 +119,7 @@ public class ITaskView extends FrameView
 
     /**
      * Create a new Setting dialog to allow the user to view and/or alter their
-     * settings. 
+     * settings.
      */
     @Action
     public void showSettings() {
@@ -132,6 +156,9 @@ public class ITaskView extends FrameView
             case DOWNLOADING:
                 progressBar.setIndeterminate(true);
                 break;
+            case STALE:
+                progressBar.setValue(50);
+                break;
         }
     }
 
@@ -157,11 +184,17 @@ public class ITaskView extends FrameView
         try {
             int duration = Integer.parseInt(ITaskProperties.getInstance()
                     .get(ITaskProperties.RESCAN_PERIOD));
-            if(duration > 30) {
+            if(duration > 29) {
                 duration *= 1000;
                 rescanTimer.scheduleAtFixedRate(new TimerScan(), duration, duration);
+            } else {
+                logger.log(Level.INFO, "Rescan duration was less than 30 seconds" +
+                        ", auto rescan disabled.");
             }
-        } catch(NumberFormatException nfe) { }
+        } catch(NumberFormatException nfe) {
+            logger.log(Level.WARNING, ITaskProperties.RESCAN_PERIOD +
+                    " property was not a number.", nfe);
+        }
     }
 
     private void reconfigureTimer() {
@@ -175,6 +208,18 @@ public class ITaskView extends FrameView
         @Override
         public void run() {
             bgScan();
+        }
+    }
+
+    private void desktopBrowse(String uri) {
+        if(Desktop.isDesktopSupported()) {
+            try {
+            Desktop.getDesktop().browse(new URI(uri));
+            } catch(URISyntaxException urise) {
+                logger.log(Level.WARNING, "Incorrect URI", urise);
+            } catch(IOException ioe) {
+                logger.log(Level.WARNING, "General IO Error", ioe);
+            }
         }
     }
 
@@ -235,7 +280,10 @@ public class ITaskView extends FrameView
                 .addGap(3, 3, 3))
         );
 
-        setComponent(new JScrollPane(mainPanel));
+        JScrollPane jsp = new JScrollPane(mainPanel);
+        JScrollBar jsb = jsp.getVerticalScrollBar();
+        jsb.setUnitIncrement(100);
+        setComponent(jsp);
         setMenuBar(getITaskViewMenuBar());
         setStatusBar(statusPanel);
     }
@@ -246,6 +294,8 @@ public class ITaskView extends FrameView
         JMenu fileMenu = new JMenu();
         JMenuItem exitMenuItem = new JMenuItem();
         rescanMenuItem = new JMenuItem();
+        JMenuItem configTrigMenuItem = new JMenuItem();
+        JMenuItem iPlayerWebsiteMenuItem = new JMenuItem();
         JMenu optionsMenu = new JMenu();
         JMenuItem settingsMenuItem = new JMenuItem();
         JMenu helpMenu = new JMenu();
@@ -260,6 +310,16 @@ public class ITaskView extends FrameView
         rescanMenuItem.setAction(actionMap.get("rescan"));
         rescanMenuItem.setName("rescanMenuItem");
         fileMenu.add(rescanMenuItem);
+
+        configTrigMenuItem.setAction(actionMap.get("configTrig"));
+        configTrigMenuItem.setName("configTrigMenuItem");
+        fileMenu.add(configTrigMenuItem);
+
+        iPlayerWebsiteMenuItem.setAction(actionMap.get("iplayer"));
+        iPlayerWebsiteMenuItem.setName("iPlayerWebsiteMenuItem");
+        fileMenu.add(iPlayerWebsiteMenuItem);
+
+        fileMenu.addSeparator();
 
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
@@ -296,7 +356,6 @@ public class ITaskView extends FrameView
     class BGRepScan extends SwingWorker<List<IPlayerDownload>, IPlayerDownload>
     {
         private final List<IPlayerDownload> downloads;
-        private Status localStatus = Status.COMPLETE;
 
         public BGRepScan() {
             this.downloads = new ArrayList<IPlayerDownload>();
@@ -309,7 +368,7 @@ public class ITaskView extends FrameView
                 File[] folders = repDir.listFiles();
                 ArrayList<File> temp = new ArrayList<File>(folders.length);
 
-                /* Get rid of the cache directory */
+                /* Ignore cache directory */
                 for(File f : folders) {
                     if(!f.getName().equalsIgnoreCase("cache"))
                         temp.add(f);
@@ -338,6 +397,7 @@ public class ITaskView extends FrameView
         public void done() {
             FormLayout layout = new FormLayout("pref, 10dlu, pref:grow, 5dlu, pref", "");
             DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+            Status localStatus = Status.COMPLETE;
             for(IPlayerDownload ipdl : downloads) {
                 try {
                     builder.appendSeparator(ipdl.getTitle());
@@ -345,8 +405,27 @@ public class ITaskView extends FrameView
                             .getScaledInstance(320, -1, Image.SCALE_SMOOTH )));
                     builder.append(pic);
                     builder.append(ipdl.getTitle());
-                    if(!ipdl.isComplete())
-                        builder.append(new JLabel(resourceMap.getIcon("downloading.gif")));
+                    JLabel icon = new JLabel();
+                    final String url = ipdl.getUrl();
+                    icon.addMouseListener(new MouseAdapter(){
+
+                        @Override
+                        public void mouseClicked(MouseEvent me) {
+                            desktopBrowse(url);
+                        }
+                    });
+                    if(ipdl.isComplete()) {
+                        icon.setIcon(resourceMap.getIcon("complete.icon"));
+                    } else {
+                        if(ipdl.isStale()) {
+                            localStatus = Status.STALE;
+                            icon.setIcon(resourceMap.getIcon("stale.icon"));
+                        } else {
+                            localStatus = Status.DOWNLOADING;
+                            icon.setIcon(resourceMap.getIcon("downloading.gif"));
+                        }
+                    }
+                    builder.append(icon);
                     builder.nextLine();
                 } catch(NullPointerException npe) {
                     //ignore
@@ -358,11 +437,6 @@ public class ITaskView extends FrameView
             dlCount = 0;
             if(downloads.size() == 0) {
                 localStatus = Status.NO_DOWNLOADS;
-            } else {
-                for(IPlayerDownload i : downloads) {
-                    if(!i.isComplete())
-                        localStatus = Status.DOWNLOADING;
-                }
             }
             setStatus(localStatus);
             rescanMenuItem.setEnabled(true);
