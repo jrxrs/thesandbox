@@ -6,7 +6,6 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
-import org.thesandbox.itask.tasks.ITask;
 import org.thesandbox.itask.tasks.Shutdown;
 import org.thesandbox.itask.tasks.WindowsShutdown;
 
@@ -20,10 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.text.BreakIterator;
+import java.util.*;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +46,7 @@ public class ITaskView extends FrameView
     private JProgressBar progressBar;
     private JLabel statusAnimationLabel, statusMessageLabel;
     private JMenuItem rescanMenuItem;
+    private JScrollPane jsp;
 
     private Status status = Status.NO_PATH;
     private int dlCount;
@@ -160,6 +160,7 @@ public class ITaskView extends FrameView
                 progressBar.setValue(50);
                 break;
         }
+//        resetScrollPanel();
     }
 
     private void bgScan() {
@@ -223,6 +224,42 @@ public class ITaskView extends FrameView
         }
     }
 
+    private void resetScrollPanel() {
+        JScrollBar verticalScrollBar = jsp.getVerticalScrollBar();
+        JScrollBar horizontalScrollBar = jsp.getHorizontalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
+        horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
+    }
+
+    /* Adapted from: http://www.geekyramblings.net/2005/06/30/wrap-jlabel-text/ */
+    private void wrapLabelText(JLabel label, String text, int width) {
+        FontMetrics fm = label.getFontMetrics(label.getFont());
+
+        BreakIterator boundary = BreakIterator.getWordInstance();
+        boundary.setText(text);
+
+        StringBuffer trial = new StringBuffer();
+        StringBuffer real = new StringBuffer("<html>");
+
+        int start = boundary.first();
+        for (int end = boundary.next(); end != BreakIterator.DONE;
+             start = end, end = boundary.next()) {
+            String word = text.substring(start, end);
+            trial.append(word);
+            int trialWidth = SwingUtilities.computeStringWidth(fm,
+                    trial.toString());
+            if (trialWidth > width) {
+                trial = new StringBuffer(word);
+                real.append("<br>");
+            }
+            real.append(word);
+        }
+
+        real.append("</html>");
+
+        label.setText(real.toString());
+    }
+
     private void initComponents() {
 
         getFrame().setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
@@ -280,9 +317,9 @@ public class ITaskView extends FrameView
                 .addGap(3, 3, 3))
         );
 
-        JScrollPane jsp = new JScrollPane(mainPanel);
+        jsp = new JScrollPane(mainPanel);
         JScrollBar jsb = jsp.getVerticalScrollBar();
-        jsb.setUnitIncrement(100);
+        jsb.setUnitIncrement(75);
         setComponent(jsp);
         setMenuBar(getITaskViewMenuBar());
         setStatusBar(statusPanel);
@@ -353,16 +390,16 @@ public class ITaskView extends FrameView
     /**
      * Inner class to handle scanning the iPlayer Repository for files.
      */
-    class BGRepScan extends SwingWorker<List<IPlayerDownload>, IPlayerDownload>
+    class BGRepScan extends SwingWorker<HashMap<String, IPlayerDownload>, IPlayerDownload>
     {
-        private final List<IPlayerDownload> downloads;
+        private final HashMap<String, IPlayerDownload> downloads;
 
         public BGRepScan() {
-            this.downloads = new ArrayList<IPlayerDownload>();
+            this.downloads = new HashMap<String, IPlayerDownload>();
         }
 
         @Override
-        public List<IPlayerDownload> doInBackground() {
+        public HashMap<String, IPlayerDownload> doInBackground() {
             File repDir = new File(ITaskProperties.getInstance().get(ITaskProperties.REP_PATH));
             if(repDir.isDirectory()) {
                 File[] folders = repDir.listFiles();
@@ -378,7 +415,7 @@ public class ITaskView extends FrameView
                     if(isCancelled())
                         break;
                     IPlayerDownload ipdl = IPlayerDownload.parse(f);
-                    downloads.add(ipdl);
+                    downloads.put(ipdl.getTitle(), ipdl);
                     publish(ipdl);
                     setProgress((downloads.size() / temp.size()) * 100);
                 }
@@ -398,13 +435,18 @@ public class ITaskView extends FrameView
             FormLayout layout = new FormLayout("pref, 10dlu, pref:grow, 5dlu, pref", "");
             DefaultFormBuilder builder = new DefaultFormBuilder(layout);
             Status localStatus = Status.COMPLETE;
-            for(IPlayerDownload ipdl : downloads) {
+            Object[] titles = downloads.keySet().toArray();
+            Arrays.sort(titles);
+            for(Object title : titles) {
+                IPlayerDownload ipdl = downloads.get((String)title);
                 try {
                     builder.appendSeparator(ipdl.getTitle());
                     JLabel pic = new JLabel(new ImageIcon(ipdl.getIcon().getImage()
                             .getScaledInstance(320, -1, Image.SCALE_SMOOTH )));
                     builder.append(pic);
-                    builder.append(ipdl.getTitle());
+                    JLabel sum = new JLabel();
+                    wrapLabelText(sum, ipdl.getSummary(), 325);
+                    builder.append(sum);
                     JLabel icon = new JLabel();
                     final String url = ipdl.getUrl();
                     icon.addMouseListener(new MouseAdapter(){
@@ -421,7 +463,8 @@ public class ITaskView extends FrameView
                             localStatus = Status.STALE;
                             icon.setIcon(resourceMap.getIcon("stale.icon"));
                         } else {
-                            localStatus = Status.DOWNLOADING;
+                            localStatus = localStatus == Status.STALE ?
+                                    Status.STALE : Status.DOWNLOADING;
                             icon.setIcon(resourceMap.getIcon("downloading.gif"));
                         }
                     }

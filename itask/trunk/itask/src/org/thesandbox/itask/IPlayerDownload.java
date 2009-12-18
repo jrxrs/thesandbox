@@ -30,10 +30,11 @@ public class IPlayerDownload
     private ImageIcon icon;
     private String url;
     private boolean stale;
+    private String summary;
 
     public IPlayerDownload(String uniqueId, File folder, String title,
                            boolean complete, ImageIcon icon, String url,
-                           boolean stale) {
+                           boolean stale, String summary) {
         this.uniqueId = uniqueId;
         this.folder = folder;
         this.title = title;
@@ -41,6 +42,7 @@ public class IPlayerDownload
         this.icon = icon;
         this.url = url;
         this.stale = stale;
+        this.summary = summary;
     }
 
     /* Getters & Setters */
@@ -70,6 +72,10 @@ public class IPlayerDownload
 
     public boolean isStale() {
         return stale;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 
     /**
@@ -111,7 +117,7 @@ public class IPlayerDownload
         }
 
         /* Parse the pl_ */
-        IPlayerPlaylist ipp = new IPlayerPlaylist(f.getName(), "");
+        IPlayerPlaylist ipp = new IPlayerPlaylist(f.getName(), "", "");
         if(f2p != null) {
             try {
                 SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -135,17 +141,19 @@ public class IPlayerDownload
         }
 
         return new IPlayerDownload(uniqueId, f, ipp.title, complete, pic,
-                ipp.url, stale);
+                ipp.url, stale, ipp.summary);
     }
 
     private static class IPlayerPlaylist
     {
         public final String title;
         public final String url;
+        public final String summary;
 
-        public IPlayerPlaylist(String title, String url) {
+        public IPlayerPlaylist(String title, String url, String summary) {
             this.title = title;
             this.url = url;
+            this.summary = summary;
         }
     }
 
@@ -158,11 +166,12 @@ public class IPlayerDownload
         private static final String LINK_ATTR_HREF  = "href";
         private static final String LINK_REL_ALT    = "alternate";
         private static final String TITLE           = "title";
+        private static final String SUMMARY         = "summary";
         private static final String RELATED_LINK    = "relatedLink";
 
         private Locator locator;
         private Stack<StringBuffer> stack;
-        private String title, url;
+        private String title, url, summary;
 
         private boolean stackee;
 
@@ -174,7 +183,7 @@ public class IPlayerDownload
         }
         
         public IPlayerPlaylist getPlaylist() {
-            return new IPlayerPlaylist(title, url);
+            return new IPlayerPlaylist(title, url, summary);
         }
 
         public void setDocumentLocator(Locator locator) {
@@ -195,6 +204,13 @@ public class IPlayerDownload
                     stack.push(new StringBuffer());
                     stackee = true;
                 }
+            } else if(SUMMARY.equals(qName)) {
+                if(RELATED_LINK.equals(stack.peek().toString())) {
+                    stack.push(new StringBuffer(SUMMARY));
+                } else {
+                    stack.push(new StringBuffer());
+                    stackee = true;
+                }
             } else if(RELATED_LINK.equals(qName)) {
                 stack.push(new StringBuffer(RELATED_LINK));
             }
@@ -210,6 +226,12 @@ public class IPlayerDownload
                     stack.pop();
                 } else {
                     title = stack.pop().toString();
+                }
+            } else if(SUMMARY.equals(qName)) {
+                if(SUMMARY.equals(stack.peek().toString())) {
+                    stack.pop();
+                } else {
+                    summary = stack.pop().toString();
                 }
             } else if(RELATED_LINK.equals(qName)) {
                 stack.pop();
