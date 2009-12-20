@@ -16,7 +16,16 @@ public abstract class ITask implements Runnable
         this.taskName = taskName;
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
     public String getTaskName() {
+        return taskName;
+    }
+
+    @Override
+    public String toString() {
         return taskName;
     }
 }

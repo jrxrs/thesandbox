@@ -51,7 +51,7 @@ public class ITaskAboutBox extends JDialog
 
     private void initComponents() {
 
-        setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
+        setIconImage((resourceMap.getImageIcon("window.icon")).getImage());
 
         closeButton = new JButton();
         JLabel appTitleLabel = new JLabel();
@@ -113,6 +113,7 @@ public class ITaskAboutBox extends JDialog
                 }
             }
         });
+        appHomepageLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         appDescLabel.setText(resourceMap.getString("appDescLabel.text")); // NOI18N
         appDescLabel.setName("appDescLabel"); // NOI18N

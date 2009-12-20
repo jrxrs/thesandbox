@@ -6,10 +6,11 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
-import org.thesandbox.itask.tasks.Shutdown;
-import org.thesandbox.itask.tasks.WindowsShutdown;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,11 +43,12 @@ public class ITaskView extends FrameView
     private ActionMap actionMap;
 
     // GUI bits
+    private JFrame mainFrame;
     private JPanel mainPanel;
     private JProgressBar progressBar;
     private JLabel statusAnimationLabel, statusMessageLabel;
     private JMenuItem rescanMenuItem;
-    private JScrollPane jsp;
+    private JButton rescanToolBarButton;
 
     private Status status = Status.NO_PATH;
     private int dlCount;
@@ -80,14 +82,16 @@ public class ITaskView extends FrameView
 
         resourceMap = getResourceMap();
         actionMap = app.getContext().getActionMap(ITaskView.class, this);
+        mainFrame = getFrame();
 
         dlCount = 0;
 
         processProperties();
 
         initComponents();
-        if(status == Status.SCANNING)
+        if(status == Status.SCANNING) {
             bgScan();
+        }
         startTimer();
     }
 
@@ -98,8 +102,11 @@ public class ITaskView extends FrameView
 
     @Action
     public void configTrig() {
-        new Thread(new WindowsShutdown(Shutdown.Option.RESTART,
-                                       Shutdown.Option.FORCE)).start();
+        ITaskTriggers triggersDialog = new ITaskTriggers(mainFrame);
+        triggersDialog.setLocationRelativeTo(mainFrame);
+
+        ITaskApp.getApplication().show(triggersDialog);
+//        new Thread(new Task()).start();
     }
 
     @Action
@@ -110,7 +117,6 @@ public class ITaskView extends FrameView
     @Action
     public void showAboutBox() {
         if (aboutBox == null) {
-            JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
             aboutBox = new ITaskAboutBox(mainFrame);
             aboutBox.setLocationRelativeTo(mainFrame);
         }
@@ -123,15 +129,14 @@ public class ITaskView extends FrameView
      */
     @Action
     public void showSettings() {
-        JFrame mainFrame = ITaskApp.getApplication().getMainFrame();
         ITaskSettings settingsDialog = new ITaskSettings(mainFrame);
         settingsDialog.setLocationRelativeTo(mainFrame);
 
-        /* Need to catch a save on settings and make sure we reconfigure the
-         * timer and rescan the directory structure after we exit on safe.
-         * Maybe we could prompt the user to tell us if they wish to rescan? */
-
         ITaskApp.getApplication().show(settingsDialog);
+        if(settingsDialog.getDisposeAction() == ITaskSettings.SAVE) {
+            bgScan();
+            reconfigureTimer();
+        }
     }
 
     private void processProperties() {
@@ -160,13 +165,23 @@ public class ITaskView extends FrameView
                 progressBar.setValue(50);
                 break;
         }
-//        resetScrollPanel();
+    }
+
+    /**
+     * Enable or disable the rescan actions.
+     *
+     * @param enabled   true to enable the rescan action
+     *                  false to disable the rescan action
+     */
+    private void rescanEnabled(boolean enabled) {
+        rescanMenuItem.setEnabled(enabled);
+        rescanToolBarButton.setEnabled(enabled);
     }
 
     private void bgScan() {
         setStatus(Status.SCANNING);
         progressBar.setIndeterminate(true);
-        rescanMenuItem.setEnabled(false);
+        rescanEnabled(false);
         BGRepScan task = new BGRepScan();
         task.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent evt) {
@@ -224,13 +239,6 @@ public class ITaskView extends FrameView
         }
     }
 
-    private void resetScrollPanel() {
-        JScrollBar verticalScrollBar = jsp.getVerticalScrollBar();
-        JScrollBar horizontalScrollBar = jsp.getHorizontalScrollBar();
-        verticalScrollBar.setValue(verticalScrollBar.getMinimum());
-        horizontalScrollBar.setValue(horizontalScrollBar.getMinimum());
-    }
-
     /* Adapted from: http://www.geekyramblings.net/2005/06/30/wrap-jlabel-text/ */
     private void wrapLabelText(JLabel label, String text, int width) {
         FontMetrics fm = label.getFontMetrics(label.getFont());
@@ -242,28 +250,26 @@ public class ITaskView extends FrameView
         StringBuffer real = new StringBuffer("<html>");
 
         int start = boundary.first();
-        for (int end = boundary.next(); end != BreakIterator.DONE;
-             start = end, end = boundary.next()) {
+        for(int end = boundary.next(); end != BreakIterator.DONE;
+                start = end, end = boundary.next()) {
             String word = text.substring(start, end);
             trial.append(word);
-            int trialWidth = SwingUtilities.computeStringWidth(fm,
-                    trial.toString());
+            int trialWidth = SwingUtilities.computeStringWidth(fm, trial.toString());
             if (trialWidth > width) {
                 trial = new StringBuffer(word);
                 real.append("<br>");
             }
             real.append(word);
         }
-
         real.append("</html>");
-
         label.setText(real.toString());
     }
 
     private void initComponents() {
 
-        getFrame().setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
+        getFrame().setIconImage((resourceMap.getImageIcon("window.icon")).getImage());
         getFrame().setPreferredSize(new Dimension(750, 500));
+        JPanel mainPanelHolder = new JPanel(new BorderLayout());
         mainPanel = new JPanel();
 
         JPanel statusPanel = new JPanel();
@@ -272,9 +278,11 @@ public class ITaskView extends FrameView
         statusAnimationLabel = new JLabel();
         progressBar = new JProgressBar();
 
-        mainPanel.setName("mainPanel"); // NOI18N
-        mainPanel.setBorder(BorderFactory.createTitledBorder(
-                resourceMap.getString("mainPanel.border.text")));
+        mainPanel.setName("mainPanel"); // NOI18N;
+        mainPanel.setBorder(BorderFactory.createTitledBorder(null,
+                resourceMap.getString("mainPanel.border.text"),
+                TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION,
+                UIManager.getFont("TitledBorder.font").deriveFont(16.0f)));
         mainPanel.setLayout(new GridLayout(0, 1));
         mainPanel.add(new JLabel(resourceMap.getIcon("downloading.gif")));
 
@@ -317,12 +325,38 @@ public class ITaskView extends FrameView
                 .addGap(3, 3, 3))
         );
 
-        jsp = new JScrollPane(mainPanel);
+        JScrollPane jsp = new JScrollPane(mainPanel);
         JScrollBar jsb = jsp.getVerticalScrollBar();
         jsb.setUnitIncrement(75);
-        setComponent(jsp);
+        mainPanelHolder.add(createToolBar(), BorderLayout.NORTH);
+        mainPanelHolder.add(jsp, BorderLayout.CENTER);
+        setComponent(mainPanelHolder);
         setMenuBar(getITaskViewMenuBar());
         setStatusBar(statusPanel);
+    }
+
+    private JComponent createToolBar() {
+        String[] toolbarActionNames = {
+                "rescan",
+                "configTrig",
+                "iplayer"
+        };
+        JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
+        Border border = new EmptyBorder(2, 9, 2, 9); // top, left, bottom, right
+        for(String actionName : toolbarActionNames) {
+            JButton button = new JButton();
+            button.setBorder(border);
+            button.setVerticalTextPosition(JButton.BOTTOM);
+            button.setHorizontalTextPosition(JButton.CENTER);
+            button.setAction(actionMap.get(actionName));
+            button.setIcon(resourceMap.getImageIcon(actionName + ".icon"));
+            button.setFocusable(false);
+            toolBar.add(button);
+            if("rescan".equals(actionName))
+                rescanToolBarButton = button;
+        }
+        return toolBar;
     }
 
     private JMenuBar getITaskViewMenuBar() {
@@ -443,19 +477,21 @@ public class ITaskView extends FrameView
                     builder.appendSeparator(ipdl.getTitle());
                     JLabel pic = new JLabel(new ImageIcon(ipdl.getIcon().getImage()
                             .getScaledInstance(320, -1, Image.SCALE_SMOOTH )));
-                    builder.append(pic);
-                    JLabel sum = new JLabel();
-                    wrapLabelText(sum, ipdl.getSummary(), 325);
-                    builder.append(sum);
-                    JLabel icon = new JLabel();
                     final String url = ipdl.getUrl();
-                    icon.addMouseListener(new MouseAdapter(){
+                    pic.addMouseListener(new MouseAdapter(){
 
                         @Override
                         public void mouseClicked(MouseEvent me) {
                             desktopBrowse(url);
                         }
                     });
+                    pic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    pic.setToolTipText(resourceMap.getString("openInBrowser.text"));
+                    builder.append(pic);
+                    JLabel sum = new JLabel();
+                    wrapLabelText(sum, ipdl.getSummary(), 325);
+                    builder.append(sum);
+                    JLabel icon = new JLabel();
                     if(ipdl.isComplete()) {
                         icon.setIcon(resourceMap.getIcon("complete.icon"));
                     } else {
@@ -471,7 +507,9 @@ public class ITaskView extends FrameView
                     builder.append(icon);
                     builder.nextLine();
                 } catch(NullPointerException npe) {
-                    //ignore
+                    /* We're probably here because a new download has been added
+                     * to the repository but the picture hasn't been downloaded
+                     * yet so ipdl.getIcon() return null. */
                 }
             }
             mainPanel.removeAll();
@@ -482,7 +520,7 @@ public class ITaskView extends FrameView
                 localStatus = Status.NO_DOWNLOADS;
             }
             setStatus(localStatus);
-            rescanMenuItem.setEnabled(true);
+            rescanEnabled(true);
         }
     }
 }

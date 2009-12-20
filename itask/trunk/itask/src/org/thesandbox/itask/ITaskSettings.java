@@ -30,11 +30,16 @@ public class ITaskSettings extends JDialog
     private JTextField repPath;
     private JFormattedTextField rescanDuration, stalePeriod;
 
+    public int disposeAction;
+    public static final int SAVE    = 1;
+    public static final int CANCEL  = 0;
+
     public ITaskSettings(Frame parent) {
         super(parent);
 
         resourceMap = ITaskApp.getApplication().getContext().getResourceMap(this.getClass());
         actionMap = ITaskApp.getApplication().getContext().getActionMap(this.getClass(), this);
+        disposeAction = CANCEL;
 
         initComponents();
         getRootPane().setDefaultButton(saveButton);
@@ -55,12 +60,18 @@ public class ITaskSettings extends JDialog
     @Action
     public void saveSettings() {
         writeSettings();
+        disposeAction = SAVE;
         dispose();
     }
 
     @Action
     public void cancelSettings() {
+        disposeAction = CANCEL;
         dispose();
+    }
+
+    public int getDisposeAction() {
+        return disposeAction;
     }
 
     private void writeSettings() {
@@ -74,7 +85,7 @@ public class ITaskSettings extends JDialog
 
     private void initComponents() {
 
-        setIconImage(((ImageIcon)resourceMap.getIcon("window.icon")).getImage());
+        setIconImage((resourceMap.getImageIcon("window.icon")).getImage());
 
         jfc = new JFileChooser(System.getProperty("user.home"));
         jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -124,7 +135,6 @@ public class ITaskSettings extends JDialog
         stalePeriod.setText(ITaskProperties.getInstance().get(ITaskProperties.STALE_PERIOD));
 
         Container c = getContentPane();
-        c.setLayout(new BorderLayout());
 
         // Build form
         FormLayout layout = new FormLayout(
@@ -164,7 +174,7 @@ public class ITaskSettings extends JDialog
         builder.add(saveButton, cc.xy(9, 11));
         builder.add(cancelButton, cc.xy(11, 11));
 
-        c.add(builder.getPanel(), BorderLayout.CENTER);
+        c.add(builder.getPanel());
 
         pack();
     }
