@@ -14,9 +14,11 @@ import org.thesandbox.itask.ITaskPopUp;
 public abstract class ITask implements Runnable
 {
     private String taskName;
+    private boolean warning;
 
     protected ITask(String taskName) {
         this.taskName = taskName;
+        warning = false;
     }
 
     public void setTaskName(String taskName) {
@@ -28,12 +30,15 @@ public abstract class ITask implements Runnable
     }
 
     public void execute() {
-        ITaskPopUp popUp = new ITaskPopUp(this);
-        popUp.setLocationRelativeTo(ITaskApp.getApplication().getMainFrame());
+        if(!warning) {
+            warning = true;
+            ITaskPopUp popUp = new ITaskPopUp(this);
+            popUp.setLocationRelativeTo(ITaskApp.getApplication().getMainFrame());
 
-        ITaskApp.getApplication().show(popUp);
-        if(popUp.getExitVal() != ITaskPopUp.CANCEL) {
-            new Thread(this).start();
+            ITaskApp.getApplication().show(popUp);
+            if(popUp.getExitVal() != ITaskPopUp.CANCEL) {
+                new Thread(this).start();
+            }
         }
     }
 
