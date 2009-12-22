@@ -6,9 +6,14 @@ import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Vector;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.*;
+import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.thesandbox.itask.ITaskView.Status;
 import org.thesandbox.itask.tasks.CloseITask;
@@ -17,7 +22,10 @@ import org.thesandbox.itask.tasks.Shutdown;
 import org.thesandbox.itask.tasks.Shutdown.Option;
 
 /**
- * The iTask About box.
+ * The iTask Configure Triggers dialog.
+ * This class is a singleton, it is disposed of when closed however values
+ * should persist between invocations in the same session - this allows tasks to
+ * be configured and actioned instantly if desired.
  *
  * Created by IntelliJ IDEA.
  *
@@ -26,22 +34,36 @@ import org.thesandbox.itask.tasks.Shutdown.Option;
  */
 public class ITaskTriggers extends JDialog
 {
+    private static Logger logger = Logger.getLogger(ITaskTriggers.class.getCanonicalName());
+    private static ITaskTriggers cInstance = null;
+
     private ResourceMap resourceMap;
     private ActionMap actionMap;
 
     private Vector<ITask> tasks;
 
     // GUI bits
-    private JCheckBox timerIn, timerAt;
-    private JFormattedTextField timerInJFTF, timerAtJFTF;
-    private JComboBox timerInCB, timerAtCB;
+    private Timer timerIn, timerAt;
+    private JCheckBox timerInCheck, timerAtCheck;
+    private JFormattedTextField timerInText, timerAtText;
+    private JComboBox timerInCombo, timerAtCombo;
     private HashMap<CheckTrigger, JComboBox> tasksCombos;
 
-    public ITaskTriggers(Frame parent) {
+    public static ITaskTriggers getInstance(Frame parent) {
+        if(cInstance == null) {
+            cInstance = new ITaskTriggers(parent);
+        }
+        return cInstance;
+    }
+
+    private ITaskTriggers(Frame parent) {
         super(parent);
 
         resourceMap = ITaskApp.getApplication().getContext().getResourceMap(this.getClass());
         actionMap = ITaskApp.getApplication().getContext().getActionMap(this.getClass(), this);
+
+        timerIn = new Timer();
+        timerAt = new Timer();
 
         initTasks();
 
@@ -50,24 +72,93 @@ public class ITaskTriggers extends JDialog
 
     @Action
     public void setTriggers() {
-
+        boolean dispose = true;
+        try {
+            if(timerInCheck.isSelected()) {
+                long i = 60000 * Integer.parseInt(timerInText.getText());
+                if(i < 1 || i > 999 * 60000) {
+                    JOptionPane.showMessageDialog(this,
+                            "Minutes value should be greater than 0\n" +
+                            "but less than 1000.",
+                            "Minutes < 1 or Minutes > 999", JOptionPane.WARNING_MESSAGE);
+                    dispose = false;
+                } else {
+                    timerIn.cancel();
+                    timerIn.purge();
+                    timerIn = new Timer();
+                    timerIn.schedule(new TimerITask((ITask)timerInCombo.getSelectedItem()), i);
+                }
+            }
+            if(timerAtCheck.isSelected()) {
+                int hour = Integer.parseInt(timerAtText.getText().substring(0, 2));
+                int min = Integer.parseInt(timerAtText.getText().substring(3, 5));
+                if(hour > 23 || min > 59) {
+                    JOptionPane.showMessageDialog(this,
+                            "HH:MM value is incorrect.\n" +
+                            "HH should be less than 24\n" +
+                            "MM should be less that 60",
+                            "HH > 23 or MM > 59", JOptionPane.WARNING_MESSAGE);
+                    dispose = false;
+                } else {
+                    Calendar now = Calendar.getInstance();
+                    Calendar then = Calendar.getInstance();
+                    then.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH),
+                            now.get(Calendar.DATE), hour, min, 0);
+                    if(now.compareTo(then) >= 0) {
+                        then.roll(Calendar.DATE, true);
+                    }
+                    timerAt.cancel();
+                    timerAt.purge();
+                    timerAt = new Timer();
+                    timerAt.schedule(new TimerITask((ITask)timerAtCombo.getSelectedItem()), then.getTime());
+                }
+            }
+        } catch(NumberFormatException nfe) {
+            logger.log(Level.WARNING, "Could not parse from format!", nfe);
+        }
+        if(dispose) {
+            dispose();
+        }
     }
 
     @Action
     public void cancelAllTriggers() {
-
+        timerInCheck.setSelected(false);
+        timerAtCheck.setSelected(false);
+        for(CheckTrigger ct : tasksCombos.keySet()) {
+            ct.setSelected(false);
+        }
+        dispose();
     }
 
     private void initTasks() {
         tasks = new Vector<ITask>();
+        tasks.add(new CloseITask());
         tasks.add(new Shutdown(Option.SHUTDOWN));
         tasks.add(new Shutdown(Option.RESTART));
         tasks.add(new Shutdown(Option.LOG_OFF));
-        tasks.add(new CloseITask());
     }
 
     private JComboBox getTaskCombo() {
         return new JComboBox(tasks);
+    }
+
+    private MaskFormatter createFormat(String s) {
+        MaskFormatter format = null;
+        try {
+            format = new MaskFormatter(s);
+        } catch(ParseException pe) {
+            logger.log(Level.WARNING, "Bad format specified.", pe);
+        }
+        return format;
+    }
+
+    public void newStatusSet(Status status) {
+        for(CheckTrigger ct : tasksCombos.keySet()) {
+            if(status.equals(ct.getMyStatus()) && ct.isSelected()) {
+                ((ITask)tasksCombos.get(ct).getSelectedItem()).execute();
+            }
+        }
     }
 
     private void initComponents() {
@@ -81,12 +172,12 @@ public class ITaskTriggers extends JDialog
 
         JButton setTriggersButton = new JButton();
         JButton cancelAllButton = new JButton();
-        timerIn = new JCheckBox();
-        timerInJFTF = new JFormattedTextField();
-        timerInCB = getTaskCombo();
-        timerAt = new JCheckBox();
-        timerAtJFTF = new JFormattedTextField();
-        timerAtCB = getTaskCombo();
+        timerInCheck = new JCheckBox();
+        timerInText = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        timerInCombo = getTaskCombo();
+        timerAtCheck = new JCheckBox();
+        timerAtText = new JFormattedTextField(createFormat("##:##"));
+        timerAtCombo = getTaskCombo();
         
         CheckTrigger[] checks = {
                 new CheckTrigger(Status.COMPLETE, resourceMap.getString("complete.text")),
@@ -102,8 +193,6 @@ public class ITaskTriggers extends JDialog
         cancelAllButton.setAction(actionMap.get("cancelAllTriggers"));
         cancelAllButton.setName("cancelAllButton");
 
-        Container c = getContentPane();
-
         // Build form
         FormLayout layout = new FormLayout(
                 "pref, 5dlu, pref, 5dlu, pref", // cols (x)
@@ -117,16 +206,16 @@ public class ITaskTriggers extends JDialog
 
         builder.appendTitle(resourceMap.getString("timer.in.text"));
         builder.nextLine();
-        builder.append(timerIn);
-        builder.append(timerInJFTF);
-        builder.append(timerInCB);
+        builder.append(timerInCheck);
+        builder.append(timerInText);
+        builder.append(timerInCombo);
         builder.nextLine();
 
         builder.appendTitle(resourceMap.getString("timer.at.text"));
         builder.nextLine();
-        builder.append(timerAt);
-        builder.append(timerAtJFTF);
-        builder.append(timerAtCB);
+        builder.append(timerAtCheck);
+        builder.append(timerAtText);
+        builder.append(timerAtCombo);
         builder.nextLine();
         
         for(CheckTrigger tt : checks) {
@@ -145,7 +234,7 @@ public class ITaskTriggers extends JDialog
         builder.append(setTriggersButton);
         builder.append(cancelAllButton);
 
-        c.add(builder.getPanel());
+        getContentPane().add(builder.getPanel());
 
         pack();
     }
@@ -167,6 +256,20 @@ public class ITaskTriggers extends JDialog
 
         public String getTitle() {
             return title;
+        }
+    }
+
+    private class TimerITask extends TimerTask
+    {
+        private ITask iTask;
+
+        public TimerITask(ITask iTask) {
+            this.iTask = iTask;
+        }
+
+        @Override
+        public void run() {
+            iTask.execute();
         }
     }
 }

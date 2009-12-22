@@ -1,7 +1,7 @@
 package org.thesandbox.itask.tasks;
 
 /**
- * A ITask.
+ * An ITask.
  *
  * Created by IntelliJ IDEA.
  *
@@ -22,6 +22,11 @@ public abstract class ITask implements Runnable
 
     public String getTaskName() {
         return taskName;
+    }
+
+    public void execute() {
+        /* Do clever common wrapping here */
+        new Thread(this).start();
     }
 
     @Override

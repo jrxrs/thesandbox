@@ -49,6 +49,7 @@ public class ITaskView extends FrameView
     private JLabel statusAnimationLabel, statusMessageLabel;
     private JMenuItem rescanMenuItem;
     private JButton rescanToolBarButton;
+    private ITaskTriggers triggersDialog;
 
     private Status status = Status.NO_PATH;
     private int dlCount;
@@ -83,6 +84,7 @@ public class ITaskView extends FrameView
         resourceMap = getResourceMap();
         actionMap = app.getContext().getActionMap(ITaskView.class, this);
         mainFrame = getFrame();
+        triggersDialog = ITaskTriggers.getInstance(mainFrame);
 
         dlCount = 0;
 
@@ -102,11 +104,9 @@ public class ITaskView extends FrameView
 
     @Action
     public void configTrig() {
-        ITaskTriggers triggersDialog = new ITaskTriggers(mainFrame);
         triggersDialog.setLocationRelativeTo(mainFrame);
 
         ITaskApp.getApplication().show(triggersDialog);
-//        new Thread(new Task()).start();
     }
 
     @Action
@@ -165,6 +165,7 @@ public class ITaskView extends FrameView
                 progressBar.setValue(50);
                 break;
         }
+        triggersDialog.newStatusSet(newStatus);
     }
 
     /**

@@ -21,19 +21,25 @@ public class Shutdown extends ITask
 
     /* Status enum for setting the App Status */
     public enum Option {
-        SHUTDOWN(" -s"),
-        RESTART(" -r"),
-        LOG_OFF(" -l"),
-        FORCE(" -f");
+        SHUTDOWN(" -s", " "),
+        RESTART(" -r", " "),
+        LOG_OFF(" -l", " "),
+        FORCE(" -f", " now");
 
-        private String arg;
+        private String winArg;
+        private String unixArg;
 
-        private Option(String arg) {
-            this.arg = arg;
+        private Option(String winArg, String unixArg) {
+            this.winArg = winArg;
+            this.unixArg = unixArg;
         }
 
-        public String getArg() {
-            return arg;
+        public String getWinArg() {
+            return winArg;
+        }
+
+        public String getUnixArg() {
+            return unixArg;
         }
     }
 
@@ -83,7 +89,7 @@ public class Shutdown extends ITask
         logger.log(Level.INFO, "Execute Task: " + getTaskName());
         try {
             Runtime rt = Runtime.getRuntime();
-            optString.append(opt.getArg()).append(Option.FORCE.getArg());
+            optString.append(opt.getWinArg()).append(Option.FORCE.getWinArg());
             String exec = winCmd + optString.toString()  + winComment;
             logger.log(Level.INFO, "Command: " + exec);
             Process p = rt.exec(exec);
@@ -104,7 +110,7 @@ public class Shutdown extends ITask
         logger.log(Level.INFO, "Execute Task: " + getTaskName());
         try {
             Runtime rt = Runtime.getRuntime();
-            optString.append(opt.getArg()).append(Option.FORCE.getArg());
+            optString.append(opt.getUnixArg()).append(Option.FORCE.getUnixArg());
             logger.log(Level.INFO, "Command: " + winCmd + optString.toString()  + winComment);
             Process p = rt.exec(winCmd + optString.toString()  + winComment);
 
