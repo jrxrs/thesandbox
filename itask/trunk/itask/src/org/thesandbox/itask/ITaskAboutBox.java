@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  *
  * Created by IntelliJ IDEA.
  *
+ * Date: 30-Nov-2009
  * @author jrxrs
- * @date 30-Nov-2009
  */
 public class ITaskAboutBox extends JDialog
 {
@@ -28,7 +28,7 @@ public class ITaskAboutBox extends JDialog
     private ActionMap actionMap;
     private JButton closeButton;
     
-    public ITaskAboutBox(java.awt.Frame parent) {
+    public ITaskAboutBox(Frame parent) {
         super(parent);
 
         resourceMap = ITaskApp.getApplication().getContext().getResourceMap(this.getClass());

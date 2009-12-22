@@ -1,5 +1,8 @@
 package org.thesandbox.itask.tasks;
 
+import org.thesandbox.itask.ITaskApp;
+import org.thesandbox.itask.ITaskPopUp;
+
 /**
  * An ITask.
  *
@@ -25,8 +28,13 @@ public abstract class ITask implements Runnable
     }
 
     public void execute() {
-        /* Do clever common wrapping here */
-        new Thread(this).start();
+        ITaskPopUp popUp = new ITaskPopUp(this);
+        popUp.setLocationRelativeTo(ITaskApp.getApplication().getMainFrame());
+
+        ITaskApp.getApplication().show(popUp);
+        if(popUp.getExitVal() != ITaskPopUp.CANCEL) {
+            new Thread(this).start();
+        }
     }
 
     @Override

@@ -39,9 +39,11 @@ public class ITaskProperties {
     public static final String REP_PATH         = "repository";
     public static final String RESCAN_PERIOD    = "rescan";
     public static final String STALE_PERIOD     = "stale";
+    public static final String TIMEOUT_PERIOD   = "timeout";
     public static final String NOT_SET          = "null";
     public static final int    RESCAN_DEFAULT   = 300;
     public static final int    STALE_DEFAULT    = 300;
+    public static final int    TIMEOUT_DEFAULT  = 60;
 
     private ITaskProperties() {
         userProperties = new Properties();
@@ -96,6 +98,7 @@ public class ITaskProperties {
         userProperties.put(REP_PATH, NOT_SET);
         userProperties.put(RESCAN_PERIOD, String.valueOf(RESCAN_DEFAULT));
         userProperties.put(STALE_PERIOD, String.valueOf(STALE_DEFAULT));
+        userProperties.put(TIMEOUT_PERIOD, String.valueOf(TIMEOUT_DEFAULT));
         writeProps(propsFile);
         return propsFile;
     }

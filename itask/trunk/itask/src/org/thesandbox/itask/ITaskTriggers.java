@@ -78,9 +78,10 @@ public class ITaskTriggers extends JDialog
                 long i = 60000 * Integer.parseInt(timerInText.getText());
                 if(i < 1 || i > 999 * 60000) {
                     JOptionPane.showMessageDialog(this,
-                            "Minutes value should be greater than 0\n" +
-                            "but less than 1000.",
-                            "Minutes < 1 or Minutes > 999", JOptionPane.WARNING_MESSAGE);
+                            resourceMap.getString("warning.mins.text1") + "\n" +
+                            resourceMap.getString("warning.mins.text2"),
+                            resourceMap.getString("warning.mins.title"),
+                            JOptionPane.WARNING_MESSAGE);
                     dispose = false;
                 } else {
                     timerIn.cancel();
@@ -94,10 +95,11 @@ public class ITaskTriggers extends JDialog
                 int min = Integer.parseInt(timerAtText.getText().substring(3, 5));
                 if(hour > 23 || min > 59) {
                     JOptionPane.showMessageDialog(this,
-                            "HH:MM value is incorrect.\n" +
-                            "HH should be less than 24\n" +
-                            "MM should be less that 60",
-                            "HH > 23 or MM > 59", JOptionPane.WARNING_MESSAGE);
+                            resourceMap.getString("warning.hhmm.text1") + "\n" +
+                            resourceMap.getString("warning.hhmm.text2") + "\n" +
+                            resourceMap.getString("warning.hhmm.text3"),
+                            resourceMap.getString("warning.hhmm.title"),
+                            JOptionPane.WARNING_MESSAGE);
                     dispose = false;
                 } else {
                     Calendar now = Calendar.getInstance();
@@ -218,12 +220,12 @@ public class ITaskTriggers extends JDialog
         builder.append(timerAtCombo);
         builder.nextLine();
         
-        for(CheckTrigger tt : checks) {
+        for(CheckTrigger ct : checks) {
             JComboBox tc = getTaskCombo();
-            tasksCombos.put(tt, tc);
-            builder.appendTitle(tt.getTitle());
+            tasksCombos.put(ct, tc);
+            builder.appendTitle(ct.getTitle());
             builder.nextLine();
-            builder.append(tt);
+            builder.append(ct);
             builder.append(new JPanel());
             builder.append(tc);
             builder.nextLine();

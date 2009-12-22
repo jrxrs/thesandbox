@@ -28,7 +28,7 @@ public class ITaskSettings extends JDialog
     private JFileChooser jfc;
     private JButton saveButton;
     private JTextField repPath;
-    private JFormattedTextField rescanDuration, stalePeriod;
+    private JFormattedTextField rescanDuration, stalePeriod, timeoutPeriod;
 
     public int disposeAction;
     public static final int SAVE    = 1;
@@ -80,7 +80,9 @@ public class ITaskSettings extends JDialog
         ITaskProperties.getInstance().set(
                 ITaskProperties.RESCAN_PERIOD, rescanDuration.getText(), false);
         ITaskProperties.getInstance().set(
-                ITaskProperties.STALE_PERIOD, stalePeriod.getText(), true);
+                ITaskProperties.STALE_PERIOD, stalePeriod.getText(), false);
+        ITaskProperties.getInstance().set(
+                ITaskProperties.TIMEOUT_PERIOD, timeoutPeriod.getText(), true);
     }
 
     private void initComponents() {
@@ -99,6 +101,7 @@ public class ITaskSettings extends JDialog
         JButton browsePath = new JButton();
         JLabel rescanDurationLabel = new JLabel();
         JLabel stalePeriodLabel = new JLabel();
+        JLabel timeoutPeriodLabel = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(resourceMap.getString("title"));
@@ -109,7 +112,7 @@ public class ITaskSettings extends JDialog
         saveButton.setName("saveButton");
 
         cancelButton.setAction(actionMap.get("cancelSettings"));
-        cancelButton.setName("cancelSettings");
+        cancelButton.setName("cancelButton");
 
         browsePath.setAction(actionMap.get("browsePath"));
         browsePath.setName("browsePath");
@@ -128,18 +131,24 @@ public class ITaskSettings extends JDialog
         stalePeriodLabel.setText(resourceMap.getString("stalePeriodLabel.text"));
         stalePeriodLabel.setName("stalePeriodLabel");
 
+        timeoutPeriodLabel.setFont(timeoutPeriodLabel.getFont().deriveFont(timeoutPeriodLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        timeoutPeriodLabel.setText(resourceMap.getString("timeoutPeriodLabel.text"));
+        timeoutPeriodLabel.setName("timeoutPeriodLabel");
+
         repPath = new JTextField(ITaskProperties.getInstance().get(ITaskProperties.REP_PATH));
         rescanDuration = new JFormattedTextField(NumberFormat.getIntegerInstance());
         rescanDuration.setText(ITaskProperties.getInstance().get(ITaskProperties.RESCAN_PERIOD));
         stalePeriod = new JFormattedTextField(NumberFormat.getIntegerInstance());
         stalePeriod.setText(ITaskProperties.getInstance().get(ITaskProperties.STALE_PERIOD));
+        timeoutPeriod = new JFormattedTextField(NumberFormat.getIntegerInstance());
+        timeoutPeriod.setText(ITaskProperties.getInstance().get(ITaskProperties.TIMEOUT_PERIOD));
 
         Container c = getContentPane();
 
         // Build form
         FormLayout layout = new FormLayout(
                 "right:pref, 3dlu, 30dlu, 3dlu, pref, 3dlu, pref:grow, 3dlu, pref, 3dlu, pref", // cols (x)
-                "pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref");            // rows (y)
+                "pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref, 5dlu, pref");// rows (y)
 
         // Specify columns that have equal widths.
         layout.setColumnGroups(new int[][]{{9, 11}});
@@ -149,30 +158,35 @@ public class ITaskSettings extends JDialog
 
         CellConstraints cc = new CellConstraints();
 
-        // Row 1
+        /* Row 1 */
         builder.add(repPathLabel, cc.xy(1, 1));
         builder.add(repPath, cc.xyw(3, 1, 7));
         builder.add(browsePath, cc.xy(11, 1));
 
-        // Row 3
+        /* Row 3 */
         builder.addSeparator("", cc.xyw(1, 3, 11));
 
-        // Row 5
+        /* Row 5 */
         builder.add(rescanDurationLabel, cc.xy(1, 5));
         builder.add(rescanDuration, cc.xy(3, 5));
         builder.addLabel(seconds, cc.xy(5, 5));
 
-        // Row 7
+        /* Row 7 */
         builder.add(stalePeriodLabel, cc.xy(1, 7));
         builder.add(stalePeriod, cc.xy(3, 7));
         builder.addLabel(seconds, cc.xy(5, 7));
 
-        // Row 9
-        builder.addSeparator("", cc.xyw(1, 9, 11));
+        /* Row 9 */
+        builder.add(timeoutPeriodLabel, cc.xy(1, 9));
+        builder.add(timeoutPeriod, cc.xy(3, 9));
+        builder.addLabel(seconds, cc.xy(5, 9));
 
-        // Row 11
-        builder.add(saveButton, cc.xy(9, 11));
-        builder.add(cancelButton, cc.xy(11, 11));
+        /* Row 11 */
+        builder.addSeparator("", cc.xyw(1, 11, 11));
+
+        /* Row 13 */
+        builder.add(saveButton, cc.xy(9, 13));
+        builder.add(cancelButton, cc.xy(11, 13));
 
         c.add(builder.getPanel());
 
