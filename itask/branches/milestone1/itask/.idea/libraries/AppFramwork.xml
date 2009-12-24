@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="AppFramwork">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/appframework/1.03/AppFramework-1.03.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../libs/appframework/1.03/AppFramework-1.03-doc.zip!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../libs/appframework/1.03/AppFramework-1.03-src.zip!/AppFramework-1.03/src" />
+    </SOURCES>
+  </library>
+</component>

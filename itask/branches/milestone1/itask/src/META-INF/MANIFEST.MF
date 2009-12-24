@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: lib/AppFramework.jar lib/swing-worker.jar lib/jgoodies-for
+ ms.jar lib/Piccolo.jar
+Main-Class: org.thesandbox.itask.ITaskApp
+SplashScreen-Image: org/thesandbox/itask/resources/splash.png
+
