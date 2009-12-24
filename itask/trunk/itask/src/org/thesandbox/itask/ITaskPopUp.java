@@ -101,8 +101,10 @@ public class ITaskPopUp extends JDialog
                 .replace("%", iTask.getTaskName()));
 
         JPanel border = new JPanel();
-        border.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.RED, 5),
-                iTask.getTaskName(), TitledBorder.CENTER, TitledBorder.TOP, null, Color.RED));
+        border.setBorder(BorderFactory.createTitledBorder(
+                new LineBorder(Color.RED, 4), " " + iTask.getTaskName() + " ",
+                TitledBorder.CENTER, TitledBorder.TOP,
+                UIManager.getFont("TitledBorder.font").deriveFont(Font.BOLD, 14.0f), Color.RED));
         JPanel jp = new JPanel(new BorderLayout());
 
         JPanel sum = new JPanel(new FlowLayout());

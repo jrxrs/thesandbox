@@ -73,25 +73,25 @@ public class ITaskAboutBox extends JDialog
         closeButton.setAction(actionMap.get("closeAboutBox")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
-        appTitleLabel.setFont(appTitleLabel.getFont().deriveFont(appTitleLabel.getFont().getStyle() | java.awt.Font.BOLD, appTitleLabel.getFont().getSize()+4));
+        appTitleLabel.setFont(appTitleLabel.getFont().deriveFont(appTitleLabel.getFont().getStyle() | Font.BOLD, appTitleLabel.getFont().getSize()+4));
         appTitleLabel.setText(resourceMap.getString("Application.title")); // NOI18N
         appTitleLabel.setName("appTitleLabel"); // NOI18N
 
-        versionLabel.setFont(versionLabel.getFont().deriveFont(versionLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        versionLabel.setFont(versionLabel.getFont().deriveFont(versionLabel.getFont().getStyle() | Font.BOLD));
         versionLabel.setText(resourceMap.getString("versionLabel.text")); // NOI18N
         versionLabel.setName("versionLabel"); // NOI18N
 
         appVersionLabel.setText(resourceMap.getString("Application.version")); // NOI18N
         appVersionLabel.setName("appVersionLabel"); // NOI18N
 
-        vendorLabel.setFont(vendorLabel.getFont().deriveFont(vendorLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        vendorLabel.setFont(vendorLabel.getFont().deriveFont(vendorLabel.getFont().getStyle() | Font.BOLD));
         vendorLabel.setText(resourceMap.getString("vendorLabel.text")); // NOI18N
         vendorLabel.setName("vendorLabel"); // NOI18N
 
         appVendorLabel.setText(resourceMap.getString("Application.vendor")); // NOI18N
         appVendorLabel.setName("appVendorLabel"); // NOI18N
 
-        homepageLabel.setFont(homepageLabel.getFont().deriveFont(homepageLabel.getFont().getStyle() | java.awt.Font.BOLD));
+        homepageLabel.setFont(homepageLabel.getFont().deriveFont(homepageLabel.getFont().getStyle() | Font.BOLD));
         homepageLabel.setText(resourceMap.getString("homepageLabel.text")); // NOI18N
         homepageLabel.setName("homepageLabel"); // NOI18N
 

@@ -24,7 +24,9 @@ public class Shutdown extends ITask
         SHUTDOWN(" -s", " "),
         RESTART(" -r", " "),
         LOG_OFF(" -l", " "),
-        FORCE(" -f", " now");
+        SLEEP(" PowrProf.dll,SetSuspendState Sleep", " "),
+        HIBERNATE(" PowrProf.dll,SetSuspendState", " "),
+        LOCK(" user32.dll,LockWorkStation", " ");
 
         private String winArg;
         private String unixArg;
@@ -50,23 +52,40 @@ public class Shutdown extends ITask
     private Option opt;
     private StringBuffer optString;
 
-    private final String winCmd = "shutdown.exe";
+    private String winCmd;
     private final String winComment = " -c \"iTask Shutdown\"";
     private final String unixCmd = "shutdown";
 
     public Shutdown(Option opt) {
         super("holder");
+        final String winCmdShutdown = "shutdown.exe -f";
+        final String winCmdRunDLL = "Rundll32.exe";
         this.opt = opt;
         optString = new StringBuffer();
         switch(opt) {
             case SHUTDOWN:
                 setTaskName("Shutdown");
+                winCmd = winCmdShutdown;
                 break;
             case RESTART:
                 setTaskName("Restart");
+                winCmd = winCmdShutdown;
                 break;
             case LOG_OFF:
                 setTaskName("Log Off");
+                winCmd = winCmdShutdown;
+                break;
+            case SLEEP:
+                setTaskName("Sleep");
+                winCmd = winCmdRunDLL;
+                break;
+            case HIBERNATE:
+                setTaskName("Hibernate");
+                winCmd = winCmdRunDLL;
+                break;
+            case LOCK:
+                setTaskName("Lock");
+                winCmd = winCmdRunDLL;
                 break;
             default: break;
         }
@@ -89,8 +108,8 @@ public class Shutdown extends ITask
         logger.log(Level.INFO, "Execute Task: " + getTaskName());
         try {
             Runtime rt = Runtime.getRuntime();
-            optString.append(opt.getWinArg()).append(Option.FORCE.getWinArg());
-            String exec = winCmd + optString.toString()  + winComment;
+            optString.append(opt.getWinArg());
+            String exec = winCmd + optString.toString() + winComment;
             logger.log(Level.INFO, "Command: " + exec);
             Process p = rt.exec(exec);
 
@@ -110,8 +129,8 @@ public class Shutdown extends ITask
         logger.log(Level.INFO, "Execute Task: " + getTaskName());
         try {
             Runtime rt = Runtime.getRuntime();
-            optString.append(opt.getUnixArg()).append(Option.FORCE.getUnixArg());
-            logger.log(Level.INFO, "Command: " + winCmd + optString.toString()  + winComment);
+            optString.append(opt.getUnixArg());
+            logger.log(Level.INFO, "Command: " + winCmd + optString.toString() + winComment);
             Process p = rt.exec(winCmd + optString.toString()  + winComment);
 
             try {

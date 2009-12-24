@@ -38,6 +38,8 @@ public abstract class ITask implements Runnable
             ITaskApp.getApplication().show(popUp);
             if(popUp.getExitVal() != ITaskPopUp.CANCEL) {
                 new Thread(this).start();
+            } else {
+                warning = false;
             }
         }
     }

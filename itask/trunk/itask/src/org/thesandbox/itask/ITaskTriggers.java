@@ -125,8 +125,16 @@ public class ITaskTriggers extends JDialog
 
     @Action
     public void cancelAllTriggers() {
-        timerInCheck.setSelected(false);
-        timerAtCheck.setSelected(false);
+        if(timerInCheck.isSelected()) {
+            timerIn.cancel();
+            timerIn.purge();
+            timerInCheck.setSelected(false);
+        }
+        if(timerAtCheck.isSelected()) {
+            timerAt.cancel();
+            timerAt.purge();
+            timerAtCheck.setSelected(false);
+        }
         for(CheckTrigger ct : tasksCombos.keySet()) {
             ct.setSelected(false);
         }
@@ -139,6 +147,9 @@ public class ITaskTriggers extends JDialog
         tasks.add(new Shutdown(Option.SHUTDOWN));
         tasks.add(new Shutdown(Option.RESTART));
         tasks.add(new Shutdown(Option.LOG_OFF));
+        tasks.add(new Shutdown(Option.SLEEP));
+        tasks.add(new Shutdown(Option.HIBERNATE));
+        tasks.add(new Shutdown(Option.LOCK));
     }
 
     private JComboBox getTaskCombo() {
@@ -156,9 +167,11 @@ public class ITaskTriggers extends JDialog
     }
 
     public void newStatusSet(Status status) {
-        for(CheckTrigger ct : tasksCombos.keySet()) {
-            if(status.equals(ct.getMyStatus()) && ct.isSelected()) {
-                ((ITask)tasksCombos.get(ct).getSelectedItem()).execute();
+        if(!isVisible()) {
+            for(CheckTrigger ct : tasksCombos.keySet()) {
+                if(status.equals(ct.getMyStatus()) && ct.isSelected()) {
+                    ((ITask)tasksCombos.get(ct).getSelectedItem()).execute();
+                }
             }
         }
     }
