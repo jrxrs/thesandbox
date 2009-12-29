@@ -12,6 +12,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
@@ -110,8 +112,8 @@ public class ITaskView extends FrameView
     }
 
     @Action
-    public void iplayer() {
-        desktopBrowse(resourceMap.getString("iplayer.url"));
+    public void iPlayer() {
+        desktopBrowse(resourceMap.getString("iPlayer.url"));
     }
 
     @Action
@@ -240,32 +242,6 @@ public class ITaskView extends FrameView
         }
     }
 
-    /* Adapted from: http://www.geekyramblings.net/2005/06/30/wrap-jlabel-text/ */
-    private void wrapLabelText(JLabel label, String text, int width) {
-        FontMetrics fm = label.getFontMetrics(label.getFont());
-
-        BreakIterator boundary = BreakIterator.getWordInstance();
-        boundary.setText(text);
-
-        StringBuffer trial = new StringBuffer();
-        StringBuffer real = new StringBuffer("<html>");
-
-        int start = boundary.first();
-        for(int end = boundary.next(); end != BreakIterator.DONE;
-                start = end, end = boundary.next()) {
-            String word = text.substring(start, end);
-            trial.append(word);
-            int trialWidth = SwingUtilities.computeStringWidth(fm, trial.toString());
-            if (trialWidth > width) {
-                trial = new StringBuffer(word);
-                real.append("<br>");
-            }
-            real.append(word);
-        }
-        real.append("</html>");
-        label.setText(real.toString());
-    }
-
     private void initComponents() {
 
         getFrame().setIconImage((resourceMap.getImageIcon("window.icon")).getImage());
@@ -340,7 +316,7 @@ public class ITaskView extends FrameView
         String[] toolbarActionNames = {
                 "rescan",
                 "configTrig",
-                "iplayer"
+                "iPlayer"
         };
         JToolBar toolBar = new JToolBar();
         toolBar.setFloatable(false);
@@ -387,7 +363,7 @@ public class ITaskView extends FrameView
         configTrigMenuItem.setName("configTrigMenuItem");
         fileMenu.add(configTrigMenuItem);
 
-        iPlayerWebsiteMenuItem.setAction(actionMap.get("iplayer"));
+        iPlayerWebsiteMenuItem.setAction(actionMap.get("iPlayer"));
         iPlayerWebsiteMenuItem.setName("iPlayerWebsiteMenuItem");
         fileMenu.add(iPlayerWebsiteMenuItem);
 
@@ -489,8 +465,7 @@ public class ITaskView extends FrameView
                     pic.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     pic.setToolTipText(resourceMap.getString("openInBrowser.text"));
                     builder.append(pic);
-                    JLabel sum = new JLabel();
-                    wrapLabelText(sum, ipdl.getSummary(), 325);
+                    JWrappableLabel sum = new JWrappableLabel(mainFrame, ipdl.getSummary(), 425);
                     builder.append(sum);
                     JLabel icon = new JLabel();
                     if(ipdl.isComplete()) {
@@ -510,7 +485,7 @@ public class ITaskView extends FrameView
                 } catch(NullPointerException npe) {
                     /* We're probably here because a new download has been added
                      * to the repository but the picture hasn't been downloaded
-                     * yet so ipdl.getIcon() return null. */
+                     * yet, so ipdl.getIcon() returned null. */
                 }
             }
             mainPanel.removeAll();
@@ -522,6 +497,64 @@ public class ITaskView extends FrameView
             }
             setStatus(localStatus);
             rescanEnabled(true);
+        }
+    }
+
+    private class JWrappableLabel extends JLabel
+    {
+        private Component parent;
+        private String text;
+        private int rel;
+
+        public JWrappableLabel(Component parent, String text, int rel) {
+            super();
+            this.parent = parent;
+            this.text = text;
+            this.rel = rel;
+            addComponentListener(new WrappableLabelListener());
+            wrapLabelText();
+        }
+
+        public void setWrappedText(String text) {
+            this.text = text;
+            wrapLabelText();
+        }
+
+        /* Adapted from: http://www.geekyramblings.net/2005/06/30/wrap-jlabel-text/ */
+        public void wrapLabelText() {
+            FontMetrics fm = getFontMetrics(getFont());
+
+            BreakIterator boundary = BreakIterator.getWordInstance();
+            boundary.setText(text);
+
+            StringBuffer trial = new StringBuffer();
+            StringBuffer real = new StringBuffer("<html>");
+
+            int width = parent.getSize().width - rel;
+
+            int start = boundary.first();
+            for(int end = boundary.next(); end != BreakIterator.DONE;
+                    start = end, end = boundary.next()) {
+                String word = text.substring(start, end);
+                trial.append(word);
+                int trialWidth = SwingUtilities.computeStringWidth(fm, trial.toString());
+                if (trialWidth > width) {
+                    trial = new StringBuffer(word);
+                    real.append("<br>");
+                }
+                real.append(word);
+            }
+            real.append("</html>");
+            super.setText(real.toString());
+        }
+
+        private class WrappableLabelListener extends ComponentAdapter
+        {
+
+            @Override
+            public void componentResized(ComponentEvent ce) {
+                wrapLabelText();
+            }
         }
     }
 }
