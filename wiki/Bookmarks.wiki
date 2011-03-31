@@ -2,7 +2,7 @@
 
 = General Bookmarks =
 
-*MacBook*
+*!MacBook*
   * [http://support.apple.com/kb/ht1635 How to identify MacBook models]
   * [http://www.batterytec.co.uk/Apple/MacBook-Pro/13-39-39-/13-MacBook/prod_9 MacBook Battery]
 
