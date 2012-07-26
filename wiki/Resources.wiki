@@ -34,6 +34,10 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
 
+== Generics ==
+
+[http://onjava.com/onjava/excerpt/javaian5_chap04/index1.html Writing Generic Types & Methods]
+
 = XML =
 
 == SAX & DOM ==
