@@ -38,6 +38,14 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 [http://onjava.com/onjava/excerpt/javaian5_chap04/index1.html Writing Generic Types & Methods]
 
+== Challenging Java Questions ==
+
+[http://robaustin.wikidot.com/50-java-interview-questions Java Interview Questions]
+
+== Threading & Lock Contention ==
+
+[http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
+
 = XML =
 
 == SAX & DOM ==
