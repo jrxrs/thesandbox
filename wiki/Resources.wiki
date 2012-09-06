@@ -46,6 +46,10 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
 
+= Java EE =
+
+[http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html Jave EE 6 Tutorial]
+
 = XML =
 
 == SAX & DOM ==
