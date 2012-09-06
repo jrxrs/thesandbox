@@ -59,3 +59,5 @@ SAX - Event Driven, stack based parsing, akin to shift-reduce mechanism employed
 DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia]
 
 [http://onjava.com/onjava/2002/06/26/xml.html SAX & DOM, the Basics]
+
+[http://www.informit.com/library/library.aspx?b=STY_XML_21days Teach Yourself XML in 21 Days]
