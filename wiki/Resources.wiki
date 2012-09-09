@@ -10,17 +10,28 @@
 
 [http://en.wikipedia.org/wiki/Polymorphism_in_object-oriented_programming Wikipedia: Polymorphism]
 
+  * Is the ability of methods to behave differently, based on the object calling it
+
 === Inheritance ===
 
 [http://en.wikipedia.org/wiki/Inheritance_(computer_science) Wikipedia: Inheritance]
+
+  * In simple words, Inheritance is way to define new a class, using classes which have already been defined
 
 === Encapsulation ===
 
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
 
+  * With Encapsulation you can hide (restrict access) to critical data members in your code , which improves security
+  * Encapsualtion combines data and actions together (just like a capsule)
+
 ==== Data Abstraction ====
 
 [http://wiki.answers.com/Q/What_is_data_abstraction_in_java Data Abstraction in Java]
+
+  * Abstraction in the process of selecting important data sets for an Object in your software , and leaving out the insignificant ones.
+  * Once you have modeled your object using Abstraction , the same set of data could be used in different applications.
+
 
 == Autoboxing ==
 
