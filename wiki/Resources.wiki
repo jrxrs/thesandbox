@@ -18,6 +18,10 @@
 
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
 
+==== Data Abstraction ====
+
+[http://wiki.answers.com/Q/What_is_data_abstraction_in_java Data Abstraction in Java]
+
 == Autoboxing ==
 
 Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guilde]
