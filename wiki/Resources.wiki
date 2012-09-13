@@ -32,7 +32,6 @@
   * Abstraction in the process of selecting important data sets for an Object in your software , and leaving out the insignificant ones.
   * Once you have modeled your object using Abstraction , the same set of data could be used in different applications.
 
-
 == Autoboxing ==
 
 Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guilde]
@@ -52,6 +51,10 @@ does not impact runtime performance. There is however a valid case for specifyin
 == Generics ==
 
 [http://onjava.com/onjava/excerpt/javaian5_chap04/index1.html Writing Generic Types & Methods]
+
+== Checked & Unchecked Exceptions ==
+
+[http://tutorials.jenkov.com/java-exception-handling/checked-or-unchecked-exceptions.html Java Exception Handling - Checked or Unchecked Exceptions]
 
 == Challenging Java Questions ==
 
