@@ -87,6 +87,7 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 = Complexity (Big O) =
 
 [http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
+[http://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly Good Explanation of O(log n) from Stackoverflow]
 
 = Maths =
 
