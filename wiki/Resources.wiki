@@ -84,6 +84,12 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 [http://so-i-think-i-created-my-first-online-project.googlecode.com/files/Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf?bcsi_scan_4c5c01dba4894524=0&bcsi_scan_filename=Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf Data Structures & Algorithms in Java (4th Edition)]
 
+== Trees ==
+
+Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both Red-Black tree ([http://www.ece.uc.edu/~franco/C321/html/RedBlack/redblack.html demo]) and AVL trees ([http://www.strille.net/works/media_technology_projects/avl-tree_2001/ demo]) support O(log n) search, insertion, and removal. AVLs are more rigidly balanced than red–black trees, leading to slower insertion and removal but faster retrieval. This makes AVLs attractive for data structures that may be built once and loaded without reconstruction, such as language dictionaries (or program dictionaries, such as the opcodes of an assembler or interpreter).
+
+2-4 Trees ([http://www.cs.unm.edu/~rlpm/499/ttft.html demo]) are fundamental to understanding red-black trees because the insertion and deletion operations on 2-4 trees are also equivalent to colour-flipping and rotations in red–black trees, despite this 2-4 trees are seldom used in practice. Try walking through the [http://en.wikipedia.org/wiki/2-4_tree#Example example] from wikipedia of a 2-3-4 tree insertion.
+
 = Complexity (Big O) =
 
 [http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
