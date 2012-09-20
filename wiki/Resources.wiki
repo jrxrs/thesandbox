@@ -90,6 +90,10 @@ Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both 
 
 2-4 Trees ([http://www.cs.unm.edu/~rlpm/499/ttft.html demo]) are fundamental to understanding red-black trees because the insertion and deletion operations on 2-4 trees are also equivalent to colour-flipping and rotations in red–black trees, despite this 2-4 trees are seldom used in practice. Try walking through the [http://en.wikipedia.org/wiki/2-4_tree#Example example] from wikipedia of a 2-3-4 tree insertion.
 
+*Differentiating Red-Black Trees*
+
+Although AVL trees and (2,4) trees have a number of nice properties, there are some dictionary applications for which they are not well suited. For instance, AVL trees may require many restructure operations (rotations) to be performed after a removal, and (2,4) trees may require many fusing or split operations to be performed after either an insertion or removal. The red-black tree data structure does not have these drawbacks, however, as it requires that only O(1) structural changes be made after an update in order to stay balanced.
+
 = Complexity (Big O) =
 
 [http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
