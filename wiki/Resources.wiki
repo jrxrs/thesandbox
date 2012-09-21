@@ -86,6 +86,15 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 == Trees ==
 
+=== Depth ===
+*Formal Definition:* Let _v_ be a node of a tree _T_. The depth of _v_ is the number of ancestors of _v_, excluding _v_ itself. If _v_ is the root, then the depth of _v_ is 0.
+*Informal Definition:* How deep down the tree is the node you're concerned with?
+
+=== Height ===
+*Formal Definition:* The height of a node _v_ in a tree _T_ is defined recursively:<br><li>If _v_ is an external node, then the height of _v_ is 0
+<br><li>Otherwise, the height of _v_ is one plus the maximum height of a child of _v_.<br>
+*Informal Definition:* So basically how far is _v_ away from it's further descendant which is a leaf (external node). 
+
 Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both Red-Black tree ([http://www.ece.uc.edu/~franco/C321/html/RedBlack/redblack.html demo]) and AVL trees ([http://www.strille.net/works/media_technology_projects/avl-tree_2001/ demo]) support O(log n) search, insertion, and removal. AVLs are more rigidly balanced than red–black trees, leading to slower insertion and removal but faster retrieval. This makes AVLs attractive for data structures that may be built once and loaded without reconstruction, such as language dictionaries (or program dictionaries, such as the opcodes of an assembler or interpreter).
 
 2-4 Trees ([http://www.cs.unm.edu/~rlpm/499/ttft.html demo]) are fundamental to understanding red-black trees because the insertion and deletion operations on 2-4 trees are also equivalent to colour-flipping and rotations in red–black trees, despite this 2-4 trees are seldom used in practice. Try walking through the [http://en.wikipedia.org/wiki/2-4_tree#Example example] from wikipedia of a 2-3-4 tree insertion.
