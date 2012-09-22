@@ -82,6 +82,8 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 = Data Structures & Algorithms =
 
+A good alternative from [http://en.wikipedia.org/ Wikipedia] articles on data structures and algorithms is http://www.algolist.net/ which provides examples in Java & C++ along with explanations and analysis.
+
 [http://so-i-think-i-created-my-first-online-project.googlecode.com/files/Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf?bcsi_scan_4c5c01dba4894524=0&bcsi_scan_filename=Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf Data Structures & Algorithms in Java (4th Edition)]
 
 == Trees ==
