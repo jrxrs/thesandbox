@@ -105,6 +105,12 @@ Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both 
 
 Although AVL trees and (2,4) trees have a number of nice properties, there are some dictionary applications for which they are not well suited. For instance, AVL trees may require many restructure operations (rotations) to be performed after a removal, and (2,4) trees may require many fusing or split operations to be performed after either an insertion or removal. The red-black tree data structure does not have these drawbacks, however, as it requires that only O(1) structural changes be made after an update in order to stay balanced.
 
+== Sorting ==
+
+
+== Searching ==
+
+
 = Complexity (Big O) =
 
 [http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
@@ -113,3 +119,46 @@ Although AVL trees and (2,4) trees have a number of nice properties, there are s
 = Maths =
 
 [http://oakroadsystems.com/math/loglaws.htm Logarithms]
+
+= The OSI Application Model =
+
+The [http://en.wikipedia.org/wiki/OSI_model Open Systems Interconnection] (OSI) model is a model used standardise the functions of a communications system in terms of abstraction layers. Similar communication functions are grouped into logical layers. A layer serves the layer above it and is served by the layer below it.
+
+The 7 layers from top (nearest the user) to bottom are:<br>
+*Application*<br>
+*Presentation*<br>
+*Session*<br>
+*Transport*<br>
+*Network*<br>
+*Data Link*<br>
+*Physical*
+
+Below the are describe from bottom to top...
+
+== Physical ==
+The *Physical Layer* describes the physical properties of the various communications media; as well as the electrical properties and interpreation of the exchanged signals.<br/>
+Example: this layer defines the size of the Ethernet coaxial cable, the type of the BNC connector used, and the termination method. e.g. IEEE 802.11
+
+== Data Link ==
+The *Data Link Layer* describes the logical organisation of data bits transmitted on a particular medium.<br/>
+Example: this layer defines the framing, addressing and checksumming of Ethernet packets. e.g. Point-to-Point Protocol (PPP)
+
+== Network ==
+The *Network Layer* describes how a series of exchanges over various data links can deliver data between any two modes in a network.<br>
+Example: this layer defines the addressing and routing structure of the Internet. e.g. IP (v4/v6)
+
+== Transport ==
+The *Transport Layer* describes the quality and nature of the data delivery.<br>
+Example: this layer defines if and how retransmissions will be used to ensure data delivery. e.g. TCP/UDP
+
+== Session ==
+The *Session Layer* describes the organisation of data sequences larger than the packets handled by lower layers.<br>
+Example: the layer describes how request and reply packets are paired in a remote procedure call. e.g. TSL/SSL
+
+== Presentation ==
+The *Presentation Layer* describes the syntax of data being transferred. <br>
+Example: this layer describes how floating point numbers can be exchanged between hosts with different math formats. e.g. MIME
+
+== Application ==
+The *Application Layer* describes how real work actually gets done.<br>
+Example: this layer would implement file system operations. e.g. HTTP, DHCP, NFS
