@@ -107,9 +107,82 @@ Although AVL trees and (2,4) trees have a number of nice properties, there are s
 
 == Sorting ==
 
+There are lots of different types of sorting algorithms, only some are covered here. A comparison of the space complexity of many of these algorithms can be found [http://en.wikipedia.org/wiki/Timsort#Performance here].
+
+=== Selection Sort - O(n^2^) ===
+*Basic Idea*: Ascend the unsorted array until the find the smallest value in the list, swap that value with the value in the first spot, then search adjust the position you are attempting to fill and search again for the next smallest etc. continuing until you reach the end and everything is sorted.
+
+Selection sort is sometimes useful for small data sets where memory is limited.
+Worst Case Performance: O(n^2^)
+Best Case Performance: O(n^2^)
+Average Case Performance: O(n^2^)
+
+=== Insertion Sort - O(n^2^) ===
+*Basic Idea*: 
+
+Generally speaking (and despite having same worst case complexity) an Insertion Sort is expected to perform better than a Selection Sort.
+
+Worst Case Performance: O(n^2^) comparisons, swaps
+Best Case Performance: O(n) comparisons, O(1) swaps
+Average Case Performance: О(n^2^) comparisons, swaps
+
+[http://en.wikipedia.org/wiki/Insertion_sort#Comparisons_to_other_sorting_algorithms Comparisons]
+
+=== Bubble Sort - O(n^2^) ===
+*Basic Idea*: Bubble sort works by repeatedly stepping through the list to be sorted, comparing each pair of adjacent items and swapping them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.
+
+Worst Case Performance: O(n^2^)
+Best Case Performance: O(n)
+Average Case Performance: O(n^2^)
+
+=== Quick Sort - O(n log n) (although not guaranteed) ===
+*Basic Idea*: Is similar to merge sort in that is it a divide and conquer algorithm. [http://opendatastructures.org/versions/edition-0.1e/ods-java/11_1_Comparison_Based_Sorti.html#SECTION001412000000000000000 link] The basic idea is to pick a pivot value and move elements around (by swapping them) so that they fall on the correct side of the pivot value.
+
+As the the Java Arrays API http://docs.oracle.com/javase/6/docs/api/java/util/Arrays.html#sort(int[]) Java uses a tuned quicksort to perform it's sorting, the algorithm offers n*log(n) performance on many data sets that cause other quicksorts to degrade to quadratic performance. That sort I have seen it suggested elsewhere that it uses Merge Sort
+
+Worst Case Performance: O(n^2^) - although in practice this is very rare behaviour.
+Best Case Performance: O(n log n)
+Average Case Performance: O(n log n)
+NOTE: Quick Sorts space complexity is O(log n) where as Merge Sorts is O(n)
+
+=== Merge Sort - O(n log n) (guaranteed) ===
+*Basic Idea*: This is a classic divide and conquer algorithm. Recursively halve your array until each item is on its own, then scan the first two items placing them in the correct order, complete this process with the next two items until each single item has been ordered as a pair (ignore odds), then take the first two pairs of sorted lists and scan both to create a order list of 4 items, keep going until the list of back together.
+
+Worst Case Performance: O(n log n)
+Best Case Performance: O(n log n)
+Average Case Performance: O(n log n)
+
+=== Timsort - O(n log n) ===
+*Basic Idea*: Timsort is a hybrid sorting algorithm, derived from merge sort and insertion sort, designed to perform well on many kinds of real-world data. The algorithm finds subsets of the data that are already ordered, and uses the subsets to sort the data more efficiently. This is done by merging an identified subset, called a run, with existing runs until certain criteria are fulfilled.
+
+Although it originated as a search for the Python programming language, as of Java SE 7 Timsort will be used to Array in Java as well.
+
+Worst Case Performance: O(n log n)
+Best Case Performance: O(n)
+Average Case Performance: O(n log n)
+
+=== Hash Sort - O(n) ===
+*Basic Idea*: Maintain an array of buckets of items which is at least 20-25% larger than your list of items (to reduce clashes) and perform the same calculation on each item to return a numerical representation  of that item such that you can index into the array with that.
 
 == Searching ==
+=== Linear Search - O(n) ===
+*Basic Idea*: Just search through the list from the beginning until you find the item you're looking for. With a linear search it tends* not to make much difference if the list is sorted or not (although you could have a very clever sort designed to place the most frequently used items at the front of the list).
 
+Worst Case Performance: n
+Best Case Performance: 1
+Average Case Performance: n/2
+
+=== Binary Search - O(log n) ===
+*Basic Idea*: Particularly applicable to the tree structures discussed above. The tree must already be sorted and balanced if you want to achieve O(log n) guaranteed, remember that this take time and power in the first place.
+
+Worst Case Performance: O(log n)
+Best Case Performance: 1
+Average Case Performance: ~O(log n)
+
+=== Hash Search - O(1) ===
+*Basic Idea*: Index into the list using the hash code you calculate for your item, if there are clashes you might not achieve your constant time target however if you stick to only ever being ~75-80% full then you shouldn't be too far off.
+
+Hashes are not very efficient in terms of space because by definition you need some empty slots.
 
 = Complexity (Big O) =
 
