@@ -201,7 +201,7 @@ Just as blocking queues lend themselves to the producer-consumer pattern, deques
 Deques are introduced in section 5.3.3 of Java Concurrency in Practice.
 
 === LRU Cache ===
-
+A Least Recently Used Cache is an extension of a LinkedHashMap . Usually, the LinkedHashMap orders elements by insertion order however we can change that to access order in the constructor. See Java Specialist Masters course (slide 640).
 
 == Sorting ==
 
