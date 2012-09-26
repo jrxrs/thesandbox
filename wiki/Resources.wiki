@@ -20,6 +20,10 @@
 
   * In simple words, Inheritance is way to define new a class, using classes which have already been defined
 
+Inheritance [is a] vs. Composition [has a]
+
+*Inheritance* is uni-directional. For example _House_ *is a* _Building_, but _Building_ is not a _House_. *Inheritance* uses the *extends* keyword. *Composition* on the other hand is used when _House_ *has a* _Bathroom_. Inheritance should not be used just to facilitate code reuse, if there is no *is a* relationship then use composition for code reuse. 
+
 === Encapsulation ===
 
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
@@ -136,11 +140,68 @@ Heaps are used in Heap Sorts to achieve worst case performance of O(n log n).
 
 In Java the [http://docs.oracle.com/javase/6/docs/api/java/util/PriorityQueue.html Priority Queue] is an example of a min-heap.
 
+=== Sets ===
+A Set stores unique elements.
+
+=== Maps ===
+In the conventional sense of the word a Map is a data structure which maps a key to a value, each key should map to exactly one value.
+
+==== LinkedHashMap ====
+Hash table and linked list implementation of the Map interface, with predictable iteration order. This implementation differs from HashMap in that it maintains a doubly-linked list running through all of its entries. This linked list defines the iteration ordering, which is normally the order in which keys were inserted into the map (insertion-order). Note that insertion order is not affected if a key is re-inserted into the map. (A key k is reinserted into a map m if m.put(k, v) is invoked when m.containsKey(k) would return true immediately prior to the invocation.)
+
+There is also an equiv. for Sets called LinkedHashSet, which could be compared to TreeSet and HashSet.
+
+==== MultiMap ====
+A multimap is a generalisation of a map or associative array abstract data type in which more than one values may be associated with and returned for a given key. Often multimap is implemented as a map wth lists or sets as the map values. Both Apache Commons Collections & Google Collections offer MultiMap implementations.
+
 === Stacks ===
 
 === Lists ===
 
 === Queues ===
+A Queue is a basic Collection in Java that offers 5 additional methods for interacting with the collection in a queue fashion:
+{{{
+    boolean offer(E e); // inserts, if possible
+    E poll();           // retrieves and removes head of queue
+    E remove();         // like poll() but throws exception
+    E peek();           // retrieves head without removing
+    E element();        // like peek() but throws exception
+}}}
+
+==== Concurrent Linked Queue ====
+ * Unbounded thread-safe Queue based on linked nodes
+ * Elements ordered FIFO
+ * Used when many threads share access to a queue
+ * The size() method is not constant time (it have to count all elements each time)
+ * can often be used as a thread-safe low-contention list
+
+==== Priority Queue ====
+ * Unbounded priority queue based on priority heap
+ * Orders elements according to order specified at construction time (either natural order or via Comparable, or by Comparator)
+ * Least element is at the head of the queue (this queue is not stable, thus when two elements are equals their insertion order is not maintained - you would have to provide this mechanism yourself)
+ * A normal Priority Queue is not thread-safe, however a Priority Blocking Queue (see below) is.
+ * If you need to see the items in the queue in reverse order (i.e. largest first) then just create a reverse comparator and use that for head building.
+
+=== Block Queues ===
+
+We also have the Blocking Queue interface which includes the `put()` and `take()` methods which block until space or elements become available (respectively). These types of queue are frequently used in Producer/Consumer scenarios.
+
+There are various Blocking Queue implementations:
+ * *ArrayBockingQueue* - underlying container is an array
+ * *LinkedBlockingQueue* - Linked queues typically have higher throughput than array-based queues but less predictable performance in most concurrent applications.
+ * *DelayQueue* - Only delivers after some time-out has expired
+ * *PriorityBlockingQueue* - Returns by sort order, smallest elements first
+ * *SynchronousQueue* - Queues of size zero, used if you do not want asynchronicity
+
+=== Deques ===
+A Deque is a double‐ended queue that allows efficient insertion and removal from both the head and the tail. Implementations include ArrayDeque and LinkedBlockingDeque.
+
+Just as blocking queues lend themselves to the producer-consumer pattern, deques lend themselves to a related pattern called work stealing. A producer-consumer design has one shared work queue for all consumers; in a work stealing design, every consumer has its own deque. If a consumer exhausts the work in its own deque, it can steal work from the tail of someone else's deque. Work stealing can be more scalable than a traditional producer-consumer design because workers don't contend for a shared work queue; most of the time they access only their own deque, reducing contention. When a worker has to access another's queue, it does so from the tail rather than the head, further reducing contention.
+
+Deques are introduced in section 5.3.3 of Java Concurrency in Practice.
+
+=== LRU Cache ===
+
 
 == Sorting ==
 
@@ -160,7 +221,7 @@ Best Case Performance: O(n^2^)
 Average Case Performance: O(n^2^)
 
 === Insertion Sort - O(n^2^) ===
-*Basic Idea*: 
+*Basic Idea*: Insertion sort is a simple sorting algorithm that is relatively efficient for small lists and mostly sorted lists, and often is used as part of more sophisticated algorithms. It works by taking elements from the list one by one and inserting them in their correct position into a new sorted list. In arrays, the new list and the remaining elements can share the array's space, but insertion is expensive, requiring shifting all following elements over by one.
 
 Generally speaking (and despite having same worst case complexity) an Insertion Sort is expected to perform better than a Selection Sort.
 
