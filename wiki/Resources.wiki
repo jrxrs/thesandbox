@@ -1,8 +1,10 @@
 #summary A selection of useful resources for various Programming Languages.
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = Java =
+
+[http://www.oracle.com/technetwork/java/index-141834.html Oracle's FAQ for all Java topics].
 
 == P.I.E. - The Pillars of Object Orientation ==
 
@@ -64,9 +66,13 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
 
+----
+
 = Java EE =
 
 [http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html Jave EE 6 Tutorial]
+
+----
 
 = XML =
 
@@ -80,19 +86,36 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 [http://www.informit.com/library/library.aspx?b=STY_XML_21days Teach Yourself XML in 21 Days]
 
+----
+
+= Complexity (Big O) =
+
+[http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
+[http://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly Good Explanation of O(log n) from Stackoverflow]
+
+----
+
+= Maths =
+
+[http://oakroadsystems.com/math/loglaws.htm Logarithms]
+
 = Data Structures & Algorithms =
 
 A good alternative from [http://en.wikipedia.org/ Wikipedia] articles on data structures and algorithms is http://www.algolist.net/ which provides examples in Java & C++ along with explanations and analysis.
 
 [http://so-i-think-i-created-my-first-online-project.googlecode.com/files/Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf?bcsi_scan_4c5c01dba4894524=0&bcsi_scan_filename=Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf Data Structures & Algorithms in Java (4th Edition)]
 
-== Trees ==
+----
 
-=== Depth ===
+== Data Structures ==
+
+=== Trees ===
+
+==== Depth ====
 *Formal Definition:* Let _v_ be a node of a tree _T_. The depth of _v_ is the number of ancestors of _v_, excluding _v_ itself. If _v_ is the root, then the depth of _v_ is 0.
 *Informal Definition:* How deep down the tree is the node you're concerned with?
 
-=== Height ===
+==== Height ====
 *Formal Definition:* The height of a node _v_ in a tree _T_ is defined recursively:<br><li>If _v_ is an external node, then the height of _v_ is 0
 <br><li>Otherwise, the height of _v_ is one plus the maximum height of a child of _v_.<br>
 *Informal Definition:* So basically how far is _v_ away from it's further descendant which is a leaf (external node). 
@@ -105,9 +128,28 @@ Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both 
 
 Although AVL trees and (2,4) trees have a number of nice properties, there are some dictionary applications for which they are not well suited. For instance, AVL trees may require many restructure operations (rotations) to be performed after a removal, and (2,4) trees may require many fusing or split operations to be performed after either an insertion or removal. The red-black tree data structure does not have these drawbacks, however, as it requires that only O(1) structural changes be made after an update in order to stay balanced.
 
+=== Heaps ===
+
+The description from Wikipedia for the [http://en.wikipedia.org/wiki/Heap_%28data_structure%29 Heap] data structure is very clear on concise. Essentially, the structure is a binary tree where some form of ordering is used to determine where each node is placed, for instance if you were ordering percentages on a max-heap 100 would be at the top, 1 at the bottom. When you add a node to this type of structure you always fill the next level with empty places from the left to the right, once you add a value you compare it to it's parent and if ordering dictates that the new node should come before it's parent you swap them in the structure (and carry on until you don't need to swap or you reach the root). Similarly if you remove the root you then swap the most recently added item into the root's position and compare the new root with each of it's children, swapping with the most appropriate child e.g. the larger of the two in the case of a max-heap. Again you continue this process until you don't need to swap again or you reach a leaf.
+
+Heaps are used in Heap Sorts to achieve worst case performance of O(n log n).
+
+In Java the [http://docs.oracle.com/javase/6/docs/api/java/util/PriorityQueue.html Priority Queue] is an example of a min-heap.
+
+=== Stacks ===
+
+=== Lists ===
+
+=== Queues ===
+
 == Sorting ==
 
-There are lots of different types of sorting algorithms, only some are covered here. A comparison of the space complexity of many of these algorithms can be found [http://en.wikipedia.org/wiki/Timsort#Performance here].
+There are lots of different types of sorting algorithms, only some are covered here. A comparison of the space complexity of many of those featured can be found [http://en.wikipedia.org/wiki/Timsort#Performance here].
+
+=== Stable vs. Unstable Sorts ===
+*Stable* sorting algorithms maintain the relative order of records with equal keys.<br>
+*Unstable* sorting algorithms may change the relative order of records with equal keys, but stable sorting algorithms never do so.<br>
+Unstable sorting algorithms can be specially implemented to be stable. One way of doing this is to artificially extend the key comparison, so that comparisons between two objects with otherwise equal keys are decided using the order of the entries in the original data order as a tie-breaker. Remembering this order, however, often involves an additional computational cost.
 
 === Selection Sort - O(n^2^) ===
 *Basic Idea*: Ascend the unsorted array until the find the smallest value in the list, swap that value with the value in the first spot, then search adjust the position you are attempting to fill and search again for the next smallest etc. continuing until you reach the end and everything is sorted.
@@ -184,14 +226,11 @@ Average Case Performance: ~O(log n)
 
 Hashes are not very efficient in terms of space because by definition you need some empty slots.
 
-= Complexity (Big O) =
+----
 
-[http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
-[http://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly Good Explanation of O(log n) from Stackoverflow]
+= Design Patterns =
 
-= Maths =
-
-[http://oakroadsystems.com/math/loglaws.htm Logarithms]
+----
 
 = The OSI Application Model =
 
@@ -235,3 +274,21 @@ Example: this layer describes how floating point numbers can be exchanged betwee
 == Application ==
 The *Application Layer* describes how real work actually gets done.<br>
 Example: this layer would implement file system operations. e.g. HTTP, DHCP, NFS
+
+----
+
+= Architectures (32-bit vs. 64-bit) =
+
+A 64-bit computer architecture generally has integer and addressing registers that are 64 bits wide, allowing direct support for 64-bit data types and addresses.
+
+== 64-bit Java ==
+
+For Java specific 64-bit information see the [http://www.oracle.com/technetwork/java/hotspotfaq-138619.html#64bit_description FAQ]
+
+A compiled Java program can run on a 32- or 64-bit Java virtual machine without modification. The lengths and precision of all the built-in types are specified by the standard and are not dependent on the underlying architecture. Java programs that run on a 64-bit Java virtual machine have access to a larger address space (this is the primary advantage), this allows for a much larger Java heap size and an increased maximum number of Java Threads, which is needed for certain kinds of large or long-running applications.
+
+The additional overhead of having native pointers in the system which take up 8 bytes instead of 4 means that a small performance penalty is often observed when porting from 32-bit to 64-bit Java, however the the benefits of being able to address larger amounts of memory might make that it worth it. Any degradation will depend on the amount of pointer accessing your application performs.
+
+=== IMPORTANT ===
+
+*What it is NOT*:  Many Java users and developers assume that a 64-bit implementation means that many of the built-in Java types are doubled in size from 32 to 64.  This is not true.  We did not increase the size of Java integers from 32 to 64 and since Java longs were already 64 bits wide, they didn't need updating.  Array indexes, which are defined in the Java Virtual Machine Specification, are not widened from 32 to 64.  We were extremely careful during the creation of the first 64-bit Java port to insure Java binary and API compatibility so all existing 100% pure Java programs would continue running just as they do under a 32-bit VM.
