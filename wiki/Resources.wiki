@@ -206,6 +206,16 @@ Average Case Performance: O(n log n)
 === Hash Sort - O(n) ===
 *Basic Idea*: Maintain an array of buckets of items which is at least 20-25% larger than your list of items (to reduce clashes) and perform the same calculation on each item to return a numerical representation  of that item such that you can index into the array with that.
 
+*Java Specialist Masters Course*
+ * Traditionally (before Java 1.4), the HashMap would contain a sparse array holding pointers to the keys
+ * The remainder of dividing hash code by the number of buckets in the sparse array would give the offset
+ * When there was a clash, the equals() method was used to ascertain uniqueness (having lots of objects with the same hash code would result in a long list to iterate through)
+ * It was important to have a prime number hash map size and to have fairly random distribution of hash codes
+
+ * Since Java 1.4 the HashMap uses bit masking to put the keys into buckets (thus the size of HashMap is always a power of 2 [2,4,8,16,32,34,128,256,...] - if you size the HashMap differently (e.g. 101) it will automatically be resized to one of these values
+ * A big disadvantage with bit masking is that it is far more sensitive to bit patterns than the remainder approach (which was ditched because it is quite an expensive operation)
+ * The bits are then being mixed around with re-hashing
+
 == Searching ==
 === Linear Search - O(n) ===
 *Basic Idea*: Just search through the list from the beginning until you find the item you're looking for. With a linear search it tends* not to make much difference if the list is sorted or not (although you could have a very clever sort designed to place the most frequently used items at the front of the list).
