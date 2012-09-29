@@ -6,6 +6,12 @@
 
 [http://www.oracle.com/technetwork/java/index-141834.html Oracle's FAQ for all Java topics].
 
+== The Absolute Basics ==
+
+*What is a class?*<br>A class is a blueprint, or prototype, that defines the variables and the methods common to all objects of a certain kind.<br>
+*What is a object?*<br>An object is a programming unit, which defines behaviour and state.<br>
+*What is a method?*<br>Encapsulation of a functionality which can be called to perform specific tasks. 
+
 == P.I.E. - The Pillars of Object Orientation ==
 
 === Polymorphism ===
@@ -13,6 +19,8 @@
 [http://en.wikipedia.org/wiki/Polymorphism_in_object-oriented_programming Wikipedia: Polymorphism]
 
   * Is the ability of methods to behave differently, based on the object calling it
+
+In object-oriented programming, polymorphism refers to a programming language’s ability to process objects differently depending on their data type or class. More specifically, it is the ability to redefine methods for derived [sub-] classes. For example, given a base class shape, polymorphism enables the programmer to define different area methods for any number of derived classes, such as circles, rectangles and triangles. No matter what shape an object is, applying the area method to it will return the correct results. Polymorphism is considered to be a requirement of any true object-oriented programming language.
 
 === Inheritance ===
 
@@ -22,7 +30,11 @@
 
 Inheritance [is a] vs. Composition [has a]
 
-*Inheritance* is uni-directional. For example _House_ *is a* _Building_, but _Building_ is not a _House_. *Inheritance* uses the *extends* keyword. *Composition* on the other hand is used when _House_ *has a* _Bathroom_. Inheritance should not be used just to facilitate code reuse, if there is no *is a* relationship then use composition for code reuse. 
+*Inheritance* is uni-directional. For example _House_ *is a* _Building_, but _Building_ is not a _House_. *Inheritance* uses the *extends* keyword. *Composition* on the other hand is used when _House_ *has a* _Bathroom_. Inheritance should not be used just to facilitate code reuse, if there is no *is a* relationship then use composition for code reuse.
+
+Inheritance in object oriented programming means that a class of objects can inherit properties and methods from another [parent] class of objects.
+
+*NOTE* In Java multiple inheritance of classes is not allowed, however a sub-interface can extends multiple interfaces, [http://en.wikipedia.org/wiki/Interface_%28Java%29#Subinterfaces example].
 
 === Encapsulation ===
 
@@ -30,6 +42,8 @@ Inheritance [is a] vs. Composition [has a]
 
   * With Encapsulation you can hide (restrict access) to critical data members in your code , which improves security
   * Encapsualtion combines data and actions together (just like a capsule)
+
+Encapsulation is the term given to the process of hiding the implementation details of the object. Once an object is encapsulated, its implementation details are not immediately accessible any more. Instead they are packaged and are only indirectly accessible via the interface of the object. When used properly encapsulation allows us to very easily change the implementation of a class without burdening those who use it (provided we maintain a considtent interface for interaction with our class).
 
 ==== Data Abstraction ====
 
@@ -69,6 +83,10 @@ does not impact runtime performance. There is however a valid case for specifyin
 == Threading & Lock Contention ==
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
+
+== Garbage Collection ==
+
+A good introduction/overview of the basics can be found [http://www.javarevisited.blogspot.co.uk/2011/04/garbage-collection-in-java.html here] on the [http://www.javarevisited.blogspot.co.uk/ JavaRevisited Blog]. Alternatively see [http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140228.html here] for all the gorey details from Oracle, particularly their [http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html GC Tuning] page. 
 
 ----
 
@@ -363,3 +381,9 @@ The additional overhead of having native pointers in the system which take up 8 
 === IMPORTANT ===
 
 *What it is NOT*:  Many Java users and developers assume that a 64-bit implementation means that many of the built-in Java types are doubled in size from 32 to 64.  This is not true.  We did not increase the size of Java integers from 32 to 64 and since Java longs were already 64 bits wide, they didn't need updating.  Array indexes, which are defined in the Java Virtual Machine Specification, are not widened from 32 to 64.  We were extremely careful during the creation of the first 64-bit Java port to insure Java binary and API compatibility so all existing 100% pure Java programs would continue running just as they do under a 32-bit VM.
+
+= Blogs =
+
+[http://www.javarevisited.blogspot.co.uk/ Javarevisited]
+
+Blog about Java Program Tutorial Example How to, Unix Linux commands, Interview Questions, FIX Protocol, Tibco RV tutorials, Equities trading system, MySQL
