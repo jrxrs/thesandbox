@@ -87,7 +87,7 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 == Mutable & Immutable Objects ==
 
-Item 15 of Effective Java (2<sup>nd<sup> Ed.) explains the concept of an Immutable object (an object which cannot be mutated) very nicely, the summary is as follows:
+Item 15 of Effective Java (2^nd^ Ed.) explains the concept of an Immutable object (an object which cannot be mutated) very nicely, the summary is as follows:
 
 An immutable class is simply a class whose instances cannot be modified. All of the information contained in each instance is provided when it is created and is fixed for the lifetime of the object. Examples include `String`, the boxed primitive classes, `BigInteger` & `BigDecimal`. The 5 rules for achieving immutability are:
 
@@ -140,7 +140,11 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 == Garbage Collection ==
 
-A good introduction/overview of the basics can be found [http://www.javarevisited.blogspot.co.uk/2011/04/garbage-collection-in-java.html here] on the [http://www.javarevisited.blogspot.co.uk/ JavaRevisited Blog]. Alternatively see [http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140228.html here] for all the gorey details from Oracle, particularly their [http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html GC Tuning] page. 
+A good introduction/overview of the basics can be found [http://www.javarevisited.blogspot.co.uk/2011/04/garbage-collection-in-java.html here] on the [http://www.javarevisited.blogspot.co.uk/ JavaRevisited Blog]. Alternatively see [http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140228.html here] for all the gorey details from Oracle, particularly their [http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html GC Tuning] page.
+
+=== Memory Leaks in Java ===
+
+Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
 
 ----
 
@@ -373,6 +377,16 @@ Hashes are not very efficient in terms of space because by definition you need s
 ----
 
 = Design Patterns =
+
+== Singleton Pattern ==
+
+A singleton is simply a class that is instantiated exactly once, typically a system component that is intrinsically unique, such as the window manager or file system.
+
+Item 3 of Effective Java 2^nd^ Ed. for this one. The Java Specialists Masters course also details the static Holder approach.
+
+== Dependency Injection ==
+
+The general concept behind dependency injection is called Inversion of Control. A class should not configure its dependencies but should be configured from outside. http://www.vogella.com/articles/DependencyInjection/article.html
 
 ----
 
