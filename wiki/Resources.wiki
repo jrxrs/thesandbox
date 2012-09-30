@@ -21,7 +21,7 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is meant by a final class, methods and variables?*<br>When declared `final` a class cannot be extended (by a sub-class). Similarly when a method is declared `final` it cannot be overridden by a method belonging to a sub-class. When a primitive variable is declared `final` its value cannot be changed...If the variable is a reference to an object then it will always refer to the same object, internal attributes of the object can be changed.
  # *What is an interface?*<br>Interface is a contact that can be implemented by a class, it contains method signitures that must be implementation. 
  # *What is method overloading?*<br>Overloading is declaring multiple methods with the same name, but with a different argument list. 
- # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same name and identical arguments used by the original method in the parent class. The overriding method can still call the method method using the `super` keyword but will most likely provide some alternative behaviour.
+ # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signiture) name and identical arguments used by the original method in the parent class. The overriding method can still call the method method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`.
  # *What is casting?*<br>Conversion of one object or primitive type to another.
  # *What is the difference between `final`, `finally` and `finalize`?*<br>The modifier `final` is used on variables, methods and classes to specify certain behaviour explained above. The `finally` keyword is used as one of the blocks of code in try-catch scenarios, it is used to hold code that needs to be executed whether or not the exception occurs in the try catch block (for example to release locks or close resources, although Java SE 7 allows for this with the try with resources block). Java provides a method called `finalize()` that can be defined in the class. When the garbage collector is ready to release the storage for your object, it will first call `finalize()`, and only on the next garbage-collection pass will it reclaim the objects memory. So `finalize()`, gives you the ability to perform some important cleanup at the time of garbage collection. *This use of `finalize()`, however, is not recommended, since there is no guarantee as to when, or even if, this method will be run.*
  # *What are packages?*<br>A package is a collection of related classes and interfaces providing access protection and namespace management. Packages help programmers achieve encapsulation. 
@@ -32,6 +32,19 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is deadlock?*<br>Deadlock is a situation when two threads are waiting on each other to release a resource. Each thread waiting for a resource which is held by the other waiting thread. In Java, this resource is usually the object lock obtained by the `synchronized` keyword. 
  # *What are the three types of priority?*<br>`MAX_PRIORITY` which is `10`, `MIN_PRIORITY` which is `1` & `NORM_PRIORITY` which is `5`. Some concurrency texts do not recommend altering thread priorities as it can lead to starvation (where a thread never progresses).
  # *What is the use of the `synchronized` keyword? Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
+ # *What are the methods in the `Object` class?*<br>The [http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html `Object`] class has 11 methods, they are:
+ * `clone()`
+ * `equals(Object o)`
+ * `hashCode()`
+ * `finalize()`
+ * `notify()`
+ * `notifyAll()`
+ * `wait()`
+ * `wait(long timeout)`
+ * `wait(long timeout, int nano)`
+ * `toString()`
+ * `getClass()`
+ # *If you override `equals()` what else should you do?*<br>You should also override the `hashCode()` method in order to ensure conformation with the contract in the `Object` class, specifially that if `equals(Object)` is true for two objects then calling `hashCode()` on the same two objects must result in the same integer result.
 
 == P.I.E. - The Pillars of Object Orientation ==
 
@@ -148,6 +161,11 @@ A good introduction/overview of the basics can be found [http://www.javarevisite
 === Memory Leaks in Java ===
 
 Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
+
+== Java Interview Questions ==
+
+http://www.allapplabs.com/interview_questions/java_interview_questions.htm
+
 
 ----
 
