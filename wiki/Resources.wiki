@@ -24,6 +24,14 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same name and identical arguments used by the original method in the parent class. The overriding method can still call the method method using the `super` keyword but will most likely provide some alternative behaviour.
  # *What is casting?*<br>Conversion of one object or primitive type to another.
  # *What is the difference between `final`, `finally` and `finalize`?*<br>The modifier `final` is used on variables, methods and classes to specify certain behaviour explained above. The `finally` keyword is used as one of the blocks of code in try-catch scenarios, it is used to hold code that needs to be executed whether or not the exception occurs in the try catch block (for example to release locks or close resources, although Java SE 7 allows for this with the try with resources block). Java provides a method called `finalize()` that can be defined in the class. When the garbage collector is ready to release the storage for your object, it will first call `finalize()`, and only on the next garbage-collection pass will it reclaim the objects memory. So `finalize()`, gives you the ability to perform some important cleanup at the time of garbage collection. *This use of `finalize()`, however, is not recommended, since there is no guarantee as to when, or even if, this method will be run.*
+ # *What are packages?*<br>A package is a collection of related classes and interfaces providing access protection and namespace management. Packages help programmers achieve encapsulation. 
+ # *What is a super class and how can you call a super class?*<br>When a class is extended that is derived from another class a relationship is created, the parent class is referred to as the super class by the derived class that is the child or sub class. The derived class can make a call to the super class using the keyword `super`. If used in the constructor of the derived class it has to be the first statement. 
+ # *What is meant by a Thread?*<br>A thread is defined as an instantiated parallel process of a given program. 
+ # *What is multi-threading? Multi-threading as the name suggest is the scenario where more than one threads are running. 
+ # *What are two ways of creating a thread? Which is the best way and why?*<br>Two ways of creating threads are, either to extend the `java.lang.Thread` class and implement/override the `run()` method or a different class can be created which implements the `Runnable` interface, and the then implement the `run()` method. The latter is most commonly used due to the Java restriction of single implementation inheritance. Implementation of the Runnable interface solves this problem, if additional implementation inheritance (i.e. extending another class) is required.
+ # *What is deadlock?*<br>Deadlock is a situation when two threads are waiting on each other to release a resource. Each thread waiting for a resource which is held by the other waiting thread. In Java, this resource is usually the object lock obtained by the `synchronized` keyword. 
+ # *What are the three types of priority?*<br>`MAX_PRIORITY` which is `10`, `MIN_PRIORITY` which is `1` & `NORM_PRIORITY` which is `5`. Some concurrency texts do not recommend altering thread priorities as it can lead to starvation (where a thread never progresses).
+ # *What is the use of the `synchronized` keyword? Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
 
 == P.I.E. - The Pillars of Object Orientation ==
 
@@ -79,11 +87,25 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 == Mutable & Immutable Objects ==
 
+Item 15 of Effective Java (2<sup>nd<sup> Ed.) explains the concept of an Immutable object (an object which cannot be mutated) very nicely, the summary is as follows:
+
+An immutable class is simply a class whose instances cannot be modified. All of the information contained in each instance is provided when it is created and is fixed for the lifetime of the object. Examples include `String`, the boxed primitive classes, `BigInteger` & `BigDecimal`. The 5 rules for achieving immutability are:
+
+ # Don't provide any methods (mutators) that modify the object's state.
+ # Ensure that the class cannot be extended.
+ # Make all fields final.
+ # Make all fields private.
+ # Ensure exclusive access to ant mutable components.
+
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
 
 == Generics ==
 
 [http://onjava.com/onjava/excerpt/javaian5_chap04/index1.html Writing Generic Types & Methods]
+
+== Enums ==
+
+[http://www.javapractices.com/topic/TopicAction.do?Id=1 Enums Summary from javapractices.com]
 
 == Checked & Unchecked Exceptions ==
 
@@ -93,7 +115,26 @@ does not impact runtime performance. There is however a valid case for specifyin
 
 [http://robaustin.wikidot.com/50-java-interview-questions Java Interview Questions]
 
-== Threading & Lock Contention ==
+== Concurrency, Threading & Lock Contention ==
+
+=== Java Concurrency in Practice ===
+
+==== Summary of Part 1 ====
+
+ * It's the mutable state, stupid.
+   All concurrency issues boil down to coordinating access to mutable state. The less mutable state, the easier it is to ensure thread safety. 
+ * Make fields final unless they need to be mutable. 
+ * Immutable objects are automatically thread safe. 
+ * Immutable objects simplify concurrent programming tremendously. They are simpler and safer, and can be shared  freely without locking or defensive copying. 
+ * Encapsulation makes it practical to manage the complexity. 
+   You could write a thread safe program with all data stored in global variables, but why would you want to? Encapsulating data within objects makes it easier to preserve their invariants; encapsulating synchronization within objects makes it easier to comply with their synchronization policy. 
+ * Guard each mutable variable with a lock. Guard all variables in an invariant with the same lock.   
+ * Hold locks for the duration of compound actions. A program that accesses a mutable variable from multiple threads without synchronization is a broken program. 
+ * Don't rely on clever reasoning about why you don't need to synchronize.  
+ * Include thread safety in the design processor explicitly document that your class is not thread safe.
+ * Document your synchronization policy.
+
+=== Lock Contention ===
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
 
@@ -147,12 +188,13 @@ A good alternative from [http://en.wikipedia.org/ Wikipedia] articles on data st
 === Trees ===
 
 ==== Depth ====
-*Formal Definition:* Let _v_ be a node of a tree _T_. The depth of _v_ is the number of ancestors of _v_, excluding _v_ itself. If _v_ is the root, then the depth of _v_ is 0.
+*Formal Definition:* Let _v_ be a node of a tree _T_. The depth of _v_ is the number of ancestors of _v_, excluding _v_ itself. If _v_ is the root, then the depth of _v_ is 0.<br>
 *Informal Definition:* How deep down the tree is the node you're concerned with?
 
 ==== Height ====
-*Formal Definition:* The height of a node _v_ in a tree _T_ is defined recursively:<br><li>If _v_ is an external node, then the height of _v_ is 0
-<br><li>Otherwise, the height of _v_ is one plus the maximum height of a child of _v_.<br>
+*Formal Definition:* The height of a node _v_ in a tree _T_ is defined recursively:
+ * If _v_ is an external node, then the height of _v_ is 0
+ * Otherwise, the height of _v_ is one plus the maximum height of a child of _v_.<br>
 *Informal Definition:* So basically how far is _v_ away from it's further descendant which is a leaf (external node). 
 
 Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both Red-Black tree ([http://www.ece.uc.edu/~franco/C321/html/RedBlack/redblack.html demo]) and AVL trees ([http://www.strille.net/works/media_technology_projects/avl-tree_2001/ demo]) support O(log n) search, insertion, and removal. AVLs are more rigidly balanced than red–black trees, leading to slower insertion and removal but faster retrieval. This makes AVLs attractive for data structures that may be built once and loaded without reconstruction, such as language dictionaries (or program dictionaries, such as the opcodes of an assembler or interpreter).
@@ -213,16 +255,16 @@ A Queue is a basic Collection in Java that offers 5 additional methods for inter
  * A normal Priority Queue is not thread-safe, however a Priority Blocking Queue (see below) is.
  * If you need to see the items in the queue in reverse order (i.e. largest first) then just create a reverse comparator and use that for head building.
 
-=== Block Queues ===
+=== Blocking Queues ===
 
 We also have the Blocking Queue interface which includes the `put()` and `take()` methods which block until space or elements become available (respectively). These types of queue are frequently used in Producer/Consumer scenarios.
 
 There are various Blocking Queue implementations:
- * *ArrayBockingQueue* - underlying container is an array
- * *LinkedBlockingQueue* - Linked queues typically have higher throughput than array-based queues but less predictable performance in most concurrent applications.
- * *DelayQueue* - Only delivers after some time-out has expired
- * *PriorityBlockingQueue* - Returns by sort order, smallest elements first
- * *SynchronousQueue* - Queues of size zero, used if you do not want asynchronicity
+ * *!ArrayBockingQueue* - underlying container is an array
+ * *!LinkedBlockingQueue* - Linked queues typically have higher throughput than array-based queues but less predictable performance in most concurrent applications.
+ * *!DelayQueue* - Only delivers after some time-out has expired
+ * *!PriorityBlockingQueue* - Returns by sort order, smallest elements first
+ * *!SynchronousQueue* - Queues of size zero, used if you do not want asynchronicity
 
 === Deques ===
 A Deque is a double‐ended queue that allows efficient insertion and removal from both the head and the tail. Implementations include ArrayDeque and LinkedBlockingDeque.
@@ -400,3 +442,5 @@ The additional overhead of having native pointers in the system which take up 8 
 [http://www.javarevisited.blogspot.co.uk/ Javarevisited]
 
 Blog about Java Program Tutorial Example How to, Unix Linux commands, Interview Questions, FIX Protocol, Tibco RV tutorials, Equities trading system, MySQL
+
+http://ebookfree4all.blogspot.co.uk/
