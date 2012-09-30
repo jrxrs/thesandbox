@@ -1,0 +1,11 @@
+#summary A few definitions from the financial industry.
+
+= Financial Glossary =
+
+== Buy-side vs. Sell-side ==
+
+From [ here]:
+
+Simply stated, the buy-side refers to the asset managers who represent individual and institutional investors. The buy-side purchases investment products with the goal of increasing its assets. The sell-side refers to the functions of an investment bank. Specifically, this includes investment bankers, traders and research analysts. Sell-side professionals issue, recommend, trade and "sell" securities for the investors on the buy-side to "buy." The sell-side can be thought of primarily as a facilitator of buy-side investments --the sell-side makes money not through a growth in value of the investment, but through fees and commissions for these facilitating services. In this chapter, we'll take a brief look at the types of jobs on each "side." The rest of the book will look at the buy-side in detail.
+
+So in essence Goldman Sachs would be the sell-side, where as Blackrock or Fidelity would be the buy-side.
