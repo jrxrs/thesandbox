@@ -165,13 +165,19 @@ Although it might not seem obvious at first it is possible for Java code to suff
 == Java Interview Questions ==
 
 http://www.allapplabs.com/interview_questions/java_interview_questions.htm
-
+[http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
 
 ----
 
 = Java EE =
 
 [http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html Jave EE 6 Tutorial]
+
+----
+
+Tibco
+
+[http://javarevisited.blogspot.co.uk/2011/05/tibco-tutorials-for-beginners.html Tibco Tutorial]
 
 ----
 
@@ -401,9 +407,31 @@ Hashes are not very efficient in terms of space because by definition you need s
 
 == Singleton Pattern ==
 
-A singleton is simply a class that is instantiated exactly once, typically a system component that is intrinsically unique, such as the window manager or file system.
+The Singleton Pattern is a Creational Pattern. 
+
+A singleton is simply a class that is instantiated exactly once, typically a system component that is intrinsically unique, such as the window manager or file system. The singleton itself must also provide a single point of access for those who depend on it.
 
 Item 3 of Effective Java 2^nd^ Ed. for this one. The Java Specialists Masters course also details the static Holder approach.
+
+== Factory Method Pattern ==
+
+The Factory Pattern (aka Virtual Constructor) is also a Creational Pattern, it defines an interface for creating an object, but let subclasses decide which class to instantiate. The Factory Method lets a class defer instantiations to subclasses.
+
+Example usage in Java would be the `Collection` interface extending the `Iterable` interface...the `LinkedList` class which implements `Collection` is responsible for creating a `LinkedListItr` from it's `Iterator iterator()` method. Note that the `LinkedListItr` implements the `Iterator` interface.
+
+== Facade ==
+
+The intent of the Facade pattern (a Structural Pattern) is to present a simple (unified) interface for interacting with a complex subsystem. 
+
+Examples in Java:
+ * The `SwingUtilities` class is a facade and has methods such as `invokeLater()`.
+ * The `Executors` class is also considered a facade for thread pool creation.
+
+== Decorator Pattern ==
+
+The Decorator Patten (aka Wrapper or Filter) is a Structural Pattern which allows you to attach additional responsibilities to an object dynamically. Decorator provide a flexible alternative to subclassing for extending functionality.
+
+The Java Collections framework provides us with an example of this pattern, as does Item 16 of Effective Java 2^nd^ Ed., both are quite similar. The Collections example is the `Collections.synchronizedXXX(XXX)` method which wraps the `List`, `Map` or `Set` passed in with a wrapper that synchronises access to the underlying collection.
 
 == Dependency Injection ==
 
