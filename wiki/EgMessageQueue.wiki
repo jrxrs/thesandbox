@@ -1,0 +1,167 @@
+#summary Examples of how to use wait and notify on an objects monitor
+
+= Introduction =
+This shows example of how to use `wait()` and `notify()` on an Object's monitor.
+
+= Example 1 - using the Object itself =
+
+{{{
+package thesandbox;
+
+import java.util.LinkedList;
+
+public class MessageQueue
+{
+    private final LinkedList<Object> queue;
+
+    public MessageQueue() {
+        queue = new LinkedList<Object>();
+    }
+
+    public synchronized void add(Object o) {
+        queue.add(o);
+
+        notify();
+    }
+
+    public synchronized Object remove() {
+        Object rv = null;
+        long start = System.currentTimeMillis();
+        while (queue.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException ie) {
+                return rv;
+            }
+        }
+        System.out.println(Thread.currentThread() + " waited for: " + (System.currentTimeMillis() - start));
+        rv = queue.remove();
+
+        return rv;
+    }
+
+    public static void main(String[] args) {
+        final MessageQueue mq = new MessageQueue();
+
+        Thread producer = new Thread("producer1") {
+            @Override
+            public void run() {
+                mq.add("producer1 put this here!");
+            }
+        };
+
+        Thread producer2 = new Thread("producer2") {
+            @Override
+            public void run() {
+                mq.add("producer2 put this here!");
+            }
+        };
+
+        Thread consumer = new Thread("consumer") {
+            @Override
+            public void run() {
+                for (;;) {
+                    System.out.println(Thread.currentThread() + " got an Object: " + mq.remove());
+                }
+            }
+        };
+        consumer.start();
+
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (InterruptedException ie) {
+            System.err.println("Main thread was Interrupted");
+            ie.printStackTrace();
+        }
+
+        producer2.start();
+        producer.start();
+    }
+}
+
+}}}
+
+= Example 2 - using a lock Object =
+
+This exactly the same class as above, although it uses a specific/separate object as the monitor rather then the monitor of the instance of MessageQueue, essentially there is no difference between the two.
+
+{{{
+package thesandbox;
+
+import java.util.LinkedList;
+
+public class MessageQueue
+{
+    private final LinkedList<Object> queue;
+    private final Object lock = new Object();
+
+    public MessageQueue() {
+        queue = new LinkedList<Object>();
+    }
+
+    public void add(Object o) {
+        synchronized (lock) {
+            queue.add(o);
+
+            lock.notify();
+        }
+    }
+
+    public Object remove() {
+        Object rv = null;
+        synchronized (lock) {
+            long start = System.currentTimeMillis();
+            while (queue.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException ie) {
+                    return rv;
+                }
+            }
+            System.out.println(Thread.currentThread() + " waited for: " + (System.currentTimeMillis() - start));
+            rv = queue.remove();
+        }
+
+        return rv;
+    }
+
+    public static void main(String[] args) {
+        final MessageQueue mq = new MessageQueue();
+
+        Thread producer = new Thread("producer1") {
+            @Override
+            public void run() {
+                mq.add("producer1 put this here!");
+            }
+        };
+
+        Thread producer2 = new Thread("producer2") {
+            @Override
+            public void run() {
+                mq.add("producer2 put this here!");
+            }
+        };
+
+        Thread consumer = new Thread("consumer") {
+            @Override
+            public void run() {
+                for (;;) {
+                    System.out.println(Thread.currentThread() + " got an Object: " + mq.remove());
+                }
+            }
+        };
+        consumer.start();
+
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (InterruptedException ie) {
+            System.err.println("Main thread was Interrupted");
+            ie.printStackTrace();
+        }
+
+        producer2.start();
+        producer.start();
+    }
+}
+
+}}}
