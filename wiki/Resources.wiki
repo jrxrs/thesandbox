@@ -32,7 +32,7 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is deadlock?*<br>Deadlock is a situation when two threads are waiting on each other to release a resource. Each thread waiting for a resource which is held by the other waiting thread. In Java, this resource is usually the object lock obtained by the `synchronized` keyword. 
  # *What are the three types of priority?*<br>`MAX_PRIORITY` which is `10`, `MIN_PRIORITY` which is `1` & `NORM_PRIORITY` which is `5`. Some concurrency texts do not recommend altering thread priorities as it can lead to starvation (where a thread never progresses).
  # *What is the use of the `synchronized` keyword? Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
- # *What are the methods in the `Object` class?*<br>The [http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html `Object`] class has 11 methods, they are:
+ # *What are the methods in the `Object` class?*<br>The `[http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html Object]` class has 11 methods, they are:
  * `clone()`
  * `equals(Object o)`
  * `hashCode()`
