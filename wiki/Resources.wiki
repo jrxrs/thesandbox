@@ -31,7 +31,7 @@ These take the form of quick fire questions with short descriptive answers.
  # *What are two ways of creating a thread? Which is the best way and why?*<br>Two ways of creating threads are, either to extend the `java.lang.Thread` class and implement/override the `run()` method or a different class can be created which implements the `Runnable` interface, and the then implement the `run()` method. The latter is most commonly used due to the Java restriction of single implementation inheritance. Implementation of the Runnable interface solves this problem, if additional implementation inheritance (i.e. extending another class) is required.
  # *What is deadlock?*<br>Deadlock is a situation when two threads are waiting on each other to release a resource. Each thread waiting for a resource which is held by the other waiting thread. In Java, this resource is usually the object lock obtained by the `synchronized` keyword. 
  # *What are the three types of priority?*<br>`MAX_PRIORITY` which is `10`, `MIN_PRIORITY` which is `1` & `NORM_PRIORITY` which is `5`. Some concurrency texts do not recommend altering thread priorities as it can lead to starvation (where a thread never progresses).
- # *What is the use of the `synchronized` keyword? Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
+ # *What is the use of the `synchronized` keyword?*<br>Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
  # *What are the methods in the `Object` class?*<br>The [http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html Object] class has 11 methods, they are:
  * `clone()`
  * `equals(Object o)`
@@ -45,6 +45,11 @@ These take the form of quick fire questions with short descriptive answers.
  * `toString()`
  * `getClass()`
  # *If you override `equals()` what else should you do?*<br>You should also override the `hashCode()` method in order to ensure conformation with the contract in the `Object` class, specifially that if `equals(Object)` is true for two objects then calling `hashCode()` on the same two objects must result in the same integer result.
+ # *Explain how `wait()` & `notify()` are used?*<br>`wait()` and `notify()` belong to the `Object` class and are used in conjunction with the monitor (lock) of the object in question. A thread can obtain the monitor of an object can be obtained in one of three ways:
+ * By executing a synchronized instance method of that object.
+ * By executing the body of a `synchronized` statement that synchronizes on the object.
+ * For objects of type `Class`, by executing a synchronized static method of that class.
+A thread may only call `wait()` or `notify()` on an object for which it owns the monitor, if such a thread were to call `wait()` it must release the monitor while it waits to be notified, once it is notified it must re-obtain the same monitor before continuing. Conditions are usually used to decide when to wait and actions are usually performed before notifying. See EgMessageQueue for an example.
 
 == P.I.E. - The Pillars of Object Orientation ==
 
