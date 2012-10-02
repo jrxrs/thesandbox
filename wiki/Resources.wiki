@@ -444,6 +444,12 @@ The general concept behind dependency injection is called Inversion of Control. 
 
 ----
 
+= Enterprise Design Patterns =
+
+http://www.eaipatterns.com/index.html
+
+----
+
 = The OSI Application Model =
 
 The [http://en.wikipedia.org/wiki/OSI_model Open Systems Interconnection] (OSI) model is a model used standardise the functions of a communications system in terms of abstraction layers. Similar communication functions are grouped into logical layers. A layer serves the layer above it and is served by the layer below it.
