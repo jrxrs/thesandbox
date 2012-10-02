@@ -505,6 +505,10 @@ The additional overhead of having native pointers in the system which take up 8 
 
 *What it is NOT*:  Many Java users and developers assume that a 64-bit implementation means that many of the built-in Java types are doubled in size from 32 to 64.  This is not true.  We did not increase the size of Java integers from 32 to 64 and since Java longs were already 64 bits wide, they didn't need updating.  Array indexes, which are defined in the Java Virtual Machine Specification, are not widened from 32 to 64.  We were extremely careful during the creation of the first 64-bit Java port to insure Java binary and API compatibility so all existing 100% pure Java programs would continue running just as they do under a 32-bit VM.
 
+= Books =
+
+[http://ofps.oreilly.com/titles/9781449323950/index.html Spring Data] - A book covering various Spring related topics including MongoDB, Neo4J & GemFire.
+
 = Blogs =
 
 [http://www.javarevisited.blogspot.co.uk/ Javarevisited]
