@@ -142,7 +142,21 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 ==== Using Synchronized Collections ====
 
-If you use a `synchronized` collection from the Collections utility class you should take note of the correct iteration idiom, explained in the [http://docs.oracle.com/javase/6/docs/api/java/util/Collections.html#synchronizedCollection(java.util.Collection) Javadoc].
+If you use a `synchronized` collection from the Collections utility class you should take note of the correct iteration idiom, explained in the [http://docs.oracle.com/javase/6/docs/api/java/util/Collections.html#synchronizedCollection(java.util.Collection) Javadoc]:
+
+It is imperative that the user manually synchronize on the returned collection when iterating over it:
+
+{{{
+  Collection c = Collections.synchronizedCollection(myCollection);
+     ...
+  synchronized(c) {
+      Iterator i = c.iterator(); // Must be in the synchronized block
+      while (i.hasNext())
+         foo(i.next());
+  }
+}}}
+
+Failure to follow this advice may result in non-deterministic behavior. 
 
 ==== Summary of Part 1 ====
 
