@@ -140,6 +140,10 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 === Java Concurrency in Practice ===
 
+==== Using Synchronized Collections ====
+
+If you use a `synchronized` collection from the Collections utility class you should take note of the correct iteration idiom, explained in the [http://docs.oracle.com/javase/6/docs/api/java/util/Collections.html#synchronizedCollection(java.util.Collection) Javadoc].
+
 ==== Summary of Part 1 ====
 
  * It's the mutable state, stupid.
