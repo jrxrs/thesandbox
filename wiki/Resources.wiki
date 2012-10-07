@@ -185,10 +185,17 @@ A good introduction/overview of the basics can be found [http://www.javarevisite
 
 Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
 
-== Java Interview Questions ==
+== Interview Questions ==
 
-http://www.allapplabs.com/interview_questions/java_interview_questions.htm
-[http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
+=== Java ===
+
+ * http://www.allapplabs.com/interview_questions/java_interview_questions.htm
+ * [http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
+ * [http://java-success.blogspot.co.uk/ 400+ Java Interview Questions & Answers]
+
+=== Logic ===
+
+[http://imranontech.com/2007/01/10/why-logic-puzzles-make-good-interview-questions/ Why logic puzzles make good interview questions]
 
 ----
 
