@@ -185,7 +185,28 @@ A good introduction/overview of the basics can be found [http://www.javarevisite
 
 Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
 
-== Interview Questions ==
+== Testing ==
+
+Apparently nobody has a team of QA's dedicated to their App anymore...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
+
+TDD
+ * [http://www.junit.org/ JUnit]
+ * [http://testng.org/doc/index.html TestNG]
+BDD
+ * [http://fitnesse.org/FrontPage FitNesse]
+ * [http://jbehave.org/ jbehave]
+ * [http://www.concordion.org/ Concordion]
+Mocking
+ * [http://code.google.com/p/mockito/ Mockito]
+ * [http://code.google.com/p/powermock/ PowerMock]
+
+== Continuous Integration (CI) ==
+
+A section on various Continuous Integration platforms e.g. TeamCity, Jenkins (& Hudson), Bamboo etc. should go here.
+
+----
+
+= Interview Questions =
 
 === Java ===
 
