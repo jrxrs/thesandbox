@@ -496,6 +496,18 @@ http://www.eaipatterns.com/index.html
 
 ----
 
+= Process Methodologies =
+
+== Scrum (Agile Development) ==
+
+Scrum is an iterative and incremental agile software development method for managing software projects and product or application development. The original [http://www.scrum.org/Scrum-Guides Scrum Guide] is available from the home of Scrum and is written by the developers and formalisers or the process. The are also a number of other related articles which are worth reading:
+
+ * [http://www.scrum.org/Resources/What-is-Scrum What is Scrum?]
+ * [http://www.agilemodeling.com/artifacts/userStory.htm About User Stories]
+ * [http://en.wikipedia.org/wiki/Planning_poker Time Estimation & Planning]
+
+----
+
 = The OSI Application Model =
 
 The [http://en.wikipedia.org/wiki/OSI_model Open Systems Interconnection] (OSI) model is a model used standardise the functions of a communications system in terms of abstraction layers. Similar communication functions are grouped into logical layers. A layer serves the layer above it and is served by the layer below it.
