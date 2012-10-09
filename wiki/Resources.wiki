@@ -502,6 +502,7 @@ http://www.eaipatterns.com/index.html
 
 Scrum is an iterative and incremental agile software development method for managing software projects and product or application development. The original [http://www.scrum.org/Scrum-Guides Scrum Guide] is available from the home of Scrum and is written by the developers and formalisers or the process. The are also a number of other related articles which are worth reading:
 
+ * [http://en.wikipedia.org/wiki/Scrum_%28development%29 Scrum (development) on Wikipedia]
  * [http://www.scrum.org/Resources/What-is-Scrum What is Scrum?]
  * [http://www.agilemodeling.com/artifacts/userStory.htm About User Stories]
  * [http://en.wikipedia.org/wiki/Planning_poker Time Estimation & Planning]
