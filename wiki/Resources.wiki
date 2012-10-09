@@ -232,9 +232,13 @@ http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
 
 ----
 
-Tibco
+= Middleware =
+
+== Tibco ==
 
 [http://javarevisited.blogspot.co.uk/2011/05/tibco-tutorials-for-beginners.html Tibco Tutorial]
+
+== Sonic ==
 
 ----
 
