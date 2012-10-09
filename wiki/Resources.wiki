@@ -185,6 +185,11 @@ A good introduction/overview of the basics can be found [http://www.javarevisite
 
 Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
 
+== Logging ==
+
+ * [http://logging.apache.org/log4j/1.2/ log4j]
+ * [http://www.slf4j.org/ slf4j] is a logging abstraction which shields the developer from having to check is a log level is enabled before creating any, otherwise unnecessary, dynamically compiled Strings, this is explained in more detail [http://www.slf4j.org/faq.html#logging_performance here]. It stands for Simple Logging Facade for Java and allows the user to plus in which logging framework they want to use (e.g. java.util.logging, log4j and logback) at deployment time. A major benefit of slf4j is that your other libraries can use whatever logging framework they like, but the facade will result in all your logs coming out via you chosen deploy time library.
+
 == Testing ==
 
 Apparently nobody has a team of QA's dedicated to their App anymore...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
