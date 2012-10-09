@@ -245,6 +245,15 @@ http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
 
 == Sonic ==
 
+== JMS ==
+
+The above Tibco Tutorial contains a page comparing RV & EMS...it turns out that EMS is just an implementation of JMS (Java Message Service). The JMS API supports two models:
+
+ * Point-to-point
+ * Publish and subscribe
+
+The [http://en.wikipedia.org/wiki/Java_Message_Service JMS] page on Wikipedia has more information on terminology, operations and implementations.
+
 ----
 
 = XML =
