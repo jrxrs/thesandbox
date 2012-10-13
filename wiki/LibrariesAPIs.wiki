@@ -1,5 +1,21 @@
 #summary A selection of Java Libraries and APIs I use or should...
 
+= Build & Dependency Management =
+
+ * [http://ant.apache.org/ Ant]
+ * [http://ant.apache.org/ivy/ Ivy]
+ * [http://maven.apache.org/ Maven]
+
 = Date/Time =
 
-[http://joda-time.sourceforge.net/ JodaTime]
+ * [http://joda-time.sourceforge.net/ JodaTime]
+
+= Enterprise Integration =
+
+== Camel ==
+
+[http://camel.apache.org/ Camel]
+
+=== JMS ===
+
+[http://camel.apache.org/jms.html JMS Component for Camel]
