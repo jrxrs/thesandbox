@@ -14,7 +14,9 @@
 
 == Camel ==
 
-[http://camel.apache.org/ Camel]
+[http://camel.apache.org/ Camel]<br>
+For a list of all the EIPs that Camel supports, see [http://camel.apache.org/enterprise-integration-patterns.html here].
+
 
 === JMS ===
 
