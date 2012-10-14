@@ -14,14 +14,14 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is a object?*<br>An object is a programming unit, which defines behaviour and state.<br>
  # *What is a method?*<br>Encapsulation of a functionality which can be called to perform specific tasks.<br>
  # *What are the different types of modifiers?*<br>There are access modifiers and there are other identifiers. Access modifiers are `public`, `protected` and `private` (if no access modifier is specified then package level (or friendly) access is granted). Other are `final`, `static`, `volatile`, `transient`. 
- # *What is a wrapper class?*<br>They are classes that wrap a primitive data type so it can be used as a object.
- # *What is a static variable and static method? What’s the difference between two?*<br>The modifier static can be used with a variable and method. When declared as static variable, there is only one variable no matter how many instances are created, this variable is initialized when the class is loaded and sored in the `Class` object. Static methods do not need a class to be instantiated to be called, also a non static method cannot be called from static method. 
+ # *What is a wrapper class?*<br>They are classes that wrap a primitive data type so it can be used as a first class object.
+ # *What is a static variable and static method? What’s the difference between two?*<br>The modifier static can be used with a variable and method. When declared as static variable, there is only one variable no matter how many instances are created, this variable is initialized when the class is loaded and stored in the `Class` object. Static methods do not need a class to be instantiated to be called, also a non static method cannot be called from static method. 
  # *What is garbage collection?*<br>Garbage Collection is a thread that runs to reclaim the memory by destroying the objects that cannot be referenced anymore. Also see the [#Garbage_Collection Garbage Collection] section below.
- # *What is an abstract class?*An abstract class is a class that cannot be instaniated directly and therefore needs to be extended and its methods implemented, a class has to be declared abstract if it has one or more abstract methods. 
+ # *What is an abstract class?*An abstract class is a class that cannot be instantiated directly and therefore needs to be extended and its methods implemented, a class has to be declared abstract if it has one or more abstract methods. 
  # *What is meant by a final class, methods and variables?*<br>When declared `final` a class cannot be extended (by a sub-class). Similarly when a method is declared `final` it cannot be overridden by a method belonging to a sub-class. When a primitive variable is declared `final` its value cannot be changed...If the variable is a reference to an object then it will always refer to the same object, internal attributes of the object can be changed.
- # *What is an interface?*<br>Interface is a contact that can be implemented by a class, it contains method signitures that must be implementation. 
+ # *What is an interface?*<br>Interface is a contact that can be implemented by a class, it contains method signatures that must be implemented. 
  # *What is method overloading?*<br>Overloading is declaring multiple methods with the same name, but with a different argument list. 
- # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signiture) name and identical arguments used by the original method in the parent class. The overriding method can still call the method method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`.
+ # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signiture) name and identical arguments used by the original method in the parent class. The overriding method can still call the parent method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`.
  # *What is casting?*<br>Conversion of one object or primitive type to another.
  # *What is the difference between `final`, `finally` and `finalize`?*<br>The modifier `final` is used on variables, methods and classes to specify certain behaviour explained above. The `finally` keyword is used as one of the blocks of code in try-catch scenarios, it is used to hold code that needs to be executed whether or not the exception occurs in the try catch block (for example to release locks or close resources, although Java SE 7 allows for this with the try with resources block). Java provides a method called `finalize()` that can be defined in the class. When the garbage collector is ready to release the storage for your object, it will first call `finalize()`, and only on the next garbage-collection pass will it reclaim the objects memory. So `finalize()`, gives you the ability to perform some important cleanup at the time of garbage collection. *This use of `finalize()`, however, is not recommended, since there is no guarantee as to when, or even if, this method will be run.*
  # *What are packages?*<br>A package is a collection of related classes and interfaces providing access protection and namespace management. Packages help programmers achieve encapsulation. 
@@ -45,7 +45,7 @@ These take the form of quick fire questions with short descriptive answers.
  * `toString()`
  * `getClass()`
  # *If you override `equals()` what else should you do?*<br>You should also override the `hashCode()` method in order to ensure conformation with the contract in the `Object` class, specifially that if `equals(Object)` is true for two objects then calling `hashCode()` on the same two objects must result in the same integer result.
- # *Explain how `wait()` & `notify()` are used?*<br>`wait()` and `notify()` belong to the `Object` class and are used in conjunction with the monitor (lock) of the object in question. A thread can obtain the monitor of an object can be obtained in one of three ways:
+ # *Explain how `wait()` & `notify()` are used?*<br>`wait()` and `notify()` belong to the `Object` class and are used in conjunction with the monitor (lock) of the object in question. A thread can obtain the monitor of an object in one of three ways:
  * By executing a synchronized instance method of that object.
  * By executing the body of a `synchronized` statement that synchronizes on the object.
  * For objects of type `Class`, by executing a synchronized static method of that class.
@@ -73,7 +73,7 @@ Inheritance (is a( vs. Composition (has a)
 
 Inheritance in object oriented programming means that a class of objects can inherit properties and methods from another (parent) class of objects.
 
-*NOTE* In Java multiple inheritance of classes is not allowed, however a sub-interface can extends multiple interfaces, [http://en.wikipedia.org/wiki/Interface_%28Java%29#Subinterfaces example].
+*NOTE* In Java multiple inheritance of classes is not allowed, however a sub-interface can extend multiple interfaces, [http://en.wikipedia.org/wiki/Interface_%28Java%29#Subinterfaces example].
 
 === Encapsulation ===
 
@@ -312,7 +312,7 @@ Big-O analysis is a form of run-time analysis that measures the efficiency of an
 
 = Data Structures & Algorithms =
 
-A good alternative from [http://en.wikipedia.org/ Wikipedia] articles on data structures and algorithms is http://www.algolist.net/ which provides examples in Java & C++ along with explanations and analysis.
+A good alternative to [http://en.wikipedia.org/ Wikipedia] articles on data structures and algorithms is http://www.algolist.net/ which provides examples in Java & C++ along with explanations and analysis.
 
 [http://so-i-think-i-created-my-first-online-project.googlecode.com/files/Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf?bcsi_scan_4c5c01dba4894524=0&bcsi_scan_filename=Data%20Structures%20and%20Algorithms%20in%20Java%20Fourth%20Edition.pdf Data Structures & Algorithms in Java (4th Edition)]
 
@@ -339,6 +339,8 @@ Adapted from [http://en.wikipedia.org/wiki/Red_black_tree Red-Black Tree]: Both 
 *Differentiating Red-Black Trees*
 
 Although AVL trees and (2,4) trees have a number of nice properties, there are some dictionary applications for which they are not well suited. For instance, AVL trees may require many restructure operations (rotations) to be performed after a removal, and (2,4) trees may require many fusing or split operations to be performed after either an insertion or removal. The red-black tree data structure does not have these drawbacks, however, as it requires that only O(1) structural changes be made after an update in order to stay balanced.
+
+In Java [http://docs.oracle.com/javase/6/docs/api/java/util/TreeMap.html TreeMap] is an example of a Red-Black tree.
 
 === Heaps ===
 
@@ -540,6 +542,8 @@ The Java Collections framework provides us with an example of this pattern, as d
 == Dependency Injection ==
 
 The general concept behind dependency injection is called Inversion of Control. A class should not configure its dependencies but should be configured from outside. http://www.vogella.com/articles/DependencyInjection/article.html
+
+One of the most popular Dependency Injection frameworks is [http://www.springsource.org/ Spring].
 
 ----
 
