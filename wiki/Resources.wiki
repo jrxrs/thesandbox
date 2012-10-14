@@ -219,15 +219,42 @@ http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
 
 = Interview Questions =
 
-=== Java ===
+== General approach to Programming Problem Solving ==
+
+ # Make sure you understand the problem.
+ # Once you understand the question, try an example.
+ # Focus on the algorithm you will use to solve the problem. *Resist any temptation to begin coding before you figure out the exact solution!*
+ # After you’ve figured out your algorithm and how you will implement it, explain your solution to the interviewer.
+ # While you code, it’s important to explain what you’re doing.
+ # Ask questions when necessary.
+ # After you’ve written the code for a problem, immediately verify that the code is correct by tracing through it with an example.
+ # Make sure you check your code for all error and special cases, especially boundary conditions.
+
+== Java ==
 
  * http://www.allapplabs.com/interview_questions/java_interview_questions.htm
  * [http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
  * [http://java-success.blogspot.co.uk/ 400+ Java Interview Questions & Answers]
 
-=== Logic ===
+== Logic ==
 
 [http://imranontech.com/2007/01/10/why-logic-puzzles-make-good-interview-questions/ Why logic puzzles make good interview questions]
+
+== Bit Twiddling Techniques ==
+
+Bit twiddling crops up in interviews every so often so it's [http://graphics.stanford.edu/~seander/bithacks.html nice to know about...]<br/>
+Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java/nutsandbolts/opsummary.html page].
+
+== My Questions ==
+
+ * Which application is the role for? Where does that fit within the business?
+ * What are the main challenges faced by the application/team at the moment?
+ * Are there any big projects or changes on the horizon for the firm?
+ * What are the long term opportunities with the company?
+ * How is career development managed? Are there regular training opportunities?
+ * What skills and attributes are most needed to progress within the team / company?
+ * Where does the company have offices? Where are the headquarters? What activities take place in each office?
+ * Please could I have your business card?
 
 ----
 
@@ -249,8 +276,8 @@ http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
 
 The above Tibco Tutorial contains a page comparing RV & EMS...it turns out that EMS is just an implementation of JMS (Java Message Service). The JMS API supports two models:
 
- * Point-to-point
- * Publish and subscribe
+ * Point-to-point (Queues)
+ * Publish and subscribe (Topics)
 
 The [http://en.wikipedia.org/wiki/Java_Message_Service JMS] page on Wikipedia has more information on terminology, operations and implementations.
 
@@ -270,7 +297,9 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 ----
 
-= Complexity (Big O) =
+= Complexity (Big-O) =
+
+Big-O analysis is a form of run-time analysis that measures the efficiency of an algorithm in terms of the time it takes for the algorithm to run as a function of the input size. It's not a formal benchmark, just a simple way to classify algorithms by relative efficiency.
 
 [http://pages.cs.wisc.edu/~vernon/cs367/notes/3.COMPLEXITY.html Complexity & Big-O Notation]
 [http://stackoverflow.com/questions/2307283/what-does-olog-n-mean-exactly Good Explanation of O(log n) from Stackoverflow]
