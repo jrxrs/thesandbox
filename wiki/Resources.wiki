@@ -82,7 +82,7 @@ Inheritance in object oriented programming means that a class of objects can inh
   * With Encapsulation you can hide (restrict access) to critical data members in your code , which improves security
   * Encapsualtion combines data and actions together (just like a capsule)
 
-Encapsulation is the term given to the process of hiding the implementation details of the object. Once an object is encapsulated, its implementation details are not immediately accessible any more. Instead they are packaged and are only indirectly accessible via the interface of the object. When used properly encapsulation allows us to very easily change the implementation of a class without burdening those who use it (provided we maintain a considtent interface for interaction with our class).
+Encapsulation is the term given to the process of hiding the implementation details of the object. Once an object is encapsulated, its implementation details are not immediately accessible any more. Instead they are packaged and are only indirectly accessible via the interface of the object. When used properly encapsulation allows us to very easily change the implementation of a class without burdening those who use it (provided we maintain a consistent interface for interaction with our class).
 
 ==== Data Abstraction ====
 
@@ -93,9 +93,9 @@ Encapsulation is the term given to the process of hiding the implementation deta
 
 == Autoboxing ==
 
-Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guilde]
+Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guide]
 
-== Imports & Performace ==
+== Imports & Performance ==
 
 Did some research and it seems that conventional wisdom suggests that using imports with the wild card character, of the form:
 {{{
@@ -195,13 +195,17 @@ Although it might not seem obvious at first it is possible for Java code to suff
 Apparently nobody has a team of QA's dedicated to their App anymore...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
 
 TDD
+The theory with Test Driven Development is that you write one test, then you code just enough to get your test to pass, then you go back and write the another test, code enough to pass that and go back to your code and attempt to refactor any commonality, testing again post refactoring.
  * [http://www.junit.org/ JUnit]
  * [http://testng.org/doc/index.html TestNG]
+
 BDD
  * [http://fitnesse.org/FrontPage FitNesse]
  * [http://jbehave.org/ jbehave]
  * [http://www.concordion.org/ Concordion]
+
 Mocking
+Mocking allows you to pinpoint specific functionality while testing, you might have a method to test which uses RefData for instance, instead of making that call to retrieve the ref data you can choose to mock that call out and return a constant value facilitating your expected result for the original test case. The Wikipedia entry for Mocking appears under [http://en.wikipedia.org/wiki/Mock_object Mock Object].
  * [http://code.google.com/p/mockito/ Mockito]
  * [http://code.google.com/p/powermock/ PowerMock]
 
@@ -255,6 +259,14 @@ Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java
  * What skills and attributes are most needed to progress within the team / company?
  * Where does the company have offices? Where are the headquarters? What activities take place in each office?
  * Please could I have your business card?
+
+== Things I've been asked ==
+
+ * What is a [#Code_Reviews Code Review]?
+ * What is my favourite programming language?
+ * What is Inversion of Control and why is it useful?
+ * Design a naughts and crosses board game? How would your design need to be changed to allow connect four to be played instead?
+ * Design the Oyster card system for the London Underground?
 
 ----
 
@@ -570,6 +582,25 @@ Scrum is an iterative and incremental agile software development method for mana
  * [http://www.agilemodeling.com/artifacts/userStory.htm About User Stories]
  * [http://en.wikipedia.org/wiki/Planning_poker Time Estimation & Planning]
 
+== Code Reviews ==
+
+What should you actually look for?
+
+ # Logical bugs
+ # Stupid bugs
+ # Unreadable code
+ # Ugly code that should be refactored
+
+There are may benefits to a code review, primarily in terms of the quality of code because they allow you to spot bugs before the code goes to production. I also like the fact that they prevent knowledge being silo-ed in a single team member, which is particularly beneficial in a large/expanding team or a new project - after all you never when you might be called to fix a problem in another developer's code. The Elastic Leadership blog says that [http://5whys.com/blog/what-should-a-good-code-review-look-and-feel-like.html a good code review] should:
+ * Present learning opportunities at every turn, even down to the way each developer works e.g. What was the keyboard shortcut?
+ * Increase code quality...obviously
+ * Only be 5-15 mins long meaning that you can only cover a small part of the code base, this encourages commits to be modular compete (something which is sought after in agile development as in theory you code should always be ready be release if needs be)
+ * Not use tools (like [https://www.atlassian.com/software/crucible/overview Crucible]) to help you because using them misses the point of learning something from someone by interacting with them.
+
+This blog also provides a step-by-step guide which is well worth a read...[http://5whys.com/blog/step-4-start-doing-code-reviews-seriously.html here]. They sum up code reviews as follows:
+
+   Code reviews are nothing short of a magical process of growing people, code quality and confidence at the same time. 
+
 ----
 
 = The OSI Application Model =
@@ -644,4 +675,7 @@ The additional overhead of having native pointers in the system which take up 8 
 Blog about Java Program Tutorial Example How to, Unix Linux commands, Interview Questions, FIX Protocol, Tibco RV tutorials, Equities trading system, MySQL
 
 http://ebookfree4all.blogspot.co.uk/
+
 http://books4career.blogspot.co.uk/
+
+[http://5whys.com/ Elastic Leadership - Notes to a Software Team Leader]
