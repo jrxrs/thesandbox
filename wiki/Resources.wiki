@@ -519,6 +519,12 @@ A singleton is simply a class that is instantiated exactly once, typically a sys
 
 Item 3 of Effective Java 2^nd^ Ed. for this one. The Java Specialists Masters course also details the static Holder approach.
 
+== Observer Pattern ==
+
+The Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all of its dependencies are notified and updated automatically.
+
+Java provides an inbuilt Observer pattern using the `Observable` class (which you extend as the Object to be observed) and the `Observer` interface which you implement if you want to be notified of changes in an `Observable`. Each `Observer` must be registered with the `Observable` is observes.
+
 == Factory Method Pattern ==
 
 The Factory Pattern (aka Virtual Constructor) is also a Creational Pattern, it defines an interface for creating an object, but let subclasses decide which class to instantiate. The Factory Method lets a class defer instantiations to subclasses.
