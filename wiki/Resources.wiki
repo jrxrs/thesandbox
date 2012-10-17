@@ -156,7 +156,7 @@ It is imperative that the user manually synchronize on the returned collection w
   }
 }}}
 
-Failure to follow this advice may result in non-deterministic behavior. 
+Failure to follow this advice may result in non-deterministic behaviour. 
 
 ==== Summary of Part 1 ====
 
@@ -211,7 +211,7 @@ Mocking allows you to pinpoint specific functionality while testing, you might h
 
 == Continuous Integration (CI) ==
 
-A section on various Continuous Integration platforms e.g. TeamCity, Jenkins (& Hudson), Bamboo etc. should go here.
+A section on various Continuous Integration platforms e.g. TeamCity, Jenkins (& Hudson), [https://confluence.atlassian.com/display/BAMKB/Bamboo+Knowledge+Base+Home Bamboo] etc. should go here.
 
 ----
 
@@ -600,6 +600,19 @@ There are may benefits to a code review, primarily in terms of the quality of co
 This blog also provides a step-by-step guide which is well worth a read...[http://5whys.com/blog/step-4-start-doing-code-reviews-seriously.html here]. They sum up code reviews as follows:
 
    Code reviews are nothing short of a magical process of growing people, code quality and confidence at the same time. 
+
+== Code Quality ==
+
+=== Sonar ===
+
+[http://www.sonarsource.org/ Sonar] is an open platform to manage code quality. As such, it covers the 7 axes of code quality:
+ * Architecture & Design
+ * Duplications
+ * Unit Tests
+ * Complexity
+ * Potential bugs
+ * Coding rules
+ * Comments
 
 ----
 
