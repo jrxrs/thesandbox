@@ -587,11 +587,20 @@ The Decorator Patten (aka Wrapper or Filter) is a Structural Pattern which allow
 
 The Java Collections framework provides us with an example of this pattern, as does Item 16 of Effective Java 2^nd^ Ed., both are quite similar. The Collections example is the `Collections.synchronizedXXX(XXX)` method which wraps the `List`, `Map` or `Set` passed in with a wrapper that synchronises access to the underlying collection.
 
-== Dependency Injection ==
+== Inversion of Control (IoC) & Dependency Injection (DI) ==
 
-The general concept behind dependency injection is called Inversion of Control. A class should not configure its dependencies but should be configured from outside. http://www.vogella.com/articles/DependencyInjection/article.html
+The main idea behind _IoC_ is that instead of your application code being completely in control and deciding when to call objects to go out and do the required work you reverse the situation so that another thread decides when and which object/method of your code is called. The best analogy for this idea is the idea of a command like application vs. a GUI built using a GUI framework e.g. Swing...when implementing a GUI framework like Swing all you have to do is supply the user with a button or input mechanism and implement an event handler for that button, the GUI framework then does all the hard work of determining what has happened and then just calls your action listener to do the business. If the GUI framework didn't do all the hard work for you, you'd have to receive every single user action in the same way and then determine yourself which subroutine you should call based on their input (e.g. like a command line application).
 
-One of the most popular Dependency Injection frameworks is [http://www.springsource.org/ Spring].
+The general concept behind _DI_ is called IoC, a class should not configure its dependencies but should be configured from outside ([ http://www.vogella.com/articles/DependencyInjection/article.html from here]), thus when you code is called (by whatever means) it already has all its dependencies configured so is not required to go out and locate them.
+
+One of the most common Dependency Injection frameworks is [http://www.springsource.org/ Spring], although [http://code.google.com/p/google-guice/ Google's Guice] is also very popular. What these frameworks do is collect all the objects your application requires centrally which allows you to build each dependency level in turn. The are five main benefits to _DI_, these are summarised below:
+
+|| *Benefit* || *Description* || *Example* ||
+|| Loose coupling || Your code is no longer tightly bound to creating the dependencies it needs. Combined with the technique of coding to interfaces, it can also mean that your code is no longer tightly bound to specific implementations of a dependency. || Instead of your !HollywoodService object needing to create its own !SpreadsheetAgentFinder, it can have it passed in to it. If you’re coding to interfaces, this means that the !HollywoodService can have any type of !AgentFinder passed to it. ||
+|| Testability || As an extension to loose coupling, there's a special use case worth mentioning. For the purposes of testing, you can inject a test double as a dependency. || You can inject a stub ticket pricing service that always returns the same price, as opposed to using the 'real' pricing service, which is external and not always available. ||
+|| Greater cohesion || Your code is more focused on performing its task as opposed to dealing with loading and configuring dependencies. A side benefit to this is increased readability. || Your DAO (Data Access Object) is focused on executing queries and not on looking up JDBC driver details. ||
+|| Reusable components || As an extension to loose coupling, your code can be utilized by a wider range of users who can provide their own specific implementations. || An enterprising software developer could sell you a !LinkedIn agent finder. ||
+|| Lighter code || Your code no longer needs to pass dependencies between layers. Dependencies can instead be injected directly at the point they’re required. || Instead of passing down the JDBC driver details from a service class, you can directly inject the driver at the DAO where it’s really needed. ||
 
 ----
 
