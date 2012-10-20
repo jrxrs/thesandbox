@@ -4,7 +4,8 @@
 
 = Java =
 
-[http://www.oracle.com/technetwork/java/index-141834.html Oracle's FAQ for all Java topics].
+ * [http://www.oracle.com/technetwork/java/api-141528.html Java API Specifications]
+ * [http://www.oracle.com/technetwork/java/index-141834.html Oracle's FAQ for all Java topics].
 
 == The Absolute Basics ==
 
@@ -227,6 +228,8 @@ public static <T> Collection<T> doSomething(T... entries) {
 }
 }}}
   which used to case a problem because behind the scenes the compiler would create an array of whatever type you passed in as T, however if it was something like `HashMap<String, String>` you'd get a warning about type safety, this is no longer reported to the programmer using `doSomething(T... entries)` but instead to the writer of the method.
+
+A summary of these features in code can be found [https://code.google.com/p/thesandbox/wiki/CodeExamples?ts=1350752358&updated=CodeExamples#New_Java_Features_Outline here].
 
 ----
 
