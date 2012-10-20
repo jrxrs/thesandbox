@@ -602,6 +602,16 @@ One of the most common Dependency Injection frameworks is [http://www.springsour
 || Reusable components || As an extension to loose coupling, your code can be utilized by a wider range of users who can provide their own specific implementations. || An enterprising software developer could sell you a !LinkedIn agent finder. ||
 || Lighter code || Your code no longer needs to pass dependencies between layers. Dependencies can instead be injected directly at the point they’re required. || Instead of passing down the JDBC driver details from a service class, you can directly inject the driver at the DAO where it’s really needed. ||
 
+=== Evolution ===
+
+The evolution from hard-code classes/objects to classes/objects built using _DI_ can be traced as follows:
+
+ # Hard coding
+ # The Factory Method, Abstract Factory or Service Locator Patterns
+ # Dependency Injection
+
+See chapter 3 of the Well Grounded Java developer for more information.
+
 ----
 
 = Enterprise Design Patterns =
