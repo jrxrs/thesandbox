@@ -213,11 +213,38 @@ Mocking allows you to pinpoint specific functionality while testing, you might h
 
 A section on various Continuous Integration platforms e.g. TeamCity, Jenkins (& Hudson), [https://confluence.atlassian.com/display/BAMKB/Bamboo+Knowledge+Base+Home Bamboo] etc. should go here.
 
+== What's new in Java 7? ==
+
+ # `String` values in `switch` statements
+ # The syntax for declaring numeric literals has been changed so you can use underscore characters `_` when declaring integers e.g. `int x = 1_000_000;`, you can also declare numbers explicitly as binary strings e.g. if you wanted `y` to be 5 you could write `int y = 0b101`.
+ # Exceptions handling has been tidied up which allows you to catch multiple exceptions within the same catch statement.
+ # You can also try-with-resources which aims to prevent bugs related to calling `close()` on a resource (like a `FileWriter`) incorrectly
+ # Diamond syntax which allows you to infer the type of your generic objects based on their declaration.
+ # Simplified varagrs method invocation, this allows you to write something like:
+{{{
+public static <T> Collection<T> doSomething(T... entries) {
+    ...
+}
+}}}
+  which used to case a problem because behind the scenes the compiler would create an array of whatever type you passed in as T, however if it was something like `HashMap<String, String>` you'd get a warning about type safety, this is no longer reported to the programmer using `doSomething(T... entries)` but instead to the writer of the method.
+
 ----
 
 = Libraries & APIs =
 
 http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
+
+----
+
+= General Programming Terminology =
+
+== Syntactic Sugar ==
+
+  A phrase that's sometimes used to describe a language feature is "syntactic sugar". This means that the syntax form is redundant—it already exists in the language—but the syntactic sugar form is provided because it's easier for humans to work with.<br>
+  As a rule of thumb, a feature referred to as syntactic sugar is removed from the compiler’s representation of the program early on in the compilation process—it's said to have been "desugared" into the basic representation of the same feature.<br>
+  This makes syntactic sugar changes to a language easier to implement because they usually involve a relatively small amount of work, and only involve changes to the compiler (`javac` in the case of Java).
+
+This is an excellent summary of Syntactic Sugar from the [http://www.manning.com/evans/ The Well-Grounded Java Developer] book by Ben Evans and Martijn Verburg.
 
 ----
 
