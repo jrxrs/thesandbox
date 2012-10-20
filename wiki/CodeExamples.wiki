@@ -1,5 +1,7 @@
 #summary A collection of long[er] code examples.
 
+<wiki:toc max_depth="3" />
+
 = New Java Features Outline =
 
 The class below illustrates some of the new Java 7 features:
