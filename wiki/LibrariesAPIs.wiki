@@ -1,5 +1,9 @@
 #summary A selection of Java Libraries and APIs I use or should...
 
+= Open JDK 7 for OS X =
+
+[http://code.google.com/p/openjdk-osx-build/ openjdk-osx-build]
+
 = Build & Dependency Management =
 
  * [http://ant.apache.org/ Ant]
