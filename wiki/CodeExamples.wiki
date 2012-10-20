@@ -1,0 +1,100 @@
+#summary A collection of long[er] code examples.
+
+= New Java Features Outline =
+
+The class below illustrates some of the new Java 7 features:
+
+See [https://code.google.com/p/thesandbox/w/edit.do#What%27s_new_in_Java_7? here] for an overview of these featrues.
+
+{{{
+package thesandbox;
+
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
+
+/**
+ * New Java 7 features.
+ */
+public class Java7Features
+{
+    public static int stringsInSwitch(String in) {
+        switch (in) {
+            case "One" : return 1;
+            case "Two" : return 2;
+            case "Three" : return 3;
+            case "Four" : return 4;
+            case "Five" : return 5;
+            case "Six" : return 6;
+            case "Seven" : return 7;
+            case "Eight" : return 8;
+            case "Nine" : return 9;
+            case "Ten" : return 10;
+            default: return 0;
+        }
+    }
+
+    public static int getBinaryLiteral() {
+        return 0b101;
+    }
+
+    public static int getUSLiteral() {
+        return 1_000_000;
+    }
+
+    public static void multipleCatch() {
+        BufferedWriter bw = null;
+        try {
+            URI uri = new URI("xyz:abc");
+            File file = new File(uri);
+            if (file.createNewFile()) {
+                FileWriter fw = new FileWriter(file);
+                bw = new BufferedWriter(fw);
+                bw.write("this is a new string");
+                bw.newLine();
+            }
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void tryWithResources() {
+        try {
+            URL url = new URL("");
+            File file = new File("/users/apple/test.txt");
+            try (OutputStream out = new FileOutputStream(file); InputStream is = url.openStream() ) {
+                byte[] buf = new byte[4096];
+                int len;
+                while ((len = is.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        } catch (MalformedURLException murle) {
+            murle.printStackTrace();
+        }
+    }
+
+    public static Map<String, List<URL>> diamondSyntax() {
+        return new HashMap<>();
+    }
+
+    @SafeVarargs
+    public static <T> Collection<T> doSomething(T... entries) {
+        return new ArrayList<>();
+    }
+}
+
+}}}
