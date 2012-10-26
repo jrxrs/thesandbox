@@ -214,6 +214,24 @@ Mocking allows you to pinpoint specific functionality while testing, you might h
 
 A section on various Continuous Integration platforms e.g. TeamCity, Jenkins (& Hudson), [https://confluence.atlassian.com/display/BAMKB/Bamboo+Knowledge+Base+Home Bamboo] etc. should go here.
 
+== Application Containers ==
+
+A few years ago micro-containers became very popular for Java applications as J2EE started to become the heart of most applications, mainly because it allows you to plug in common components like JDBC, JMS etc. easily.
+
+=== Spring ===
+
+*Spring handles the infrastructure so you can focus on your application.*
+
+==== Spring Links ====
+ * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/ Documentation for 3.1.x]
+ * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html The IoC container documentation]
+
+Spring rapidly became the default container of choice allowing you to create beans (simple pojos) and then plug one into the other gradually building up a dependency graph which Spring manages throughout the application's life-cycle ensuring nothing which is still in use in destroyed prematurely i.e. scope management which is also controllable by the user e.g. Singleton or Session.
+
+Creating beans is usually accomplished using constructor injection or setter injection, constructor injection is usually favoured however it can introduce difficulties when circular dependencies are unavoidable (however generally we should design our way around these types of dependencies). 
+
+The advantages of Spring are many and varied, it allows access to beans externally with JMX, it allows you to configure caching transparently and supports Aspect Oriented Programming - the idea of wrapping your core pojo with various aspects which provide some additional level of functionality with each layer e.g. security, transaction management, logging caching etc. 
+
 == What's new in Java 7? ==
 
  # `String` values in `switch` statements
@@ -611,6 +629,10 @@ The evolution from hard-code classes/objects to classes/objects built using _DI_
  # Dependency Injection
 
 See chapter 3 of the Well Grounded Java developer for more information.
+
+If you're still struggling with the concepts the first paragraph of the [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html Spring IoC documentation] does a nice job of breaking things down:
+
+   IoC is also known as dependency injection (DI). It is a process whereby objects define their dependencies, that is, the other objects they work with, only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse, hence the name Inversion of Control (IoC), of the bean itself controlling the instantiation or location of its dependencies by using direct construction of classes, or a mechanism such as the Service Locator pattern.
 
 ----
 
