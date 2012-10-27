@@ -90,7 +90,18 @@ Encapsulation is the term given to the process of hiding the implementation deta
 [http://wiki.answers.com/Q/What_is_data_abstraction_in_java Data Abstraction in Java]
 
   * Abstraction in the process of selecting important data sets for an Object in your software , and leaving out the insignificant ones.
-  * Once you have modeled your object using Abstraction , the same set of data could be used in different applications.
+  * Once you have modelled your object using Abstraction , the same set of data could be used in different applications.
+
+=== SOLID Principles ===
+
+Bob Martin describe five SOLID principles for good object-oriented design in his article [http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod The Principles of OOD]. These simple principles aim to jog our memories each time we begin designing, writing or refactoring code:
+
+|| *Principle* || *Description* ||
+|| *_S_*ingle responsibility principle (SRP) || Each object should do one thing, and one thing only. _So a class should have one, and only one, reason to change._ ||
+|| *_O_*pen/closed principle (OCP) || Objects should be extensible but not modifiable. _So you should be able to extend a classes behaviour, without modifying it._ ||
+|| *_L_*iskov substitution principle (LSP) || Objects should be replaceable by their subtypes. ||
+|| *_I_*nterface segregation principle (ISP) || Small specific interfaces are better. _So make fine grained interfaces that are client specific._ ||
+|| *_D_*ependency inversion principle (DIP) || Don’t depend on concrete implementations. _So depend on abstractions, not on concretions._ ||
 
 == Autoboxing ==
 
