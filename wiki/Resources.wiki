@@ -206,17 +206,30 @@ Although it might not seem obvious at first it is possible for Java code to suff
 
 Apparently nobody has a team of QA's dedicated to their App anymore...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
 
-TDD
+==== TDD ====
 The theory with Test Driven Development is that you write one test, then you code just enough to get your test to pass, then you go back and write the another test, code enough to pass that and go back to your code and attempt to refactor any commonality, testing again post refactoring.
  * [http://www.junit.org/ JUnit]
  * [http://testng.org/doc/index.html TestNG]
 
-BDD
+==== BDD ====
  * [http://fitnesse.org/FrontPage FitNesse]
  * [http://jbehave.org/ jbehave]
  * [http://www.concordion.org/ Concordion]
 
-Mocking
+=== Test Doubles & Mocking ===
+Test double are used to facilitate testing just the code you're actually writing rather than indirectly testing someone else's code like a third parties database implementation. Gerard Meszaros’s simple explanation of a test double is as follows:
+
+  A Test Double (think Stunt Double) is the generic term for any kind of pretend object used in place of a real object for testing purposes.
+
+He goes one to categorise objects into four compartments depending on the extent to which they are implemented:
+
+|| *Type* || *Description* ||
+|| Dummy || An object that is passed around but never used. Typically used to fulfil the parameter list of a method. ||
+|| Stub || An object that always returns the same canned response. May also hold some dummy state. ||
+|| Fake || An actual working implementation (not of production quality or configuration) that can replace the real implementation. ||
+|| Mock || An object that represents a series of expectations and provides canned responses. _Also see below._ ||
+
+==== Mocking ====
 Mocking allows you to pinpoint specific functionality while testing, you might have a method to test which uses RefData for instance, instead of making that call to retrieve the ref data you can choose to mock that call out and return a constant value facilitating your expected result for the original test case. The Wikipedia entry for Mocking appears under [http://en.wikipedia.org/wiki/Mock_object Mock Object].
  * [http://code.google.com/p/mockito/ Mockito]
  * [http://code.google.com/p/powermock/ PowerMock]
