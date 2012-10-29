@@ -249,6 +249,7 @@ A few years ago micro-containers became very popular for Java applications as J2
 ==== Spring Links ====
  * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/ Documentation for 3.1.x]
  * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html The IoC container documentation]
+ * [http://www.springbyexample.org/ Spring by Example]
 
 Spring rapidly became the default container of choice allowing you to create beans (simple pojos) and then plug one into the other gradually building up a dependency graph which Spring manages throughout the application's life-cycle ensuring nothing which is still in use in destroyed prematurely i.e. scope management which is also controllable by the user e.g. Singleton or Session.
 
