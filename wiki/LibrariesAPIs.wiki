@@ -1,4 +1,6 @@
-#summary A selection of Java Libraries and APIs I use or should...
+#summary A selection of Java Libraries and APIs I either use or should use...
+
+<wiki:toc max_depth="2" />
 
 = Open JDK 7 for OS X =
 
@@ -21,7 +23,21 @@
 [http://camel.apache.org/ Camel]<br>
 For a list of all the EIPs that Camel supports, see [http://camel.apache.org/enterprise-integration-patterns.html here].
 
-
 === JMS ===
 
 [http://camel.apache.org/jms.html JMS Component for Camel]
+
+= The FIX Protocol =
+
+The *F*inancial *I*nformation E*x*change Protocol.
+
+== QuickFixJ ==
+
+http://www.quickfixj.org/
+
+=== Tools & References ===
+
+ * [http://www.btobits.com/fixopaedia/index.html B2Bits]
+ * [http://www.critchley.biz/js/FIXProtocol.html FIX Protocol Translator]
+ * [http://www.fixionary.com/ Fixionary]
+ * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
