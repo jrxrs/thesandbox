@@ -600,6 +600,8 @@ Hashes are not very efficient in terms of space because by definition you need s
 
 = Design Patterns =
 
+The [http://www.oodesign.com/ oodesign.com] website goes into detail of many popular design patterns and principles. 
+
 == Singleton Pattern ==
 
 The Singleton Pattern is a Creational Pattern. 
