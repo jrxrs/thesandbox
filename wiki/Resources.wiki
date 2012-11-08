@@ -353,6 +353,12 @@ Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java
 
 ----
 
+= Web Services =
+
+Java Web Services can be thought of as an API on the network. The API itself is defined using the Web Services Description Language (WSDL), specifying what operations you can call on a web service and what the input and output types are, among other things. Messages are typically XML, formatted to comply with the Simple Object Access Protocol (SOAP) schema and these messages are typically sent over HTTP.
+
+----
+
 = Middleware =
 
 == Tibco ==
