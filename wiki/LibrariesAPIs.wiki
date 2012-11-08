@@ -16,6 +16,10 @@
 
  * [http://joda-time.sourceforge.net/ JodaTime]
 
+== Job Scheduling ==
+
+ * [http://www.quartz-scheduler.org/ Quartz]
+
 = Enterprise Integration =
 
 == Camel ==
