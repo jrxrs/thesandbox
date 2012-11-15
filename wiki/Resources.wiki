@@ -193,6 +193,42 @@ Failure to follow this advice may result in non-deterministic behaviour.
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
 
+== Caching ==
+
+[http://www.cacheonix.com/articles/Caching_for_Java_Applications.htm Main Reference]
+
+Caching can help to increase application performance and scalability.
+
+=== In a Nut Shell ===
+
+A cache is an area of local memory that holds a copy of frequently accessed data that is otherwise expensive to get or compute. A simple caching API would consist of the a `get(Object Key)` method and a `put (Object key, Object value)` method.
+
+A cache works as follows: An application requests data from cache using a key. If the key is not found, the application retrieves the data from a slow data source and puts it into the cache. The next request for a key is serviced from the cache.
+
+=== Temporal and Spatial Locality ===
+
+*Temporal Locality*<br>The concept that a resource that is referenced at one point in time will be referenced again sometime in the near future.
+
+*Spatial Locality*<br>The concept that likelihood of referencing a resource is higher if a resource near it was just referenced.
+
+*Note:* When implementing a cache it is vital that you do not ignore temporal or spatial locality as doing so would result in everything being cached, this approach will in fact reduce application performance making _Cache Them All_ an anti-pattern. The degradation of performance is caused by the overhead of maintaining a cache without benefiting from reduced cost of access to frequently used data.
+
+=== Cache Eviction Policy ===
+
+A cache eviction policy is an algorithm according to which an existing element is removed from a cache when a new element is added. The eviction policy is applied to ensure that the size of the cache does not exceed a maximum size. Least Recently Used (LRU) is one of the most popular among a number of eviction policies. LRU earned its popularity for being the best in capturing temporal and spatial locality of data access.
+
+=== Measuring Cache Performance ===
+
+You tend to measure the performance of a cache using the ratio of cache hits to cache misses.
+
+=== Uses ===
+
+Object-relational mapping (ORM) frameworks like Hibernate or data mapping (DM) frameworks such as iBatis ofen provide Level-2 caches of data stored in a database. The application only interacts with the framework and this shields it from all the caching complexities. 
+
+== Object Relational Mapping (ORM) Frameworks ==
+
+TODO!
+
 == Garbage Collection ==
 
 A good introduction/overview of the basics can be found [http://www.javarevisited.blogspot.co.uk/2011/04/garbage-collection-in-java.html here] on the [http://www.javarevisited.blogspot.co.uk/ JavaRevisited Blog]. Alternatively see [http://www.oracle.com/technetwork/java/javase/tech/index-jsp-140228.html here] for all the gorey details from Oracle, particularly their [http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html GC Tuning] page.
@@ -508,7 +544,10 @@ Just as blocking queues lend themselves to the producer-consumer pattern, deques
 Deques are introduced in section 5.3.3 of Java Concurrency in Practice.
 
 === LRU Cache ===
-A Least Recently Used Cache is an extension of a LinkedHashMap . Usually, the LinkedHashMap orders elements by insertion order however we can change that to access order in the constructor. See Java Specialist Masters course (slide 640).
+
+A Least Recently Used Cache is an extension of a LinkedHashMap. Usually, the LinkedHashMap orders elements by insertion order however we can change that to access order in the constructor. See Java Specialist Masters course (slide 640).
+
+Alternatively you can implement a cache with the LRU eviction policy with a map and a linked list. The map stores cached elements. The linked list keeps tracks of the least recently used cache elements. When a cache element is updated, it is removed from the list and added to the top of the list. The new elements are added to the top of the list as well. If the cache grows bigger than its maximum size, an element is removed from the bottom of the list and from the map. This way the least recently used elements are evicted first.
 
 == Sorting ==
 
