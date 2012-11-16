@@ -107,6 +107,15 @@ Bob Martin describe five SOLID principles for good object-oriented design in his
 || *_I_*nterface segregation principle (ISP) || Small specific interfaces are better. _So make fine grained interfaces that are client specific._ ||
 || *_D_*ependency inversion principle (DIP) || Don’t depend on concrete implementations. _So depend on abstractions, not on concretions._ ||
 
+== Introspection (Annotations/generics/etc.) ==
+
+[http://stackoverflow.com/questions/2044446/java-introspection-and-reflection Reflection vs. Introspection]
+
+Links for working with Annotations:
+ * [http://stackoverflow.com/questions/1004022/java-generic-class-determine-type Determining the Type of generic implementations]
+ * [http://stackoverflow.com/questions/6593597/java-seek-a-method-with-specific-annotation-and-its-annotation-element Identifying methods with a specific Annotation]
+ * [http://stackoverflow.com/questions/4296910/is-it-possible-to-read-the-value-of-a-annotation-in-java Reading the value of Annotations]
+
 == Autoboxing ==
 
 Autoboxing is available as of Java 1.5.0 and introduces the automated handling of primitive Java type to their equivalent Wrapper class. [http://java.sun.com/j2se/1.5.0/docs/guide/language/autoboxing.html Java 1.5.0 Language Guide]
