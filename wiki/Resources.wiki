@@ -202,6 +202,37 @@ Failure to follow this advice may result in non-deterministic behaviour.
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
 
+== Java's Threading Model ==
+
+Chapter 4 of The Well Grounded Java Developer begins by discussing Java's Threading Model which is based on two fundamental concepts:
+
+ * Shared, visible-by-default mutable state
+ * Pre-emptive thread scheduling
+
+They go on the decompose these further:
+
+ * Objects can be easily shared between all threads within a process.
+ * Objects can be changed ("mutated") by any threads that have a reference to them.
+ * The thread scheduler can swap threads on and off cores at any time, more or less. 
+ * Methods must be able to be swapped out while they’re running (otherwise a method with an infinite loop would steal the CPU forever). This, however, runs the risk of an unpredictable thread swap leaving a method "half-done" and an object in an inconsistent state. There is also the risk of changes made in one thread not being visible in other threads when they need to be. To mitigate these risks, we come to the last point.
+ * Objects can be locked to protect vulnerable data.
+
+== Design Principles for Concurrent Code ==
+
+Doug Lea gives 4 main principles to keep in mind when designing and writing concurrent code; *Safety*, *Liveness*, *Performance* & *Re-usability*.
+
+SAFETY AND CONCURRENT TYPE SAFETY<br>
+Safety is about ensuring that object instances remain self-consistent regardless of any other operations that may be happening at the same time.
+
+LIVENESS<br>
+A live system is one in which every attempted activity eventually either progresses or fails.
+
+PERFORMANCE<br>
+Definitions of performance are often pretty woolly, we'll go for: performance being a measure of how much work a system can do with a given amount of resources.
+
+REUSABILITY<br>
+We should ensure that any code we write to support concurrency can be reused else where, this was the point of the `java.unit.concurrent` library. 
+
 == Caching ==
 
 [http://www.cacheonix.com/articles/Caching_for_Java_Applications.htm Main Reference]
