@@ -418,8 +418,9 @@ Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java
  * What is a [#Code_Reviews Code Review]?
  * What is my favourite programming language?
  * What is Inversion of Control and why is it useful?
- * Design a naughts and crosses board game? How would your design need to be changed to allow connect four to be played instead?
+ * Design a noughts and crosses board game? How would your design need to be changed to allow connect four to be played instead?
  * Design the Oyster card system for the London Underground?
+ * Can you write code in Java or C++ to find the power set of a given set. For example if S={a,b} the power set is P={{},{a},{b},{a,b}}.
 
 ----
 
