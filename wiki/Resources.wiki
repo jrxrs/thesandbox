@@ -277,6 +277,8 @@ A good introduction/overview of the basics can be found [http://www.javarevisite
 
 Although it might not seem obvious at first it is possible for Java code to suffer from memory leaks, Item 6 of Effective Java 2^nd^ Ed. covers this topic and defensive strategies to help avoid.
 
+Generally speaking memory leaks in Java are due to resources (like files or connections) not being closed correctly before they are moved out of scope, this leaves them hanging around uncollected the garbage collector. The example in Item 6 addresses problems when not nulling out references in an array storing a collection of objects, while basic this is an east example to see how memory could be leaked.
+
 == Logging ==
 
  * [http://logging.apache.org/log4j/1.2/ log4j]
