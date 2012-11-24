@@ -4,6 +4,7 @@
 
  * Spring Templates
  * [http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
+ * Spring "depends-on" attribute - important for XA
 
 = I've Read About =
 
