@@ -3,6 +3,7 @@
 = I Need To Read About =
 
  * Spring Templates
+ * [http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
 
 = I've Read About =
 
