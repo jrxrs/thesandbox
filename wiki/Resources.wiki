@@ -477,6 +477,14 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 ----
 
+= JSON =
+
+[http://www.json.org/ JSON] stands for *J*ava*S*cript *O*bject *N*otation and was designed to be a lightweight data exchange format which is easy for humans to read. JSON is an excellent way to serialise objcets in a simple manner.
+
+Codehaus's [http://jackson.codehaus.org/ Jackson] is a very popular JSON Processor for Java.
+
+----
+
 = Complexity (Big-O) =
 
 Big-O analysis is a form of run-time analysis that measures the efficiency of an algorithm in terms of the time it takes for the algorithm to run as a function of the input size. It's not a formal benchmark, just a simple way to classify algorithms by relative efficiency.
