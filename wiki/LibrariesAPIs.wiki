@@ -101,6 +101,8 @@ http://www.quickfixj.org/
 
 = XA =
 
+*Note:* The whole point of XA is that transactions are global (as opposed to local) which means you can tie actions/events together to make everything atomic.
+
 The Java Transaction API ([http://en.wikipedia.org/wiki/Java_Transaction_API JTA]) is JavaEE's implementation of the [http://en.wikipedia.org/wiki/X/Open_XA XA] standard protocol. JTA is part of the JavaEE specification, which means that any JavaEE-compliant application server must provide JTA support (some lightweight alternatives like Apache Tomcat do not provide it). Using JTA outside a JAVA EE server takes some work to set up because you have to find and use a JTA transaction manager, such as one of these:
 
  * [http://www.atomikos.com/ Atomikos]
