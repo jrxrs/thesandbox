@@ -14,6 +14,10 @@
  * !GemFire Cache
 !GemFire is a Java based cache  tutorial [http://community.gemstone.com/display/gemfire/GemFire+Tutorial here]. !GemFire is a distributed cache in which each distributed peer is connected to all other peers. A more comprehensive overview can be found [http://ofps.oreilly.com/titles/9781449323950/id2325011_09-gemfire.html here]. Under the !GemFire Client/Server architecture each !GemFire peer becomes a server which also listens to connections from !GemFire clients on a separate port. A !GemFire client only connects to a limited number of these cache servers (which it discovers via a locator) but because all the !GemFire peers/servers are linked to each other the client has access to the entire data grid.
 
+= Databases =
+
+ * [http://hsqldb.org/ HSQLDB]
+
 = Date/Time =
 
  * [http://joda-time.sourceforge.net/ JodaTime]
