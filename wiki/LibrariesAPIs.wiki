@@ -30,17 +30,13 @@
 [http://camel.apache.org/ Camel]<br>
 For a list of all the EIPs that Camel supports, see [http://camel.apache.org/enterprise-integration-patterns.html here].
 
-=== JMS ===
+=== Components ===
 
 [http://camel.apache.org/jms.html JMS Component for Camel]
 
 = The FIX Protocol =
 
-The *F*inancial *I*nformation E*x*change Protocol.
-
-= Open JDK 7 for OS X =
-
-[http://code.google.com/p/openjdk-osx-build/ openjdk-osx-build]
+The *F* inancial *I* nformation E *x* change Protocol.
 
 == QuickFixJ ==
 
@@ -56,6 +52,31 @@ http://www.quickfixj.org/
  * [http://www.critchley.biz/js/FIXProtocol.html FIX Protocol Translator]
  * [http://www.fixionary.com/ Fixionary]
  * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
+
+= JSON =
+
+ * [http://jackson.codehaus.org/] a [http://www.json.org/ JSON] Processor
+
+= Middleware =
+
+== JMS ==
+
+ * [http://activemq.apache.org/ Apache ActiveMQ]
+ * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
+ * [http://www-01.ibm.com/software/integration/wmq/ IBM WebSphere MQ]
+
+=== Tooling ===
+
+ * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS]
+
+== Tibco ==
+
+ * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
+ * [http://www.tibco.co.uk/products/automation/messaging/low-latency/rendezvous/default.jsp Tibco Rendezvous]
+
+= Open JDK 7 for OS X =
+
+[http://code.google.com/p/openjdk-osx-build/ openjdk-osx-build]
 
 = Testing =
 
