@@ -16,7 +16,6 @@
     </dependencies>
 
     <build>
-    <!--<reporting>-->
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -24,6 +23,5 @@
                 <version>2.5.2</version>
             </plugin>
         </plugins>
-    <!--</reporting>-->
     </build>
 </project>
