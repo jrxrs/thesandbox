@@ -3,7 +3,7 @@
 = I Need To Read About =
 
  * Spring Templates
- * [http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
+ * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
  * Spring "depends-on" attribute - important for XA
 
 = I've Read About =
