@@ -165,3 +165,38 @@ public class MessageQueue
 }
 
 }}}
+
+= Example 3 - Waiting on queue =
+
+{{{
+package thesandbox;
+
+import java.util.List;
+import java.util.LinkedList;
+
+public class PCQueue {
+
+    final List<Object> queue = new LinkedList<Object>();
+
+    public Object take() {
+        synchronized (queue) {
+            while(queue.size() < 1) {
+                try {
+                    queue.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return queue.remove(queue.size()-1);
+        }
+    }
+
+    public void put(Object value) {
+        synchronized (queue) {
+            queue.add(value);
+            queue.notifyAll();
+        }
+    }
+
+}
+}}}
