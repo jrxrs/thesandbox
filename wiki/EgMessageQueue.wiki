@@ -166,7 +166,7 @@ public class MessageQueue
 
 }}}
 
-= Example 3 - Waiting on queue =
+= Example 3 - Locking on the queue itself =
 
 {{{
 package thesandbox;
