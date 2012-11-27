@@ -286,7 +286,7 @@ Generally speaking memory leaks in Java are due to resources (like files or conn
 
 == Testing ==
 
-Apparently nobody has a team of QA's dedicated to their App anymore...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
+Apparently nobody has a team of QA's dedicated to their application any more...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
 
 ==== TDD ====
 The theory with Test Driven Development is that you write one test, then you code just enough to get your test to pass, then you go back and write the another test, code enough to pass that and go back to your code and attempt to refactor any commonality, testing again post refactoring.
@@ -341,7 +341,31 @@ Creating beans is usually accomplished using constructor injection or setter inj
 
 The advantages of Spring are many and varied, it allows access to beans externally with JMX, it allows you to configure caching transparently and supports Aspect Oriented Programming - the idea of wrapping your core pojo with various aspects which provide some additional level of functionality with each layer e.g. security, transaction management, logging caching etc. 
 
+== What's new in Java 5? ==
+
+These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_version_history here].
+
+ # Annotations - allowing programmers to provide metadata tags to language constructs (classes, methods, etc.)
+ # Generics - allowing collections to be statically type checked at compile time and eliminating the need for most typecasts.
+ # Autoboxing/unboxing - see [http://code.google.com/p/thesandbox/wiki/Resources#Autoboxing above].
+ # Enumerations = i.e. the `enum` keyword
+ # Varargs - The last parameter of a method can now be declared using a type name followed by three dots (e.g. `void drawtext(String... lines)`). In the calling code any number of parameters of that type can be used and they are then placed in an array to be passed to the method, or alternatively the calling code can pass an array of that type.
+ # The enhanced for-each loop was added.
+ # The semantics of the `volatile` keyword were changed to ensure that threads never read a volatile variable from a local cache.
+ # `import static ...` was added
+ # The `java.util.concurrent` package was added
+
+== What's new in Java 6? ==
+
+ # General upgrades and performance upticks across the Java estate, particularly for the Java core and Swing.
+ # Improved garbage collection and tuning
+ # `SwingWorker` is added as a standard library class
+
+These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_version_history here].
+
 == What's new in Java 7? ==
+
+The main source of information for this section was the Well Grounded Java Developer.
 
  # `String` values in `switch` statements
  # The syntax for declaring numeric literals has been changed so you can use underscore characters `_` when declaring integers e.g. `int x = 1_000_000;`, you can also declare numbers explicitly as binary strings e.g. if you wanted `y` to be 5 you could write `int y = 0b101`.
@@ -357,6 +381,14 @@ public static <T> Collection<T> doSomething(T... entries) {
   which used to case a problem because behind the scenes the compiler would create an array of whatever type you passed in as T, however if it was something like `HashMap<String, String>` you'd get a warning about type safety, this is no longer reported to the programmer using `doSomething(T... entries)` but instead to the writer of the method.
 
 A summary of these features in code can be found [https://code.google.com/p/thesandbox/wiki/CodeExamples?ts=1350752358&updated=CodeExamples#New_Java_Features_Outline here].
+
+There is also a change to Java's sorting algorithm in Java 7, where they will start to use Timsort.
+
+== What about Java 8? ==
+
+ # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]
+ # Additional language features from project coin (Java SE 7)
+ # A new Time and Date API
 
 ----
 
