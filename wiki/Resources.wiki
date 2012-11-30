@@ -164,6 +164,8 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 == Concurrency, Threading & Lock Contention ==
 
+http://www.vogella.com/articles/JavaConcurrency/article.html 
+
 === Java Concurrency in Practice ===
 
 ==== Using Synchronized Collections ====
