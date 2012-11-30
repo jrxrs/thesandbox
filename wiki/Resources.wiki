@@ -5,6 +5,7 @@
 = To Do =
 
  # A Section on UML modelling!
+ # What is PUMA? How was the server estate architected? How was the GUI architected? 
 
 = Java =
 
@@ -583,6 +584,10 @@ There is also an equiv. for Sets called LinkedHashSet, which could be compared t
 
 ==== MultiMap ====
 A multimap is a generalisation of a map or associative array abstract data type in which more than one values may be associated with and returned for a given key. Often multimap is implemented as a map wth lists or sets as the map values. Both Apache Commons Collections & Google Collections offer MultiMap implementations.
+
+==== ConcurrentHashMap ====
+
+Section 5.2.1 of Java Concurrency In Practice explains the internals of a ConcurrentHashMap at a high level, essentially lock striping is used to allow multiple readers to access the map concurrently and writers are managed on a lock per bucket basis reducing contention across the whole collection. The author(s) note that under normal circumstances there should be little or no overhead of using a ConcurrentHashMap where a Hashtable or synchronized Map was used before, it should be much more scalable as a collection.
 
 === Stacks ===
 
