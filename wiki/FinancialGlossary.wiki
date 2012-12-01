@@ -202,8 +202,7 @@ The indebted entity issues investors a certificate, or bond, that states the int
  * The municipal bond - a security issued by or on behalf of a local authority 
  * The Treasury bond - A government bond issued by the US Treasury
  * [http://www.investopedia.com/terms/t/treasurynote.asp The Treasury note] - A note issued by the US Treasury for use as currency (i.e. very liquid).
- * [www.investopedia.com/terms/t/treasurybill.asp The Treasury bill] - 
-A short-dated government security, yielding no interest but issued at a discount on its redemption price (i.e. below par).
+ * [http://www.investopedia.com/terms/t/treasurybill.asp The Treasury bill] - A short-dated government security, yielding no interest but issued at a discount on its redemption price (i.e. below par).
  * The zero-coupon bonds - a bond that is issued at a deep discount from its value at maturity and pays no interest during the life of the bond.
 
 The higher rate of return the bond offers, the more risky the investment. There have been instances of companies failing to pay back the bond (default), so, to entice investors, most corporate bonds will offer a higher return than a government bond. It is important for investors to research a bond just as they would a stock or mutual fund. The bond rating will help in deciphering the default risk. 
