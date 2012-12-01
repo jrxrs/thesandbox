@@ -2,10 +2,395 @@
 
 = Financial Glossary =
 
-== Buy-side vs. Sell-side ==
+<wiki:toc max_depth="4" />
+
+----
+
+== General Terms & Definitions ==
+
+=== Arbitrage ===
+
+The simultaneous purchase and selling of a security in order to profit from a differential in the price. This usually takes place on different exchanges or marketplaces. Also known as a riskless profit. An example of this is when an arbitrageur buys a stock on a foreign exchange that hasn't adjusted for the constantly changing exchange rate. The arbitrageur will purchase the undervalued stock and short sell the overvalued stock, thus profiting from the difference. This is recommended for experienced investors only. 
+
+=== Asset Management ===
+
+1. The management of the financial assets of a company in order to maximize return. 
+
+2. An account at a financial institution that includes checking services, credit cards, debit cards, margin loans, the automatic sweep of cash balances into a money market fund, as well as brokerage services.
+
+Quite often these are for high net-worth clients. They are convenient because the client gets a complete financial summary of banking and brokerage activity on one statement. Also known as an asset management account or a central asset account.
+
+=== Back Office ===
+
+Administration and support personnel in a financial services company. They carry out functions like settlements, clearances, record maintenance, regulatory compliance, and accounting.
+
+=== Basket Trading ===
+
+The buying or selling of a set of 15 or more securities in a single order. Used by institutional investors or program traders to invest large amounts of money in a particular portfolio or index. 
+
+=== Buy-side vs. Sell-side ===
 
 From [http://www.vault.com/articles/The-buy-side-vs.-sell-side-15434841.html here]:
 
-Simply stated, the buy-side refers to the asset managers who represent individual and institutional investors. The buy-side purchases investment products with the goal of increasing its assets. The sell-side refers to the functions of an investment bank. Specifically, this includes investment bankers, traders and research analysts. Sell-side professionals issue, recommend, trade and "sell" securities for the investors on the buy-side to "buy." The sell-side can be thought of primarily as a facilitator of buy-side investments --the sell-side makes money not through a growth in value of the investment, but through fees and commissions for these facilitating services. In this chapter, we'll take a brief look at the types of jobs on each "side." The rest of the book will look at the buy-side in detail.
+Simply stated, the buy-side refers to the asset managers who represent individual and institutional investors. The buy-side purchases investment products with the goal of increasing its' assets. The sell-side refers to the functions of an investment bank. Specifically, this includes investment bankers, traders and research analysts. Sell-side professionals issue, recommend, trade and "sell" securities for the investors on the buy-side to "buy." The sell-side can be thought of primarily as a facilitator of buy-side investments --the sell-side makes money not through a growth in value of the investment, but through fees and commissions for these facilitating services. In this chapter, we'll take a brief look at the types of jobs on each "side." The rest of the book will look at the buy-side in detail.
 
 So in essence Goldman Sachs would be the sell-side, where as Blackrock or Fidelity would be the buy-side.
+
+=== Capital Markets ===
+
+The market where capital, such as stocks and bonds, are traded. Capital markets are used by firms to raise additional funds.
+
+=== Cash Markets ===
+
+The market for a cash commodity or actual, as opposed to its futures contract. A cash market may take forms such as the following: self-regulated centralized markets, like commodity exchanges, decentralized over-the-counter markets where private transactions may occur, or localised community organizations such as grain elevators. At these locations one can purchase the actual physical commodity rather than just the futures contract.
+
+=== Compliance ===
+
+The department within a brokerage firm that oversees the trading and market-making activities of the firm. It ensures that the employees and officers of the firm are abiding by the rules and regulations of the Financial Services Authority. 
+
+
+=== Corporate Finance ===
+
+Any financial or monetary activity that deals with a company and its money. This can include anything from IPO’s to acquisitions.
+
+=== Electronic Communication Network – ECN ===
+
+An electronic system that attempts to eliminate third parties orders entered by an exchange market maker or an over-the-counter-OTC market maker, and permits such orders to be executed either in whole or in part.
+An ECN connects major brokerages and individual traders so that they can trade directly between themselves without having to go through a middleman. 
+Examples of these include: Brokertec, CBOT, MTS, HDAT, Tradeweb, WebET, EUREX 
+
+=== Emerging Markets ===
+
+Markets within countries that are starting to participate globally by implementing reform programs and undergoing economic improvement. The countries that have emerging markets together represent a large percentage of the world's population while accounting for a relatively small percentage of the world's economic production. Emerging markets tend to be more volatile than established markets due to uncertainty within the political scene and domestic currency. 
+
+=== Financial Services Authority (FSA) ===
+
+Government controlled regulatory body for the Financial Services Industry in the UK.
+
+=== Front Office ===
+
+The sales and trading personnel in a financial services company. Front office workers produce the revenue.
+
+=== Hedge Fund ===
+
+An aggressively managed fund portfolio taking positions in both safe and speculative opportunities. Most hedge funds are limited to a maximum of 100 investors. And for the most part, hedge funds (unlike regular mutual funds) are unregulated because it is assumed that the people investing in them are very sophisticated and wealthy investors. Hedging is actually the practice of attempting to reduce risk, and the main goal of a hedge fund is to get a maximum rate of return, using strategies involving options, short selling, and leverage. 
+
+=== Index ===
+
+A statistical measure of change in an economy or a securities market. In the case of financial markets, an index is essentially an imaginary portfolio of securities representing a particular market or a portion of it. Each index has it's own calculation methodology and is usually expressed in terms of a change from a base value. 
+The Financial Times 100 or FTSE is one of the world's best-known indices, and is the most commonly used benchmark for the stock market.  This is an index of blue chip stocks on the London Stock Exchange. 
+
+=== Investment Bank ===
+
+A financial intermediary that performs a variety of services. This includes underwriting, acting as an intermediary between an issuer of securities and the investing public, facilitating mergers and other corporate reorganizations, and also acting as a broker for institutional clients. The role of the investment bank begins with pre-underwriting counselling and continues after the distribution of securities in the form of advice.
+
+=== IPO (Floating) ===
+
+Selling Stock - IPO is an acronym for Initial Public Offering. This is the first sale of stock by a company to the public. A company can raise money by issuing either debt (bonds) or equity. If the company has never issued equity to the public, it's known as an IPO.
+Companies fall into two broad categories: private and public. 
+A privately held company has fewer shareholders and its owners don't have to disclose much information about the company. Anybody can go out and incorporate a company: just put in some money, tender the correct legal documents, and follow the reporting rules of your jurisdiction. Most small businesses are privately held. But large companies can be private too. Companies such as IKEA, Domino's Pizza, and Hallmark Cards are all privately held.  As long as there is market demand, a public company can always issue more stock. Thus, mergers and acquisitions are easier to do because stock can be issued as part of the deal. In the past, only private companies with strong fundamentals could qualify for an IPO and it wasn't easy to get listed.
+
+The Internet boom changed all this. Firms no longer needed strong financials and a solid history to go public. Instead, IPO’s were done by smaller start-ups seeking to expand their business. There's nothing wrong with wanting to expand, but most of these firms had never made a profit and didn't plan on being profitable any time soon. The IPO then becomes the end of the road rather than the beginning.
+
+=== LIBOR ===
+
+This is the rate of interest at which banks borrow funds, in marketable size, from other banks in the London interbank market. In other words, LIBOR is the international rate that banks borrow from other banks at. This is the most widely used benchmark or reference rate for short-term interest rates. 
+
+
+=== Market Makers ===
+
+Market makers provide continuous bid and offer prices within a prescribed percentage spread for shares in which they are designated to make a market. There can be anywhere from 4 to 40 (or more) market makers for a particular stock depending on the average daily volume. The market makers play an important role in the secondary market as catalysts, particularly for enhancing stock liquidity and thus generally for promoting long-term growth the market. They facilitate trading for clients and other brokerage firms.
+
+=== Middle Office ===
+
+The group in a financial services company that draws on the resources of both the front and the back offices to manage the risk exposures. The technology infrastructure and Compliance can also be considered in the middle office.
+
+=== Online Trading ===
+
+Trading via the Internet. The use of online trading increased dramatically in the mid to late 1990's with the advent of high-speed computers and Internet connections. Stocks, bonds, options, futures, and currencies can all be traded online.
+
+=== Over-The-Counter ===
+
+A security, which is not traded on an exchange, usually due to an inability to meet listing requirements. For such securities, brokers/dealers negotiate directly with one another over computer networks and by phone. The NASDAQ is considered to be an OTC market, with the tier 1 being represented by companies such as Microsoft, Dell, and Intel.  Also referred to as unlisted.
+
+=== Portfolio Trading ===
+
+The trading of a group of different investments. This is the art and science of making decisions about: investment mix and policy, matching investments to objectives, asset allocation for individuals and institutions, and balancing risk vs. performance.
+Portfolio management is all about strengths, weaknesses, opportunities, and threats in the choice of debt vs. equity, domestic vs. international, growth vs. safety, and numerous other trade-offs encountered in the attempt to maximize return at a given appetite for risk. 
+
+=== Primary Market ===
+
+The market in which investors have the first opportunity to buy a newly issued security. After the first purchases, subsequent trading is said to occur in the secondary market. 
+
+=== Prime Brokerage ===
+
+A special group of services that many brokerages give to special clients. The services provided under prime brokering are securities lending, leveraged trade executions, and cash management, among other things. Prime brokerage services are provided by most of the large brokers, such as Goldman Sachs, Paine Webber, and Morgan Stanley Dean Witter.
+Hedge funds were what started the prime brokerage option. Hedge funds place large trades and need special attention from brokerages.
+
+=== Quantitative Analysis ===
+
+A security analysis that uses financial information derived from company annual reports and income statements to evaluate an investment decision. Some examples are financial ratios, the cost of capital, asset valuation, and sales and earnings trends. 
+
+
+=== Secondary Market ===
+
+A market in which an investor purchases an asset from another investor, rather than an issuing corporation. A good example is the London Stock Exchange. All stock exchanges are part of the secondary market, as investors buy securities from other investors instead of an issuing company.
+
+=== Securities Lending or Stock Loan Business ===
+
+When a brokerage lends securities owned by its clients to short sellers. This allows brokers to create additional revenue (commissions) on the short sale transaction. 
+
+=== Security ===
+
+An instrument representing ownership (stocks), a debt agreement (bonds), or the rights to ownership (derivatives). Examples of a security include a note, stock, preferred share, bond, debenture, option, future, swap, right, warrant, or virtually any other financial asset. 
+
+=== Short Selling ===
+
+Selling short is the opposite of going long. That is, short sellers make money if the stock goes down in price. Usually in order to sell a security short the investor must borrow that security before hand, which of course costs money, if you don't borrow it first you are said to be a naked short seller.
+
+=== Straight Through Processing (STP) ===
+
+An IT initiative by many financial companies to streamline transactions by maintaining contact throughout processing.  STP allows companies to move from Today + 3 working days to same day settlement by removing redundant operations and utilising electronic transfers.
+
+=== Volatility ===
+
+1. In general, volatility is a statistical measure of the tendency of a market or security to rise or fall sharply within a short period of time. Volatility is typically calculated by using variance or annualised standard deviation of the price or return. 
+
+2. Volatility is a variable that appears in option pricing formulas. In the option pricing formula, it denotes the extent to which the return of the underlying asset will fluctuate between now and the expiration of the option.
+
+A highly volatile market means that prices have huge swings in very short-periods of time. 
+
+----
+
+== Equities ==
+
+=== Equity ===
+
+1. A term describing stock, or any security, representing an ownership interest. 
+
+2. On the balance sheet, equity refers to the value of the funds contributed by the owners (the stockholders) plus the retained earnings (or losses). 
+
+3. In the context of margin trading, equity is the value of securities minus what has been borrowed from the brokerage.
+
+Equity is a term whose meaning depends very much on the context. In general, you can think of equity as ownership. For example, stocks or shares are equity because they represent ownership of a company, whereas bonds are classified as debt because they represent an obligation to pay and not ownership of assets. 
+
+On the balance sheet, equity is also referred to as shareholder's equity.
+
+The Definition of a Stock 
+Plain and simple, stock is a share in the ownership of a company. Stock represents a claim on the company's assets and earnings. As you acquire more stock, your ownership stake in the company becomes greater. Whether you say shares, equity, or stock, it all means the same thing. 
+
+=== Debt vs. Equity ===
+
+Why does a company issue stocks/shares? Why would the founders share the profits with thousands of people when they could keep profits to themselves? The reason is that at some point every company needs to raise money. To do this, companies can either borrow it from somebody or raise it by selling part of the company, which is known as issuing stock. A company can borrow by taking a loan from a bank or by issuing bonds. Both methods fit under the umbrella of "debt financing." On the other hand, issuing stock is called "equity financing." Issuing stock is advantageous for the company because it does not require the company to pay back the money or make interest payments along the way. All that the shareholders get in return for their money is the hope that the shares will some day be worth more. The first sale of a stock, which is issued by the private company itself, is called the initial public offering (IPO). 
+
+It is important to understand the distinction between a company financing through debt and financing through equity. When you buy a debt investment such as a bond, you are guaranteed the return of your money (the principal) along with promised interest payments. This isn't the case with an equity investment. By becoming an owner, you assume the risk of the company not being successful. 
+
+----
+
+== Fixed Income ==
+
+=== Fixed-Income Security ===
+
+An investment that provides a return in the form of fixed periodic payments and eventual return of principle at maturity.
+Generally, these types of assets offer a lower return on investment because they guarantee income.
+
+=== Bonds ===
+
+Bonds are debt investments, with which the investor loans money to an entity (company or government) that borrows the funds for a defined period of time at a specified interest rate.
+The indebted entity issues investors a certificate, or bond, that states the interest rate (coupon rate) that will be paid and when the loaned funds are to be returned (maturity date). Interest on bonds is usually paid every six months (semi-annually). The main types of bonds are the corporate bond, the municipal bond, the Treasury bond, the Treasury note, Treasury bill, and the zero-coupon bonds.
+
+The higher rate of return the bond offers, the more risky the investment. There have been instances of companies failing to pay back the bond (default), so, to entice investors, most corporate bonds will offer a higher return than a government bond. It is important for investors to research a bond just as they would a stock or mutual fund. The bond rating will help in deciphering the default risk. 
+
+The first thing that comes to most people's minds when they think of investing is the stock market. After all, stocks are exciting. The swings in the market are scrutinized in the newspapers and even covered by local evening newscasts. Stories of investors gaining great wealth in the stock market are common. 
+
+Bonds, on the other hand, don't have the same sex appeal. The lingo seems arcane and confusing to the average person. Plus, bonds are much more boring, especially during raging bull markets (favourable stock market conditions), when they seem to offer an insignificant return compared to stocks. 
+
+However, all it takes is a bear market (the opposite of a Bull) to remind investors of the virtues of a bond's safety and stability. In fact, it makes sense for many investors to have at least part of their portfolio invested in bonds. 
+
+=== Convertible Bonds ===
+
+A bond that can be converted into a predetermined amount of the company's equity at certain times during its life. Convertibles are sometimes called CVs. Convertible bonds tend to offer a lower rate of return in exchange for the option to trade the bond into stock. 
+
+
+=== Gilt-Edged Bond ===
+
+A bond that is issued by a blue chip (FT-SE 100 listed) company. These bonds are considered to be high grade, with little risk of interest payment interruption or default. This is the closest you can get to a government issue without actually buying one. 
+
+=== Government Bond ===
+
+A government debt obligation (local or national) backed by the credit and taxing power of a country with very little risk of default. This includes short-term treasury bonds, medium-term treasury notes, and long-term treasury bonds. 
+
+=== Junk Bond ===
+
+A bond rated usually BB or lower because of its high default risk. Also known as a high-yield bond. Usually purchased for speculative purposes. Junk bonds typically offer interest rates three to four percentage points higher than safer government issues.
+
+----
+
+== FX / Money Markets ==
+
+The money market is a subsection of the fixed income market. We generally think of the term "fixed income" as synonymous with bonds. In reality, a bond is just one type of fixed income security. The difference between the money market and the bond market is that the money market specializes in very short-term debt securities (debt that matures in less than one year). Money market investments are also called cash investments because of their short maturities.
+Money market securities are essentially IOUs issued by governments, financial institutions, and large corporations. These instruments are very liquid and considered extraordinarily safe. Because they are extremely conservative, money market securities offer significantly lower return than most other securities.
+
+Whenever a bear market comes along, investors realise that the stock market is a risky place for their savings. To get higher returns, you have to take on a higher level of risk. For many investors, a volatile market is too much to stomach - an alternative is the money market. 
+
+The money market is better known as a place for large institutions and government to manage their short-term cash needs. However, individual investors have access to the market through a variety of different securities. We will learn about money market instruments in this tutorial. 
+
+Forex Market
+
+The common term for the foreign exchange market. Brokerage firms and banks are connected over an electronic network that allows them to convert the currencies of most countries. The forex market trades trillions of dollars each and every day
+Did you know that the foreign exchange market (also known as FX or Forex) is the largest market in the world? In fact over $1 trillion is traded in the currency markets on a daily basis. 
+
+Exchange Rate
+
+An exchange rate is the rate at which one currency can be exchanged for another. In other words, it is the value of another country's currency compared to that of your own. If you are travelling to another country, you need to "buy" the local currency. Just like the price of any asset, the exchange rate is the price at which you can buy that currency. If you are travelling to the US, for example, and the exchange rate for GBP1 is US$1.60, this means that for every pound, you can buy one dollar and sixty cents. Theoretically, identical assets should sell at the same price in different countries, because the exchange rate must maintain the inherent value of one currency against the other. 
+
+=== Fixed and Floating Exchange Rates ===
+
+==== Fixed ====
+There are two ways the price of a currency can be determined against another. A fixed, or pegged, rate is a rate the government (central bank) sets and maintains the official exchange rate. A set price will be determined against a major world currency (usually the U.S. dollar, but also other major currencies such as sterling, the euro, the yen, or a basket of currencies). In order to maintain the local exchange rate, the central bank buys and sells its own currency on the foreign exchange market in return for the currency to which it is pegged.
+
+==== Floating ====
+Unlike the fixed rate, a floating exchange rate is determined by the private market through supply and demand. A floating rate is often termed "self-correcting," as any differences in supply and demand will automatically be corrected in the market. Take a look at this simplified model: if demand for a currency is low, its value will decrease, thus making imported goods more expensive and thus stimulating demand for local goods and services. This in turn will generate more jobs, and hence an auto-correction would occur in the market. A floating exchange rate is constantly changing. 
+
+=== Repos ===
+
+A form of short term borrowing for dealers in government securities. The dealer sells the government securities to investors, usually on an overnight basis, and buys them back the following day. 
+For the party selling the security (and agreeing to repurchase it in the future) it is a Repo; for the party on the other end of the transaction (buying the security and agreeing to sell in the future) it is a reverse repurchase agreement.
+Repos are classified as a money-market instrument. They are usually used to raise short-term capital. 
+
+----
+
+== Commodities ==
+
+Any bulk good traded on an exchange or in the cash market. Some examples include grain, oats, gold, oil, beef, silver, and natural gas, electricity, FCOJ (Frozen Concentrated Orange Juice), Pork Bellies, Coffee and Tea.
+
+----
+
+== Derivatives ==
+
+=== Derivatives ===
+
+A security, such as an option or futures contract, whose value depends on the performance of an underlying security. 
+
+A derivative is a financial instrument that does not constitute ownership, but a promise to convey ownership. Examples are options and futures. Before discussing derivatives, it's important to describe their basis. All derivatives are based on some underlying cash product. These "cash" products are: 
+
+ * *Spot Foreign Exchange.* This is the buying and selling of foreign currency at the exchange rates that you see quoted on the news. As these rates change relative to your "home currency" (sterling if you are in the UK), so you make or lose money. 
+
+ * *Commodities.* These include grain, pork bellies, coffee beans, orange juice, etc. 
+
+ * *Equities* (termed as stocks or shares) 
+
+ * *Bonds* of various different varieties (e.g., they may be Eurobonds, domestic bonds, fixed interest / floating rate notes, etc.). Bonds are medium to long-term negotiable debt securities issued by governments, government agencies, supra-national organisations such as the World Bank and companies. Negotiable means that they may be freely traded without reference to the issuer of the security. That they are debt securities means that in the event that the company goes bankrupt. Bondholders will be repaid their debt in full before the holders of unsecuritised debt get any of their principal back. 
+
+ * *Short term ("money market") negotiable debt securities* such as Treasury Bonds (issued by governments), Commercial Paper (issued by companies) or Bankers Acceptances. These are much like bonds, differing mainly in their maturity. "Short" term is usually defined as being up to 1 year in maturity, "medium-term" is commonly taken to mean from 1 to 5 years in maturity, and "long term" anything above that. 
+
+ * *Over the Counter ("OTC") money market products* such as loans / deposits. These products are based upon borrowing or lending. They are known as "over the counter" because each trade is an individual contract between the 2 counterparties making the trade. They are neither negotiable nor securitised. Hence if I lend your company money, I cannot trade that loan contract to someone else without your prior consent. Additionally if you default, I will not get paid until holders of your company's debt securities are repaid in full. I will however, be paid in full before the equity holders see a penny. 
+
+Derivative products are contracts which have been constructed based on one of the "cash" products described above. Examples of these products include options and futures. 
+
+=== Futures ===
+
+Futures are commonly available in the following flavours (defined by the underlying "cash" product): 
+
+Commodity futures 
+Equity index futures 
+Interest rate futures (including deposit futures, bond futures and government bond futures) 
+
+Futures contracts, forward contracts, and options are the most common types of derivatives. Derivatives are generally used by institutional investors to increase overall portfolio return or to hedge portfolio risk. 
+
+=== Options ===
+
+An option is a contract giving the buyer the right, but not the obligation, to buy or sell an underlying asset at a specific price on or before a certain date. An option, just like a stock or bond, is a security. It is also a binding contract with strictly defined terms and properties. 
+
+The idea behind an option is present in several everyday situations. Say for example you discover a house that you'd love to purchase. Unfortunately, you won't have the cash to buy it for another three months. You talk to the owner and negotiate a deal that gives you an option to buy the house in three months for a price of £200,000. The owner agrees, but for this option, you pay a price of £3,000. 
+Now, consider two theoretical situations that might arise:
+1. It's discovered that the house is actually the true birthplace of John Lennon! As a result, the market value of the house rockets to £1,000,000. Because the owner sold you the option, he is obligated to sell you the house for £200,000. In the end, your profit is £797,000 (£1,000,000 - £200,000 - £3,000).
+2. While touring the house, you discover not only that the walls are chock-full of asbestos, but also that the ghost of Henry VII haunts the master bedroom; furthermore, a family of super-intelligent rats have built a fortress in the basement. Though you originally thought you had found the house of your dreams, you now consider it worthless. On the upside, because you bought an option, you are under no obligation to go through with the sale. Of course, you still lose the £3,000 price of the option. 
+
+This example demonstrates two very important points. First, when you buy an option, you have a right but not the obligation to do something. You can always let the expiration date go by, at which point the option is worthless. If this happens, you lose 100% of your investment, which is the money you used to pay for the option. Second, an option is merely a contract that deals with an underlying asset. For this reason, options are called derivatives, which means an option derives its value from something else. In our example, the house is the underlying asset. Most of the time, the underlying asset is a stock or an index.
+
+=== Futures/Options/Derivatives ===
+
+What we know as the futures market of today came from some humble beginnings. Trading in futures originated in Japan during the 18th century and was primarily used for the trading of rice and silk. It wasn't until the 1850s that the U.S. started using futures markets to buy and sell commodities such as cotton, corn and wheat. 
+
+A futures contract is a type of derivative instrument, or financial contract, in which two parties agree to transact a set of financial instruments or physical commodities for future delivery at a particular price. If you buy a futures contract, you are basically agreeing to buy something, for a set price, that a seller has not yet produced. But participating in the futures market does not necessarily mean that you will be responsible for receiving or delivering large inventories of physical commodities—remember, buyers and sellers in the futures market primarily enter into futures contracts to hedge risk or speculate rather than exchange physical goods (which is the primary activity of the cash/spot market). That is why futures are used as financial instruments by not only producers and consumers but also speculators. 
+
+The consensus in the investment world is that the futures market is a major financial hub, providing an outlet for intense competition among buyers and sellers and, more importantly, providing a centre to manage price risks. The futures market is extremely liquid (fluid), risky, and complex by nature, but it can be understood if we break down how it functions. 
+
+While futures are not for the risk-averse, they are useful for a wide range of people. In this tutorial, you'll learn how the futures market works, who uses futures and why, and which strategies will make you a successful trader on the futures market. 
+
+=== The Black and Scholes Option Pricing Model ===
+
+The Black and Scholes Option Pricing Model is an approach for calculating the value of a stock option. This article presents some detail about the pricing model. 
+The Black and Scholes Option Pricing Model didn't appear overnight, in fact, Fisher Black started out working to create a valuation model for stock warrants. This work involved calculating a derivative to measure how the discount rate of a warrant varies with time and stock price. The result of this calculation held a striking resemblance to a well-known heat transfer equation. Soon after this discovery, Myron Scholes joined Black and the result of their work is a startlingly accurate option pricing model. Black and Scholes can't take all credit for their work; in fact their model is actually an improved version of a previous model developed by A. James Boness in his Ph.D. dissertation at the University of Chicago. Black and Scholes' improvements on the Boness model come in the form of a proof that the risk-free interest rate is the correct discount factor, and with the absence of assumptions regarding investor's risk preferences. 
+
+=== Common types of Derivative ===
+
+==== Asset Swap ====
+
+Similar in structure to a plain vanilla swap, the key difference is the underlying of the swap contract. Rather than regular fixed and floating loan interest rates being swapped, fixed and floating investments are being exchanged. In a plain vanilla swap, a fixed libor is swapped for a floating libor. In an asset swap, a fixed investment such as a bond with guaranteed coupon payments is being swapped for a floating investment such as an index.
+
+==== Bond Option ====
+
+A derivative investment in which the underlying asset is a bond. Similar to a stock option, except the underlying asset is a corporate or government bond. 
+
+==== Credit Derivatives ====
+
+Privately held negotiable bilateral contracts that allow users to manage their exposure to credit risk. Credit Derivatives are financial assets like forward contracts, swaps, and options for which the price is driven by the credit risk of economic agents (private investors or governments). For example, a bank concerned that one of its customers may not be able to repay a loan can protect itself against loss by transferring the credit risk to another party while keeping the loan on its books. 
+
+==== Credit Default Swaps (CDS’) ====
+
+A swap designed to transfer the credit exposure of fixed income products between parties. For example, the buyer of a credit swap will be entitled to the par value of the bond by the seller of the swap, should the bond default in its coupon payments. 
+
+==== Collateralized Debt Obligation (CDO’s) ====
+
+An investment-grade security backed by a pool of bonds, loans, and other assets. CDOs do not specialize in one type of debt. Similar in structure to a Collateralized mortgage obligation (CMO) or Collateralized bond obligation (CBO), but unique in that CDOs represent different types of debt and credit risk
+
+==== Currency/FX Option ====
+
+A contract that grants the holder the right, but not the obligation, to buy or sell currency at a specified price during a specified period of time.
+Investors can hedge against foreign currency risk by purchasing a currency.
+
+==== Currency/FX Forward ====
+
+A forward contract that locks-in the price an entity can buy or sell currency on a future date. In currency forward contracts, the contract holders are obligated to buy or sell the currency at a specified price, at a specified quantity, and on a specified future date. These contracts cannot be transferred. 
+Also known as "outright forward currency transaction." 
+
+==== Currency/FX Futures ====
+
+A transferable futures contract that specifies the price at which a specified currency can be bought or sold at a future date. Currency future contracts allow investors to hedge against foreign exchange risk. Since these contracts are marked-to-market daily, investors can -by closing out their position- exit from their obligation to buy or sell the currency prior to the contract's delivery date. 
+
+==== Exotic Options ====
+
+Any non-standard option. This is the opposite of a plain vanilla option. 
+
+==== Interest Rate/Fixed Income Derivatives ====
+ 
+These are traded on fluctuations in Interest Rates. All you need to know is that Interest Rate changes have an impact on the price / yield, and therefore this area will make money in a good or bad market.  Emerging Markets is closely linked to this as they, the traders, are gambling on fluctuations in interest rates within volatile countries such as Argentina.
+
+==== Interest Rate SWAP ====
+
+A deal between banks or companies where borrowers switch floating-rate loans for fixed rate loans in another country. These can be either the same or different currencies. The advantage to this is that one company may have access to lower fixed rates and another company may have access to lower floating rates... so they trade.
+
+==== Forward Rate Agreement (FRA’s) ====
+
+A forward contract that determines an interest rate to be paid or received on an obligation beginning at a start date sometime in the future. Also referred to as a "Future Rate Agreement." Any gain or loss on the agreement is like a gain or loss on an option or futures contract. 
+
+==== Mortgage Backed Securities (MBS’) ====
+
+An investment instrument that represents ownership of an undivided interest in a group of mortgages. Principal and interest from the individual mortgages are used to pay principal and interest on the MBS. When you invest in a mortgage-backed security you are lending money to a homebuyer or business. MBS are a way for smaller regional banks to lend mortgages to their customers without having to worry if they have the assets to cover the loan. Instead, they act as a middleman between the homebuyer and the investment markets. 
+
+==== OTC Options/Derivatives ====
+
+Exotic options traded on the “over the counter market”.  In the over the counter exotic options market the participants can choose the characteristics of the options traded. The flexibility of these options are attractive to many.  By not having to abide by the restrictions that normal standardized exchanges place on options both hedgers and speculators can benefit.  The flexibility allows participants to more perfectly and in a less costly manner reflect their desired position. 
+Swaption (Swap Option)
+
+The option to enter into an interest rate swap. In exchange for an option premium, the buyer gains the right, but not the obligation, to enter into a specified swap agreement with the issuer on a specified future date. The agreement will specify whether the buyer of the swaption will be a fixed-rate receiver (like a call option on a bond) or a fixed-rate payer (like a put option on a bond). 
+
+==== Vanilla Options ====
+
+A normal option with no special or unusual features. A "plain vanilla option" is a regular option, the opposite of which is an exotic option. 
+
+==== Volatility Swap ====
+
+A forward contract whose underlying is the volatility of a given product. This is a pure volatility instrument allowing investors to speculate solely upon the movement of a stock's volatility without the influence of its price. Thus, just like investors trying to speculate on the prices of stocks, by using this instrument investors are able to speculate on how volatile the stock will be. 
