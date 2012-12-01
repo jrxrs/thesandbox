@@ -201,9 +201,10 @@ The indebted entity issues investors a certificate, or bond, that states the int
  * The corporate bond - a security issued by a company but no ownership is implied, in the case of a company going bust bond holders are paid back first making them less risky than say an equity stake
  * The municipal bond - a security issued by or on behalf of a local authority 
  * The Treasury bond - A government bond issued by the US Treasury
- * [http://www.investopedia.com/terms/t/treasurynote.asp The Treasury note] - A note issued by the US Treasury for use as currency (i.e. very liquid).
+ * [http://www.investopedia.com/terms/t/treasurynote.asp The Treasury note] - An interest-bearing security issued by the US Treasury for use as currency (i.e. very liquid), usually with original maturity of two to ten years.
  * [http://www.investopedia.com/terms/t/treasurybill.asp The Treasury bill] - A short-dated government security, yielding no interest but issued at a discount on its redemption price (i.e. below par).
- * The zero-coupon bonds - a bond that is issued at a deep discount from its value at maturity and pays no interest during the life of the bond.
+ * The zero-coupon bonds - a bond that is issued at a deep discount from its value at maturity and pays no interest during the life of the bond, you need to consider the time value of money when calculating your rate of return on this type of bond.
+ * Floating Rate Notes (FRNs) - a bond with a variable coupon payment. These bonds link the coupon payments to a measure of current market rates. For example, the coupon rate might be linked to the T-bill rate plus 2.5% thus ensuring that the bond's coupon rate always follows the current market interest rate. 
 
 The higher rate of return the bond offers, the more risky the investment. There have been instances of companies failing to pay back the bond (default), so, to entice investors, most corporate bonds will offer a higher return than a government bond. It is important for investors to research a bond just as they would a stock or mutual fund. The bond rating will help in deciphering the default risk. 
 
@@ -230,6 +231,69 @@ A government debt obligation (local or national) backed by the credit and taxing
 
 A bond rated usually BB or lower because of its high default risk. Also known as a high-yield bond. Usually purchased for speculative purposes. Junk bonds typically offer interest rates three to four percentage points higher than safer government issues.
 
+=== Bond Prices & Yields ===
+
+Bonds are traded just like any other asset in the open market, based on supply and demand. We price a bond using the yield-to-maturity (the annual rate of return on a financial asset that is held until maturity) of bonds with a similar risk profile to the bond to be priced and it's coupon. Therefore if a bond pays a coupon less than the current yield to maturity then the bonds market value will be less than it's face value.
+
+Using the formula below we can work out the price of a five year 4% (annual) coupon bond with a face value of $100, given that the yield to maturity for a similar bond is 8%.
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2014.18.41.png
+
+*NOTE* You can calculate this very easily using Excel's PV function.
+
+What about the same bond paying 4% semi-annually? Well, if the bond makes semi-annual coupon payments, the annual yield is converted to a semi-annual yield simply by dividing it by two, as such the formula is:
+
+http://thesandbox.googlecode.com/files/semi_formula.gif
+
+Resulting in:
+
+http://thesandbox.googlecode.com/files/semi_calc.gif
+
+*NOTE* For FRNs we make a slight adjustment to the formula to account for the variation in rates:
+
+http://thesandbox.googlecode.com/files/frn_calc.gif
+
+We ascertain that bond prices and yields are inversely proportional:
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2013.44.31.png
+
+==== Clean & Dirty Prices ====
+
+A *clean price* is the price we would calculate by discounting the coupon payments and redemption value at the appropriate rate for the bond. The price that is _actually_ paid, however, is the *dirty price*, which is equal to the clean price plus accrued interest (i.e. what the holder of the bond should have earned in interest from the last coupon payment to the date of the sale). 
+
+==== Type of Yield ====
+
+===== General Definition =====
+The yield is the rate of interest implied by the future payment structure of the bond and the current price. 
+
+===== Yield to Maturity (YTM) =====
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2016.29.48.png
+
+===== Current Yield (Flat Yield/Interest Yield) =====
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2016.30.00.png
+
+===== Holding Period Yield =====
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2016.30.15.png
+
+===== Forward Yield =====
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202012-12-01%20at%2016.30.30.png
+
+==== Interest Rate Risk ====
+
+We have seen that bonds suffer from interest rate risk. Bond investors gain when interest rates decrease because the prices of their bonds increase, but they lose when the opposite occurs.
+
+Bonds have several defining characteristics:
+
+ * maturity
+ * coupon
+ * yield price
+
+Bonds with different characteristics are affected differently by changes in market interest rates. One very important characteristic is the maturity of the bond, which defines the sensitivity of the bond to interest rate risk. When market interest rates increase, longer-term bonds suffer a greater decrease in price than shorter-term bonds. However, when interest rates decrease, longer-term bonds increase in price more than shorter-term bonds.
+
 ----
 
 == FX / Money Markets ==
@@ -241,12 +305,12 @@ Whenever a bear market comes along, investors realise that the stock market is a
 
 The money market is better known as a place for large institutions and government to manage their short-term cash needs. However, individual investors have access to the market through a variety of different securities. We will learn about money market instruments in this tutorial. 
 
-Forex Market
+=== Forex Market ===
 
 The common term for the foreign exchange market. Brokerage firms and banks are connected over an electronic network that allows them to convert the currencies of most countries. The forex market trades trillions of dollars each and every day
 Did you know that the foreign exchange market (also known as FX or Forex) is the largest market in the world? In fact over $1 trillion is traded in the currency markets on a daily basis. 
 
-Exchange Rate
+=== Exchange Rate ===
 
 An exchange rate is the rate at which one currency can be exchanged for another. In other words, it is the value of another country's currency compared to that of your own. If you are travelling to another country, you need to "buy" the local currency. Just like the price of any asset, the exchange rate is the price at which you can buy that currency. If you are travelling to the US, for example, and the exchange rate for GBP1 is US$1.60, this means that for every pound, you can buy one dollar and sixty cents. Theoretically, identical assets should sell at the same price in different countries, because the exchange rate must maintain the inherent value of one currency against the other. 
 
