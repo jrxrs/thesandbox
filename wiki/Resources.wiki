@@ -164,7 +164,9 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 == Concurrency, Threading & Lock Contention ==
 
-http://www.vogella.com/articles/JavaConcurrency/article.html 
+http://www.vogella.com/articles/JavaConcurrency/article.html
+
+First things first...why is it important to get multi-threading right in your application? Well, a thread is just a lightweight process which has access to your applications memory, introducing more than one thread means that those threads are now sharing access to your applications memory space which means it's crucial to ensure that, that shared memory is always left in a consistent state by each thread, ready to be read safely by the next thread, the procedures outlined below help ensure that this situation is achievable and that your application runs as desired. 
 
 === Java Concurrency in Practice ===
 
@@ -462,6 +464,10 @@ Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java
  * Can you write code in Java or C++ to find the power set of a given set. For example if S={a,b} the power set is P={{},{a},{b},{a,b}}.
  * What is you favourite feature of Java? What does it do particularly well?
  * what would you change about Java given the chance.
+
+== The Systems I've Worked On ==
+
+*See the Dropbox document, My Systems.docx*
 
 ----
 
