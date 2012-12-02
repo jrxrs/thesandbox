@@ -233,6 +233,8 @@ A bond rated usually BB or lower because of its high default risk. Also known 
 
 === Bond Prices & Yields ===
 
+Also see [http://en.wikipedia.org/wiki/Bond_valuation Bond Valuation].
+
 Bonds are traded just like any other asset in the open market, based on supply and demand. We price a bond using the yield-to-maturity (the annual rate of return on a financial asset that is held until maturity) of bonds with a similar risk profile to the bond to be priced and it's coupon. Therefore if a bond pays a coupon less than the current yield to maturity then the bonds market value will be less than it's face value.
 
 Using the formula below we can work out the price of a five year 4% (annual) coupon bond with a face value of $100, given that the yield to maturity for a similar bond is 8%.
