@@ -28,6 +28,28 @@ Administration and support personnel in a financial services company. They carry
 
 The buying or selling of a set of 15 or more securities in a single order. Used by institutional investors or program traders to invest large amounts of money in a particular portfolio or index. 
 
+=== Bloomberg ===
+
+Bloomberg is a major global provider of 24-hour financial news and information including real-time and historic price data, financials data, trading news and analyst coverage, as well as general news and sports. Its services, which span their own platform, television, radio and magazines, offer professionals analytic tools.
+
+==== Bloomberg Trading Solutions (BTS) ====
+
+Also see TOMS below, which is one of the solutions Bloomberg offers to sell-side firms for order management.
+
+==== Trade Order Management Solutions (TOMS) ====
+
+[http://www.bloomberg.com/enterprise/trading_solutions/sell_side_oms/ BTS / TOMS]
+
+For sell-side fixed income firms, Bloomberg Trade Order Management Solutions (TOMS) delivers global, multi-asset solutions for front-end inventory, trading, and middle & back office operations. TOMS enables you to manage inventory, market making, intraday risk and compliance, P&L, and end-of-day close in a fully customizable workflow. With TOMS, you can optimize your workflow, increase global distribution to markets, manage risk and compliance, and improve operational efficiency. 
+
+In this context the following activities fall under Inventory, Trading & Operations:
+
+|| *Inventory* || *Trading* || *Operations* ||
+|| Pricing || Market Making || Middle Office ||
+|| Risk Management || Order Management || STP / Integration ||
+|| P&L Reporting || Trade Capture ||  ||
+||  || Regulatory Reporting ||  ||
+
 === Buy-side vs. Sell-side ===
 
 From [http://www.vault.com/articles/The-buy-side-vs.-sell-side-15434841.html here]:
