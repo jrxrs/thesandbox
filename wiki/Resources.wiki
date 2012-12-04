@@ -506,6 +506,8 @@ The [http://en.wikipedia.org/wiki/Java_Message_Service JMS] page on Wikipedia ha
 
 = XML =
 
+eXtensible Markup Language
+
 == SAX & DOM ==
 
 SAX - Event Driven, stack based parsing, akin to shift-reduce mechanism employed by bottom-up parsers. [http://en.wikipedia.org/wiki/Simple_API_for_XML Wikipedia]
@@ -524,6 +526,12 @@ DOM - Tree Walking [http://en.wikipedia.org/wiki/Document_Object_Model Wikipedia
 
 Codehaus's [http://jackson.codehaus.org/ Jackson] is a very popular JSON Processor for Java.
 
+----
+
+= Simple Object Access Protocol (SOAP) =
+
+[http://en.wikipedia.org/wiki/SOAP SOAP], originally defined as Simple Object Access Protocol, is a protocol specification for exchanging structured information in the implementation of Web Services in computer networks. It relies on Extensible Markup Language (XML) for its message format, and usually relies on other Application Layer protocols, most notably Hypertext Transfer Protocol (HTTP) and Simple Mail Transfer Protocol (SMTP), for message negotiation and transmission.
+ 
 ----
 
 = Complexity (Big-O) =
