@@ -346,6 +346,12 @@ Creating beans is usually accomplished using constructor injection or setter inj
 
 The advantages of Spring are many and varied, it allows access to beans externally with JMX, it allows you to configure caching transparently and supports Aspect Oriented Programming - the idea of wrapping your core pojo with various aspects which provide some additional level of functionality with each layer e.g. security, transaction management, logging caching etc. 
 
+== Remote Method Invocation (RMI) ==
+
+[http://docs.oracle.com/javase/tutorial/rmi/index.html Oracle's RMI Tutorial]
+
+The Java Remote Method Invocation (RMI) system allows an object running in one Java virtual machine to invoke methods on an object running in another Java virtual machine. RMI provides for remote communication between programs written in the Java programming language.
+
 == What's new in Java 5? ==
 
 These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_version_history here].
