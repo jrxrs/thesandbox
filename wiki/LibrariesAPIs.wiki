@@ -71,6 +71,8 @@ http://www.quickfixj.org/
 
 == JMS ==
 
+[http://jpalace.org/docs/tutorials/spring/jms.html JMS with Spring Tutorial]
+
  * [http://activemq.apache.org/ Apache ActiveMQ]
  * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
  * [http://www-01.ibm.com/software/integration/wmq/ IBM WebSphere MQ]
