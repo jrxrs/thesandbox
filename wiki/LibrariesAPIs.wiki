@@ -79,7 +79,11 @@ http://www.quickfixj.org/
 
 === Tooling ===
 
- * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS]
+ * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS] - used to monitor and manipulate JMS brokers/queues/topics etc.
+ * [https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPJMETER HP JMeter]
+ * [http://www.yourkit.com/ YourKit Java Profiler] (they also offer a .NET equiv.)
+ * For more Java profiling tools see the list of [http://www.javaperformancetuning.com/resources.shtml#ProfilingToolsFree free] and [http://www.javaperformancetuning.com/resources.shtml#ProfilingToolsNotFree commercial] profilers on the [http://www.javaperformancetuning.com/ Java Performance Tuning]
+ * [http://visualvm.java.net/ VisualVM] - used to connect to you java application over JMX and part of more recent JDK releases, has a wide variety of plugins
 
 == Tibco ==
 
