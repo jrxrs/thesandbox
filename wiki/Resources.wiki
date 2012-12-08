@@ -5,7 +5,7 @@
 = To Do =
 
  # A Section on UML modelling!
- # What is PUMA? How was the server estate architected? How was the GUI architected? 
+ # A section about Databases
 
 = Java =
 
@@ -86,7 +86,7 @@ Inheritance in object oriented programming means that a class of objects can inh
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
 
   * With Encapsulation you can hide (restrict access) to critical data members in your code , which improves security
-  * Encapsualtion combines data and actions together (just like a capsule)
+  * Encapsulation combines data and actions together (just like a capsule)
 
 Encapsulation is the term given to the process of hiding the implementation details of the object. Once an object is encapsulated, its implementation details are not immediately accessible any more. Instead they are packaged and are only indirectly accessible via the interface of the object. When used properly encapsulation allows us to very easily change the implementation of a class without burdening those who use it (provided we maintain a consistent interface for interaction with our class).
 
@@ -139,7 +139,7 @@ An immutable class is simply a class whose instances cannot be modified. All of 
  # Ensure that the class cannot be extended.
  # Make all fields final.
  # Make all fields private.
- # Ensure exclusive access to ant mutable components.
+ # Ensure exclusive access to any mutable components.
 
 [http://www.javaranch.com/journal/2003/04/immutable.htm Java Ranch - Mutable and Immutable Objects]
 
@@ -273,6 +273,12 @@ Object-relational mapping (ORM) frameworks like Hibernate or data mapping (DM) f
 == Object Relational Mapping (ORM) Frameworks ==
 
 TODO!
+
+== Not only SQL (NoSQL) ==
+
+In short, NoSQL database management systems are useful when working with a huge quantity of data when the data's nature does not require a relational model (i.e. you don't guarantee the ACID principles usually associated with relational databases). The data can be structured, but NoSQL is used when what really matters is the ability to store and retrieve great quantities of data, not the relationships between the elements. Usage examples might be to store millions of key–value pairs in one or a few associative arrays or to store millions of data records.
+
+There are numerous example of NoSQL solutions available including [http://cassandra.apache.org/ Apache Cassandra], GemFire, [http://www.mongodb.org/ MongoDB], [http://www.neo4j.org/learn Neo4j].
 
 == Garbage Collection ==
 
@@ -834,7 +840,7 @@ If you're still struggling with the concepts the first paragraph of the [http://
 
 ----
 
-= Enterprise Design Patterns =
+= Enterprise Integration/Design Patterns =
 
 http://www.eaipatterns.com/index.html
 
