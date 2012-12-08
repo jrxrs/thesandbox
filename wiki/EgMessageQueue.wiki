@@ -85,7 +85,7 @@ public class MessageQueue
 
 = Example 2 - using a lock Object =
 
-This exactly the same class as above, although it uses a specific/separate object as the monitor rather then the monitor of the instance of MessageQueue, essentially there is no difference between the two.
+This exactly the same class as above, although it uses a specific/separate object as the monitor rather then the monitor of the instance of MessageQueue, essentially the only difference between the two is that this one solves the encapsulation problem mentioned above because the lock object is private and therefore cannot be locked by any other threads.
 
 {{{
 package thesandbox;
@@ -169,6 +169,8 @@ public class MessageQueue
 }}}
 
 = Example 3 - Locking on the queue itself =
+
+Equiv. to Example 2 but without the overhead of an extra object simply for locking. 
 
 {{{
 package thesandbox;
