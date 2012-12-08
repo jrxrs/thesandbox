@@ -100,3 +100,64 @@ public class Java7Features
 }
 
 }}}
+
+= Singleton Patterns =
+
+Also see [http://code.google.com/p/thesandbox/wiki/Resources#Singleton_Pattern here]
+
+== The Preferred Approach - The `enum` Singleton ==
+
+{{{
+// Enum singleton - the preferred approach
+public enum Elvis { 
+    INSTANCE;
+
+    public void leaveTheBuilding() { ... }
+}
+}}}
+
+== The `static` Holder Approach ==
+
+The benefit of this approach is that you achieve lazy initialisation prior to the class becoming available, this is all taken care of by the class loader.
+
+{{{
+public class Singleton {
+    private static class SingletonHolder {
+        static final Singleton INSTANCE = makeSingleton();
+    }
+
+    private Singleton() { /* perform any required init */ }
+
+    private Singleton makeSingleton() {
+        return new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+}}}
+
+== Double Checked Locking (DCL) ==
+
+*Note:* The use of volatile in this example is absolutely crucial as it requires all threads to read the variable from system memory rather than from a local thread cache they might have stored it in.
+
+{{{
+public class Singleton {
+    private static volatile Singleton INSTANCE;
+
+    private Singleton() { /* perform any required init */ }
+
+    public static Singleton getInstance() {
+        if (INSTANCE == null) {
+            synchronized (Singleton.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new Singleton();
+                }
+            }
+        }
+
+        return INSTANCE;
+    }
+}
+}}}
