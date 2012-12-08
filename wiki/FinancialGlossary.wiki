@@ -95,6 +95,8 @@ Markets within countries that are starting to participate globally by implementi
 
 An ETF is a security, usually a share, which tracks an index, basket of stocks or a commodity (e.g. gold). This gives you direct exposure to the underlying in an easily traded and efficient way.
 
+http://etfdb.com/2009/guide-to-index-weightings/
+
 === Financial Services Authority (FSA) ===
 
 Government controlled regulatory body for the Financial Services Industry in the UK.
