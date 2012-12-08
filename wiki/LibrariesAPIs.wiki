@@ -33,6 +33,10 @@
  * [http://supportconnectw.ca.com/public/autosys/infodocs/autosys_cheatsheet.asp AutoSys]
  * [http://www.quartz-scheduler.org/ Quartz]
 
+= Design Patterns =
+
+[http://www.jpatterns.org/ JPatterns] - Annotations for clearly specifying design patterns in Java.
+
 = Enterprise Integration =
 
 == Camel ==
