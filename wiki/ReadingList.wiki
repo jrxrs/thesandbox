@@ -29,6 +29,10 @@
  * Spring Templates
  * Spring "[http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-factory-dependson depends-on]" attribute - important for XA from [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-dependencies Dependencies]
 
+== Striped Executor Service ==
+
+[http://www.javaspecialists.eu/archive/Issue206.html Striped Executor Service]
+
 = T =
 = U =
 = V =
