@@ -1,5 +1,9 @@
 #summary A few definitions from the financial industry.
 
+= Money Week Videos =
+
+http://www.moneyweek.com offers a fantastic range of introductory videos available on their [http://www.youtube.com/user/MoneyWeekVideos youtube channel]. Links to specific videos are scattered below.
+
 = Financial Glossary =
 
 <wiki:toc max_depth="4" />
@@ -85,6 +89,12 @@ Examples of these include: Brokertec, CBOT, MTS, HDAT, Tradeweb, WebET, EUREX
 
 Markets within countries that are starting to participate globally by implementing reform programs and undergoing economic improvement. The countries that have emerging markets together represent a large percentage of the world's population while accounting for a relatively small percentage of the world's economic production. Emerging markets tend to be more volatile than established markets due to uncertainty within the political scene and domestic currency. 
 
+=== Exchange Traded Funds (ETFs) ===
+
+[http://www.youtube.com/watch?v=FM6KnD75QrE What is an exchange traded fund? - MoneyWeek Investment Tutorials]
+
+An ETF is a security, usually a share, which tracks an index, basket of stocks or a commodity (e.g. gold). This gives you direct exposure to the underlying in an easily traded and efficient way.
+
 === Financial Services Authority (FSA) ===
 
 Government controlled regulatory body for the Financial Services Industry in the UK.
@@ -95,16 +105,35 @@ The sales and trading personnel in a financial services company. Front office wo
 
 === Hedge Fund ===
 
+[http://www.youtube.com/watch?v=2VxCq7aqCxg What is a hedge fund? - MoneyWeek Investment Tutorials]
+
 An aggressively managed fund portfolio taking positions in both safe and speculative opportunities. Most hedge funds are limited to a maximum of 100 investors. And for the most part, hedge funds (unlike regular mutual funds) are unregulated because it is assumed that the people investing in them are very sophisticated and wealthy investors. Hedging is actually the practice of attempting to reduce risk, and the main goal of a hedge fund is to get a maximum rate of return, using strategies involving options, short selling, and leverage. 
 
 === Index ===
 
+[http://www.youtube.com/watch?v=4451A-I9fc4 Dow Jones, FTSE 100 - What is an index? - MoneyWeek Investment Tutorials]
+
 A statistical measure of change in an economy or a securities market. In the case of financial markets, an index is essentially an imaginary portfolio of securities representing a particular market or a portion of it. Each index has it's own calculation methodology and is usually expressed in terms of a change from a base value. 
-The Financial Times 100 or FTSE is one of the world's best-known indices, and is the most commonly used benchmark for the stock market.  This is an index of blue chip stocks on the London Stock Exchange. 
+The Financial Times 100 or FTSE is one of the world's best-known indices, and is the most commonly used benchmark for the stock market.  This is an index of blue chip stocks on the London Stock Exchange.
+
+Other links:
+ * [http://news.bbc.co.uk/1/hi/programmes/working_lunch/4652010.stm BBC Working Lunch - How the FTSE is calculated]
 
 === Investment Bank ===
 
+[http://www.youtube.com/watch?v=xlYDonZLoHg What do investment banks actually do? - MoneyWeek Investment Tutorials]
+
 A financial intermediary that performs a variety of services. This includes underwriting, acting as an intermediary between an issuer of securities and the investing public, facilitating mergers and other corporate reorganizations, and also acting as a broker for institutional clients. The role of the investment bank begins with pre-underwriting counselling and continues after the distribution of securities in the form of advice.
+
+Investment banks also perform a wide range of other functions which help to facilitate the services they offer clients or generate profit:
+
+ * Proprietary (Prop) Trading - using their own funds to gamble on the same products they sell to investors in order to make money.
+ * Market Making - creating a market for a security by continually offering a bid-offer spread, usually in equity markets, banks commit to trade in certain securities so investors can always trade in that security. This sounds similar to prop but it's not really, market making is regulated and highly competitive so often only modest gains are possible for banks.
+ * Mergers & Acquisitions - M&A is very a valuable business for banks, they are paid to give advice and services to companies looking to merge or acquire another firm. Banks might help their client decide how to finance the deal, when it should take place, what the regulatory and legal requirements of such a deal are, completing due diligence and publicising the deal etc.
+ * Corporate Events or New Issues - i.e. raising funds for whatever the company wants to achieve and how they want to go about it e.g. by issuing shares (equity) or bonds (debt). New Issues might include IPOs. Banks use their extensive clients lists to try and suss out the market so they often try to sounds out their clients to assess appetite. We also go back to the underwriting activities of the bank because the bank might take a massive fee to guarantee everything gets sold.
+ * Structured Products - custom products designed by banks for their clients and sold to investors. For more information see [http://www.youtube.com/watch?v=Umx5ShOz2oU here].  
+
+*Beware:* Terminology is an interesting beast, often different banks call the same activity different things and it can get quite confusing, this is one of the biggest battles when it comes to the industry. 
 
 === IPO (Floating) ===
 
@@ -118,8 +147,9 @@ The Internet boom changed all this. Firms no longer needed strong financials and
 
 This is the rate of interest at which banks borrow funds, in marketable size, from other banks in the London interbank market. In other words, LIBOR is the international rate that banks borrow from other banks at. This is the most widely used benchmark or reference rate for short-term interest rates. 
 
-
 === Market Makers ===
+
+[http://www.youtube.com/watch?v=QqK6H1JPjv0 What are 'market makers'? - MoneyWeek Investment Tutorials]
 
 Market makers provide continuous bid and offer prices within a prescribed percentage spread for shares in which they are designated to make a market. There can be anywhere from 4 to 40 (or more) market makers for a particular stock depending on the average daily volume. The market makers play an important role in the secondary market as catalysts, particularly for enhancing stock liquidity and thus generally for promoting long-term growth the market. They facilitate trading for clients and other brokerage firms.
 
@@ -174,6 +204,12 @@ Selling short is the opposite of going long. That is, short sellers make money i
 
 An IT initiative by many financial companies to streamline transactions by maintaining contact throughout processing.  STP allows companies to move from Today + 3 working days to same day settlement by removing redundant operations and utilising electronic transfers.
 
+=== Time Value of Money ===
+
+[http://www.youtube.com/watch?v=h3nlIOhxBF4 What is the 'time value of money'? - MoneyWeek Investment Tutorials]
+
+The Time Value of Money is absolutely crucial for anything that you're valuing, whether that's a bond or a share or whatever. 
+
 === Volatility ===
 
 1. In general, volatility is a statistical measure of the tendency of a market or security to rise or fall sharply within a short period of time. Volatility is typically calculated by using variance or annualised standard deviation of the price or return. 
@@ -217,6 +253,9 @@ An investment that provides a return in the form of fixed periodic payments and 
 Generally, these types of assets offer a lower return on investment because they guarantee income.
 
 === Bonds ===
+
+[http://www.youtube.com/watch?v=AqTjNU7mQZQ The basics of bonds - MoneyWeek Investment Tutorials]
+[http://www.youtube.com/watch?v=xVcDCsHF_HY Bonds basics part two - MoneyWeek Investment Tutorials]
 
 Bonds are debt investments, with which the investor loans money to an entity (company or government) that borrows the funds for a defined period of time at a specified interest rate.
 The indebted entity issues investors a certificate, or bond, that states the interest rate (coupon rate) that will be paid and when the loaned funds are to be returned (maturity date). Interest on bonds is usually paid every six months (semi-annually). The main types of bonds are: 
@@ -348,9 +387,15 @@ Unlike the fixed rate, a floating exchange rate is determined by the private mar
 
 === Repos ===
 
-A form of short term borrowing for dealers in government securities. The dealer sells the government securities to investors, usually on an overnight basis, and buys them back the following day. 
-For the party selling the security (and agreeing to repurchase it in the future) it is a Repo; for the party on the other end of the transaction (buying the security and agreeing to sell in the future) it is a reverse repurchase agreement.
-Repos are classified as a money-market instrument. They are usually used to raise short-term capital. 
+[http://www.youtube.com/watch?v=sbPByb-NXdQ What is a repo? - MoneyWeek investment tutorials]
+
+A form of short term borrowing for dealers in government securities. The dealer sells the government securities to investors, usually on an overnight basis, and buys them back the following day (plus a little bit of interest, the repo-rate). In addition to the repo-rate the lender of the cash might also impose a haircut, which is a way of offsetting the risk of the securities changing hand decreasing in value, this haircut is one reason why government securities are often chosen because the risk is low(er) and therefore the haircut in reduced as such.
+
+For the party selling the security (and agreeing to repurchase it in the future) it is a Repo; for the party on the other end of the transaction (buying the security and agreeing to sell in the future) it is a reverse repurchase agreement. It works in both ways because the buying party may need hold the securities (collateral) for a short period of time for fulfil other obligations e.g. short-selling.
+
+Repos are classified as a money-market instrument. They are usually used to raise short-term capital.
+
+[https://twitter.com/TimMoneyweek Tim Bennett] calls this *organised pawn-broking*, he also says that it was a contributing factor to the downfall of Lehman Brothers, Bear Stearns & MF Global.
 
 ----
 
@@ -361,6 +406,8 @@ Any bulk good traded on an exchange or in the cash market. Some examples include
 ----
 
 == Derivatives ==
+
+[http://www.youtube.com/watch?v=Wjlw7ZpZVK4 What are derivatives? - MoneyWeek Investment Tutorials]
 
 === Derivatives ===
 
