@@ -24,6 +24,8 @@
 
  * [http://hsqldb.org/ HSQLDB]
 
+Also see [http://code.google.com/p/thesandbox/wiki/LibrariesAPIs#NoSQL NoSQL]
+
 = Date/Time =
 
  * [http://joda-time.sourceforge.net/ JodaTime]
@@ -93,6 +95,14 @@ http://www.quickfixj.org/
 
  * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
  * [http://www.tibco.co.uk/products/automation/messaging/low-latency/rendezvous/default.jsp Tibco Rendezvous]
+
+= NoSQL =
+
+ * [http://cassandra.apache.org/ Apache Cassandra] - Cassandra is similar in to [http://code.google.com/p/thesandbox/wiki/LibrariesAPIs#Caching GemFire] in some senses, you run a distributed platform that manages replication itself, I *think* !GemFIre is ACID however where as Cassandra is not.
+ * [http://www.mongodb.org/ MongoDB]
+ * !GemFire (also see caching section)
+ * [http://www.neo4j.org/learn Neo4j] - a graph based NoSQL database
+ * [http://redis.io/ Redis]
 
 = Open JDK 7 for OS X =
 
