@@ -518,7 +518,7 @@ The [http://en.wikipedia.org/wiki/Java_Message_Service JMS] page on Wikipedia ha
 
 = XML =
 
-eXtensible Markup Language
+[http://www.w3schools.com/xml/default.asp eXtensible Markup Language]
 
 == SAX & DOM ==
 
