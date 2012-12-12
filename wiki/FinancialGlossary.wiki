@@ -260,6 +260,7 @@ Generally, these types of assets offer a lower return on investment because they
 [http://www.youtube.com/watch?v=xVcDCsHF_HY Bonds basics part two - MoneyWeek Investment Tutorials]
 [http://www.youtube.com/watch?v=3b69Ax5m7qg What is a yield curve? - MoneyWeek Investment Tutorials]
 [http://www.youtube.com/watch?v=eErg78D6GoA Do we need rating agencies? - MoneyWeek Investment Tutorials]
+[http://www.xtrakter.com/education.aspx Bond FAQ from xtrakter]
 
 Bonds are debt investments, with which the investor loans money to an entity (company or government) that borrows the funds for a defined period of time at a specified interest rate.
 The indebted entity issues investors a certificate, or bond, that states the interest rate (coupon rate) that will be paid and when the loaned funds are to be returned (maturity date). Interest on bonds is usually paid every six months (semi-annually). The main types of bonds are: 
