@@ -124,7 +124,7 @@ http://www.quickfixj.org/
 == Mocking ==
 
  * [http://code.google.com/p/mockito/ Mockito] - Intro [http://gojko.net/2009/10/23/mockito-in-six-easy-examples/ 1], [http://refcardz.dzone.com/refcardz/mockito 2]
- * [http://code.google.com/p/powermock/ PowerMock] - Used to [http://java.dzone.com/articles/using-powermock-mock-static Mock Statics] and [http://powermock.googlecode.com/files/PowerMockAtOredev.pdf Mock the un-testable] with it's [http://metlos.wordpress.com/2012/09/14/the-dark-powers-of-powermock/ Dark Powers]
+ * [http://code.google.com/p/powermock/ PowerMock] - Used to Mock Statics [http://code.google.com/p/powermock/wiki/MockStatic 1] or [http://java.dzone.com/articles/using-powermock-mock-static 2] and [http://powermock.googlecode.com/files/PowerMockAtOredev.pdf Mock the un-testable] with it's [http://metlos.wordpress.com/2012/09/14/the-dark-powers-of-powermock/ Dark Powers]
 
 == Test/Code Coverage ==
 
