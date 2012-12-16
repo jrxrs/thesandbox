@@ -7,6 +7,9 @@
 = A =
 = B =
 = C =
+
+ * [http://internistic.blogspot.ca/2012/11/building-clojure-rest-service-part-one.html RESTful Webservice in Clojure]
+
 = D =
 = E =
 = F =
