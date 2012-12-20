@@ -968,6 +968,8 @@ The additional overhead of having native pointers in the system which take up 8 
 
 [http://ofps.oreilly.com/titles/9781449323950/index.html Spring Data] - A book covering various Spring related topics including MongoDB, Neo4J & GemFire.
 
+ * [http://flylib.com/category/en/ Fly Lib]
+
 = Blogs =
 
 [http://www.javarevisited.blogspot.co.uk/ Javarevisited]
