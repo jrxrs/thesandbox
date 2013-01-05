@@ -437,6 +437,8 @@ Derivative products are contracts which have been constructed based on one of th
 
 === Futures ===
 
+[http://www.youtube.com/watch?v=nwR5b6E0Xo4 What are Futures - MoneyWeek Investment Tutorials]
+
 Futures are commonly available in the following flavours (defined by the underlying "cash" product): 
 
 Commodity futures 
@@ -446,6 +448,8 @@ Interest rate futures (including deposit futures, bond futures and government bo
 Futures contracts, forward contracts, and options are the most common types of derivatives. Derivatives are generally used by institutional investors to increase overall portfolio return or to hedge portfolio risk. 
 
 === Options ===
+
+[http://www.youtube.com/watch?v=3196NpHDyec What are Options & Covered Warrants - MoneyWeek Investment Tutorials]
 
 An option is a contract giving the buyer the right, but not the obligation, to buy or sell an underlying asset at a specific price on or before a certain date. An option, just like a stock or bond, is a security. It is also a binding contract with strictly defined terms and properties. 
 
