@@ -25,7 +25,7 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is garbage collection?*<br>Garbage Collection is a thread that runs to reclaim the memory by destroying the objects that cannot be referenced anymore. Also see the [#Garbage_Collection Garbage Collection] section below.
  # *What is an abstract class?*An abstract class is a class that cannot be instantiated directly and therefore needs to be extended and its methods implemented, a class has to be declared abstract if it has one or more abstract methods. 
  # *What is meant by a final class, methods and variables?*<br>When declared `final` a class cannot be extended (by a sub-class). Similarly when a method is declared `final` it cannot be overridden by a method belonging to a sub-class. When a primitive variable is declared `final` its value cannot be changed...If the variable is a reference to an object then it will always refer to the same object, internal attributes of the object can be changed.
- # *What is an interface?*<br>Interface is a contact that can be implemented by a class, it contains method signatures that must be implemented. 
+ # *What is an interface?*<br>An interface is a contract that can be implemented by a class, it contains method signatures that must be implemented. 
  # *What is method overloading?*<br>Overloading is declaring multiple methods with the same name, but with a different argument list. 
  # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signature) name and identical arguments used by the original method in the parent class. The overriding method can still call the parent method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`.
  # *What is casting?*<br>Conversion of one object or primitive type to another.
@@ -37,7 +37,7 @@ These take the form of quick fire questions with short descriptive answers.
  # *What are two ways of creating a thread? Which is the best way and why?*<br>Two ways of creating threads are, either to extend the `java.lang.Thread` class and implement/override the `run()` method or a different class can be created which implements the `Runnable` interface, and the then implement the `run()` method. The latter is most commonly used due to the Java restriction of single implementation inheritance. Implementation of the Runnable interface solves this problem, if additional implementation inheritance (i.e. extending another class) is required.
  # *What is deadlock?*<br>Deadlock is a situation when two threads are waiting on each other to release a resource. Each thread waiting for a resource which is held by the other waiting thread. In Java, this resource is usually the object lock obtained by the `synchronized` keyword. 
  # *What are the three types of priority?*<br>`MAX_PRIORITY` which is `10`, `MIN_PRIORITY` which is `1` & `NORM_PRIORITY` which is `5`. Some concurrency texts do not recommend altering thread priorities as it can lead to starvation (where a thread never progresses).
- # *What is the use of the `synchronized` keyword?*<br>Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code till this lock is released.
+ # *What is the use of the `synchronized` keyword?*<br>Every object has a lock, when a `synchronized` keyword is used on a piece of code the lock must be obtained by the thread first to execute that code, other threads will not be allowed to execute that piece of code until this lock is released. See [http://code.google.com/p/thesandbox/wiki/EgMessageQueue here] for code examples.
  # *What are the methods in the `Object` class?*<br>The [http://docs.oracle.com/javase/6/docs/api/java/lang/Object.html Object] class has 11 methods, they are:
  * `clone()`
  * `equals(Object o)`
@@ -73,7 +73,7 @@ In object-oriented programming, polymorphism refers to a programming language’
 
   * In simple words, Inheritance is way to define new a class, using classes which have already been defined
 
-Inheritance (is a( vs. Composition (has a)
+Inheritance (is a) vs. Composition (has a)
 
 *Inheritance* is uni-directional. For example _House_ *is a* _Building_, but _Building_ is not a _House_. *Inheritance* uses the *extends* keyword. *Composition* on the other hand is used when _House_ *has a* _Bathroom_. Inheritance should not be used just to facilitate code reuse, if there is no *is a* relationship then use composition for code reuse.
 
