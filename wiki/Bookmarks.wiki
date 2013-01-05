@@ -5,6 +5,7 @@
 *!MacBook*
   * [http://support.apple.com/kb/ht1635 How to identify MacBook models]
   * [http://www.batterytec.co.uk/Apple/MacBook-Pro/13-39-39-/13-MacBook/prod_9 MacBook Battery]
+  * [http://roundhere.net/journal/download-flash-or-any-other-video-on-osx-with-curl/ Download Any Video on OSX with curl]
 
 *Cycling/Bikes*
   * [http://www.cyclestore.co.uk/productDetails.asp?productID=17436&categoryID=1242 Specialized Bg Pro Rbx Knicker]
