@@ -1,10 +1,19 @@
 package org.thesandbox.questions;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(PowerMockRunner.class)
 public class ReverseStuffTestCase {
+
+    @Test
+    public void testPrivateConstructor() throws Exception {
+        Whitebox.invokeConstructor(ReverseStuff.class);
+    }
 
     @Test
     public void testReverseString() {

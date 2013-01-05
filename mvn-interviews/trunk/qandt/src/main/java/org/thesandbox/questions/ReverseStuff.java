@@ -4,7 +4,9 @@ package org.thesandbox.questions;
  * Write some simple but efficient code to return the reverse of a String
  * passed by value without using StringBuffer.reverseString().
  */
-public class ReverseStuff {
+public final class ReverseStuff {
+
+    private ReverseStuff() {}
 
     public static String reverse(String in) {
         char[] inA = in.toCharArray();
