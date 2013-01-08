@@ -445,6 +445,7 @@ This is an excellent summary of Syntactic Sugar from the [http://www.manning.com
  * http://www.allapplabs.com/interview_questions/java_interview_questions.htm
  * [http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
  * [http://java-success.blogspot.co.uk/ 400+ Java Interview Questions & Answers]
+ * [http://java-interview-material.blogspot.co.uk/ Java Interview Material Blog]
 
 == Logic ==
 
