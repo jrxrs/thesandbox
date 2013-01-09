@@ -476,7 +476,9 @@ Also see the Java operators summary [http://docs.oracle.com/javase/tutorial/java
  * Design the Oyster card system for the London Underground?
  * Can you write code in Java or C++ to find the power set of a given set. For example if S={a,b} the power set is P={{},{a},{b},{a,b}}.
  * What is you favourite feature of Java? What does it do particularly well?
- * what would you change about Java given the chance.
+ * What would you change about Java given the chance.
+ * [http://stackoverflow.com/questions/1801549/reverse-a-singly-linked-list How would you reverse a singly linked list?]
+ * How could you implement a simple spin lock in Java using an Atomic Integer?
 
 == The Systems I've Worked On ==
 
