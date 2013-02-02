@@ -108,6 +108,22 @@ Bob Martin describe five SOLID principles for good object-oriented design in his
 || *_I_*nterface segregation principle (ISP) || Small specific interfaces are better. _So make fine grained interfaces that are client specific._ ||
 || *_D_*ependency inversion principle (DIP) || Don’t depend on concrete implementations. _So depend on abstractions, not on concretions._ ||
 
+== Modifiers ==
+
+According to the suggestions of the Java Language Specification, 8.1.1, 8.3.1 and 8.4.3, the correct order of modifiers is:
+
+ # `public`
+ # `protected`
+ # `private`
+ # `abstract`
+ # `static`
+ # `final`
+ # `transient`
+ # `volatile`
+ # `synchronized`
+ # `native`
+ # `strictfp`
+
 == Introspection (Annotations/generics/etc.) ==
 
 [http://stackoverflow.com/questions/2044446/java-introspection-and-reflection Reflection vs. Introspection]
@@ -207,6 +223,18 @@ Failure to follow this advice may result in non-deterministic behaviour.
  * Include thread safety in the design processor explicitly document that your class is not thread safe.
  * Document your synchronization policy.
 
+==== Basic facts about old school synchronization ====
+
+ * Only objects—not primitives—can be locked.
+ * Locking an array of objects doesn’t lock the individual objects, i.e. just the array is locked 
+ * A `synchronized` method can be thought of as equivalent to a `synchronized (this) {...}` block that covers the entire method (but note that they're represented differently in byte-code).
+ * A `static` method declared `synchronized` locks the `Class` object, because there's no instance object to lock.
+ * If you need to lock a class object, consider carefully whether you need to do so explicitly, or by using getClass(), *because the behaviour of the two approaches will be different in a subclass*.
+ * Synchronization in an inner class is independent of the outer class (to see why this is so, remember how inner classes are implemented).
+ * `synchronized` doesn't form part of the method signature, so it can’t appear on a method declaration in an interface.
+ * Unsynchronized methods don't look at or care about the state of any locks, and they can progress while synchronized methods are running.
+ * Java’s locks are re-entrant. That means a thread holding a lock that encounters a synchronization point for the same lock (such as a synchronized method calling another synchronized method in the same class) will be allowed to continue.
+
 === Lock Contention ===
 
 [http://www.thinkingparallel.com/2007/07/31/10-ways-to-reduce-lock-contention-in-threaded-programs/ 10 Ways to Reduce Lock Contention in Threaded Programs]
@@ -297,7 +325,22 @@ Generally speaking memory leaks in Java are due to resources (like files or conn
 == Logging ==
 
  * [http://logging.apache.org/log4j/1.2/ log4j]
- * [http://www.slf4j.org/ slf4j] is a logging abstraction which shields the developer from having to check is a log level is enabled before creating any, otherwise unnecessary, dynamically compiled Strings, this is explained in more detail [http://www.slf4j.org/faq.html#logging_performance here]. It stands for Simple Logging Facade for Java and allows the user to plus in which logging framework they want to use (e.g. java.util.logging, log4j and logback) at deployment time. A major benefit of slf4j is that your other libraries can use whatever logging framework they like, but the facade will result in all your logs coming out via you chosen deploy time library.
+ * [http://www.slf4j.org/ slf4j] is a logging abstraction which shields the developer from having to check is a log level is enabled before creating any, otherwise unnecessary, dynamically compiled Strings, this is explained in more detail [http://www.slf4j.org/faq.html#logging_performance here]. It stands for Simple Logging Façade for Java and allows the user to plus in which logging framework they want to use (e.g. java.util.logging, log4j and logback) at deployment time. A major benefit of slf4j is that your other libraries can use whatever logging framework they like, but the façade will result in all your logs coming out via you chosen deploy time library.
+
+=== Declaring Loggers ===
+
+A cautionary note when declaring loggers...
+Normal practice when declaring a logger is to use something along the lines of:
+
+{{{
+private static final LOGGER = Logger.getLogger(MyClass.class);
+}}}
+
+This is handy and efficient as it means you'll only ever have one instance of the logger which all instances of the class with use. However this is not always applicable as it can result in misleading log messages if you happen to need to log in a class that will be sub-classed, if you need to do this you'll have to have a logger per instance and use a call to `getClass()` for the logger name.
+
+{{{
+private final logger = Logger.getLogger(getClass());
+}}}
 
 == Testing ==
 
@@ -907,6 +950,8 @@ This blog also provides a step-by-step guide which is well worth a read...[http:
  * Potential bugs
  * Coding rules
  * Comments
+
+One Sonar plug in which is definitely worth investiating and installing is [http://checkstyle.sourceforge.net/index.html#Related_Tools Checkstyle]
 
 ----
 
