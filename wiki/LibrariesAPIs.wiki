@@ -58,7 +58,7 @@ For a list of all the EIPs that Camel supports, see [http://camel.apache.org/ent
 
 = The FIX Protocol =
 
-The *F* inancial *I* nformation E *x* change Protocol.
+The *F* inancial *I* nformation E *x* change Protocol. See [http://javarevisited.blogspot.co.uk/2011/04/fix-protocol-tutorial-for-beginners.html here] for a series of tutorial on the FIX Protocol.
 
 == QuickFixJ ==
 
