@@ -49,10 +49,6 @@
  * Spring Templates
  * Spring "[http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-factory-dependson depends-on]" attribute - important for XA from [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-dependencies Dependencies]
 
-== Striped Executor Service ==
-
-[http://www.javaspecialists.eu/archive/Issue206.html Striped Executor Service]
-
 = T =
 = U =
 = V =
@@ -93,6 +89,11 @@
  * Calling Stored Procedures with Spring JDBC Templates - [http://www.luv2code.com/2011/11/10/calling-stored-procedures-with-spring-jdbc-templates/ 1], [http://www.stevideter.com/2008/03/09/spring-jdbctemplate-and-stored-procedures-part-ii/ 2]
  * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
  * [http://java.dzone.com/articles/spring-3-makes-use-embedded-easy Using Embedded Databases]
+
+
+== Striped Executor Service ==
+
+ * [http://www.javaspecialists.eu/archive/Issue206.html Striped Executor Service]
 
 = T =
 = U =
