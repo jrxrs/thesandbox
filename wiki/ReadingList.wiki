@@ -5,9 +5,14 @@
 = I Need To Read About =
 
 = A =
+
+== Awk ==
+ * [http://www.theunixschool.com/p/awk-sed.html Awk & Sed Tutorial]
+
 = B =
 = C =
 
+== Clojure ==
  * [http://internistic.blogspot.ca/2012/11/building-clojure-rest-service-part-one.html RESTful Webservice in Clojure]
 
 = D =
@@ -17,8 +22,17 @@
 = H =
 = I =
 = J =
+
+== Java ==
+ * [http://www.ustream.tv/channel/nighthacking Fork/Join in Java 7 with Heinz Kabutz]
+ * [http://zeroturnaround.com/labs/java-8-the-first-taste-of-lambdas Lambdas in Java 8 - A First Look]
+
 = K =
 = L =
+
+== LMAX ==
+ * [http://martinfowler.com/articles/lmax.html Martin Fowler's paper on The LMAX Architecture]
+
 = M =
 = N =
 = O =
@@ -26,6 +40,9 @@
 = Q =
 = R =
 = S =
+
+== Sed ==
+ * [http://www.theunixschool.com/p/awk-sed.html Awk & Sed Tutorial]
 
 == Spring ==
 
