@@ -4,7 +4,6 @@
 
 = To Do =
 
- # A Section on UML modelling!
  # A section about Databases
 
 = Java =
@@ -824,6 +823,37 @@ Average Case Performance: ~O(log n)
 *Basic Idea*: Index into the list using the hash code you calculate for your item, if there are clashes you might not achieve your constant time target however if you stick to only ever being ~75-80% full then you shouldn't be too far off.
 
 Hashes are not very efficient in terms of space because by definition you need some empty slots.
+
+----
+
+= Unified Modelling Language (UML) =
+
+UML is a simple diagramming style which consists of boxes that represent classes and their relationships.
+
+== Basics ==
+
+Each box representing a class is subdivided into 3 sections, the first contains the class name and the package name (if any), the second part lists the class's variables and the bottom lists its methods.
+
+ * `public` member variables and methods are prefixed with a `+`
+ * `protected` member variables and methods are prefixed with a `-`
+ * `private` member variables and methods are prefixed with a `#`
+ * `abstract` classes and methods are _italicised_
+ * `static` elements are <u>underlined</u>
+ * Methods and Variables can optionally have their types appended following a colon `:`, similarly parameter type information on methods can also be included
+
+== Inheritance ==
+
+Inheritance is represented using a solid line and a hollow triangular arrow.
+
+http://code.google.com/p/thesandbox/downloads/detail?name=Screen%20shot%202013-02-13%20at%2020.57.48.png&can=2&q=
+
+== Interfaces ==
+
+
+
+== Composition ==
+
+
 
 ----
 
