@@ -841,19 +841,29 @@ Each box representing a class is subdivided into 3 sections, the first contains 
  * `static` elements are <u>underlined</u>
  * Methods and Variables can optionally have their types appended following a colon `:`, similarly parameter type information on methods can also be included
 
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2021.24.58.png
+
 == Inheritance ==
 
-Inheritance is represented using a solid line and a hollow triangular arrow.
+Inheritance is represented using a solid line and a hollow triangular arrow:
 
-http://code.google.com/p/thesandbox/downloads/detail?name=Screen%20shot%202013-02-13%20at%2020.57.48.png&can=2&q=
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2020.57.48.png
 
 == Interfaces ==
 
+An interface looks much like inheritance, except that the arrow has a dotted line tail, note that the name <<interface>> is shown enclosed within double angle brackets:
 
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2021.10.12.png
 
 == Composition ==
 
+Much of the time, a useful representation of a class hierarchy must include how objects are contained in other objects. For example, a Company might include one Employee and one Person (perhaps a contractor):
 
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2021.15.05.png
+
+The lines between classes show that there can be 0 to 1 instances of Person in Company and 0 to 1 instances of Employee in Company. If there can be many instances of a class inside another, such as the array of Employees then we represent that object composition as a single line with either an * or 0, * on it:
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2021.21.13.png
 
 ----
 
