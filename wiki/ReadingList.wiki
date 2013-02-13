@@ -81,7 +81,7 @@
 
 == Scala ==
 
- * [http://www.guardian.co.uk/info/developer-blog/2012/sep/21/funtional-programming-principles-scala-setting-up-intellij Funtional Programming Principles Scala - Setting Up IntelliJ]
+ * [http://www.guardian.co.uk/info/developer-blog/2012/sep/21/funtional-programming-principles-scala-setting-up-intellij Functional Programming Principles Scala - Setting Up IntelliJ]
  * [http://tersesystems.com/2012/12/16/problems-scala-fixes Problems Scala Fixes]
 
 == Spring ==
