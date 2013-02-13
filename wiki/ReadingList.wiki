@@ -29,10 +29,6 @@
 
 = K =
 = L =
-
-== LMAX ==
- * [http://martinfowler.com/articles/lmax.html Martin Fowler's paper on The LMAX Architecture]
-
 = M =
 = N =
 = O =
@@ -71,6 +67,10 @@
 = J =
 = K =
 = L =
+
+== LMAX ==
+ * [http://martinfowler.com/articles/lmax.html Martin Fowler's paper on The LMAX Architecture]
+
 = M =
 = N =
 = O =
