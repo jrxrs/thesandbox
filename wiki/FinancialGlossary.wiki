@@ -545,3 +545,17 @@ A normal option with no special or unusual features. A "plain vanilla option" is
 ==== Volatility Swap ====
 
 A forward contract whose underlying is the volatility of a given product. This is a pure volatility instrument allowing investors to speculate solely upon the movement of a stock's volatility without the influence of its price. Thus, just like investors trying to speculate on the prices of stocks, by using this instrument investors are able to speculate on how volatile the stock will be. 
+
+== Fixed Income Deal Types ==
+
+=== Basis Trade ===
+
+A Basis trade is a transaction in which a bond and a future are the instruments, the seller of the bond would be the buyer of the future and vice versa.
+
+=== Cash Trade ===
+
+A Cash trade simply see one bond change hands.
+
+=== Spread Trade ===
+
+A Spread trade sees two bonds being traded, each side buys one bond and sells the other.
