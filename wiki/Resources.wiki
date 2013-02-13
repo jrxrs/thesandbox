@@ -851,7 +851,7 @@ http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2020.57.4
 
 == Interfaces ==
 
-An interface looks much like inheritance, except that the arrow has a dotted line tail, note that the name <<interface>> is shown enclosed within double angle brackets:
+An interface looks much like inheritance, except that the arrow has a dotted line tail, note that the name `<<interface>>` is shown enclosed within double angle brackets:
 
 http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-13%20at%2021.10.12.png
 
