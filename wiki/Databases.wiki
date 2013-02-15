@@ -4,6 +4,18 @@
 
 == Scripts ==
 
+=== Batch commands using `set rowcount` ===
+
+{{{
+set rowcount 10000
+{delete|update} from TableName where ...
+while (@@rowcount > 0)
+begin
+  {delete|update} from TableName where ...
+end
+set rowcount 0
+}}}
+
 === Server Space Report ===
 
 {{{
