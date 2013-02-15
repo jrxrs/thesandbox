@@ -1,0 +1,37 @@
+#summary Information and scripts for databases
+
+= Sybase =
+
+== Scripts ==
+
+=== Server Space Report ===
+
+{{{
+/* This will say 1 row affected when run  */
+
+declare @pagesize numeric(12)
+select @pagesize=(select @@maxpagesize)
+SELECT "Database Name" = CONVERT(varchar(50), db_name(D.dbid)),
+"Data Size" = STR(SUM(CASE WHEN U.segmap != 4 THEN U.size*@pagesize/1048576 END),10,1),
+"Used Data" = STR(SUM(CASE WHEN U.segmap != 4 THEN size - curunreservedpgs(U.dbid, U.lstart, U.unreservedpgs)END)*@pagesize/1048576,10,1),
+"Data Full%" = STR(100 * (1 - 1.0 * SUM(CASE WHEN U.segmap != 4 THEN curunreservedpgs(U.dbid, U.lstart, U.unreservedpgs) END)/SUM(CASE WHEN U.segmap != 4 THEN U.size END)),9,1) + "%",
+"Log Size" = STR(SUM(CASE WHEN U.segmap = 4 THEN U.size*@pagesize/1048576 END),10,1),
+"Free Log" = STR(lct_admin("logsegment_freepages",D.dbid)*@pagesize/1048576,10,1),
+"Log Full%" = STR(100 * (1 - 1.0 * lct_admin("logsegment_freepages",D.dbid) /
+SUM(CASE WHEN U.segmap = 4 THEN U.size END)),8,1) + "%"
+FROM master..sysdatabases D,
+master..sysusages U
+WHERE U.dbid = D.dbid
+AND ((D.dbid > 3) AND (D.dbid < 31513) AND (D.status != 256))
+GROUP BY D.dbid
+ORDER BY db_name(D.dbid)
+go
+}}}
+
+=== List of the largest tables in a database ===
+
+{{{
+SELECT TOP 10 name, reserved_pages(db_id(), id) / (1024.0 / (@@maxpagesize / 1024.0)) AS "Allocated MB"
+FROM sysobjects 
+ORDER BY reserved_pages(db_id(),id) DESC
+}}}
