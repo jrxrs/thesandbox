@@ -49,7 +49,7 @@ These take the form of quick fire questions with short descriptive answers.
  * `wait(long timeout, int nano)`
  * `toString()`
  * `getClass()`
- # *If you override `equals()` what else should you do?*<br>You should also override the `hashCode()` method in order to ensure conformation with the contract in the `Object` class, specifially that if `equals(Object)` is true for two objects then calling `hashCode()` on the same two objects must result in the same integer result.
+ # *If you override `equals()` what else should you do?*<br>You should also override the `hashCode()` method in order to ensure conformation with the contract in the `Object` class, specifially that if `equals(Object)` is true for two objects then calling `hashCode()` on the same two objects must result in the same integer result. See [http://www.ibm.com/developerworks/java/library/j-jtp05273/index.html here] for some basic examples of how to write simple `equals()` and `hashCode()` methods.
  # *Explain how `wait()` & `notify()` are used?*<br>`wait()` and `notify()` belong to the `Object` class and are used in conjunction with the monitor (lock) of the object in question. A thread can obtain the monitor of an object in one of three ways:
  * By executing a synchronized instance method of that object.
  * By executing the body of a `synchronized` statement that synchronizes on the object.
