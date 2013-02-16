@@ -8,6 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtomicSpinLockTestCase {
 
+    private static final long sleepMillis = 100L;
+
     private final AtomicInteger ai = new AtomicInteger(42);
 
     private AtomicSpinLock atomicSpinLock;
@@ -37,6 +39,18 @@ public class AtomicSpinLockTestCase {
         Assert.assertSame(me, atomicSpinLock.getCurrentOwner());
         Assert.assertEquals(1, ai.get());
 
+        /* Check that another thread attempting to call unlock has no effect */
+        final Thread unlocker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                atomicSpinLock.unlock();
+            }
+        });
+        unlocker.start();
+        unlocker.join();
+
+        Assert.assertSame(me, atomicSpinLock.getCurrentOwner());
+
         /* Check that the lock can be unlocked */
         atomicSpinLock.unlock();
 
@@ -54,7 +68,7 @@ public class AtomicSpinLockTestCase {
                 try {
                     System.out.println(Thread.currentThread().getName() + " waited " + (System.currentTimeMillis() - start) +
                             "ms to obtain the lock.");
-                    Thread.sleep(1000 * 5);
+                    Thread.sleep(sleepMillis);
                 } catch (InterruptedException e) {
                     System.out.println(Thread.currentThread().getName() + " was interrupted while sleeping!");
                 }

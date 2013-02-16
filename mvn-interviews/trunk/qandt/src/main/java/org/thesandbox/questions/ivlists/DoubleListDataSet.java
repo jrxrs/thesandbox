@@ -12,8 +12,8 @@ import java.util.List;
  *  - list.getPoint(3) = 9
  *  - list.getPoint(6) = 1
  */
-public class DoubleListDataSet implements DataSet
-{
+public class DoubleListDataSet implements DataSet {
+
     private final List<List<Double>> origList;
 
     public DoubleListDataSet(List<List<Double>> list) {
@@ -30,7 +30,7 @@ public class DoubleListDataSet implements DataSet
     }
 
     @Override
-    public double getPoint(int index) throws IndexOutOfBoundsException {
+    public double getPoint(int index) {
         boolean inRange = true;
         if (index < 0 || index >= getNumberOfPoints()) {
             inRange = false;
@@ -47,4 +47,5 @@ public class DoubleListDataSet implements DataSet
 
         throw new IndexOutOfBoundsException();
     }
+
 }
