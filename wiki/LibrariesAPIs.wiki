@@ -73,6 +73,7 @@ http://www.quickfixj.org/
 
 = Static Analysis =
 
+ * [http://findbugs.sourceforge.net/ Find Bugs]
  * [http://www.sonarsource.org/ Sonar]
 
 === Tools & References ===
@@ -130,6 +131,10 @@ http://www.quickfixj.org/
 
  * [http://www.hibernate.org/ Hibernate]
  * [http://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#Java List of Alternatives]
+
+= Screenshot Utilities =
+
+ * [http://getgreenshot.org/ Greenshot]
 
 = Testing =
 
