@@ -82,6 +82,11 @@ http://www.quickfixj.org/
  * [http://www.fixionary.com/ Fixionary]
  * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
 
+= Java Decompilation =
+
+ * [http://www.varaneckas.com/jad/ JAD]
+ * [http://java.decompiler.free.fr/ JD - Java Decompiler]
+
 = JSON =
 
  * [http://jackson.codehaus.org/] a [http://www.json.org/ JSON] Processor
