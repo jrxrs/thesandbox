@@ -1,0 +1,89 @@
+#summary Hints, tips and patterns for Mockito, PowerMock etc.
+
+= Mockito =
+
+== Testing an abstract superclass ==
+
+Implemented methods will call the real object. Unimplemented methods will return Mockito’s normal "default" answer.
+{{{
+@Mock(answer=Answers.CALLS_REAL_METHODS) private AbstractSuperClass s1;
+}}}
+
+All methods, including concrete ones, are available for mocking.
+{{{
+Mockito.when(s1.abstractMethod()).thenReturn(1L);
+Mockito.when(s1.concreteMethod()).thenReturn(1L);
+}}
+
+== Deep mocking ==
+
+Mockito don’t like you doing this (it is suspicious if being used on code architectures) but it is completely acceptable for mocking data trees.
+{{{
+@Mock(answer=Answers.RETURNS_DEEP_STUBS) private ECNPojo pojo;
+}}}
+You can now save yourself a lot of middle-men.
+{{{
+Mockito.when(pojo.getParent().getChild().getGrandchild()).thenReturn("MY_NAME");
+}}}
+
+Beware! [http://code.google.com/p/mockito/issues/detail?id=230 MOCKITO-230 Deep mock fails for generic classes] - Certain structures using Generics as return types do not work.
+
+== Overloaded Answers ==
+
+Use Matchers to provide general answers and more specific ones for special cases.
+{{{
+Mockito.when(thing.lookupName(Matchers.anyInt())).thenReturn("THING_A");
+Mockito.when(thing.lookupName(Matchers.eq(666)).thenReturn("THING_B");
+}}}
+
+== Mocking static methods call by your to throw Exceptions ==
+
+For example mocking the following code:
+
+{{{
+public static final JAXBContext TULLETT_JAXB_CONTEXT = initContext();
+
+private static JAXBContext initContext() {
+    try {
+        return JAXBContext.newInstance(MyClass.class);
+    } catch (JAXBException e) {
+        LOGGER.error("Failed to create JAXBContext for MyClass.", e);
+        return null;
+    }
+}
+}}}
+
+Could be achieved with a test like this:
+
+{{{
+@PrepareForTest(JAXBContext.class)
+...
+PowerMockito.mockStatic(JAXBContext.class);
+PowerMockito.doThrow(new JAXBException("JAXBException on init...")).when(JAXBContext.class);
+JAXBContext.newInstance(Notification.class);
+
+Assert.assertNull(TullettJaxbContext.TULLETT_JAXB_CONTEXT);
+}}}
+
+*Beware:* testing both the normal and the exception case would need to be achieved using two different test classes, otherwise the `static final` will be initialised by the first test interacting with that static and causing the second test to fail.
+
+== Mock Java core code ==
+
+Background on this can be found [http://code.google.com/p/powermock/wiki/MockStatic here] and [http://stackoverflow.com/questions/13711087/powermockito-wont-throw-an-exception-when-mocking-static-void here].
+
+{{{
+/*
+ * This test requires the class under test to be included in the list of classes
+ * passed to @PrepareForTest, this is because we're mocking Thread.sleep() to
+ * throw an Exception as per:
+ * http://stackoverflow.com/questions/13711087/powermockito-wont-throw-an-exception-when-mocking-static-void
+ */
+@Test(expected = IllegalStateException.class)
+public void testConnectExceptionHandling() throws Exception {
+    PowerMockito.mockStatic(Thread.class);
+    PowerMockito.doThrow(new InterruptedException("Interrupted while sleeping...")).when(Thread.class);
+    Thread.sleep(100L);
+
+    api.connect();
+}
+}}}
