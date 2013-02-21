@@ -20,6 +20,13 @@
 [http://code.google.com/p/guava-libraries/ Guava]
 [http://trove.starlight-systems.com/ Trove]
 
+= Command Line Tools (Windows) =
+
+ * [http://www.cygwin.com/ Cygwin] (paired with [http://x.cygwin.com/ Cygwin/X] for X11 goodies)
+ * [http://www.ntwind.com/software/hstart.html Hidden Start] - allows you to run console applications and batch files without any window in the background.
+ * [http://technet.microsoft.com/en-gb/sysinternals/bb896649.aspx PsTools]
+ * [http://www.microsoft.com/powershell Windows PowerShell]
+
 = Complex Event Stream Processing =
 
  * [http://esper.codehaus.org/ Esper]
