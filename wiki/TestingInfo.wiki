@@ -13,7 +13,7 @@ All methods, including concrete ones, are available for mocking.
 {{{
 Mockito.when(s1.abstractMethod()).thenReturn(1L);
 Mockito.when(s1.concreteMethod()).thenReturn(1L);
-}}
+}}}
 
 == Deep mocking ==
 
