@@ -272,7 +272,11 @@ The Time Value of Money is absolutely crucial for anything that you're valuing, 
 
 === Time Weighted Average Price (TWAP) ===
 
+TWAP simply breaks the overall order into small chunks of equal size, usually, and executes them each of them after a fixed interval. For as long as all the orders are getting executed, the overall price would be the Time weighted average of the prices for which the algorithm ran.
 
+*Randomization*
+
+Running a simple TWAP has one problem.  Anyone observing the order book can figure out that there is a consistent pattern.  These could be done manually as well as by other algorithms. So, most versions of TWAPs would involve some randomization. Either we do it in terms of sizes of orders or in the time interval between the slices or both.
 
 === Volume Weighted Average Price (VWAP) ===
 
