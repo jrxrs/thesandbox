@@ -12,6 +12,14 @@ http://www.moneyweek.com offers a fantastic range of introductory videos availab
 
 == General Terms & Definitions ==
 
+=== Alpha ===
+
+Alpha (aka the alpha coefficient) is a way of analysing the value that an active fund manager, i.e. someone who tries to beat their benchmark rather than just track it – adds to his or her fund.
+
+Alpha measures the rate of return made by a portfolio relative to the return on that benchmark after adjusting for any added investment risk (which is measured by beta – see below). For example, suppose a fund achieves a 30% return while its benchmark rises by 8%. But say the fund is three times more volatile than the benchmark (in other words, it has a beta of three). That would make the fund's alpha 30% – (3 x 8%), i.e. 6%.
+
+This means the fund has returned 6% more than you would expect, once allowance has been made for the additional risk that the portfolio manager has taken on.
+
 === Arbitrage ===
 
 The simultaneous purchase and selling of a security in order to profit from a differential in the price. This usually takes place on different exchanges or marketplaces. Also known as a riskless profit. An example of this is when an arbitrageur buys a stock on a foreign exchange that hasn't adjusted for the constantly changing exchange rate. The arbitrageur will purchase the undervalued stock and short sell the overvalued stock, thus profiting from the difference. This is recommended for experienced investors only. 
@@ -31,6 +39,10 @@ Administration and support personnel in a financial services company. They carry
 === Basket Trading ===
 
 The buying or selling of a set of 15 or more securities in a single order. Used by institutional investors or program traders to invest large amounts of money in a particular portfolio or index. 
+
+=== Beta ===
+
+Beta (or beta coefficient) is a way to measure the relative riskiness of a share. It does so by comparing the historic movement in the share price to that of the market as a whole. So for example if a share moved up by 10% when the market rose by 50%, beta is 10/50 = 0.2. Equally a share that increased by 100% when the market rose 50% has a beta of 100/50 = 2. This is useful for predictive purposes as a share with a historic beta of say 0.8 will be expected to move 80% of the distance of the wider market in the future. Shares with a high beta value - say technology and software companies - are generally more volatile and therefore seen as higher risk than those with a low beta - such as utility companies. A diversified portfolio will aim to maintain a mixture of high and low beta stocks as a way of managing risk.
 
 === Bloomberg ===
 
@@ -74,10 +86,29 @@ The market for a cash commodity or actual, as opposed to its futures contract. A
 
 The department within a brokerage firm that oversees the trading and market-making activities of the firm. It ensures that the employees and officers of the firm are abiding by the rules and regulations of the Financial Services Authority. 
 
-
 === Corporate Finance ===
 
 Any financial or monetary activity that deals with a company and its money. This can include anything from IPO’s to acquisitions.
+
+=== Delta One ===
+
+Delta One desks focus on “delta hedging”, a very common investment-banking activity. Usually it refers to the way a bank hedges its long and short exposures across a portfolio of investments that may include assets such as shares, as well as derivatives such as futures and options.
+
+To make a portfolio ‘price neutral’, you need an overall ‘delta’ of zero. That means for every 5% your long positions gain (say stocks you own), your short positions (created using, for instance, short futures or put options) also lose 5% and vice versa, so your overall gain or loss is zero. In reality, perfect delta hedges are hard to achieve and maintain. In the UBS case, some trades may not have been delta hedged at all. 
+
+=== Dividend Yield ===
+
+Holders of ordinary shares in a company are paid a percentage of that company's profits every year. The payment is called a dividend. The percentage is not worked out using an exact formula, but decided by the board and approved by shareholders at the AGM, depending on the company's performance and priorities. The dividend per share (total dividends paid out divided by total number of shares) expressed as a percentage is referred to as the dividend yield. So if a share is trading at 100p, and the dividend paid out last year was 2p, the yield is 2%. This is a popular measure for comparing stocks, but note that it is retrospective - telling you what the company paid out last year, not what it might pay out next. A low yield often - but not always - suggests a fast-growing company not yet making much profit. Investors will accept a low yield now in exchange for an anticipated high yield in the future. A high yield often indicates either a very risky or slow-growing company; investors demand a higher yield as compensation to invest in either.
+
+[http://www.youtube.com/watch?v=3WByrAfY39k What is dividend yield? - Money Week Investment Tutorials]
+
+=== Earnings per Share (EPS) ===
+
+[http://www.youtube.com/watch?v=vksGv_7sdIA What does 'earnings per share' mean? - MoneyWeek Investment Tutorials]
+
+Earnings per share is seen as one of the best means of determining a share's true price, as it shows how much of a firm's profits (after tax) each shareholder owns. It is calculated by dividing a company's net earnings by the number of shares issued, and is most often used as a means of comparing one company with another, assuming that they are in the same industry. So if a company had net earnings of £1,000 with 200 shares issued, it would have an EPS of 5. By looking at the EPS over several years you can look for a growth pattern and compare it with the market and industry.
+
+Don't get this confused with Dividend Yield...
 
 === Electronic Communication Network – ECN ===
 
@@ -165,7 +196,13 @@ Trading via the Internet. The use of online trading increased dramatically in 
 
 === Over-The-Counter ===
 
-A security, which is not traded on an exchange, usually due to an inability to meet listing requirements. For such securities, brokers/dealers negotiate directly with one another over computer networks and by phone. The NASDAQ is considered to be an OTC market, with the tier 1 being represented by companies such as Microsoft, Dell, and Intel.  Also referred to as unlisted.
+A security, which is not traded on an exchange, usually due to an inability to meet listing requirements. For such securities, brokers/dealers negotiate directly with one another over computer networks and by phone. The NASDAQ is considered to be an OTC market, with the tier 1 being represented by companies such as Microsoft, Dell, and Intel. Also referred to as unlisted.
+
+=== P/E Ratio ===
+
+The price/earnings ratio is a quick way to establish a firm's relative value. You get it by either dividing a firm's market capitalisation by its profits after tax, or by dividing the price of one share by the firm's earnings per share. The p/e tells you how many years it will take the firm to make profits equivalent to its market cap: if the p/e is ten, assuming profits stay the same, it will take ten years. A high p/e, or 'multiple', suggests a firm that is growing or is expected to grow fast. A high-growth firm with a low p/e could be considered cheap, and a low-growth firm with a high p/e could be considered expensive. The p/e is the main measure analysts use to determine a company's position relative to the rest of the market.
+
+Money Week have two videos on P/E Ratios, one [http://www.youtube.com/watch?v=zAtMjVUnXkM explaining what they are] and a second [http://www.youtube.com/watch?v=jF8uOzgbLEs explaining their beartraps to avoid]. An alternative explanation can also be found [http://stocks.about.com/od/evaluatingstocks/a/pe.htm here].
 
 === Portfolio Trading ===
 
@@ -185,6 +222,13 @@ Hedge funds were what started the prime brokerage option. Hedge funds place larg
 
 A security analysis that uses financial information derived from company annual reports and income statements to evaluate an investment decision. Some examples are financial ratios, the cost of capital, asset valuation, and sales and earnings trends. 
 
+=== Quantitative Easing (QE) ===
+
+Extracted from: [http://www.moneyweek.com/investment-advice/glossary MoneyWeek Glossary] and [http://www.youtube.com/watch?v=NiD9FSp_tMw What is quantitative easing all about? - MoneyWeek Investment Tutorials]
+
+Quantitative easing (QE) involves electronically expanding a central bank's balance sheet. So under its Asset Purchase Facility the Bank of England will buy directly from commercial banks "high-quality assets, broadly comparable to investment grade". These will range from fixed-income sovereign debt and corporate bonds to 'asset-backed' securities built on property loans. On the flipside, the Bank will also sell fewer of its own IOUs – gilts – to institutions such as pension funds. The two measures combined should release extra liquidity into the economy.
+
+'Monetarist' theory says that both economic activity and price levels are set by the amount of money available multiplied by the speed at which it moves around ('the velocity of money'). So, by physically upping the cash that commercial lenders have at their disposal – by buying assets from them that other banks may be reluctant to accept as security for loans – the idea is that quantitative easing will directly boost interbank lending and raise the flow of credit through the economy as banks regain the confidence to make other loans to, say, small businesses and homeowners.
 
 === Secondary Market ===
 
