@@ -1,0 +1,17 @@
+#summary A Collection of Notes
+
+= Auditing =
+
+All messages both in a out of the system need to be recorded (preferably by a different process running a set of different physical hosts across multiple data centres).
+
+= Monitoring =
+
+An ideal monitoring solution would be put in place such that any errors or problems/reduction in Quality of Service (QOS) are flagged via alters and can be investigated by RTB asap. Avoiding the situation where there are so many alerts that non of them get investigated in a must.
+
+= Reproducing/Replaying Events =
+
+It should be possible to boot up a server in any environment and replay events recorded by the auditing system or wiretap functionality that can replay all events allowing errors and production situations to be reproduced easily during a debugging session. 
+
+= Wiretapping =
+
+Asynchronously syphon each message to be processed off to disk where it should be stored for a week or two, message format should be fairly plain and easy to load and process should something need to be replayed (see above). This could be seen as equivalent to Auditing. 
