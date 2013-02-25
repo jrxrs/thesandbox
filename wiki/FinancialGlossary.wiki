@@ -126,6 +126,10 @@ Markets within countries that are starting to participate globally by implementi
 
 An ETF is a security, usually a share, which tracks an index, basket of stocks or a commodity (e.g. gold). This gives you direct exposure to the underlying in an easily traded and efficient way.
 
+An exchange-traded fund (ETF) is an equity-based product combining the characteristics of an individual share with those of a collective fund. Like unit or investment trusts, ETFs track a group of shares or an asset (eg gold), giving diversified exposure to a market or sector.
+
+Unlike with most funds, the shares held are defined in advance so that when you buy, you know what will be in the fund. This makes ETFs similar to standard index funds, but they're more flexible: they can be traded through a stockbroker at any time in lots of any size. And costs are low: management fees tend to be around 0.5%, as opposed to the 1% charged by most trackers. ETFs can also be held in an Individual Savings Account or a Self Invested Personal Pension.
+
 http://etfdb.com/2009/guide-to-index-weightings/
 
 === Financial Services Authority (FSA) ===
@@ -255,6 +259,14 @@ An IT initiative by many financial companies to streamline transactions by maint
 [http://www.youtube.com/watch?v=h3nlIOhxBF4 What is the 'time value of money'? - MoneyWeek Investment Tutorials]
 
 The Time Value of Money is absolutely crucial for anything that you're valuing, whether that's a bond or a share or whatever. 
+
+=== Time Weighted Average Price === (TWAP)
+
+
+
+=== Volume Weighted Average Price (VWAP) ===
+
+
 
 === Volatility ===
 
