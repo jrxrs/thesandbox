@@ -563,7 +563,11 @@ Any non-standard option. This is the opposite of a plain vanilla option.
  
 These are traded on fluctuations in Interest Rates. All you need to know is that Interest Rate changes have an impact on the price / yield, and therefore this area will make money in a good or bad market.  Emerging Markets is closely linked to this as they, the traders, are gambling on fluctuations in interest rates within volatile countries such as Argentina.
 
-==== Interest Rate SWAP ====
+==== Interest Rate Swap (IRS) ====
+
+[http://www.youtube.com/watch?v=uVq384nqWqg What is a swap? - MoneyWeek Investment Tutorials]
+
+Interest Rate Swaps are fairly simple in theory, two entities want to borrow money from a bank, on which they will both pay an interest rate. Depending on their view on the market they may wish pay a either a fixed or a variable rate of interest. When they want to pay different types a Swaps Bank can sit in between both of them and use the credit ratings of either side to the advantage of all three parties, they do this by getting them to take loans at a fixed rate if they wanted variable or vice versa, the Swaps bank then switches the fixed/variable rate and makes a profit itself.
 
 A deal between banks or companies where borrowers switch floating-rate loans for fixed rate loans in another country. These can be either the same or different currencies. The advantage to this is that one company may have access to lower fixed rates and another company may have access to lower floating rates... so they trade.
 
