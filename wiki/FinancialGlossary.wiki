@@ -12,7 +12,15 @@ http://www.moneyweek.com offers a fantastic range of introductory videos availab
 
 == General Terms & Definitions ==
 
+=== Algorithmic (Algo) Trading ===
+
+ * [http://www.comparebroker.com/expertspeak/intro-to-algorithmic-trading-part-i/ Part 1 of Compare Brokers' Introduction to Algorithmic Trading]
+ * [http://www.comparebroker.com/expertspeak/intro-to-algorithmic-trading-part-ii/ Part 2 of Compare Brokers' Introduction to Algorithmic Trading]
+ * [http://www.comparebroker.com/expertspeak/popular-algorithmic-trading-strategies-part-i/ Type of Algo Trading] - Covers VWAP, TWAP & POV.
+
 === Alpha ===
+
+[http://www.youtube.com/watch?v=2Kz4nKYvF14 What is Alpha? - MoneyWeek Investment Tutorials]
 
 Alpha (aka the alpha coefficient) is a way of analysing the value that an active fund manager, i.e. someone who tries to beat their benchmark rather than just track it – adds to his or her fund.
 
@@ -41,6 +49,8 @@ Administration and support personnel in a financial services company. They carry
 The buying or selling of a set of 15 or more securities in a single order. Used by institutional investors or program traders to invest large amounts of money in a particular portfolio or index. 
 
 === Beta ===
+
+[http://www.youtube.com/watch?v=etlv7qTQUSY What is beta? - MoneyWeek investment tutorials]
 
 Beta (or beta coefficient) is a way to measure the relative riskiness of a share. It does so by comparing the historic movement in the share price to that of the market as a whole. So for example if a share moved up by 10% when the market rose by 50%, beta is 10/50 = 0.2. Equally a share that increased by 100% when the market rose 50% has a beta of 100/50 = 2. This is useful for predictive purposes as a share with a historic beta of say 0.8 will be expected to move 80% of the distance of the wider market in the future. Shares with a high beta value - say technology and software companies - are generally more volatile and therefore seen as higher risk than those with a low beta - such as utility companies. A diversified portfolio will aim to maintain a mixture of high and low beta stocks as a way of managing risk.
 
@@ -260,13 +270,26 @@ An IT initiative by many financial companies to streamline transactions by maint
 
 The Time Value of Money is absolutely crucial for anything that you're valuing, whether that's a bond or a share or whatever. 
 
-=== Time Weighted Average Price === (TWAP)
+=== Time Weighted Average Price (TWAP) ===
 
 
 
 === Volume Weighted Average Price (VWAP) ===
 
+[http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:vwap_intraday VWAP]
 
+VWAP is calculated by multiplying the volume at each price level by the respective price and dividing by the total volume. The more volume traded at a certain price level, the more impact that price has on VWAP.
+
+   VWAP = ∑(Pn*Vn) / ∑(Vn)<br>
+   where P = price traded<br>
+   V = volume traded<br>
+   n = number of trades
+
+As an example, consider the following series of trades:
+ * 500 shares @ $10.00
+ * 300 shares @ $10.05
+ * 200 shares @ $10.10
+The average price for these three trades is $10.05, however the VWAP is $10.035 because more volume was executed at the $10.00 level than at the $10.10 price. One of the keys to a successful VWAP trade is anticipating market volume and participating accordingly.
 
 === Volatility ===
 
