@@ -447,6 +447,12 @@ A summary of these features in code can be found [https://code.google.com/p/thes
 
 There is also a change to Java's sorting algorithm in Java 7, where they will start to use Timsort.
 
+*New Utility Classes*
+
+ * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Phaser.html Phaser] - The Phaser is designed to help overcome a number of issues with !CountDownLatch & !CyclicBarrier, the most thorough explanation I have found so far is [http://stackoverflow.com/questions/6830904/java-tutorials-explanations-of-jsr166y-phaser here], to summarise it's benefits are: Dynamic number of parties, Reusable & Advanceable.
+ * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TransferQueue.html TransferQueue] - In a nutshell a !TransferQueue is a !BlockingQueue in which producers may wait for consumers to receive elements. The documentation explains more but it's also handy to know that this implementation has been written to take into account modern compiler and processor features and can operate with great efficiency. (See also Section 4.3.6 of the Well Grounded Java Developer).
+ * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinPool.html Fork/Join] - Fork/Join is all about automatic scheduling of tasks on a thread pool that is invisible to the user. One key feature of the framework is that it’s expected that these lightweight tasks may well spawn other instances of [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinTask.html ForkJoinTask], which will be scheduled by the same thread pool that executed their parent. This pattern is sometimes called _divide and conquer_. Section 5.4.1 of The Well Grounded Java Developer presents a simple example of Fork/Join.
+
 == What about Java 8? ==
 
  # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]
@@ -708,14 +714,18 @@ In the conventional sense of the word a Map is a data structure which maps a key
 ==== LinkedHashMap ====
 Hash table and linked list implementation of the Map interface, with predictable iteration order. This implementation differs from HashMap in that it maintains a doubly-linked list running through all of its entries. This linked list defines the iteration ordering, which is normally the order in which keys were inserted into the map (insertion-order). Note that insertion order is not affected if a key is re-inserted into the map. (A key k is reinserted into a map m if m.put(k, v) is invoked when m.containsKey(k) would return true immediately prior to the invocation.)
 
-There is also an equiv. for Sets called LinkedHashSet, which could be compared to TreeSet and HashSet.
+There is also an equiv. for Sets called !LinkedHashSet, which could be compared to !TreeSet and !HashSet.
 
-==== MultiMap ====
-A multimap is a generalisation of a map or associative array abstract data type in which more than one values may be associated with and returned for a given key. Often multimap is implemented as a map wth lists or sets as the map values. Both Apache Commons Collections & Google Collections offer MultiMap implementations.
+==== Multi Map ====
+A multimap is a generalisation of a map or associative array abstract data type in which more than one values may be associated with and returned for a given key. Often multimap is implemented as a map with lists or sets as the map values. Both Apache Commons Collections & Google Collections offer !MultiMap implementations.
 
-==== ConcurrentHashMap ====
+==== Concurrent Hash Map ====
 
-Section 5.2.1 of Java Concurrency In Practice explains the internals of a ConcurrentHashMap at a high level, essentially lock striping is used to allow multiple readers to access the map concurrently and writers are managed on a lock per bucket basis reducing contention across the whole collection. The author(s) note that under normal circumstances there should be little or no overhead of using a ConcurrentHashMap where a Hashtable or synchronized Map was used before, it should be much more scalable as a collection.
+Section 5.2.1 of Java Concurrency In Practice explains the internals of a !ConcurrentHashMap at a high level, essentially lock striping is used to allow multiple readers to access the map concurrently and writers are managed on a lock per bucket basis reducing contention across the whole collection. The author(s) note that under normal circumstances there should be little or no overhead of using a !ConcurrentHashMap where a Hashtable or synchronized Map was used before, it should be much more scalable as a collection.
+
+Section 5.6 of Java Concurrency In Practice details using a !ConcurrentHashMap to build a result cache for repetitive computationally expensive operations.
+
+Section 4.3.4 of the Well Grounded Java Developer also explains the internals of a !ConcurrentHashMap at a high level.
 
 === Stacks ===
 
