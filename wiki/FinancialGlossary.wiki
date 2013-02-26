@@ -18,6 +18,49 @@ http://www.moneyweek.com offers a fantastic range of introductory videos availab
  * [http://www.comparebroker.com/expertspeak/intro-to-algorithmic-trading-part-ii/ Part 2 of Compare Brokers' Introduction to Algorithmic Trading]
  * [http://www.comparebroker.com/expertspeak/popular-algorithmic-trading-strategies-part-i/ Type of Algo Trading] - Covers VWAP, TWAP & POV.
 
+==== Percentage of Volume (POV) ====
+
+We saw that trying to predict VWAP comes with its own set of problems. Predicting volume curve can be tricky. Another option to achieving a close to VWAP price is to use a [http://en.wikipedia.org/wiki/Heuristic_%28computer_science%29 heuristic]. If you could make a good guess on what is the percentage required to execute the order, you should be able to achieve a near VWAP price.
+
+So, the algorithm starts by taking a percentage as input. And it keeps calculating the real-time volume for that security. It then matches the given percentage of the volume for each interval. Let’s say you gave 10% as input. And in the last interval overall volume for the security was 5000. POV will then place an order of size = 500.
+
+*Early finish and unexecuted orders* <br>
+The problem with POV is that with POV you might actually finish the order in advance or may not be able to finish the order at all, in allotted time.  This requires that the algorithm needs to have a catch-up logic. In case, it’s falling behind its increases the participation rate or the percentage.  In the last few minutes, you might just abandon the original logic and just execute the remaining quantity as a TWAP order.
+
+==== Time Weighted Average Price (TWAP) ====
+
+TWAP simply breaks the overall order into small chunks of equal size, usually, and executes them each of them after a fixed interval. For as long as all the orders are getting executed, the overall price would be the Time weighted average of the prices for which the algorithm ran.
+
+*Randomization*
+
+Running a simple TWAP has one problem.  Anyone observing the order book can figure out that there is a consistent pattern.  These could be done manually as well as by other algorithms. So, most versions of TWAPs would involve some randomization. Either we do it in terms of sizes of orders or in the time interval between the slices or both.
+
+==== Volume Weighted Average Price (VWAP) ====
+
+This algorithm basically attempts to match the VWAP (Volume Weighted Average Price) over a defined time period. Suppose I place an order at 10:00 am and run it for 1 hour and say the size was 10,000. In this period, overall volume was 100,000. So, if I go and check every five minute, the algorithm should have matched 10% of the overall volume for those five minutes. If your order size was 20,000, your participation rate will be 20% and so on.
+
+*There's a BUT!* How do you know what the volume is going to be during the time your order will be executing? You can't, so you need to attempt to accurately model it using a _Volume Profile_. So, by now it's clear that we need to give the algorithm a volume profile for the time period it will be active. A simple version might just take the volume of the last day and assume that volume will be more or less the same.  A more sophisticated version would take average over a big period to take out noise.  A still more sophisticated version would actually use high-frequency trading models to predict the volume profile for the day.
+
+[http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:vwap_intraday VWAP]
+
+VWAP is calculated by multiplying the volume at each price level by the respective price and dividing by the total volume. The more volume traded at a certain price level, the more impact that price has on VWAP.
+
+   VWAP = ∑(Pn*Vn) / ∑(Vn)<br>
+   where P = price traded<br>
+   V = volume traded<br>
+   n = number of trades
+
+As an example, consider the following series of trades:
+ * 500 shares @ $10.00
+ * 300 shares @ $10.05
+ * 200 shares @ $10.10
+The average price for these three trades is $10.05, however the VWAP is $10.035 because more volume was executed at the $10.00 level than at the $10.10 price. One of the keys to a successful VWAP trade is anticipating market volume and participating accordingly.
+
+==== Others ====
+
+ * [http://www.comparebroker.com/expertspeak/popular-algorithmic-trading-strategies-part-ii/ Display Size, Implementation Shortfall & Liquidity Seeker Explained]
+ * [https://www.thetradestreet.com/blogs/96/8/popular-algorithmic-trading-stra Liquidity Seekers: Dark Pools, Guerilla, Sniper & Sniffer Explained]
+
 === Alpha ===
 
 [http://www.youtube.com/watch?v=2Kz4nKYvF14 What is Alpha? - MoneyWeek Investment Tutorials]
@@ -269,31 +312,6 @@ An IT initiative by many financial companies to streamline transactions by maint
 [http://www.youtube.com/watch?v=h3nlIOhxBF4 What is the 'time value of money'? - MoneyWeek Investment Tutorials]
 
 The Time Value of Money is absolutely crucial for anything that you're valuing, whether that's a bond or a share or whatever. 
-
-=== Time Weighted Average Price (TWAP) ===
-
-TWAP simply breaks the overall order into small chunks of equal size, usually, and executes them each of them after a fixed interval. For as long as all the orders are getting executed, the overall price would be the Time weighted average of the prices for which the algorithm ran.
-
-*Randomization*
-
-Running a simple TWAP has one problem.  Anyone observing the order book can figure out that there is a consistent pattern.  These could be done manually as well as by other algorithms. So, most versions of TWAPs would involve some randomization. Either we do it in terms of sizes of orders or in the time interval between the slices or both.
-
-=== Volume Weighted Average Price (VWAP) ===
-
-[http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:vwap_intraday VWAP]
-
-VWAP is calculated by multiplying the volume at each price level by the respective price and dividing by the total volume. The more volume traded at a certain price level, the more impact that price has on VWAP.
-
-   VWAP = ∑(Pn*Vn) / ∑(Vn)<br>
-   where P = price traded<br>
-   V = volume traded<br>
-   n = number of trades
-
-As an example, consider the following series of trades:
- * 500 shares @ $10.00
- * 300 shares @ $10.05
- * 200 shares @ $10.10
-The average price for these three trades is $10.05, however the VWAP is $10.035 because more volume was executed at the $10.00 level than at the $10.10 price. One of the keys to a successful VWAP trade is anticipating market volume and participating accordingly.
 
 === Volatility ===
 
