@@ -36,7 +36,7 @@
 = N =
 = O =
 
- * [http://en.wikipedia.org/wiki/Object_pool_pattern Object Pooling Patterns] - add to Patterns section of [Resources]
+ * [http://en.wikipedia.org/wiki/Object_pool_pattern Object Pooling Patterns] - add to Patterns section of [Resources], also see [http://commons.apache.org/proper/commons-pool/]
 
 = P =
 = Q =
