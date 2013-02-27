@@ -10,6 +10,10 @@ All messages both in a out of the system need to be recorded (preferably by a di
 
 An ideal monitoring solution would be put in place such that any errors or problems/reduction in Quality of Service (QOS) are flagged via alters and can be investigated by RTB asap. Avoiding the situation where there are so many alerts that non of them get investigated in a must.
 
+== Pluggable/Upgradable Modules ==
+
+It would be very nice to be able to upgrade components of the systems in a rolling fashion, i.e. you need to make a change to the booking module so choose a quiet time, suspend booking, complete the release and restart booking, the rest of the system has continued to run during this time and any request to book during that time are queued and processed on restart.
+
 == Reproducing/Replaying Events ==
 
 It should be possible to boot up a server in any environment and replay events recorded by the auditing system or wiretap functionality that can replay all events allowing errors and production situations to be reproduced easily during a debugging session. 
