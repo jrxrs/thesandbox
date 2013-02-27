@@ -269,6 +269,29 @@ Definitions of performance are often pretty woolly, we'll go for: performance be
 REUSABILITY<br>
 We should ensure that any code we write to support concurrency can be reused else where, this was the point of the `java.unit.concurrent` library. 
 
+== The Java Memory Model (JMM) ==
+
+Understanding a number of key features from the JMM can really help developers understand the JVM and how to code for it.
+
+ * _Happens-Before_ — This relationship indicates that one block of code fully completes before the other can start.
+ * _Synchronizes-With_ — This means that an action will synchronize its view of an object with main memory before continuing.
+
+Some developers find it useful to think of _Happens-Before_ and _Synchronizes-With_ as basic conceptual building blocks for understanding Java concurrency. This is analogous with _Has-A_ and _Is-A_ from  world of OO design, but there is no direct technical connection between the two sets of concepts.
+
+http://thesandbox.googlecode.com/files/Screen%20shot%202013-02-27%20at%2011.41.37.png
+
+The JMM has these main rules:
+ * An unlock operation on a monitor _Synchronizes-With_ later lock operations.
+ * A write to a volatile variable _Synchronizes-With_ later reads of the variable.
+ * If an action A _Synchronizes-With_ action B, then A _Happens-Before_ B.
+ * If A comes before B in program order, within a thread, then A _Happens-Before_ B.
+
+There are additional rules, which are really about sensible behaviour:
+ * The completion of a constructor _Happens-Before_ the finalizer for that object starts to run (i.e. an object has to be fully constructed before it can be finalized).
+ * An action that starts a thread _Synchronizes-With_ the first action of the new thread.
+ * `Thread.join()` _Synchronizes-With_ the last (and all other) actions in the thread being joined.
+ * If X _Happens-Before_ Y and Y _Happens-Before_ Z then X _Happens-Before_ Z (transitivity).
+
 == Caching ==
 
 [http://www.cacheonix.com/articles/Caching_for_Java_Applications.htm Main Reference]
@@ -280,6 +303,8 @@ Caching can help to increase application performance and scalability.
 A cache is an area of local memory that holds a copy of frequently accessed data that is otherwise expensive to get or compute. A simple caching API would consist of the a `get(Object Key)` method and a `put (Object key, Object value)` method.
 
 A cache works as follows: An application requests data from cache using a key. If the key is not found, the application retrieves the data from a slow data source and puts it into the cache. The next request for a key is serviced from the cache.
+
+Section 5.6 of Java Concurrency In Practice has a very nice cache implementation using the standard `java.util.concurrent` package classes.
 
 === Temporal and Spatial Locality ===
 
@@ -451,7 +476,7 @@ There is also a change to Java's sorting algorithm in Java 7, where they will st
 
  * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Phaser.html Phaser] - The Phaser is designed to help overcome a number of issues with !CountDownLatch & !CyclicBarrier, the most thorough explanation I have found so far is [http://stackoverflow.com/questions/6830904/java-tutorials-explanations-of-jsr166y-phaser here], to summarise it's benefits are: Dynamic number of parties, Reusable & Advanceable.
  * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/TransferQueue.html TransferQueue] - In a nutshell a !TransferQueue is a !BlockingQueue in which producers may wait for consumers to receive elements. The documentation explains more but it's also handy to know that this implementation has been written to take into account modern compiler and processor features and can operate with great efficiency. (See also Section 4.3.6 of the Well Grounded Java Developer).
- * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinPool.html Fork/Join] - Fork/Join is all about automatic scheduling of tasks on a thread pool that is invisible to the user. One key feature of the framework is that it’s expected that these lightweight tasks may well spawn other instances of [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinTask.html ForkJoinTask], which will be scheduled by the same thread pool that executed their parent. This pattern is sometimes called _divide and conquer_. Section 5.4.1 of The Well Grounded Java Developer presents a simple example of Fork/Join.
+ * [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinPool.html Fork/Join] - Fork/Join is all about automatic scheduling of tasks on a thread pool that is invisible to the user. One key feature of the framework is that it’s expected that these lightweight tasks may well spawn other instances of [http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ForkJoinTask.html ForkJoinTask], which will be scheduled by the same thread pool that executed their parent. This pattern is sometimes called _divide and conquer_. Section 5.4.1 of The Well Grounded Java Developer presents a simple example of Fork/Join. The Fork/Join architecture includes work stealing by default, this prevents one or more threads in the pool sitting idle while another thread works on a larger task. The next section (5.4.3) gives a number of suggestions for tasks that might be applicable for fork/join and includes a check list to aid decision making/planning. 
 
 == What about Java 8? ==
 
