@@ -24,7 +24,6 @@
 = J =
 
 == Java ==
- * [http://www.ustream.tv/channel/nighthacking Fork/Join in Java 7 with Heinz Kabutz]
  * [http://zeroturnaround.com/labs/java-8-the-first-taste-of-lambdas Lambdas in Java 8 - A First Look]
 
 = K =
@@ -74,6 +73,10 @@
 = H =
 = I =
 = J =
+
+== Java ==
+ * [http://www.ustream.tv/channel/nighthacking Fork/Join in Java 7 with Heinz Kabutz]
+
 = K =
 = L =
 
