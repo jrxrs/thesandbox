@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * List<Double> list = [5.0.0,3.0,6.0,9.0,2.0,8.0,1.0]
+ * List<Double> list = [5.0,3.0,6.0,9.0,2.0,8.0,1.0]
  * List<List<Double>> list = [[5.0,3.0,6.0][9.0,2.0,8.0][1.0]];
  */
 public class DataSetTest

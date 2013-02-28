@@ -3,6 +3,17 @@ package org.thesandbox.quotes;
 import java.util.Collection;
 import java.util.concurrent.*;
 
+/**
+ * Note: Strictly speaking this isn't a true cache, for instance there is no
+ * eviction policy included, it's just a toy example coded to test this code and
+ * experiment with executors and other concurrent features of the language.
+ * If you really wanted to cache this kind of data you'd need to refresh it
+ * daily after the close, you might do this if you were computing a core set of
+ * historical statistics when the application started and then completing other
+ * ad-hoc calculations throughout the day reusing the original data set,
+ * manually expiring the contents of the cache at a fixed point after today's
+ * data is available would probably be the best approach.
+ */
 public class RequestCache {
 
     private final ConcurrentMap<String, Future<Collection<EodQuote>>> cache;
