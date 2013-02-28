@@ -51,9 +51,6 @@
  * Spring "[http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-factory-dependson depends-on]" attribute - important for XA from [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/beans.html#beans-dependencies Dependencies]
 
 = T =
-
-* ThreadLocal
-
 = U =
 = V =
 = W =
@@ -76,6 +73,7 @@
 
 == Java ==
  * [http://www.ustream.tv/channel/nighthacking Fork/Join in Java 7 with Heinz Kabutz]
+* [http://javarevisited.blogspot.co.uk/2012/05/how-to-use-threadlocal-in-java-benefits.html ThreadLocal] contains the basics and [http://stackoverflow.com/questions/1490919/purpose-of-threadlocal this] answer on stack overflow mentions the pitfalls of `ThreadLocal` in !AppServers that use thread pools.
 
 = K =
 = L =
