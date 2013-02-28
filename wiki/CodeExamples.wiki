@@ -161,3 +161,125 @@ public class Singleton {
     }
 }
 }}}
+
+== Map Message to XML ==
+
+{{{
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class MessageParserTestCase {
+
+    @Test
+    public void test() {
+        final String message = "|SOM=|SOH=|a=1|b=2|c=3|EOH=|SOB=|d=4|e=5|f=6|EOB=|EOM=|";
+        final Pattern pattern = Pattern.compile("\\|SOM=\\|SOH=\\|(.*)\\|EOH=\\|SOB=\\|(.*)\\|EOB=\\|EOM=\\|");
+        final Matcher matcher = pattern.matcher(message);
+        matcher.find();
+        final Map<String, String> header = parse(matcher.group(1));
+        Assert.assertTrue(header.size() == 3);
+        Assert.assertTrue(header.get("a").equals("1"));
+        Assert.assertTrue(header.get("b").equals("2"));
+        Assert.assertTrue(header.get("c").equals("3"));
+        final Map<String, String> body = parse(matcher.group(2));
+        Assert.assertTrue(body.size() == 3);
+        Assert.assertTrue(body.get("d").equals("4"));
+        Assert.assertTrue(body.get("e").equals("5"));
+        Assert.assertTrue(body.get("f").equals("6"));
+    }
+
+    private Map<String, String> parse(String group) {
+        final String[] headers = group.split("\\|");
+        final Map<String, String> map = new HashMap<String, String>(headers.length);
+        for (String header : headers) {
+            final String[] pair = header.split("=");
+            map.put(pair[0], pair[1]);
+        }
+        return map;
+    }
+
+    private final String message = "|SOH=|VERS=1.00|MTYP=POSTTRD|DATE=20130212|TIME=10:30:51|DLR=NOM|USER=nomeugv2|PGRP=EUGV|TRDDT=20130212|EOH=|SPTM=1|SOH=|VERS=1.00|MTYP=TRDCONF|DATE=20130212|TIME=10:30:51|TSTMSG=YES|DLR=NOM|USER=nomeugv|PGRP=EUGV|TRDTYP=USTSWAP|TSRC=TW|TRDDT=20130212|TNUM=15|EOH=|SWSPRD=-1.2380|TRDPRICES=YES|SWPTYP=FACEAMT|NETDIFF=-14787.670|SSCNF=|PGRP=EUGV|TNUM=15|CUST=nomcust2|CUSTNAME=Nomura Customer2|UCNTRY=UK|CINFO=007|COMPANY=Customer Nomura|COACR=886137|ODDMARK=NO|LOCC=LDN|LOCD=LDN|CLRCD=UNKNOWN|STYPE=REGDBR|WI=NO|ISIN=DE0001135234|CPN=3.750|AUCDT=20030702|MATDT=20130704|ROPN=1|ISMN=120|OTR=0|DTDDT=20030704|ISSDT=20030704|FCDT=20040704|ANNCDT=20030624|CNTRY=DE|CPNFQ=1|DYCTBAS=ACT/ACT|RVAL=100.0|DECPLCS=3|DECRND=0.0010|QID=TBSI01DE0001135234|SDESC=DBR  3.750 04/07/13|QTYP=PRICEDEC|PRICE=101.420|YIELD=0.02020|BYIELD=0.02050|MYIELD=0.02020|YTYP=MME|QNTY=1000000|TRANS=SELL|STLDT=20130215|GTRDDT=20130212|GTRDTM=10:30:48|SECACCR=2.3219178082190|TOTACCR=23219.180|PRIN=1014200.0|NET=1037419.180|CURR=EUR|FXRATE=0.0|NREQ=1|MTKT=1|CUSTPRC=NO|TRADER=comerfom-Auto|COMPQT=-164.30|COMPSZ=0.0|COMPSPRD=-1.6430|CMPB=101.410|CMPA=101.4290|CMPM=101.420|COMPMV=0.0|VIEWERACK=NO|ESCNF=|SBCNF=|PGRP=EUGV|TNUM=16|CUST=nomcust2|CUSTNAME=Nomura Customer2|UCNTRY=UK|CINFO=007|COMPANY=Customer Nomura|COACR=886137|ODDMARK=NO|LOCC=LDN|LOCD=LDN|CLRCD=UNKNOWN|STYPE=REGIRISH|WI=NO|ISIN=IE0031256328|CPN=5.0|AUCDT=20020131|MATDT=20130418|ROPN=1|ISMN=132|OTR=0|DTDDT=20020131|ISSDT=20020131|FCDT=20020418|ANNCDT=20020131|CNTRY=IE|CPNFQ=1|DYCTBAS=ACT/ACT|RVAL=100.0|DECPLCS=3|DECRND=0.0010|QID=TBSI01IE0031256328|SDESC=IRISH  5.000 18/04/13|QTYP=PRICEDEC|PRICE=101.070|YIELD=-1.21780|BYIELD=-1.23470|MYIELD=-1.21780|YTYP=MME|QNTY=1000000|TRANS=BUY|STLDT=20130215|GTRDDT=20130212|GTRDTM=10:30:48|SECACCR=4.1506849315070|TOTACCR=41506.850|PRIN=1010700.0|NET=1052206.850|CURR=EUR|FXRATE=0.0|NREQ=1|MTKT=1|CUSTPRC=NO|TRADER=comerfom-Auto|COMPQT=-164.30|COMPSZ=0.0|COMPSPRD=-1.6430|CMPB=100.5250|CMPA=101.1390|CMPM=100.8320|COMPMV=0.0|VIEWERACK=NO|EBCNF=|EOM=|EPTM=1|EOM=|";
+
+    private final Map<String, String> metadata = new HashMap<String, String>(); {
+        metadata.put("SOM", "EOM");
+        metadata.put("SOH", "EOH");
+        metadata.put("SPTM", "EPTM");
+        metadata.put("SSCNF", "ESCNF");
+        metadata.put("SBCNF", "EBCNF");
+    }
+    
+    @Test
+    public void test2() throws XMLStreamException {
+        final StringTokenizer tokenizer = new StringTokenizer(message, "|");
+        final XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        final XMLStreamWriter writer = factory.createXMLStreamWriter(System.out);
+        
+        int indent = 0;
+        
+        writer.writeStartDocument();
+        System.out.println();
+        writer.writeStartElement("SOM");
+        writer.writeCharacters("");
+        while (tokenizer.hasMoreTokens()) {
+            final String token = tokenizer.nextToken();
+            final String[] pair = token.split("=");
+            final String key = pair[0];
+            final String val = pair.length > 1 ? pair[1] : "";
+
+            if (metadata.containsKey(key)) {
+                // push...
+                writeIndent(indent++);
+                writer.writeStartElement(key);
+                writer.writeCharacters(val);
+                writer.flush();
+                System.out.println();
+            } else if (metadata.containsValue(key)) {
+                // pop...
+                writeIndent(--indent);
+                writer.writeEndElement();
+                writer.flush();
+                System.out.println();
+            } else {
+                writeIndent(indent);
+                writer.writeStartElement(key);
+                writer.writeCharacters(val.toCharArray(), 0, val.length());
+                writer.writeEndElement();
+                writer.flush();
+                System.out.println();
+            }
+        }
+        writer.writeEndDocument();
+    }
+
+    private void writeIndent(int indent) {
+        System.out.print(StringUtils.repeat("  ", indent));
+        System.out.flush();
+    }
+}
+}}}
+
+== Writing Comma Separated Lists the Easy Way ==
+
+{{{
+public static String listToString(List<?> list) {
+    final StringBuilder sb = new StringBuilder();
+    String sep = "";
+    for (Object object : list) {
+        sb.append(sep).append(object.toString());
+        sep = ",";
+    }
+
+    return sb.toString();
+}
+}}}
