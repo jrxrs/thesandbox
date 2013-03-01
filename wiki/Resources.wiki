@@ -360,10 +360,16 @@ Normal practice when declaring a logger is to use something along the lines of:
 private static final LOGGER = Logger.getLogger(MyClass.class);
 }}}
 
-This is handy and efficient as it means you'll only ever have one instance of the logger which all instances of the class with use. However this is not always applicable as it can result in misleading log messages if you happen to need to log in a class that will be sub-classed, if you need to do this you'll have to have a logger per instance and use a call to `getClass()` for the logger name.
+This is handy and efficient as it means you'll only ever have one instance of the logger which all instances of the class with use. However this is quite fragile code, if it’s refactored to move into a superclass or sub-class, the explicit class name would cause problems e.g. misleading log messages if you happen to need to log in a class that will be sub-classed, if you need to do this you'll have to have a logger per instance and use a call to `getClass()` for the logger name.
 
 {{{
 private final logger = Logger.getLogger(getClass());
+}}}
+
+Alternatively in Java 7 you can use Method Handles to look up the class in context (even a static context):
+
+{{{
+Logger lgr = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 }}}
 
 == Testing ==
