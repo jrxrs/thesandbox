@@ -1161,3 +1161,7 @@ http://ebookfree4all.blogspot.co.uk/
 http://books4career.blogspot.co.uk/
 
 [http://5whys.com/ Elastic Leadership - Notes to a Software Team Leader]
+
+[http://agilewarrior.wordpress.com/ Agile Warrior]
+
+[http://martinfowler.com/ Martin Fowler of ThoughtWorks]
