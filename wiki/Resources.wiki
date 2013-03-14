@@ -635,6 +635,13 @@ Codehaus's [http://jackson.codehaus.org/ Jackson] is a very popular JSON Process
 
 ----
 
+= YAML =
+
+[http://en.wikipedia.org/wiki/YAML 
+YAML Ain't Markup Language]
+
+----
+
 = Simple Object Access Protocol (SOAP) =
 
 [http://en.wikipedia.org/wiki/SOAP SOAP], originally defined as Simple Object Access Protocol, is a protocol specification for exchanging structured information in the implementation of Web Services in computer networks. It relies on Extensible Markup Language (XML) for its message format, and usually relies on other Application Layer protocols, most notably Hypertext Transfer Protocol (HTTP) and Simple Mail Transfer Protocol (SMTP), for message negotiation and transmission.
