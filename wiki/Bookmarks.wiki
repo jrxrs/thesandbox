@@ -25,3 +25,7 @@
   * [http://myhumax.org/ myhumax.org - Blog/Forums/Wiki]
   * [http://forums.digitalspy.co.uk/showthread.php?t=1729968 Humax HDR 1000S @ Digital Spy]
   * [http://www.avforums.com/forums/freesat/1674166-new-humax-hdr-1000s-freetime-pvr.html Humax HDR 1000S @ AV Forums]
+
+*Programming*
+  * [https://class.coursera.org/progfun-002/class/index Coursera - Functional Programming Principles in Scala]
+  * [https://class.coursera.org/progfun-002/lecture/index Coursera Lectures - Functional Programming Principles in Scala]
