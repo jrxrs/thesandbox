@@ -29,3 +29,5 @@
 *Programming*
   * [https://class.coursera.org/progfun-002/class/index Coursera - Functional Programming Principles in Scala]
   * [https://class.coursera.org/progfun-002/lecture/index Coursera Lectures - Functional Programming Principles in Scala]
+  * [http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/ MIT's Electrical Engineering & Computer Science Course Catalogue]
+  * [http://www.codecademy.com/]
