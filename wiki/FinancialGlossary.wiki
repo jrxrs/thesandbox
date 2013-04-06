@@ -346,6 +346,20 @@ Why does a company issue stocks/shares? Why would the founders share the profits
 
 It is important to understand the distinction between a company financing through debt and financing through equity. When you buy a debt investment such as a bond, you are guaranteed the return of your money (the principal) along with promised interest payments. This isn't the case with an equity investment. By becoming an owner, you assume the risk of the company not being successful. 
 
+=== Market Data Levels ===
+
+[http://en.wikipedia.org/wiki/Financial_quote http://www.londonstockexchange.com/prices-and-markets/stocks/tools-and-services/level2/level2guide.pdf LSE Level 2 Guide]
+
+The current BID price of a security is what people are willing to pay to buy the instrument; whereas the current ASK price is what people are willing the sell it for.
+
+==== Level 1 ====
+
+Level 1 Market Data displays the basics market data of an instrument, e.g. the current best bid & ask (and perhaps their sizes), market volume, high, mid, low prices, VWAP, yesterday's closing price and other detailed information. 
+
+==== Level 2 ====
+
+Level 2 Market Data on the other hand shows market depth, starting with the current best bid and ask prices and list the rest of the order book in either direction along with the current volume at each price, commonly you'll also get a cumulative quantity of all the shares at or below/above that price.
+
 ----
 
 == Fixed Income ==
