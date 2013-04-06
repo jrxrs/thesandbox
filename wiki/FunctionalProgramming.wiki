@@ -26,6 +26,10 @@ Using the definition above and the fact that Java only has methods, we can see t
 
 == Recursion ==
 
+=== Tail Recursion ===
+
+If a function calls itself as its last action, the function's stack frame can be reused. This is called _tail recursion_. Tail recursive functions are therefore iterative processes.
+
 == Lazy vs. Eager Evaluation ==
 
 == Declarative vs. Imperative Programming ==
