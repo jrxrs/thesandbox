@@ -1,6 +1,6 @@
 #summary Notes on Functional Programming
 
-%TOC%
+<wiki:toc max_depth="3" />
 
 = Basic Principles =
 
