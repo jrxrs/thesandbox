@@ -97,6 +97,15 @@ The buying or selling of a set of 15 or more securities in a single order. Used 
 
 Beta (or beta coefficient) is a way to measure the relative riskiness of a share. It does so by comparing the historic movement in the share price to that of the market as a whole. So for example if a share moved up by 10% when the market rose by 50%, beta is 10/50 = 0.2. Equally a share that increased by 100% when the market rose 50% has a beta of 100/50 = 2. This is useful for predictive purposes as a share with a historic beta of say 0.8 will be expected to move 80% of the distance of the wider market in the future. Shares with a high beta value - say technology and software companies - are generally more volatile and therefore seen as higher risk than those with a low beta - such as utility companies. A diversified portfolio will aim to maintain a mixture of high and low beta stocks as a way of managing risk.
 
+=== Bid-Ask ===
+
+Also known as bid-offer or buy-sell.
+
+Bid - What buyers are will to pay.
+Ask - What sellers want to get.
+
+The bid–offer spread (also known as bid–ask or buy–sell spread, and their equivalents using slashes in place of the dashes) for securities is the difference between the prices quoted (either by a single market maker or in a limit order book) for an immediate sale (offer) and an immediate purchase (bid).
+
 === Bloomberg ===
 
 Bloomberg is a major global provider of 24-hour financial news and information including real-time and historic price data, financials data, trading news and analyst coverage, as well as general news and sports. Its services, which span their own platform, television, radio and magazines, offer professionals analytic tools.
