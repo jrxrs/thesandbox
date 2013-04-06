@@ -493,6 +493,36 @@ Method handles are a much cleaner way to achieve the same things as reflection d
 
 What is a [http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandle.html MethodHandle]? The official answer is that it’s a typed reference to a method (or field, constructor, and so on) that is directly executable. Another way of saying this is that a method handle is an object that represents the ability to call a method safely.
 
+* `String.intern()` behavioural changes *
+
+[http://java.dzone.com/articles/thursday-code-puzzler-string Explanation].
+
+To understand how the behaviour of the `String.intern()` method has changed between Java 6 & Java 7 we first need a little background on how it works in Java 6... In Java 6 the constant pool maintained by `String.class` is populated with String literals when a class is loaded, so if the classloader finds that a "test" literal is defined in a class it will creates a String with text "test" and call `intern()` on it, which places it in the constant pool which is located in permgen memory.
+
+In Java 7, the constant pool population strategy has changed, the constant String pool is no longer located in permgen space. Thus no string pool is populated during the class load process, instead it is populated when the execution runs.
+
+It is also interesting to have a look under the covers at how the compiler handles Strings, for instance:
+{{{
+"test".length();
+}}}
+would actually be compiled to:
+{{{
+new String("test").intern().length();
+}}}
+because "test" is a literal. Similarly the `+` operator for Strings is handled as outlined in the [ JavaDoc] of the String class:
+
+   The Java language provides special support for the string concatenation operator ( `+` ), and for conversion of other objects to strings. String concatenation is implemented through the `StringBuilder` (or `StringBuffer`) class and its append method. String conversions are implemented through the method `toString()`, defined by Object and inherited by all classes in Java. 
+
+So:
+{{{
+String te = "te", st = "st";
+String username = te + st;
+}}}
+compiles to:
+{{{
+new StringBuilder().append(te).append(st).toString();
+}}}
+
 == What about Java 8? ==
 
  # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]
@@ -696,6 +726,25 @@ public class RegexTestHarness {
 }
 
 }}}
+
+----
+
+= Cron =
+
+[http://en.wikipedia.org/wiki/Cron Cron] is the time-based job scheduler for Unix. Using a flexible syntax you can define when a specific command should be executed, the syntax is outlined below:
+{{{
+*    *    *    *    *  command to be executed
+┬    ┬    ┬    ┬    ┬
+│    │    │    │    └───── day of week (0 - 7) (0 or 7 are Sunday, or use names)
+│    │    │    └────────── month (1 - 12)
+│    │    └─────────────── day of month (1 - 31)
+│    └──────────────────── hour (0 - 23)
+└───────────────────────── min (0 - 59)
+}}}
+
+A sixth optional parameter for the year is not shown above.
+
+The `crontab` command can then be used to add `cron` jobs to a users cron table which ensures the jobs will be executed as desired.
 
 ----
 
