@@ -83,6 +83,12 @@ http://www.quickfixj.org/
  * [http://www.fixionary.com/ Fixionary]
  * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
 
+= Integrated Development Environments =
+
+== IntelliJ IDEA ==
+
+ * [http://www.jetbrains.com/idea/ IDEA] - Information on modifying you environment can be found [http://devnet.jetbrains.com/docs/DOC-181 here].
+
 = Java Decompilation =
 
  * [http://www.varaneckas.com/jad/ JAD]
