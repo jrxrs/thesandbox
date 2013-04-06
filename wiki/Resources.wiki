@@ -56,6 +56,173 @@ These take the form of quick fire questions with short descriptive answers.
  * For objects of type `Class`, by executing a synchronized static method of that class.
 A thread may only call `wait()` or `notify()` on an object for which it owns the monitor, if such a thread were to call `wait()` it must release the monitor while it waits to be notified, once it is notified it must re-obtain the same monitor before continuing. Conditions are usually used to decide when to wait and actions are usually performed before notifying. See EgMessageQueue for an example.
 
+*ADJPQ*
+
+*Q1.* What is the difference between these two equality checks?
+{{{
+a == b;
+a.equals(b);
+}}}
+
+*A1.* The double equals `==` operator compares the values of primitives and the references of objects whereas the `equals()` method should compare the contents of one object with another.
+
+*Q2a.* Can you describe the difference between primitive values and reference variables?
+
+*A2a.* A primitive value is not a proper object, i.e. it does not extend `Object` and only holds a value, no methods can be called on a primitive value. A reference variable on the other hand is a reference to a proper object which does extend `Object` and on which you can invoke methods etc.
+
+*Q2b.* Why does this code work in Java:
+{{{
+int a = 10;
+List<Integer> as = ArrayList<Integer>();
+as.add(a);
+}}}
+
+*A2b.* This works because since Java 5 the language has included auto-boxing and un-boxing which allow the primitive `int` type to be assigned to a new `Integer` object which is eligible to added to the list.
+
+*Q3a.* What is the value of c after evaluating the following expressions?
+{{{
+int a = 10;
+int b = 3;
+double c = a / b;
+}}}
+
+*A3a.* The variable `c` will hold the value `3.0`, this loss in precision (the answer should be `3.333...`) is due to the `int` division taking place and yielding 3 before the widening conversion which casts the `int` to a `double`. More information can be found [http://stackoverflow.com/questions/3144610/java-integer-division-how-do-you-produce-a-double here].
+
+*Q3b.* How should one change this to attain the expected value?
+
+*A3b.* You could either declare `a` or `b` as a `double` or you could cast either (or both) to `double` in the declaration of `c` (the calculation itself).
+
+*Q4a.* What could be said about this method?
+{{{
+public void updateString(final String a) {
+    a.concat("some extra code");
+}
+}}}
+
+*A4a.* The code itself is safe, however semantically it doesn't make any sense because the return value of the `concat` method is ignored as this method does not mutate the variable `a`, which is immutable anyway (as are all Strings).
+
+*Q4b.* What is the difference between pass-by-reference and pass-by-value? Which is Java?
+
+*A4b.* Java is pass-by-value, this means that when a variable is passed to a method a copy of the value telling the JVM where to find the object in question on the heap is actually passed and assigned to the parameter of the method, regardless of what you do inside the other method it is impossible to change what the original variable references. Pass-by-reference on the other hand allows you to do just that, i.e. in C++ if you pass a variable by reference then you can manipulate that reference inside your function, perhaps creating a new Object and pointing to that and when you return from the function the variable you originally passed in will no point to the object created inside the function you called.
+[http://stackoverflow.com/questions/40480/is-java-pass-by-reference This subject is commonly misunderstood].
+
+*Q4c.* Why are Strings immutable in Java?
+
+*A4c.* The best reasons are probably for performance and security reasons.
+
+*Q5a.* How does Java behave as a result of this call? 
+{{{
+String a = "Some test text";
+a.intern();
+}}}
+
+*A5a.* A call to `intern()` will cause Java to check the String class's string pool for an occurrence of the text held in the variable on which you call it, `"Some test text"` in this case, if found it will return a reference to the instance help in the pool, otherwise it will add the String to the pool and return a reference to it. In the case above `String a` is declared as a String literal (see [http://stackoverflow.com/questions/3297867/difference-between-string-object-and-string-literal here]) which means the JVM will have already interned the String before `a.intern()` is called, as a result `a.intern()` would just return the same reference that `a` already holds.
+
+The whole point of String interning is to prevent the same String being held multiple times in memory.
+
+*Q5b.* What differences are there between how this call is handled in 1.6 and 1.7?
+
+*A5b.* In Java 1.6 any String literals are interned when the class is loaded by the JVM, the string pool is stored in permgen space. In 1.7 String interning doesn't take place until the statement is executed and the pool is located in main memory, rather than permgen. 
+
+*Q5c.* When is the following expression true?
+{{{
+a.intern() == b.intern();
+}}}
+
+*A5c.* This is only true when the contents of `a` and `b` are equal i.e. a.equals(b) is also true.
+
+*Q5a.* Which of these lines compile? For ones that do not, please explain why not?
+{{{
+    Map<String, Double> a = new HashMap<String, Double>();
+//  Map<String, Double> b = new HashMap<Object, Double>();
+//  Map<Object, Double> c = new HashMap<String, Double>();
+    Map<?, Double> d = new HashMap<String, Double>();
+    Map<String, ?> e = new HashMap<String, Double>();
+//  Map<?, ?> f = new HashMap<>();
+}}}
+
+*A5a.* The lines commented out will not compile.
+
+For the questions below we depends on the definition of subtypes in generic context, more [http://docs.oracle.com/javase/tutorial/extra/generics/subtype.html here], particularly the following snippet:
+
+   In general, if Foo is a subtype (subclass or subinterface) of Bar, and G is some generic type declaration, it is not the case that G<Foo> is a subtype of G<Bar>. This is probably the hardest thing you need to learn about generics, because it goes against our deeply held intuitions.
+
+[http://docs.oracle.com/javase/tutorial/extra/generics/wildcards.html Generic Wildcards]
+
+*Q5b.* Given the following method declaration which of the line will compile?
+
+{{{
+    public static void test(List<String> a) {
+        a.add(null);
+        a.add("test");
+//      a.add(new Object());
+        String b = a.get(0);
+        Object c = a.get(0);
+    }
+}}}
+
+*A5b.* The lines commented out will not compile.
+
+*Q5c.* Given the following method declaration which of the line will compile?
+
+{{{
+    public static void test(List<Object> a) {
+        a.add(null);
+        a.add("test");
+        a.add(new Object());
+//      String b = a.get(0);
+        Object c = a.get(0);
+    }
+}}}
+
+*A5c.* The lines commented out will not compile.
+
+*Q5d.* Given the following method declaration which of the line will compile?
+
+{{{
+    public static void test(List<?> a) {
+        a.add(null);
+//      a.add("test");
+//      a.add(new Object());
+//      String b = a.get(0);
+        Object c = a.get(0);
+    }
+}}}
+
+*A5d.* The lines commented out will not compile.
+
+*Q6a.* What are `synchronized` methods and `synchronized` blocks? What are the differences between the two? What do they both provide?
+
+*A6a.*
+
+*Q6b.* What does the keyword `volatile` mean?
+
+*A6b.* Post Java 1.5 the semantics of the `volatile` keyword are that a thread wishing to read or write a volatile variable must only do so from main memory i.e. not from a local cached copy of the Object it may have stored. The `volatile` keyword also helps to establish a happens-before relationship between threads such that any changes made to non-volatile variables by a thread t1 before it writes to a volatile variable are also synchronized back to main memory and therefore become visible to thread t2. See [http://jeremymanson.blogspot.co.uk/2008/11/what-volatile-means-in-java.html here] for an explanation from one of the authors of JSR-133.
+
+*Q6c.* Why would you use an "Atomic" object (from the concurrency package, post Java 1.5) over a `volatile` variable?
+
+*A6c.* You'd use an atomic object because they provide methods that guarantee atomicity of reads and writes of a variable, this avoids the case where one threads is halfway through a command such as `x++` and another threads begins the same operation reading the old value of `x`. 
+
+*Q7a.* What is meant by the JVM? What does the JVM provide that is not true for languages such as C++?
+
+*A7a.*
+
+*Q7b.* What is the difference between Java [source] code, Bytecode and Machine code?
+
+*A7b.*
+
+*Q7c.* Where and when does conversion from one form to another take place?
+
+*A7c.*
+
+*Q8.* Explain the differences between a HashMap and a TreeMap?
+
+*A8.*
+
+*Q9.* Explain the differences between an ArrayList and a LinkedList?
+
+*A9.*
+
 == P.I.E. - The Pillars of Object Orientation ==
 
 === Polymorphism ===
