@@ -1,6 +1,13 @@
 #summary Information and scripts for databases
 
-= Sybase =
+= Column Oriented Databases =
+
+A column-oriented DBMS is a database management system (DBMS) that stores data tables as sections of columns of data rather than as rows of data, like most relational DBMSs. As a consequence they are very quick when retrieving a selection of columns rather than entire rows.
+
+ * http://en.wikipedia.org/wiki/Column-oriented_DBMS
+ * http://www.slideshare.net/srudra25/rise-of-column-oriented-database
+
+= Sybase ASE =
 
 == Scripts ==
 
