@@ -108,7 +108,7 @@ public void updateString(final String a) {
 
 *Q4c.* Why are Strings immutable in Java?
 
-*A4c.* The best reasons are probably for performance and security reasons.
+*A4c.* The best reasons are probably for performance and security reasons. See [http://javarevisited.blogspot.co.uk/2010/10/why-string-is-immutable-in-java.html here].
 
 *Q5a.* How does Java behave as a result of this call? 
 {{{
