@@ -145,7 +145,7 @@ a.intern() == b.intern();
 
 For the questions below we depends on the definition of subtypes in generic context, more [http://docs.oracle.com/javase/tutorial/extra/generics/subtype.html here], particularly the following snippet:
 
-   In general, if Foo is a subtype (subclass or subinterface) of Bar, and G is some generic type declaration, it is not the case that G<Foo> is a subtype of G<Bar>. This is probably the hardest thing you need to learn about generics, because it goes against our deeply held intuitions.
+   In general, if `Foo` is a subtype (subclass or subinterface) of `Bar`, and `G` is some generic type declaration, it is not the case that `G<Foo>` is a subtype of `G<Bar>`. This is probably the hardest thing you need to learn about generics, because it goes against our deeply held intuitions.
 
 [http://docs.oracle.com/javase/tutorial/extra/generics/wildcards.html Generic Wildcards]
 
