@@ -690,9 +690,13 @@ compiles to:
 new StringBuilder().append(te).append(st).toString();
 }}}
 
+* The invokedynamic bytecode instruction *
+
+The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/20130102#pg50 demystified here]) is designed to give dynamic languages that target the JVM a fighting chance in terms of matching the performance of native Java bytecode. It simplifies the process of executing a method on an object of unknown type at runtime and goes hand in hand in Method Handles. The main aim is to reduce the amount of heavy lifting (caching and "monkey patching") that dynamic language implementers have to do in order to keep the amount of costly reflection to a minimum.
+
 == What about Java 8? ==
 
- # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]
+ # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]. The Oracle Java Magazine published a couple of articles on the subject recently, the first can be found [http://www.oraclejavamagazine-digital.com/javamagazine_open/20121112#pg35 here[ and the second [http://www.oraclejavamagazine-digital.com/javamagazine/20130304#pg40 here]. They point out that while the Java term for this functional programming concept is Lambda Expressions they are also often referred to as Closures, Function Literals, Anonymous Function or Single Abstract Methods (SAMs).
  # Additional language features from project coin (Java SE 7)
  # A new Time and Date API
 
