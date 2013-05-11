@@ -34,6 +34,15 @@ If a function calls itself as its last action, the function's stack frame can be
 
 == Declarative vs. Imperative Programming ==
 
+== Working with Collections ==
+
+Functional languages provide many standard methods of working with collections, a few are outlines below:
+
+ * Filter - Used to create a new collection, which filters out any elements that don't satisfy some condition.
+ * Map - Apply a transformation to each element of a collection, and work with that transformed collection.
+ * Reduce - Build up an overall value for a property of the whole collection, for example adding up or averaging the values.
+
 = Resources =
 
  # Functional Programming for Java Developers by Dean Wampler, published by O'Reilly
+ # http://www.oraclejavamagazine-digital.com/javamagazine_open/20121112#pg37
