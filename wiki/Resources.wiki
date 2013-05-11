@@ -471,7 +471,9 @@ A cache is an area of local memory that holds a copy of frequently accessed data
 
 A cache works as follows: An application requests data from cache using a key. If the key is not found, the application retrieves the data from a slow data source and puts it into the cache. The next request for a key is serviced from the cache.
 
-Section 5.6 of Java Concurrency In Practice has a very nice cache implementation using the standard `java.util.concurrent` package classes.
+Section 5.6 of Java Concurrency In Practice has a very nice cache implementation using classes from the standard `java.util.concurrent` package.
+
+Note that Java 8 will bring with it a standardised approach to caching allowing different caching providers to be plugged in with little of no overhead. See [http://www.oraclejavamagazine-digital.com/javamagazine_open/20130102#pg59 here] for an article. 
 
 === Temporal and Spatial Locality ===
 
@@ -699,6 +701,7 @@ The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/
  # Lambda Expression? Closures... this is to do with [http://en.wikipedia.org/wiki/Anonymous_function anonymous functions]. The Oracle Java Magazine published a couple of articles on the subject recently, the first can be found [http://www.oraclejavamagazine-digital.com/javamagazine_open/20121112#pg35 here[ and the second [http://www.oraclejavamagazine-digital.com/javamagazine/20130304#pg40 here]. They point out that while the Java term for this functional programming concept is Lambda Expressions they are also often referred to as Closures, Function Literals, Anonymous Function or Single Abstract Methods (SAMs).
  # Additional language features from project coin (Java SE 7)
  # A new Time and Date API
+ # A standard approach to [http://www.oraclejavamagazine-digital.com/javamagazine_open/20130102#pg59 caching].
 
 ----
 
