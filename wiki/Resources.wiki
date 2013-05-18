@@ -671,7 +671,7 @@ These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_versio
  # The semantics of the `volatile` keyword were changed to ensure that threads never read a volatile variable from a local cache.
  # `import static ...` was added
  # The `java.util.concurrent` package was added
- # Covariant return types of overridden methods were introduced (see Covariant Return Types above).
+ # Covariant return types of overridden methods were introduced (see [https://code.google.com/p/thesandbox/wiki/Resources#Covariant_Return_Types Covariant Return Types] above).
 
 == What's new in Java 6? ==
 
