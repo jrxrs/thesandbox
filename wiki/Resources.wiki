@@ -25,8 +25,8 @@ These take the form of quick fire questions with short descriptive answers.
  # *What is an abstract class?*An abstract class is a class that cannot be instantiated directly and therefore needs to be extended and its methods implemented, a class has to be declared abstract if it has one or more abstract methods. 
  # *What is meant by a final class, methods and variables?*<br>When declared `final` a class cannot be extended (by a sub-class). Similarly when a method is declared `final` it cannot be overridden by a method belonging to a sub-class. When a primitive variable is declared `final` its value cannot be changed...If the variable is a reference to an object then it will always refer to the same object, internal attributes of the object can be changed.
  # *What is an interface?*<br>An interface is a contract that can be implemented by a class, it contains method signatures that must be implemented. 
- # *What is method overloading?*<br>Overloading is declaring multiple methods with the same name, but with a different argument list. 
- # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signature) name and identical arguments used by the original method in the parent class. The overriding method can still call the parent method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`.
+ # *What is method overloading?*<br>Overloading is declaring multiple methods with the same name, but with a different argument list. This is an example of static polymorphism because we can resolve things at compile time (early binding). *Note:* constructors can be overridden in exactly the same way.
+ # *What is method overriding?*<br>When a method is overridden it means that a method exists in a sub-class which has the same (method signature) name and identical arguments used by the original method in the parent class. The overriding method can still call the parent method using the `super` keyword but will most likely provide some alternative behaviour. Methods may be overridden to be more `public`, not more `private`. 
  # *What is casting?*<br>Conversion of one object or primitive type to another.
  # *What is the difference between `final`, `finally` and `finalize`?*<br>The modifier `final` is used on variables, methods and classes to specify certain behaviour explained above. The `finally` keyword is used as one of the blocks of code in try-catch scenarios, it is used to hold code that needs to be executed whether or not the exception occurs in the try catch block (for example to release locks or close resources, although Java SE 7 allows for this with the try with resources block). Java provides a method called `finalize()` that can be defined in the class. When the garbage collector is ready to release the storage for your object, it will first call `finalize()`, and only on the next garbage-collection pass will it reclaim the objects memory. So `finalize()`, gives you the ability to perform some important clean up at the time of garbage collection. *This use of `finalize()`, however, is not recommended, since there is no guarantee as to when, or even if, this method will be run.*
  # *What are packages?*<br>A package is a collection of related classes and interfaces providing access protection and namespace management. Packages help programmers achieve encapsulation. 
@@ -225,6 +225,14 @@ For the questions below we depends on the definition of subtypes in generic cont
 
 == P.I.E. - The Pillars of Object Orientation ==
 
+Another method of remembering this is as AEIoP:
+  * Abstraction
+  * Encapsulation
+  * Inheritance 
+  * Polymorphism
+
+Think of the "o" as standing for Object Orientation.
+
 === Polymorphism ===
 
 [http://en.wikipedia.org/wiki/Polymorphism_in_object-oriented_programming Wikipedia: Polymorphism]
@@ -251,7 +259,7 @@ Inheritance in object oriented programming means that a class of objects can inh
 
 [http://en.wikipedia.org/wiki/Encapsulation_(object-oriented_programming) Wikipedia: Encapsulation]
 
-  * With Encapsulation you can hide (restrict access) to critical data members in your code , which improves security
+  * With Encapsulation you can hide (restrict access) to critical data members in your code, which improves security
   * Encapsulation combines data and actions together (just like a capsule)
 
 Encapsulation is the term given to the process of hiding the implementation details of the object. Once an object is encapsulated, its implementation details are not immediately accessible any more. Instead they are packaged and are only indirectly accessible via the interface of the object. When used properly encapsulation allows us to very easily change the implementation of a class without burdening those who use it (provided we maintain a consistent interface for interaction with our class).
@@ -289,6 +297,51 @@ According to the suggestions of the Java Language Specification, 8.1.1, 8.3.1 an
  # `synchronized`
  # `native`
  # `strictfp`
+
+=== Access Modifiers ===
+
+The table below list the different access modifiers and their corresponding visibility:
+
+|| *Access modifier/accessibility* || *Within the same class* || *Subclass inside the package* || *Subclass outside the package* || *Other class inside the package* || *Other class outside the package* ||
+|| `public` || y || y || y || y || y ||
+|| `private` || y || n || n || n || n ||
+|| `protected` || y || y || y || y || n ||
+|| Default || y || y || *n* || y || n ||
+
+*Note:* When dealing with access modifiers for classes there is a simple gottcha to be aware of: 
+
+   A public method in a class is accessible to the outside world only if the class is declared as public. If the class does not specify any access modifier, then the public method is accessible only within the containing package. It's also important to note that a class (or interface) cannot be declared private or protected. Furthermore, member methods or fields of an interface cannot be declared as private of protected.
+
+== Overloading ==
+
+Overloading is an important part of polymorphism and categorised as static polymorphism because it takes place at compile time. Both methods and constructors can be overloaded, if the compiler cannot find a match for a method call after exhausting all possible upcasting possibilities (i.e. byte > short > int > long etc. or Integer > Object) or if it finds too many ambiguous matches then a compiler error will result. Things to remember:
+
+  * Overload resolution takes places entirely at compile time (the opposite is runtime polymorphism).
+  * You cannot overload methods where the methods differ only in return type.
+  * You cannot overload methods where the methods differ only in exception specifications alone.
+  * For overload resolution to succeed, you need to define methods such that the compiler finds one exact match. If the compiler finds no matches or of the matching is ambiguous, the overload resolution fails and the compiler issues an error.
+
+== Inheritance ==
+
+Inheritance in Object Orientated programming is the hierarchical classification of knowledge. An inheritance relationship is referred to an an _is a_ relationship. 
+
+=== Runtime Polymorphism ===
+
+In runtime polymorphism the type of the base class *reference* is known as the _static type_ of the object and the actual object pointed to by the reference at runtime is known as the _dynamic type_ of the object. When the compiler sees the invocation of a methods from a base class reference and if the method is an over-ridable method (*a non-static and non-final method*), the compiler defers determining the exact method to be called to runtime (late binding). At runtime, based on the actual dynamic type of the object, an appropriate method is invoked. This mechanism is known as _dynamic method resolution_ or _dynamic method invocation_.
+
+=== Overriding ===
+
+Things to keep in mind when overriding, the overriding method:
+
+  * Should have the same argument list types (or compatible types) as the base version.
+  * Should have the same return type - although since Java 5, the return type can be a subclass-covariant return type.
+  * Should not have a more restrictive access modifier than the base version - but it may have a less restrictive access modifier.
+  * Should not throw new or broader checked exceptions - but it may throw fewer or narrower checked exceptions, or any unchecked exception.
+  * And, oh yes, the names should match...exactly!
+
+=== Covariant Return Types ===
+
+Since Java 5 it has been possible to make the return type of your over-ridable method a derived class of the return type declared in the base method (class). But why does this matter? Well, this might be convenient if you're attempting to trying to define an `abstract copy()` method is a `Shape` base class, ideally you'd like to be able to call copy on a Circle and get a fully fledge circle returned, however unless you can override the original copy method from Shape e.g. `public abstract Shape copy();` with a more specific derived return type in Circle i.e. `public Circle copy() {...}` then this wouldn't be possible.
 
 == Introspection (Annotations/generics/etc.) ==
 
@@ -618,6 +671,7 @@ These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_versio
  # The semantics of the `volatile` keyword were changed to ensure that threads never read a volatile variable from a local cache.
  # `import static ...` was added
  # The `java.util.concurrent` package was added
+ # Covariant return types of overridden methods were introduced (see Covariant Return Types above).
 
 == What's new in Java 6? ==
 
