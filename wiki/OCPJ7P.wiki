@@ -40,3 +40,38 @@
 == Java Packages ==
 
   * A _package_ is a scoping construct to categorize your classes and to provide namespace management.
+
+= Advanced Class Design =
+
+== Abstract Classes ==
+
+ * An abstraction specifying functionality supported without disclosing finer level details.
+ * You cannot create instances of an abstract class.
+ * Abstract classes enable runtime polymorphism, and runtime polymorphism in turn enable loose coupling. 
+
+== Using the `final` Keyword ==
+
+ * A final class in a non-inheritable class (i.e. you cannot inherit from a final class).
+ * A final method is a non-overridable method (i.e. subclasses cannot override a final method).
+ * All methods of a final class are implicitly final (i.e. non-overridable).
+ * A final variable can be assigned only once.
+
+== Using the `static` Keyword ==
+
+ * There are two types of member variables: class variables and instance variables. All variables that require an instance (object) of the class to access them are known as _instance variables_. All variables that are shared among all instances and are associated with a class rather than an object are referred to as _class variables_ (declared using the `static` keyword.
+ * All static members do not required an instance to call/access them. you can directly call/access them using the class name.
+ * A static member can call/access only a static member.
+
+== Flavours of Nested Classes ==
+
+ * Java supports fours types of nested classes: static nested classes, inner classes, local inner classes and anonymous inner classes.
+ * Static nested classes may have static members, whereas the other flavours of nested classes can't.
+ * Static nested classes can inner classes can access members of an outer class (even private members). However, static nested classes can access only static members of the outer class.
+ * Local classes (both local inner classes and anonymous inner classes) can access all variables declared in the outer scope (whether a method, constructor or a statement block).
+
+== Enums ==
+
+ * Enums are a typesafe way to achieve restricted input from users.
+ * You cannot use `new` with enums, even inside the enum definition.
+ * Enum classes are by default final classes.
+ * All enum classes are implicitly derived from `java.lang.Enum`.
