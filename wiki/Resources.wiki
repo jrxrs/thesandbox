@@ -399,6 +399,8 @@ An immutable class is simply a class whose instances cannot be modified. All of 
  * Checked exceptions in Java extend the `java.lang.Exception` class.
  * Unchecked exceptions extend the `java.lang.RuntimeException`.
 
+Generally it is considered bad practice to catch a `RuntimeException` such as a `ClassCastException`, as doing so can mask a programming error, there are of course exceptions to this, like catching a `NumberFormatException` when trying to capture and parse user input.
+
 [http://tutorials.jenkov.com/java-exception-handling/checked-or-unchecked-exceptions.html Java Exception Handling - Checked or Unchecked Exceptions]
 
 == D-Zone Ref Cardz ==
