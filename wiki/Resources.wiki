@@ -343,6 +343,14 @@ Things to keep in mind when overriding, the overriding method:
 
 Since Java 5 it has been possible to make the return type of your over-ridable method a derived class of the return type declared in the base method (class). But why does this matter? Well, this might be convenient if you're attempting to trying to define an `abstract copy()` method is a `Shape` base class, ideally you'd like to be able to call copy on a Circle and get a fully fledge circle returned, however unless you can override the original copy method from Shape e.g. `public abstract Shape copy();` with a more specific derived return type in Circle i.e. `public Circle copy() {...}` then this wouldn't be possible.
 
+== Covariance and Contravariance (Object Typing) ==
+
+[http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29 Covariance & Contravariance (computer science) from Wikipedia].
+
+  * covariant - converting from a specialized type (Cats) to a more general type (Animals): Every cat is an animal.
+  * contravariant: - converting from a general type (Shapes) to a more specialized type (Rectangles): Is this shape a rectangle?
+  * invariant - not able to convert.
+
 == Introspection (Annotations/generics/etc.) ==
 
 [http://stackoverflow.com/questions/2044446/java-introspection-and-reflection Reflection vs. Introspection]
