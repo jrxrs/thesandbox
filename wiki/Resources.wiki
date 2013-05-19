@@ -305,8 +305,10 @@ The table below list the different access modifiers and their corresponding visi
 || *Access modifier/accessibility* || *Within the same class* || *Subclass inside the package* || *Subclass outside the package* || *Other class inside the package* || *Other class outside the package* ||
 || `public` || y || y || y || y || y ||
 || `private` || y || n || n || n || n ||
-|| `protected` || y || y || y || y || n ||
+|| `protected` || y || y || y || *y* || n ||
 || Default || y || y || *n* || y || n ||
+
+The "*y*" in the *Other class inside the package* column for `protected` is interesting as it has passed me by before, for years I had assumed that it's only real use was for access in sub-classes but in fact `protected` fields and methods can also be accessed by classes in the same package as well.
 
 *Note:* When dealing with access modifiers for classes there is a simple gottcha to be aware of: 
 
