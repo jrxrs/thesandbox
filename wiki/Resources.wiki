@@ -507,6 +507,8 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 Enums help you restrict the number of acceptable input to a predefined list and do so in a typesafe manner. 
 
+*Note:* Enum constants must be the first things defined within the definition of an Enum, also note that a constructor in an Enum class can only be specified as private. Enums cannot be local (i.e. they must be declared at the class level).
+
 == Checked & Unchecked Exceptions ==
 
  * Checked exceptions in Java extend the `java.lang.Exception` class.
