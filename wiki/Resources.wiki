@@ -353,6 +353,115 @@ Since Java 5 it has been possible to make the return type of your over-ridable m
   * contravariant: - converting from a general type (Shapes) to a more specialized type (Rectangles): Is this shape a rectangle?
   * invariant - not able to convert.
 
+== Nested Classes ==
+
+=== Static Nested Class (non-local) ===
+
+Defined within a class.
+
+*Example*
+{{{
+class Outer {
+    static class StaticNested {
+        // class definition
+    }
+}
+}}}
+
+You can define a class or interface as a static member inside another class or interface. A static nested class is as good as a class defined as an outer class with one different - it is physically defined inside another class. 
+
+*What you need to know about static nested classes*
+
+ * The accessibility (`public`, `protected`, etc.) of the static class is defined by the outer class.
+ * The name of the static nested class is expressed with `OuterClassName.NestedClassName` syntax.
+ * When you define an inner class (or interface) inside an interface, the nested class is declared implicitly `public` and `static`. This point is easy to remember: any field in an interface is implicitly declared `public` and `static`, and static nested classes have this same behaviour. 
+ * Static nested classes can be declared `abstract` or `final`.
+ * Static nested classes can extends another class or it can be used as a base class.
+ * Static nested classes can have static members. (As you'll see shortly, this statement does not apply to other kinds of nested classes.)
+ * Static nested classes can access the members of the outer class (only static members, obviously).
+ * The outer class can also access the members (even private members) of the nested class through an object of the nest class. If you don't declare an instance of the nested class, the outer class cannot access nested class elements directly. 
+
+=== Inner Class (non-local) ===
+
+Defined within a class.
+
+*Example*
+{{{
+class Outer {
+    class Inner {
+        //class definition
+    }
+}
+}}}
+
+To create a new instance of a nested inner class you need to use the following syntax:
+{{{center = this.new Point(x, y);}}}
+The `this.` is required in order to prefix the object reference of the outer class as every inner class is associated with an instance of the outer class. In other words, an inner class is always associated with an enclosing object. 
+
+*Note:* You cannot declare static members in an inner class.
+{{{
+class Outer {
+    class Inner {
+        static int i = 10; //ERROR!
+    }
+}
+}}}
+
+*What you need to know about inner classes*
+
+ * The accessibility (`public`, `protected`, etc.) of the inner class is defined by the outer class.
+ * Just like top level classes an inner class can extend a class or can implement interfaces. Similarly, an inner class can be extended by other classes, and an inner interface can be implemented or extended by other classes or interfaces.
+ * Static nested classes can be declared `abstract` or `final`.
+ * Inner classes can have inner classes, but you'll have a hard time reading or understanding such complex nesting of classes i.e. avoid!
+
+So, what's the difference between a nested static class and an inner class? Well, there may not seem much at first glance, however look a little closer and we can see that the major differences are that inner classes cannot have static members whereas nested static classes can and you don't need an instance of the class containing a nested static in order to create an instance of the nested static, whereas you do need a instance of the class containing a inner class to create an instance of that inner class. 
+
+=== Local Inner Class (local) ===
+
+Defined within a code block (method, constructor or initialisation block). As such they are not members of an outer class; they are just local to the method or code in which they are defined.
+
+*Example*
+{{{
+class Outer {
+    void foo {
+        class LocalInner {
+            // class definition
+        }
+    }
+}
+}}}
+
+It is not possible to define interfaces within methods, constructors or initialisation blocks.
+
+*What you need to know about local inner classes*
+
+ * You can create a non-static local class inside a body of code. Interfaces cannot have local classes, and you cannot create local interfaces.
+ * Local classes are accessible only from the body of the code in which they class is defined. The local classes are completely inaccessible outside the body of code in which the class is defined.
+ * You can extends a class or implement interfaces while defining a local class.
+ * A local class can access all the variables available in the body of code in which it is defined. You can pass only final variables to a local inner class.
+
+=== Anonymous Inner Class (local) ===
+
+Defined within a code block (method, constructor or initialisation block).
+
+*Example*
+{{{
+class Outer {
+    void foo() {
+        return new Object() {
+            public String toString() {
+                return "anonymous";
+            }
+        }
+    }
+}
+}}}
+
+*What you need to know about anonymous inner classes*
+
+ * Anonymous classes are defined in the `new` expression itself, so you cannot create multiple objects of an anonymous class.
+ * You cannot explicitly extend a class or explicitly implement interfaces when defining an anonymous class. 
+
 == Introspection (Annotations/generics/etc.) ==
 
 [http://stackoverflow.com/questions/2044446/java-introspection-and-reflection Reflection vs. Introspection]
@@ -392,9 +501,11 @@ An immutable class is simply a class whose instances cannot be modified. All of 
 
 [http://onjava.com/onjava/excerpt/javaian5_chap04/index1.html Writing Generic Types & Methods]
 
-== Enums ==
+== Enum Data Types ==
 
 [http://www.javapractices.com/topic/TopicAction.do?Id=1 Enums Summary from javapractices.com]
+
+Enums help you restrict the number of acceptable input to a predefined list and do so in a typesafe manner. 
 
 == Checked & Unchecked Exceptions ==
 
