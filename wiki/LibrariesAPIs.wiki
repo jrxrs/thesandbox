@@ -173,6 +173,11 @@ The Java Transaction API ([http://en.wikipedia.org/wiki/Java_Transaction_API JTA
 
 Transaction propagation means that if you have two methods which are both transactional and one calls the other, then method being called can simply use use the existing transaction from the first method. Propagation is defined simply as the spreading of something. [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/transaction.html This] page can help.
 
+= UML =
+
+Generating UML diagrams from Java source code
+ * http://www.umlgraph.org/index.html
+
 = XML =
 
 e *X* tensible *M* arkup *L* anguage
