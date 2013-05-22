@@ -185,3 +185,7 @@ e *X* tensible *M* arkup *L* anguage
 == JAXB (Java API for XML Binding) ==
 
 Manipulating XML Pojos [http://javarevisited.blogspot.co.uk/2013/01/jaxb-xml-binding-tutorial-marshalling-unmarshalling-java-object-xml.html Tutorial]
+
+= YAML =
+
+ * [http://code.google.com/p/snakeyaml/ SnakeYAML]
