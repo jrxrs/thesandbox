@@ -75,3 +75,18 @@
  * You cannot use `new` with enums, even inside the enum definition.
  * Enum classes are by default final classes.
  * All enum classes are implicitly derived from `java.lang.Enum`.
+
+= Object-Orientate Design Principles =
+
+== Interfaces ==
+
+ * An interface is a set of abstract methods that defines a protocol.
+ * An interface cannot be instantiated; however, an interface can extend another interface.
+ * All methods declared in an interface are implicitly considered to be abstract.
+ * Abstract classes and interfaces are quite similar concepts. However, you should be careful to use the appropriate construct based on the context.
+
+== Object Composition ==
+
+ * Inheritance implies is-a, interface implies is-like-a, and composition implies has-a relationships.
+ * Favour composition over inheritance whenever feasible.
+ * Program to an interface, not to an implementation.
