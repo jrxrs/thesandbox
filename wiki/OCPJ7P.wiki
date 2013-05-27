@@ -35,7 +35,7 @@
   * You use the `super` keyword to calls base class methods.
   * Overloading is an example of _static polymorphism_ (_early binding_) while overriding is an example of _dynamic polymorphism_ (_late binding_).
   * You don't need to do an explicit cast for doing an _upcast_. An upcast will always succeed.
-  * You *do* need to do an explicit cast for doing a _doencast_. A downcast may fail. So you cn use the `instanceof` operator to see if a downcast is valid.
+  * You *do* need to do an explicit cast for doing a _downcast_. A downcast may fail. So you cn use the `instanceof` operator to see if a downcast is valid.
 
 == Java Packages ==
 
@@ -76,7 +76,7 @@
  * Enum classes are by default final classes.
  * All enum classes are implicitly derived from `java.lang.Enum`.
 
-= Object-Orientate Design Principles =
+= Object-Orientated Design Principles =
 
 == Interfaces ==
 
@@ -90,3 +90,13 @@
  * Inheritance implies is-a, interface implies is-like-a, and composition implies has-a relationships.
  * Favour composition over inheritance whenever feasible.
  * Program to an interface, not to an implementation.
+
+== Design Patterns ==
+
+ * Design patterns are reusable solutions of frequently recurring design problems.
+ * The observer design pattern improves loose coupling between subject and observers.
+ * The singleton design pattern ensures that only one instance of the class is created.
+ * Making sure that an intended singleton implementation is indeed single is a non-trivial task, especially in a multi-threaded environment.
+ * The factory design pattern "manufactures" the required type of product on demand.
+ * You should consider using the abstract factory design pattern when you have a family of objects to be created.
+ * A DAO design pattern essentially separates your core business logic from your persistence logic.
