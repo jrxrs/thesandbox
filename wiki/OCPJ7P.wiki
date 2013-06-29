@@ -100,3 +100,5 @@
  * The factory design pattern "manufactures" the required type of product on demand.
  * You should consider using the abstract factory design pattern when you have a family of objects to be created.
  * A DAO design pattern essentially separates your core business logic from your persistence logic.
+
+== Generics & Collections ==
