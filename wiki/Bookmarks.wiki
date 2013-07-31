@@ -26,6 +26,9 @@
   * [http://myhumax.org/ myhumax.org - Blog/Forums/Wiki]
   * [http://forums.digitalspy.co.uk/showthread.php?t=1729968 Humax HDR 1000S @ Digital Spy]
   * [http://www.avforums.com/forums/freesat/1674166-new-humax-hdr-1000s-freetime-pvr.html Humax HDR 1000S @ AV Forums]
+  * [http://hummy.tv/forum/threads/things-every-hd-fox-t2-hdr-fox-t2-owner-should-know.1858/ Humax Custom Firmware Knowledgebase]
+  * Hummy.tv [http://hummy.tv/forum/ Forums] & [http://wiki.hummy.tv/wiki/Main_Page Wiki]
+  * [http://rs.hummypkg.org.uk/ Hummypkg Remote Scheduling]
 
 *Programming*
   * [https://class.coursera.org/progfun-002/class/index Coursera - Functional Programming Principles in Scala]
