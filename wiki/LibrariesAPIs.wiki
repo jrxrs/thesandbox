@@ -83,6 +83,12 @@ http://www.quickfixj.org/
  * [http://www.fixionary.com/ Fixionary]
  * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
 
+= Google =
+
+== Protobufs ==
+
+[http://code.google.com/p/protobuf/ Why use anything else?]
+
 = Integrated Development Environments =
 
 == IntelliJ IDEA ==
