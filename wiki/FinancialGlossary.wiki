@@ -296,6 +296,10 @@ Quantitative easing (QE) involves electronically expanding a central bank's bala
 
 'Monetarist' theory says that both economic activity and price levels are set by the amount of money available multiplied by the speed at which it moves around ('the velocity of money'). So, by physically upping the cash that commercial lenders have at their disposal – by buying assets from them that other banks may be reluctant to accept as security for loans – the idea is that quantitative easing will directly boost interbank lending and raise the flow of credit through the economy as banks regain the confidence to make other loans to, say, small businesses and homeowners.
 
+=== Sarbanes Oxley for Dummies ===
+
+ * [http://www.dummies.com/how-to/content/sarbanesoxley-for-dummies-cheat-sheet.html Sarbanes Oxley for Dummies]
+
 === Secondary Market ===
 
 A market in which an investor purchases an asset from another investor, rather than an issuing corporation. A good example is the London Stock Exchange. All stock exchanges are part of the secondary market, as investors buy securities from other investors instead of an issuing company.
