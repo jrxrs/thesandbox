@@ -85,9 +85,19 @@ http://www.quickfixj.org/
 
 = Google =
 
+== Go Lang ==
+
+[http://golang.org Go] is a complied garbage collected language which is a bit like a cross between C & Java, while still fairly new it is rapidly gaining traction.
+
 == Protobufs ==
 
 [http://code.google.com/p/protobuf/ Why use anything else?]
+
+= Groovy =
+
+== Groovyserv ==
+
+ * [http://kobo.github.io/groovyserv/quickstart.html Groovyserv]
 
 = Integrated Development Environments =
 
