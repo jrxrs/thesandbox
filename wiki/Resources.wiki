@@ -913,6 +913,10 @@ common.invokeMethod("methodName", ["args", "go in an", "array!"])
 
 This is particularly useful you're using symlinks to locate your Groovy scripts and you need them to run reliably when executed from any directory.
 
+=== Groovyserv ===
+
+[http://kobo.github.io/groovyserv/quickstart.html Groovyserv] is an excellent process for *NIX, OSX & Windows which starts a JVM in the background which is constantly ticking over to run your Groovy scripts, this increases the speed on execution by up to 20 times!
+
 == Groovy Strings ==
 
  * [http://mrhaki.blogspot.co.uk/2009/09/groovy-goodness-padding-strings.html Padding Groovy Strings]
