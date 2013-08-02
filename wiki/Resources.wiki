@@ -1621,7 +1621,7 @@ See [https://code.google.com/p/thesandbox/wiki/Databases Databases]
 
 ----
 
-= *NIX - Gems for the Command Line =
+= `*`NIX - Gems for the Command Line =
 
  * [http://stackoverflow.com/questions/13489398/delete-files-older-than-10-days-using-shell-script-in-unix Using find to delete files older than x days]
 {{{
