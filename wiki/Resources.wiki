@@ -723,6 +723,10 @@ Alternatively in Java 7 you can use Method Handles to look up the class in conte
 Logger lgr = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 }}}
 
+== Java printing formatting ==
+
+ * [http://sharkysoft.com/archive/printf/docs/javadocs/lava/clib/stdio/doc-files/specification.htm Java printf formats]
+
 == Testing ==
 
 Apparently nobody has a team of QA's dedicated to their application any more...there are these things called test cases which the developers write based on stories from the business. Below are a few frameworks for driving these tests:
@@ -891,6 +895,15 @@ The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/
 = Libraries & APIs =
 
 http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
+
+----
+
+= Applications =
+
+== Vim ==
+
+ * [http://vim.wikia.com/wiki/Search_and_replace Search & Replace] with Vim
+ * [http://vim.wikia.com/wiki/PuTTY_numeric_keypad_mappings PuTTY & Vim - Using the Numpad]
 
 ----
 
@@ -1557,6 +1570,24 @@ The additional overhead of having native pointers in the system which take up 8 
 === IMPORTANT ===
 
 *What it is NOT*:  Many Java users and developers assume that a 64-bit implementation means that many of the built-in Java types are doubled in size from 32 to 64.  This is not true.  We did not increase the size of Java integers from 32 to 64 and since Java longs were already 64 bits wide, they didn't need updating.  Array indexes, which are defined in the Java Virtual Machine Specification, are not widened from 32 to 64.  We were extremely careful during the creation of the first 64-bit Java port to insure Java binary and API compatibility so all existing 100% pure Java programs would continue running just as they do under a 32-bit VM.
+
+----
+
+= Databases =
+
+See [https://code.google.com/p/thesandbox/wiki/Databases Databases]
+
+----
+
+= *NIX =
+
+ * [http://stackoverflow.com/questions/13489398/delete-files-older-than-10-days-using-shell-script-in-unix Using find to delete files older than x days]
+{{{
+find . -mtime +10 -type f -delete
+}}}
+ * [http://www.malloc.co/linux/how-to-print-with-color-in-linux-terminal/ Controlling Linux Shell Text Colour] - This is an excellent way to give (Groovy) scripts an extra something.
+
+----
 
 = Books =
 
