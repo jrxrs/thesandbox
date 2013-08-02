@@ -791,6 +791,10 @@ The advantages of Spring are many and varied, it allows access to beans external
 
 The Java Remote Method Invocation (RMI) system allows an object running in one Java virtual machine to invoke methods on an object running in another Java virtual machine. RMI provides for remote communication between programs written in the Java programming language.
 
+== Serialization ==
+
+[http://www.tutorialspoint.com/java/java_serialization.htm This is a really simple tutorial on Java Serialization] - to be honest I'd be hard pushed to look past [http://code.google.com/p/protobuf/ Google's protobufs] now.
+
 == What's new in Java 5? ==
 
 These headlines have been scraped from [http://en.wikipedia.org/wiki/Java_version_history here].
@@ -892,6 +896,29 @@ The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/
 
 ----
 
+= Groovy =
+
+== Groovy Enums ==
+
+[http://mrhaki.blogspot.co.uk/2010/12/groovy-goodness-transform-string-into.html Coerce string into the appropriate Enum value at runtime]
+
+== Groovy Scripts ==
+
+Groovy - method of getting access to a script (not located in your current dir) and using it in your script:
+
+{{{
+common = new GroovyShell().parse(new File("/home/me/groovy/scripts/Common.groovy"))
+common.invokeMethod("methodName", ["args", "go in an", "array!"])
+}}}
+
+This is particularly useful you're using symlinks to locate your Groovy scripts and you need them to run reliably when executed from any directory.
+
+== Groovy Strings ==
+
+ * [http://mrhaki.blogspot.co.uk/2009/09/groovy-goodness-padding-strings.html Padding Groovy Strings]
+
+----
+
 = Libraries & APIs =
 
 http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
@@ -938,6 +965,7 @@ This is an excellent summary of Syntactic Sugar from the [http://www.manning.com
  * [http://javarevisited.blogspot.co.uk/2011/09/swing-interview-questions-answers-in.html Java Swing Questions]
  * [http://java-success.blogspot.co.uk/ 400+ Java Interview Questions & Answers]
  * [http://java-interview-material.blogspot.co.uk/ Java Interview Material Blog]
+ * [http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=303&p_certName=SQ1Z0-851 Oracle Java Certificate Questions] - more in the book of course!
 
 == Logic ==
 
@@ -1096,6 +1124,16 @@ public class RegexTestHarness {
 }
 
 }}}
+
+== Examples ==
+
+My regex to match just the date stamp from a log file:
+
+{{{
+\[[0-9]*/.*?\]
+}}}
+
+e.g. matches: *[04/08/13 06:00:05.711 INFO ]* Hello, this is a line from my log file
 
 ----
 
@@ -1579,13 +1617,27 @@ See [https://code.google.com/p/thesandbox/wiki/Databases Databases]
 
 ----
 
-= *NIX =
+= *NIX - Gems for the Command Line =
 
  * [http://stackoverflow.com/questions/13489398/delete-files-older-than-10-days-using-shell-script-in-unix Using find to delete files older than x days]
 {{{
 find . -mtime +10 -type f -delete
 }}}
  * [http://www.malloc.co/linux/how-to-print-with-color-in-linux-terminal/ Controlling Linux Shell Text Colour] - This is an excellent way to give (Groovy) scripts an extra something.
+ * [http://www.cyberciti.biz/faq/what-process-has-open-linux-port/ Ports & Processes]
+This is a very useful article with lots of information, however more often than not you can get what you need from:
+{{{
+netstat -tulpn
+}}}
+ * [http://netcat.sourceforge.net/ Netcat] is a godsend when attempting to investigate and diagnose firewall issues! Always remember that the direction of a firewall request is relative to the home or safe side of the network, therefore *inbound* requests come from the DMZ to the internal network and *outbound* requests leave the internal network destined for the DMZ.
+
+----
+
+= Networking =
+
+== Multicast Addressing ==
+
+http://www.tcpipguide.com/free/t_IPMulticastAddressing.htm
 
 ----
 
