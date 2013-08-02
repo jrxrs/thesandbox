@@ -25,6 +25,7 @@
 
 == Java ==
  * [http://zeroturnaround.com/labs/java-8-the-first-taste-of-lambdas Lambdas in Java 8 - A First Look]
+ * [http://www.oraclejavamagazine-digital.com/javamagazine/20121112#pg47 Java running on a RaspberryPi]
 
 = K =
 = L =
