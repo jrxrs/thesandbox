@@ -1634,6 +1634,7 @@ This is a very useful article with lots of information, however more often than 
 netstat -tulpn
 }}}
  * [http://netcat.sourceforge.net/ Netcat] is a godsend when attempting to investigate and diagnose firewall issues! Always remember that the direction of a firewall request is relative to the home or safe side of the network, therefore *inbound* requests come from the DMZ to the internal network and *outbound* requests leave the internal network destined for the DMZ.
+ * [http://www.dedoimedo.com/computers/rsync-guide.html rsync]
 
 ----
 
