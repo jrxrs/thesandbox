@@ -16,9 +16,9 @@
 
 = Collections =
 
-[http://acs.lbl.gov/software/colt/ Cold] (Old!)
-[http://code.google.com/p/guava-libraries/ Guava]
-[http://trove.starlight-systems.com/ Trove]
+ * [http://acs.lbl.gov/software/colt/ Colt] (Old!)
+ * [http://code.google.com/p/guava-libraries/ Guava]
+ * [http://trove.starlight-systems.com/ Trove]
 
 = Command Line Tools (Windows) =
 
