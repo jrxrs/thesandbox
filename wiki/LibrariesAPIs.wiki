@@ -124,13 +124,16 @@ http://www.quickfixj.org/
  * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
  * [http://www-01.ibm.com/software/integration/wmq/ IBM WebSphere MQ]
 
-=== Tooling ===
+=== Tooling (Performance & monitoring) ===
 
  * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS] - used to monitor and manipulate JMS brokers/queues/topics etc.
  * [https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPJMETER HP JMeter]
+ * [http://jmeter.apache.org/ Apache JMeter]
  * [http://www.yourkit.com/ YourKit Java Profiler] (they also offer a .NET equiv.)
  * For more Java profiling tools see the list of [http://www.javaperformancetuning.com/resources.shtml#ProfilingToolsFree free] and [http://www.javaperformancetuning.com/resources.shtml#ProfilingToolsNotFree commercial] profilers on the [http://www.javaperformancetuning.com/ Java Performance Tuning]
- * [http://visualvm.java.net/ VisualVM] - used to connect to you java application over JMX and part of more recent JDK releases, has a wide variety of plugins
+ * [http://visualvm.java.net/ VisualVM] - used to connect to you java application over JMX and part of more recent JDK releases, has a wide variety of plugins e.g. [https://kenai.com/projects/btrace/pages/Home btrace] or [http://visualvm.java.net/saplugin.html sapluglin] from http://visualvm.java.net/plugins.html & [http://java.net/projects/tda/downloads/directory/visualvm here].
+ * [http://architects.dzone.com/articles/how-analyze-java-thread-dumps How to Analyse Java Thread Dumps]
+
 
 == Tibco ==
 
