@@ -896,6 +896,12 @@ The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/
 
 ----
 
+= The JVM =
+
+[http://blog.jamesdbloom.com/ This] blog covers details of the internals of the JVM & the languages that run on it.
+
+----
+
 = Groovy =
 
 == Groovy Enums ==
