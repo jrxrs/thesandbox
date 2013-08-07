@@ -63,6 +63,12 @@ For a list of all the EIPs that Camel supports, see [http://camel.apache.org/ent
 
 [http://camel.apache.org/jms.html JMS Component for Camel]
 
+[http://camel.apache.org/quickfix.html QuickFixJ]
+
+[http://camel.apache.org/restlet.html Restlet]
+ * http://www.javacodegeeks.com/2013/03/rest-with-apache-camel.html
+ * http://www.javacodegeeks.com/2012/05/rest-endpoint-for-integration-using.html
+
 = The FIX Protocol =
 
 The *F* inancial *I* nformation E *x* change Protocol. See [http://javarevisited.blogspot.co.uk/2011/04/fix-protocol-tutorial-for-beginners.html here] for a series of tutorial on the FIX Protocol.
@@ -196,6 +202,12 @@ Transaction propagation means that if you have two methods which are both transa
 
 Generating UML diagrams from Java source code
  * http://www.umlgraph.org/index.html
+
+= Web =
+
+== REST ==
+
+ * [http://restlet.org/ Restlet]
 
 = XML =
 
