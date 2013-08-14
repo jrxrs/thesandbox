@@ -17,6 +17,14 @@ A column-oriented DBMS is a database management system (DBMS) that stores data t
 
 ----
 
+= SQuirreL SQL =
+
+== MS SQL ==
+
+When using MS SQL with SQuirreL it's important that you don't include both sqljdbc.jar & sqljdbc4.jar on the class path regardless of which on eyou think the Driver is pointing at, see [http://www.java-forums.org/new-java/62586-jdk-7-connecting-remote-ms-sql-2005-server.html here] for more information.
+
+----
+
 = Sybase ASE =
 
 == Java & Sybase ==
