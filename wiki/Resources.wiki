@@ -923,9 +923,15 @@ This is particularly useful you're using symlinks to locate your Groovy scripts 
 
 [http://kobo.github.io/groovyserv/quickstart.html Groovyserv] is an excellent process for *NIX, OSX & Windows which starts a JVM in the background which is constantly ticking over to run your Groovy scripts, this increases the speed on execution by up to 20 times!
 
-== Groovy Strings ==
+== Groovy Strings (G-Strings) ==
 
  * [http://mrhaki.blogspot.co.uk/2009/09/groovy-goodness-padding-strings.html Padding Groovy Strings]
+
+----
+
+= Jython =
+
+Jython is a port of the Python programming language to the JVM, a very comprehensive book can be found [http://www.jython.org/jythonbook/en/1.0/index.html here] and the Java Magazine has published a series of articles on the topic, [http://www.oraclejavamagazine-digital.com/javamagazine_open/20130304#pg67 Part 1] & [http://www.oraclejavamagazine-digital.com/javamagazine/20130506#pg83 Part 2].
 
 ----
 
