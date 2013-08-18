@@ -1,0 +1,692 @@
+{| class="wikitable" style="font-size:85%; text-align:center;"
+|- valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[2011 Australian Grand Prix|AUS]]<br />{{flagicon|AUS}}
+! [[2011 Malaysian Grand Prix|MAL]]<br />{{flagicon|MYS}}
+! [[2011 Chinese Grand Prix|CHN]]<br />{{flagicon|CHN}}
+! [[2011 Turkish Grand Prix|TUR]]<br />{{flagicon|TUR}}
+! [[2011 Spanish Grand Prix|ESP]]<br />{{flagicon|ESP}}
+! [[2011 Monaco Grand Prix|MON]]<br />{{flagicon|MON}}
+! [[2011 Canadian Grand Prix|CAN]]<br />{{flagicon|CAN}}
+! [[2011 European Grand Prix|EUR]]<br />{{flagicon|ESP}}
+! [[2011 British Grand Prix|GBR]]<br />{{flagicon|GBR}}
+! [[2011 German Grand Prix|GER]]<br />{{flagicon|GER}}
+! [[2011 Hungarian Grand Prix|HUN]]<br />{{flagicon|HUN}}
+! [[2011 Belgian Grand Prix|BEL]]<br />{{flagicon|BEL}}
+! [[2011 Italian Grand Prix|ITA]]<br />{{flagicon|ITA}}
+! [[2011 Singapore Grand Prix|SIN]]<br />{{flagicon|SIN}}
+! [[2011 Japanese Grand Prix|JPN]]<br />{{flagicon|JPN}}
+! [[2011 Korean Grand Prix|KOR]]<br />{{flagicon|KOR}}
+! [[2011 Indian Grand Prix|IND]]<br />{{flagicon|IND}}
+! [[2011 Abu Dhabi Grand Prix|ABU]]<br />{{flagicon|UAE}}
+! [[2011 Brazilian Grand Prix|BRA]]<br />{{flagicon|BRA}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|-
+! 1
+|align="left"| {{flagicon|GER}} [[Sebastian Vettel]]
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#dfdfdf"| '''2'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| 1
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#dfdfdf"| '''2'''
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| '''2'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffdf9f"| '''3'''
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#efcfff"| '''Ret'''
+|bgcolor="#dfdfdf"| '''2'''
+!align="right"| 392
+|-
+! 2
+|align="left"| {{flagicon|GBR}} [[Jenson Button]]
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 6
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffffbf"| 1
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+!align="right"| 270
+|-
+! 3
+|align="left"| {{flagicon|AUS}} [[Mark Webber]]
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| ''4''
+|bgcolor="#ffdf9f"| ''3''
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#dfffdf"|'''4'''
+|bgcolor="#dfffdf"| ''4''
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"|'''3'''
+|bgcolor="#ffdf9f"|'''3'''
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| ''4''
+|bgcolor="#ffffbf"| ''1''
+!align="right"| 258
+|-
+! 4
+|align="left"| {{flagicon|ESP}} [[Fernando Alonso]]
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 7
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 5
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 4
+!align="right"| 257
+|-
+! 5
+|align="left"| {{flagicon|GBR}} [[Lewis Hamilton]]
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 8
+|bgcolor="#ffffbf"| 1
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#dfffdf"| 4
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| ''4''
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfdfdf"| '''2'''
+|bgcolor="#dfffdf"| 7
+|bgcolor="#ffffbf"| 1
+|bgcolor="#efcfff"| Ret
+!align="right"| 227
+|-
+! 6
+|align="left"| {{flagicon|BRA}} [[Felipe Massa]]
+|bgcolor="#dfffdf"| ''7''
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| ''6''
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+!align="right"| 118
+|-
+! 7
+|align="left"| {{flagicon|GER}} [[Nico Rosberg]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 11
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 7
+!align="right"| 89
+|-
+! 8
+|align="left"| {{flagicon|GER}} [[Michael Schumacher]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#cfcfff"| 17
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 15
+!align="right"| 76
+|-
+! 9
+|align="left"| {{flagicon|GER}} [[Adrian Sutil]]
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 11
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 14
+|bgcolor="#dfffdf"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 11
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 6
+!align="right"| 42
+|-
+! 10
+|align="left"| {{flagicon|RUS}} [[Vitaly Petrov]]
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#cfcfff"| 17†
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 17
+|bgcolor="#dfffdf"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 10
+!align="right"| 37
+|-
+! 11
+|align="left"| {{flagicon|GER}} [[Nick Heidfeld]]
+|bgcolor="#cfcfff"| 12
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|
+|
+|
+|
+|
+|
+|
+|
+!align="right"| 34
+|-
+! 12
+|align="left"| {{flagicon|JPN}} [[Kamui Kobayashi]]
+|bgcolor="#000000" style="color:white"| DSQ
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 12
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 15
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 9
+!align="right"| 30
+|-
+! 13
+|align="left"| {{flagicon|GBR}} [[Paul di Resta]]
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 18†
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 11
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 8
+!align="right"| 27
+|-
+! 14
+|align="left"| {{flagicon|ESP}} [[Jaime Alguersuari]]
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 8
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 10
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 21†
+|bgcolor="#cfcfff"| 15
+|bgcolor="#dfffdf"| 7
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 11
+!align="right"| 26
+|-
+! 15
+|align="left"| {{flagicon|SUI}} [[Sébastien Buemi]]
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 14
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 14
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 13
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#dfffdf"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 12
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+!align="right"| 15
+|-
+! 16
+|align="left"| {{flagicon|MEX}} [[Sergio Pérez]]
+|bgcolor="#000000" style="color:white"| DSQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 14
+|bgcolor="#dfffdf"| 9
+|bgcolor="#ffffff"| DNS
+|bgcolor="#f1f8ff"| PO
+|bgcolor="#cfcfff"| 11
+|bgcolor="#dfffdf"| 7
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 15
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 10
+|bgcolor="#dfffdf"| 8
+|bgcolor="#cfcfff"| 16
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 13
+!align="right"| 14
+|-
+! 17
+|align="left"| {{flagicon|BRA}} [[Rubens Barrichello]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 17
+|bgcolor="#dfffdf"| 9
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 13
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 14
+!align="right"| 4
+|-
+! 18
+|align="left"| {{flagicon|BRA}} [[Bruno Senna]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 9
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 17
+!align="right"| 2
+|-
+! 19
+|align="left"| {{flagicon|VEN}} [[Pastor Maldonado]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 18†
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 16
+|bgcolor="#dfffdf"| 10
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+!align="right"| 1
+|-
+! 20
+|align="left"| {{flagicon|ESP}} [[Pedro de la Rosa]]
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 12
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+!align="right"| 0
+|-
+! 21
+|align="left"| {{flagicon|ITA}} [[Jarno Trulli]]
+|bgcolor="#cfcfff"| 13
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 20
+|bgcolor="#efcfff"| Ret
+|
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 18
+!align="right"| 0
+|-
+! 22
+|align="left"| {{flagicon|FIN}} [[Heikki Kovalainen]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 19
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 19
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 16
+!align="right"| 0
+|-
+! 23
+|align="left"| {{flagicon|ITA}} [[Vitantonio Liuzzi]]
+|bgcolor="#FFCFCF"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 22
+|bgcolor="#cfcfff"| 22
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 23
+|bgcolor="#cfcfff"| 18
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 19
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 23
+|bgcolor="#cfcfff"| 21
+|
+|bgcolor="#cfcfff"| 20
+|bgcolor="#efcfff"| Ret
+!align="right"| 0
+|-
+! 24
+|align="left"| {{flagicon|BEL}} [[Jérôme d'Ambrosio]]
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 22
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 17
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 21
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 19
+!align="right"| 0
+|-
+! 25
+|align="left"| {{flagicon|GER}} [[Timo Glock]]
+|bgcolor="#cfcfff"| NC
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 21
+|bgcolor="#ffffff"| DNS
+|bgcolor="#cfcfff"| 19
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 21
+|bgcolor="#cfcfff"| 16
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 18
+|bgcolor="#cfcfff"| 15
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 20
+|bgcolor="#cfcfff"| 18
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 19
+|bgcolor="#efcfff"| Ret
+!align="right"| 0
+|-
+! 26
+|align="left"| {{flagicon|IND}} [[Narain Karthikeyan]]
+|bgcolor="#FFCFCF"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 23
+|bgcolor="#cfcfff"| 21
+|bgcolor="#cfcfff"| 21
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 24
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 17
+|
+|
+!align="right"| 0
+|-
+! 27
+|align="left"| {{flagicon|AUS}} [[Daniel Ricciardo]]
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 18
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| NC
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 22
+|bgcolor="#cfcfff"| 19
+|bgcolor="#cfcfff"| 18
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 20
+!align="right"| 0
+|-
+! 28
+|align="left"| {{flagicon|IND}} [[Karun Chandhok]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 20
+|
+|
+|
+|
+|
+|
+|
+|
+|
+!align="right"| 0
+|- valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[2011 Australian Grand Prix|AUS]]<br />{{flagicon|AUS}}
+! [[2011 Malaysian Grand Prix|MAL]]<br />{{flagicon|MYS}}
+! [[2011 Chinese Grand Prix|CHN]]<br />{{flagicon|CHN}}
+! [[2011 Turkish Grand Prix|TUR]]<br />{{flagicon|TUR}}
+! [[2011 Spanish Grand Prix|ESP]]<br />{{flagicon|ESP}}
+! [[2011 Monaco Grand Prix|MON]]<br />{{flagicon|MON}}
+! [[2011 Canadian Grand Prix|CAN]]<br />{{flagicon|CAN}}
+! [[2011 European Grand Prix|EUR]]<br />{{flagicon|ESP}}
+! [[2011 British Grand Prix|GBR]]<br />{{flagicon|GBR}}
+! [[2011 German Grand Prix|GER]]<br />{{flagicon|GER}}
+! [[2011 Hungarian Grand Prix|HUN]]<br />{{flagicon|HUN}}
+! [[2011 Belgian Grand Prix|BEL]]<br />{{flagicon|BEL}}
+! [[2011 Italian Grand Prix|ITA]]<br />{{flagicon|ITA}}
+! [[2011 Singapore Grand Prix|SIN]]<br />{{flagicon|SIN}}
+! [[2011 Japanese Grand Prix|JPN]]<br />{{flagicon|JPN}}
+! [[2011 Korean Grand Prix|KOR]]<br />{{flagicon|KOR}}
+! [[2011 Indian Grand Prix|IND]]<br />{{flagicon|IND}}
+! [[2011 Abu Dhabi Grand Prix|ABU]]<br />{{flagicon|UAE}}
+! [[2011 Brazilian Grand Prix|BRA]]<br />{{flagicon|BRA}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|}

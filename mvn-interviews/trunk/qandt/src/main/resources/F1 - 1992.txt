@@ -1,0 +1,822 @@
+{| class="wikitable" style="font-size: 85%; text-align:center;"
+|- valign="top"
+!valign="middle"| Pos <ref name=AutomobileYearDrivers>F1 Drivers World Championship table, Automobile Year 1992/93</ref>
+!valign="middle"| Driver <ref name=AutomobileYearDrivers/>
+! [[1992 South African Grand Prix|RSA]]<br />{{flagicon|South Africa|1928}}
+! [[1992 Mexican Grand Prix|MEX]]<br />{{flagicon|Mexico}}
+! [[1992 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[1992 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[1992 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[1992 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[1992 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[1992 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[1992 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[1992 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[1992 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[1992 Belgian Grand Prix|BEL]]<br />{{flagicon|Belgium}}
+! [[1992 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[1992 Portuguese Grand Prix|POR]]<br />{{flagicon|Portugal}}
+! [[1992 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+! [[1992 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]] <ref name=AutomobileYearDrivers/>
+|-
+! 1
+|align="left"| {{flagicon|UK}} [[Nigel Mansell]]
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#dfdfdf"| '''''2'''''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#ffffbf"| '''''1'''''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#dfdfdf"| '''2'''
+|bgcolor="#efcfff"| '''''Ret'''''
+|bgcolor="#ffffbf"| '''1'''
+|bgcolor="#efcfff"| '''''Ret'''''
+|bgcolor="#efcfff"| '''Ret'''
+|align="right"| '''108'''
+|-
+! 2
+|align="left"| {{flagicon|Italy}} [[Riccardo Patrese]]
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfdfdf"| ''2''
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#cfcfff"| ''8''<sup>†</sup>
+|bgcolor="#efcfff"| '''Ret'''
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffffbf"| 1
+|bgcolor="#efcfff"| Ret
+|align="right"| '''56'''
+|-
+! 3
+|align="left"| {{flagicon|Germany}} [[Michael Schumacher]]
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfdfdf"| ''2''
+|align="right"| '''53'''
+|-
+! 4
+|align="left"| {{flagicon|Brazil}} [[Ayrton Senna]]
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 9<sup>†</sup>
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffffbf"| 1
+|bgcolor="#efcfff"| '''Ret'''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#ffffbf"| 1
+|bgcolor="#dfffdf"| 5
+|bgcolor="#ffffbf"| 1
+|bgcolor="#ffdf9f"| ''3''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|align="right"| '''50'''
+|-
+! 5
+|align="left"| {{flagicon|Austria}} [[Gerhard Berger]]
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| ''4''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffffbf"| ''1''
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#ffffbf"| 1
+|align="right"| '''49'''
+|-
+! 6
+|align="left"| {{flagicon|UK}} [[Martin Brundle]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfdfdf"| 2
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#ffdf9f"| 3
+|align="right"| '''38'''
+|-
+! 7
+|align="left"| {{flagicon|France}} [[Jean Alesi]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffdf9f"| 3
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 4
+|align="right"| '''18'''
+|-
+! 8
+|align="left"| {{flagicon|Finland}} [[Mika Häkkinen]]
+|bgcolor="#cfcfff"| 9
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 7
+|align="right"| '''11'''
+|-
+! 9
+|align="left"| {{flagicon|Italy}} [[Andrea de Cesaris]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 8
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 9
+|bgcolor="#dfffdf"| 4
+|bgcolor="#efcfff"| Ret
+|align="right"| '''8'''
+|-
+! 10
+|align="left"| {{flagicon|Italy}} [[Michele Alboreto]]
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 13
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 5
+|bgcolor="#dfffdf"| 5
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 9
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 7
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 15
+|bgcolor="#efcfff"| Ret
+|align="right"| '''6'''
+|-
+! 11
+|align="left"| {{flagicon|France}} [[Érik Comas]]
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 9
+|bgcolor="#cfcfff"| 10
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 5
+|bgcolor="#cfcfff"| 8
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|align="right"| '''4'''
+|-
+! 12
+|align="left"| {{flagicon|Austria}} [[Karl Wendlinger]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 12
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 4
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|
+|
+|align="right"| '''3'''
+|-
+! 13
+|align="left"| {{flagicon|Italy}} [[Ivan Capelli]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|bgcolor="#cfcfff"| 10<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|
+|
+|align="right"| '''3'''
+|-
+! 14
+|align="left"| {{flagicon|Belgium}} [[Thierry Boutsen]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 5
+|align="right"| '''2'''
+|-
+! 15
+|align="left"| {{flagicon|UK}} [[Johnny Herbert]]
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 13<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 13
+|align="right"| '''2'''
+|-
+! 16
+|align="left"| {{flagicon|Italy}} [[Pierluigi Martini]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#dfffdf"| 6
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|align="right"| '''2'''
+|-
+! 17
+|align="left"| {{flagicon|Italy}} [[Stefano Modena]]
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 7
+|bgcolor="#dfffdf"| 6
+|align="right"| '''1'''
+|-
+! 18
+|align="left"| {{flagicon|Brazil}} [[Christian Fittipaldi]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 13
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 12
+|bgcolor="#dfffdf"| 6
+|bgcolor="#cfcfff"| 9
+|align="right"| '''1'''
+|-
+! 19
+|align="left"| {{flagicon|FRA}} [[Bertrand Gachot]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#dfffdf"| 6
+|bgcolor="#000000" style="color: white;"| DSQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 18<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|align="right"| '''1'''
+|-
+! —
+|align="left"| {{flagicon|Japan}} [[Aguri Suzuki]]
+|bgcolor="#cfcfff"| 8
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 11
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 9
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 8
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Finland}} [[JJ Lehto]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11<sup>†</sup>
+|bgcolor="#cfcfff"| 9
+|bgcolor="#cfcfff"| 9
+|bgcolor="#cfcfff"| 9
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 10
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 7
+|bgcolor="#cfcfff"| 11<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 9
+|bgcolor="#efcfff"| Ret
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Gianni Morbidelli]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 8
+|bgcolor="#cfcfff"| 17<sup>†</sup>
+|bgcolor="#cfcfff"| 12
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 16
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 14
+|bgcolor="#cfcfff"| 10
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Brazil}} [[Maurício Gugelmin]]
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 7
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 15
+|bgcolor="#cfcfff"| 10
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|France}} [[Olivier Grouillard]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 8
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Japan}} [[Ukyo Katayama]]
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 9
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 17
+|bgcolor="#cfcfff"| 9<sup>†</sup>
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#efcfff"| Ret
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|France}} [[Paul Belmondo]]
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 13
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 14
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 13
+|bgcolor="#cfcfff"| 9
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Belgium}} [[Eric van de Poele]]
+|bgcolor="#cfcfff"| 13
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 10
+|bgcolor="#efcfff"| Ret
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Emanuele Naspetti]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 12
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 11
+|bgcolor="#cfcfff"| 13
+|bgcolor="#efcfff"| Ret
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Nicola Larini]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#cfcfff"| 12
+|bgcolor="#cfcfff"| 11
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|UK}} [[Damon Hill]]
+|
+|
+|
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 16
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#cfcfff"| 11
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Netherlands}} [[Jan Lammers]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 12
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Gabriele Tarquini]]
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#cfcfff"| 14
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|bgcolor="#efcfff"| Ret
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Switzerland}} [[Andrea Chiesa]]
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Brazil}} [[Roberto Moreno]]
+|
+|
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNPQ
+|
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Alex Zanardi|Alessandro Zanardi]]
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#efcfff"| Ret
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Giovanna Amati]]
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|UK}} [[Perry McCarthy]]
+|
+|
+| EX
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNPQ
+|
+|
+|bgcolor="#ffcfcf"| DNPQ
+| EX
+|bgcolor="#ffcfcf"| DNPQ
+|bgcolor="#ffcfcf"| DNQ
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Alex Caffi]]
+| EX
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{flagicon|Italy}} [[Enrico Bertaggia]]
+| EX
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|- valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[1992 South African Grand Prix|RSA]]<br />{{flagicon|South Africa|1928}}
+! [[1992 Mexican Grand Prix|MEX]]<br />{{flagicon|Mexico}}
+! [[1992 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[1992 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[1992 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[1992 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[1992 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[1992 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[1992 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[1992 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[1992 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[1992 Belgian Grand Prix|BEL]]<br />{{flagicon|Belgium}}
+! [[1992 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[1992 Portuguese Grand Prix|POR]]<br />{{flagicon|Portugal}}
+! [[1992 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+! [[1992 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|}

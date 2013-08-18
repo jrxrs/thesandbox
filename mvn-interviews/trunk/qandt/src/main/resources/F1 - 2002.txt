@@ -1,0 +1,527 @@
+{|class="wikitable" style="font-size: 85%; text-align:center;"
+|- valign="top"
+!valign="middle"| Pos <ref name=FIA>[http://web.archive.org/web/20021221123803/http://www.fia.com/freepress/F1_guide_2002/Championship.html Drivers and Constructors Standings at www.fia.com] Retrieved via web.archive.org on 17 February 2012</ref>
+!valign="middle"| Driver <ref name=FIA/>
+! [[2002 Australian Grand Prix|AUS]]<br />{{Flagicon|Australia}}
+! [[2002 Malaysian Grand Prix|MAL]]<br />{{Flagicon|Malaysia}}
+! [[2002 Brazilian Grand Prix|BRA]]<br />{{Flagicon|Brazil}}
+! [[2002 San Marino Grand Prix|SMR]]<br />{{Flagicon|San Marino}}
+! [[2002 Spanish Grand Prix|ESP]]<br />{{Flagicon|Spain}}
+! [[2002 Austrian Grand Prix|AUT]]<br />{{Flagicon|Austria}}
+! [[2002 Monaco Grand Prix|MON]]<br />{{Flagicon|Monaco}}
+! [[2002 Canadian Grand Prix|CAN]]<br />{{Flagicon|Canada}}
+! [[2002 European Grand Prix|EUR]]<br />{{Flagicon|Germany}}
+! [[2002 British Grand Prix|GBR]]<br />{{Flagicon|UK}}
+! [[2002 French Grand Prix|FRA]]<br />{{Flagicon|France}}
+! [[2002 German Grand Prix|GER]]<br />{{Flagicon|Germany}}
+! [[2002 Hungarian Grand Prix|HUN]]<br />{{Flagicon|Hungary}}
+! [[2002 Belgian Grand Prix|BEL]]<br />{{Flagicon|Belgium}}
+! [[2002 Italian Grand Prix|ITA]]<br />{{Flagicon|Italy}}
+! [[2002 United States Grand Prix|USA]]<br />{{Flagicon|US}}
+! [[2002 Japanese Grand Prix|JPN]]<br />{{Flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]] <ref name=FIA/>
+|-
+! 1
+|align="left"| {{Flagicon|Germany}} [[Michael Schumacher]]
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFDF9F"| '''3'''
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFFFBF"| '''1'''
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#FFFFBF"| ''1''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFDFDF"| '''2'''
+|bgcolor="#FFFFBF"| '''''1'''''
+|align="right"| '''144'''
+|-
+! 2
+|align="left"| {{Flagicon|Brazil}} [[Rubens Barrichello]]
+|bgcolor="#EFCFFF"|'''Ret'''
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#FFFFFF"|DNS
+|bgcolor="#DFDFDF"| '''2'''
+|bgcolor="#CFCFFF"| ''7''
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#FFFFFF"|DNS
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#FFFFBF"| '''1'''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#FFFFBF"| ''1''
+|bgcolor="#FFFFBF"| ''1''
+|bgcolor="#DFDFDF"| 2
+|align="right"| '''77'''
+|-
+! 3
+|align="left"| {{Flagicon|Colombia}} [[Juan Pablo Montoya]]
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#DFFFDF"| '''''5'''''
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|'''Ret'''
+|bgcolor="#EFCFFF"|'''''Ret'''''
+|bgcolor="#EFCFFF"|'''Ret'''
+|bgcolor="#FFDF9F"| '''3'''
+|bgcolor="#DFFFDF"| '''4'''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|'''Ret'''
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 4
+|align="right"| '''50'''
+|-
+! 4
+|align="left"| {{Flagicon|Germany}} [[Ralf Schumacher]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#CFCFFF"| 11<sup>†</sup>
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 16
+|bgcolor="#CFCFFF"| 11<sup>†</sup>
+|align="right"| '''42'''
+|-
+! 5
+|align="left"| {{Flagicon|UK}} [[David Coulthard]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#FFDF9F"| ''3''
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''41'''
+|-
+! 6
+|align="left"| {{Flagicon|Finland}} [[Kimi Räikkönen]]
+|bgcolor="#FFDF9F"| ''3''
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFDF9F"| 3
+|align="right"| '''24'''
+|-
+! 7
+|align="left"| {{Flagicon|UK}} [[Jenson Button]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#CFCFFF"| 12<sup>†</sup>
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 15<sup>†</sup>
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#CFCFFF"| 12<sup>†</sup>
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#DFFFDF"| 6
+|align="right"| '''14'''
+|-
+! 8
+|align="left"| {{Flagicon|Italy}} [[Jarno Trulli]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 10<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''9'''
+|-
+! 9
+|align="left"| {{Flagicon|UK}} [[Eddie Irvine]]
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 9
+|align="right"| '''8'''
+|-
+! 10
+|align="left"| {{Flagicon|Germany}} [[Nick Heidfeld]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 7
+|align="right"| '''7'''
+|-
+! 11
+|align="left"| {{Flagicon|Italy}} [[Giancarlo Fisichella]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#FFCFCF"|DNQ
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''7'''
+|-
+! 12
+|align="left"| {{Flagicon|Canada}} [[Jacques Villeneuve]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 10<sup>†</sup>
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#CFCFFF"| 10<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''4'''
+|-
+! 13
+|align="left"| {{Flagicon|Brazil}} [[Felipe Massa]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''4'''
+|-
+! 14
+|align="left"| {{Flagicon|France}} [[Olivier Panis]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 12<sup>†</sup>
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''3'''
+|-
+! 15
+|align="left"| {{Flagicon|Japan}} [[Takuma Sato]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 16
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#DFFFDF"| 5
+|align="right"| '''2'''
+|-
+! 16
+|align="left"| {{Flagicon|Australia}} [[Mark Webber]]
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 11
+|bgcolor="white"| DNS
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 15
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"|16
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|align="right"| '''2'''
+|-
+! 17
+|align="left"| {{Flagicon|Finland}} [[Mika Salo]]
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 15
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#CFCFFF"| 8
+|align="right"| '''2'''
+|-
+! 18
+|align="left"| {{Flagicon|Germany}} [[Heinz-Harald Frentzen]]
+|bgcolor="#000000" style="color: white;"|DSQ
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFCFCF"|DNQ
+|bgcolor="#EFCFFF"|Ret
+|
+|
+|
+|bgcolor="#CFCFFF"| 13
+|
+|align="right"| '''2'''
+|-
+! 19
+|align="left"| {{Flagicon|UK}} [[Allan McNish]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 15
+|bgcolor="white"| DNS
+|align="right"| '''0'''
+|-
+! 20
+|align="left"| {{Flagicon|Malaysia}} [[Alex Yoong]]
+|bgcolor="#CFCFFF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#FFCFCF"|DNQ
+|bgcolor="white"| DNS
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFCFCF"|DNQ
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#FFCFCF"|DNQ
+|
+|
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''0'''
+|-
+! 21
+|align="left"| {{Flagicon|Spain}} [[Pedro de la Rosa]]
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''0'''
+|-
+! 22
+|align="left"| {{Flagicon|Brazil}} [[Enrique Bernoldi]]
+|bgcolor="#000000" style="color: white;"|DSQ
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFCFCF"|DNQ
+|bgcolor="#EFCFFF"|Ret
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! —
+|align="left"| {{Flagicon|UK}} [[Anthony Davidson]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|
+|
+|
+|align="right"| '''0'''
+|- style="background: #f9f9f9;" valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[2002 Australian Grand Prix|AUS]]<br />{{Flagicon|Australia}}
+! [[2002 Malaysian Grand Prix|MAL]]<br />{{Flagicon|Malaysia}}
+! [[2002 Brazilian Grand Prix|BRA]]<br />{{Flagicon|Brazil}}
+! [[2002 San Marino Grand Prix|SMR]]<br />{{Flagicon|San Marino}}
+! [[2002 Spanish Grand Prix|ESP]]<br />{{Flagicon|Spain}}
+! [[2002 Austrian Grand Prix|AUT]]<br />{{Flagicon|Austria}}
+! [[2002 Monaco Grand Prix|MON]]<br />{{Flagicon|Monaco}}
+! [[2002 Canadian Grand Prix|CAN]]<br />{{Flagicon|Canada}}
+! [[2002 European Grand Prix|EUR]]<br />{{Flagicon|Germany}}
+! [[2002 British Grand Prix|GBR]]<br />{{Flagicon|UK}}
+! [[2002 French Grand Prix|FRA]]<br />{{Flagicon|France}}
+! [[2002 German Grand Prix|GER]]<br />{{Flagicon|Germany}}
+! [[2002 Hungarian Grand Prix|HUN]]<br />{{Flagicon|Hungary}}
+! [[2002 Belgian Grand Prix|BEL]]<br />{{Flagicon|Belgium}}
+! [[2002 Italian Grand Prix|ITA]]<br />{{Flagicon|Italy}}
+! [[2002 United States Grand Prix|USA]]<br />{{Flagicon|US}}
+! [[2002 Japanese Grand Prix|JPN]]<br />{{Flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|}

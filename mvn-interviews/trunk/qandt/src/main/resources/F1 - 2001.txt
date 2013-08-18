@@ -1,0 +1,590 @@
+{| class="wikitable" style="font-size: 85%; text-align:center;"
+|- valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[2001 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+! [[2001 Malaysian Grand Prix|MAL]]<br />{{flagicon|Malaysia}}
+! [[2001 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[2001 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[2001 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[2001 Austrian Grand Prix|AUT]]<br />{{flagicon|Austria}}
+! [[2001 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[2001 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[2001 European Grand Prix|EUR]]<br />{{flagicon|Germany}}
+! [[2001 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[2001 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[2001 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[2001 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[2001 Belgian Grand Prix|BEL]]<br />{{flagicon|Belgium}}
+! [[2001 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[2001 United States Grand Prix|USA]]<br />{{flagicon|US}}
+! [[2001 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|-
+! 1
+|align="left"| {{flagicon|Germany}} [[Michael Schumacher]]
+| style="background:#ffffbf;"| '''''1'''''
+| style="background:#ffffbf;"| '''1'''
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#efcfff;"| Ret
+| style="background:#ffffbf;"| '''''1'''''
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#ffffbf;"| 1
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#ffffbf;"| '''1'''
+| style="background:#ffffbf;"| 1
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#efcfff;"| Ret
+| style="background:#ffffbf;"| '''1'''
+| style="background:#ffffbf;"| ''1''
+| style="background:#dfffdf;"| 4
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#ffffbf;"| '''1'''
+|align="right"| '''123'''
+|-
+! 2
+|align="left"| {{flagicon|UK}} [[David Coulthard]]
+| style="background:#dfdfdf;"| 2
+| style="background:#ffdf9f;"| 3
+| style="background:#ffffbf;"| 1
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#dfffdf;"| 5
+| style="background:#ffffbf;"| ''1''
+| style="background:#dfffdf;"| '''''5'''''
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#dfffdf;"| ''4''
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#dfdfdf;"| 2
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#ffdf9f;"| 3
+|align="right"| '''65'''
+|-
+! 3
+|align="left"| {{flagicon|Brazil}} [[Rubens Barrichello]]
+| style="background:#ffdf9f;"| 3
+| style="background:#dfdfdf;"| 2
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#dfdfdf;"| 2
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 5
+| style="background:#ffdf9f;"| 3
+| style="background:#ffdf9f;"| 3
+| style="background:#dfdfdf;"| 2
+| style="background:#dfdfdf;"| 2
+| style="background:#dfffdf;"| 5
+| style="background:#dfdfdf;"| 2
+| style="background:#cfcfff;"| 15<sup>†</sup>
+| style="background:#dfffdf;"| 5
+|align="right"| '''56'''
+|-
+! 4
+|align="left"| {{flagicon|Germany}} [[Ralf Schumacher]]
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| ''Ret''
+| style="background:#ffffbf;"| ''1''
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#ffffbf;"| ''1''
+| style="background:#dfffdf;"| 4
+| style="background:#dfdfdf;"| '''2'''
+| style="background:#efcfff;"| Ret
+| style="background:#ffffbf;"| 1
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 7
+| style="background:#ffdf9f;"| ''3''
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| ''6''
+|align="right"| '''49'''
+|-
+! 5
+|align="left"| {{flagicon|Finland}} [[Mika Häkkinen]]
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| ''6''
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 9<sup>†</sup>
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#dfffdf;"| 6
+| style="background:#fff;"| DNS
+| style="background:#ffffbf;"| ''1''
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| ''5''
+| style="background:#dfffdf;"| 4
+| style="background:#efcfff;"| Ret
+| style="background:#ffffbf;"| 1
+| style="background:#dfffdf;"| 4
+|align="right"| '''37'''
+|-
+! 6
+|align="left"| {{flagicon|Colombia}} [[Juan Pablo Montoya]]
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfdfdf;"| 2
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfdfdf;"| ''2''
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 4
+| style="background:#efcfff;"| '''''Ret'''''
+| style="background:#cfcfff;"| 8
+| style="background:#efcfff;"| '''Ret'''
+| style="background:#ffffbf;"| '''1'''
+| style="background:#efcfff;"| ''Ret''
+| style="background:#dfdfdf;"| 2
+|align="right"| '''31'''
+|-
+! 7
+|align="left"| {{flagicon|Canada}} [[Jacques Villeneuve]]
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#cfcfff;"| 8
+| style="background:#dfffdf;"| 4
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 8
+| style="background:#ffdf9f;"| 3
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 8
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 10
+|align="right"| '''12'''
+|-
+! 8
+|align="left"| {{flagicon|Germany}} [[Nick Heidfeld]]
+| style="background:#dfffdf;"| 4
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#cfcfff;"| 7
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 6
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 9
+|align="right"| '''12'''
+|-
+! 9
+|align="left"| {{flagicon|Italy}} [[Jarno Trulli]]
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 8
+| style="background:#dfffdf;"| 5
+| style="background:#dfffdf;"| 5
+| style="background:#dfffdf;"| 4
+|  style="background:#000; color:white;"|DSQ
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11<sup>†</sup>
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 8
+|align="right"| '''12'''
+|-
+! 10
+|align="left"| {{flagicon|Finland}} [[Kimi Räikkönen]]
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 8
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 10
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 7
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+|align="right"| '''9'''
+|-
+! 11
+|align="left"| {{flagicon|Italy}} [[Giancarlo Fisichella]]
+| style="background:#cfcfff;"| 13
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 14
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 13
+| style="background:#dfffdf;"| 4
+| style="background:#efcfff;"| Ret
+| style="background:#ffdf9f;"| 3
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 17<sup>†</sup>
+|align="right"| '''8'''
+|-
+! 12
+|align="left"| {{flagicon|UK}} [[Eddie Irvine]]
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#ffdf9f;"| 3
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| Ret
+|align="right"| '''6'''
+|-
+! 13
+|align="left"| {{flagicon|Germany}} [[Heinz-Harald Frentzen]]
+| style="background:#dfffdf;"| 5
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 11<sup>†</sup>
+| style="background:#dfffdf;"| 6
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+|
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 7
+|
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 12
+|align="right"| '''6'''
+|-
+! 14
+|align="left"| {{flagicon|France}} [[Olivier Panis]]
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 4
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 7
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 13
+|align="right"| '''5'''
+|-
+! 15
+|align="left"| {{flagicon|France}} [[Jean Alesi]]
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 10
+| style="background:#dfffdf;"| 6
+| style="background:#dfffdf;"| 5
+| style="background:#cfcfff;"| 15<sup>†</sup>
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 11
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 10
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+|align="right"| '''5'''
+|-
+! 16
+|align="left"| {{flagicon|Spain}} [[Pedro de la Rosa]]
+|
+|
+|
+|
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 14
+| style="background:#cfcfff;"| 12
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+| style="background:#efcfff;"| Ret
+| style="background:#dfffdf;"| 5
+| style="background:#cfcfff;"| 12
+| style="background:#efcfff;"| Ret
+|align="right"| '''3'''
+|-
+! 17
+|align="left"| {{flagicon|UK}} [[Jenson Button]]
+| style="background:#cfcfff;"| 14<sup>†</sup>
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 15
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+| style="background:#cfcfff;"| 16<sup>†</sup>
+| style="background:#cfcfff;"| 15
+| style="background:#dfffdf;"| 5
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 7
+|align="right"| '''2'''
+|-
+! 18
+|align="left"| {{flagicon|Netherlands}} [[Jos Verstappen]]
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 7
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 12
+| style="background:#dfffdf;"| 6
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 10<sup>†</sup>
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+| style="background:#cfcfff;"| 10
+| style="background:#cfcfff;"| 9
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 14
+|align="right"| '''1'''
+|-
+! 19
+|align="left"| {{flagicon|Brazil}} [[Ricardo Zonta]]
+|
+|
+|
+|
+|
+|
+|
+| style="background:#cfcfff;"| 7
+|
+|
+|
+| style="background:#efcfff;"| Ret
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! 20
+|align="left"| {{flagicon|Brazil}} [[Luciano Burti]]
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 11
+| style="background:#cfcfff;"| 11
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 8
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+|
+|
+|
+|align="right"| '''0'''
+|-
+! 21
+|align="left"| {{flagicon|Brazil}} [[Enrique Bernoldi]]
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 14
+| style="background:#cfcfff;"| 8
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 12
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+| style="background:#cfcfff;"| 15
+|align="right"| '''0'''
+|-
+! 22
+|align="left"| {{flagicon|Brazil}} [[Tarso Marques]]
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 14
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 16
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 9
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 15
+| style="background:#ffcfcf;"|DNQ
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+|
+|
+|
+|align="right"| '''0'''
+|-
+! 23
+|align="left"| {{flagicon|Spain}} [[Fernando Alonso]]
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 13
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 14
+| style="background:#cfcfff;"| 17<sup>†</sup>
+| style="background:#cfcfff;"| 16
+| style="background:#cfcfff;"| 10
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 13
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 11
+|align="right"| '''0'''
+|-
+! 24
+|align="left"| {{flagicon|Czech Republic}} [[Tomáš Enge]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+| style="background:#cfcfff;"| 12
+| style="background:#cfcfff;"| 14
+| style="background:#efcfff;"| Ret
+|align="right"| '''0'''
+|-
+! 25
+|align="left"| {{flagicon|Argentina}} [[Gastón Mazzacane]]
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 12
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|align="right"| '''0'''
+|-
+! 26
+|align="left"| {{flagicon|Malaysia}} [[Alex Yoong]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+| style="background:#efcfff;"| Ret
+| style="background:#efcfff;"| Ret
+| style="background:#cfcfff;"| 16
+|align="right"| '''0'''
+|- valign="top"
+!valign="middle"| Pos
+!valign="middle"| Driver
+! [[2001 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+! [[2001 Malaysian Grand Prix|MAL]]<br />{{flagicon|Malaysia}}
+! [[2001 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[2001 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[2001 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[2001 Austrian Grand Prix|AUT]]<br />{{flagicon|Austria}}
+! [[2001 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[2001 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[2001 European Grand Prix|EUR]]<br />{{flagicon|Germany}}
+! [[2001 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[2001 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[2001 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[2001 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[2001 Belgian Grand Prix|BEL]]<br />{{flagicon|Belgium}}
+! [[2001 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[2001 United States Grand Prix|USA]]<br />{{flagicon|US}}
+! [[2001 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|}

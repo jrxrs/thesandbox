@@ -1,0 +1,522 @@
+{| class="wikitable" style="font-size: 85%; text-align:center;"
+|- valign="top"
+!valign="middle"|Pos
+!valign="middle"|Driver
+! [[2003 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+! [[2003 Malaysian Grand Prix|MAL]]<br />{{flagicon|Malaysia}}
+! [[2003 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[2003 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[2003 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[2003 Austrian Grand Prix|AUT]]<br />{{flagicon|Austria}}
+! [[2003 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[2003 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[2003 European Grand Prix|EUR]]<br />{{flagicon|Germany}}
+! [[2003 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[2003 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[2003 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[2003 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[2003 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[2003 United States Grand Prix|USA]]<br />{{flagicon|USA}}
+! [[2003 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|-
+! 1
+|align="left"| {{flagicon|Germany}} [[Michael Schumacher]]
+|bgcolor="#DFFFDF"| '''4'''
+|bgcolor="#DFFFDF"| ''6''
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#FFFFBF"| '''1'''
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#FFFFBF"| ''1''
+|bgcolor="#DFFFDF"| 8
+|align="right"|'''93'''
+|-
+! 2
+|align="left"| {{flagicon|Finland}} [[Kimi Räikkönen]]
+|bgcolor="#FFDF9F"| ''3''
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|'''''Ret'''''
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFDFDF"| '''2'''
+|bgcolor="#DFDFDF"| 2
+|align="right"|'''91'''
+|-
+! 3
+|align="left"| {{flagicon|Colombia}} [[Juan Pablo Montoya]]
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFDFDF"| ''2''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#FFDF9F"| ''3''
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|align="right"| '''82'''
+|-
+! 4
+|align="left"| {{flagicon|Brazil}} [[Rubens Barrichello]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#EFCFFF"|'''''Ret'''''
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#FFDF9F"| ''3''
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#FFFFBF"| '''''1'''''
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFBF"| '''1'''
+|align="right"| '''65'''
+|-
+! 5
+|align="left"| {{flagicon|Germany}} [[Ralf Schumacher]]
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#DFFFDF"| '''4'''
+|bgcolor="#DFDFDF"| '''2'''
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#FFFFBF"| '''1'''
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| ''12''
+|align="right"| '''58'''
+|-
+! 6
+|align="left"| {{flagicon|Spain}} [[Fernando Alonso]]
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#FFDF9F"| '''3'''
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| ''4''
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#FFFFBF"| '''1'''
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|align="right"|'''55'''
+|-
+! 7
+|align="left"| {{flagicon|UK}} [[David Coulthard]]
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 15<sup>†</sup>
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFDFDF"| 2
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFDF9F"| 3
+|align="right"|'''51'''
+|-
+! 8
+|align="left"| {{flagicon|Italy}} [[Jarno Trulli]]
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|bgcolor="#DFFFDF"| 5
+|align="right"|'''33'''
+|-
+! 9
+|align="left"| {{flagicon|UK}} [[Jenson Button]]
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 4
+|bgcolor="white"|DNS
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 4
+|align="right"|'''17'''
+|-
+! 10
+|align="left"| {{flagicon|Australia}} [[Mark Webber]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#CFCFFF"| 11<sup>†</sup>
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|align="right"|'''17'''
+|-
+! 11
+|align="left"| {{flagicon|Germany}} [[Heinz-Harald Frentzen]]
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFFF"| DNS
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13<sup>†</sup>
+|bgcolor="#FFDF9F"| 3
+|bgcolor="#EFCFFF"|Ret
+|align="right"|'''13'''
+|-
+! 12
+|align="left"| {{flagicon|Italy}} [[Giancarlo Fisichella]]
+|bgcolor="#CFCFFF"| 12<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#FFFFBF"| 1
+|bgcolor="#CFCFFF"| 15<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#EFCFFF"|Ret
+|align="right"|'''12'''
+|-
+! 13
+|align="left"| {{flagicon|Brazil}} [[Cristiano da Matta]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 11<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#DFFFDF"| 7
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 7
+|align="right"|'''10'''
+|-
+! 14
+|align="left"| {{flagicon|Germany}} [[Nick Heidfeld]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#CFCFFF"| 17
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#CFCFFF"| 9
+|align="right"|'''6'''
+|-
+! 15
+|align="left"| {{flagicon|France}} [[Olivier Panis]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#DFFFDF"| 5
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|align="right"|'''6'''
+|-
+! 16
+|align="left"| {{flagicon|Canada}} [[Jacques Villeneuve]]
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"| Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 6
+|bgcolor="#EFCFFF"|Ret
+|
+|align="right"|'''6'''
+|-
+! 17
+|align="left"| {{flagicon|Spain}} [[Marc Gené]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#DFFFDF"| 5
+|
+|
+|align="right"|'''4'''
+|-
+! 18
+|align="left"| {{flagicon|Japan}} [[Takuma Sato]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#DFFFDF"| 6
+|align="right"|'''3'''
+|-
+! 19
+|align="left"| {{flagicon|Ireland}} [[Ralph Firman]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 15
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|
+|
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 14
+|align="right"|'''1'''
+|-
+! 20
+|align="left"| {{flagicon|UK}} [[Justin Wilson (racing driver)|Justin Wilson]]
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#CFCFFF"| 16
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#DFFFDF"| 8
+|bgcolor="#CFCFFF"| 13
+|align="right"|'''1'''
+|-
+! 21
+|align="left"| {{flagicon|Brazil}} [[Antônio Pizzonia]]
+|bgcolor="#CFCFFF"| 13<sup>†</sup>
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10<sup>†</sup>
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#EFCFFF"|Ret
+|
+|
+|
+|
+|
+|align="right"|'''0'''
+|-
+! 22
+|align="left"| {{flagicon|Netherlands}} [[Jos Verstappen]]
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 9
+|bgcolor="#CFCFFF"| 14
+|bgcolor="#CFCFFF"| 16
+|bgcolor="#CFCFFF"| 15
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 10
+|bgcolor="#CFCFFF"| 15
+|align="right"|'''0'''
+|-
+! 23
+|align="left"| {{flagicon|Denmark}} [[Nicolas Kiesa]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 13
+|bgcolor="#CFCFFF"| 12
+|bgcolor="#CFCFFF"| 11
+|bgcolor="#CFCFFF"| 16
+|align="right"|'''0'''
+|-
+! 24
+|align="left"| {{flagicon|Hungary}} [[Zsolt Baumgartner]]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|bgcolor="#EFCFFF"|Ret
+|bgcolor="#CFCFFF"| 11
+|
+|
+|align="right"|'''0'''
+|- valign="top"
+!valign="middle"|Pos
+!valign="middle"|Driver
+! [[2003 Australian Grand Prix|AUS]]<br />{{flagicon|Australia}}
+! [[2003 Malaysian Grand Prix|MAL]]<br />{{flagicon|Malaysia}}
+! [[2003 Brazilian Grand Prix|BRA]]<br />{{flagicon|Brazil}}
+! [[2003 San Marino Grand Prix|SMR]]<br />{{flagicon|San Marino}}
+! [[2003 Spanish Grand Prix|ESP]]<br />{{flagicon|Spain}}
+! [[2003 Austrian Grand Prix|AUT]]<br />{{flagicon|Austria}}
+! [[2003 Monaco Grand Prix|MON]]<br />{{flagicon|Monaco}}
+! [[2003 Canadian Grand Prix|CAN]]<br />{{flagicon|Canada}}
+! [[2003 European Grand Prix|EUR]]<br />{{flagicon|Germany}}
+! [[2003 French Grand Prix|FRA]]<br />{{flagicon|France}}
+! [[2003 British Grand Prix|GBR]]<br />{{flagicon|UK}}
+! [[2003 German Grand Prix|GER]]<br />{{flagicon|Germany}}
+! [[2003 Hungarian Grand Prix|HUN]]<br />{{flagicon|Hungary}}
+! [[2003 Italian Grand Prix|ITA]]<br />{{flagicon|Italy}}
+! [[2003 United States Grand Prix|USA]]<br />{{flagicon|USA}}
+! [[2003 Japanese Grand Prix|JPN]]<br />{{flagicon|Japan}}
+!valign="middle"| [[List of Formula One World Championship points scoring systems|Points]]
+|}
