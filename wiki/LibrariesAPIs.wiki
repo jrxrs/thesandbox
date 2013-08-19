@@ -118,6 +118,7 @@ http://www.quickfixj.org/
 
 = JSON =
 
+ * [http://code.google.com/p/google-gson/ GSON from Google]
  * [http://jackson.codehaus.org/] a [http://www.json.org/ JSON] Processor
 
 = Middleware =
