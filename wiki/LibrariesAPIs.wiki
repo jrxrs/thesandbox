@@ -180,6 +180,10 @@ http://www.quickfixj.org/
  * [http://code.google.com/p/mockito/ Mockito] - Intro [http://gojko.net/2009/10/23/mockito-in-six-easy-examples/ 1], [http://refcardz.dzone.com/refcardz/mockito 2]
  * [http://code.google.com/p/powermock/ PowerMock] - Used to Mock Statics [http://code.google.com/p/powermock/wiki/MockStatic 1] or [http://java.dzone.com/articles/using-powermock-mock-static 2] and [http://powermock.googlecode.com/files/PowerMockAtOredev.pdf Mock the un-testable] with it's [http://metlos.wordpress.com/2012/09/14/the-dark-powers-of-powermock/ Dark Powers]
 
+== Surefire ==
+
+[http://maven.apache.org/surefire/maven-surefire-plugin/ Surefire] is a Maven plugin which is in charge of running tests, you can configure it in a variety of different ways including how it forms and runs your tests, which is very useful if you're running out of PermGen/Heap during testing. More configuration details on that [http://maven.apache.org/surefire/maven-surefire-plugin/examples/fork-options-and-parallel-execution.html here].
+
 == Test/Code Coverage ==
 
  * [http://www.atlassian.com/software/clover/overview Clover] - Java Code Coverage
