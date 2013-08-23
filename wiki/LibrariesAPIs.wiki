@@ -147,6 +147,10 @@ http://www.quickfixj.org/
  * [http://www.tibco.co.uk/products/automation/messaging/enterprise-messaging/enterprise-message-service/default.jsp Tibco EMS]
  * [http://www.tibco.co.uk/products/automation/messaging/low-latency/rendezvous/default.jsp Tibco Rendezvous]
 
+= Monitoring =
+
+ * [http://code.google.com/p/grep4j/ Distributed log file monitoring]
+
 = NoSQL =
 
  * [http://cassandra.apache.org/ Apache Cassandra] - Cassandra is similar in to [http://code.google.com/p/thesandbox/wiki/LibrariesAPIs#Caching GemFire] in some senses, you run a distributed platform that manages replication itself, I *think* !GemFIre is ACID however where as Cassandra is not.
