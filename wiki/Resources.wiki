@@ -122,7 +122,7 @@ The whole point of String interning is to prevent the same String being held mul
 
 *Q5b.* What differences are there between how this call is handled in 1.6 and 1.7?
 
-*A5b.* In Java 1.6 any String literals are interned when the class is loaded by the JVM, the string pool is stored in permgen space. In 1.7 String interning doesn't take place until the statement is executed and the pool is located in main memory, rather than permgen. 
+*A5b.* In Java 1.6 any String literals are interned when the class is loaded by the JVM, the string pool is stored in permgen space. In 1.7 String interning doesn't take place until the statement is executed and the pool is located in main memory, rather than permgen. A very detailed article on this topic (also discussing Java 8) can be found [http://java-performance.info/string-intern-in-java-6-7-8/ here].
 
 *Q5c.* When is the following expression true?
 {{{
