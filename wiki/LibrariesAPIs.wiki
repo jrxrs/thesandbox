@@ -217,6 +217,13 @@ Transaction propagation means that if you have two methods which are both transa
 Generating UML diagrams from Java source code
  * http://www.umlgraph.org/index.html
 
+= Version Control =
+
+ * [http://subversion.tigris.org/ SubVersion]
+ * [http://tortoisesvn.net/ TortoiseSVN]
+ * [http://git-scm.com/ Git]
+ * [https://github.com/FredrikNoren/ungit ungit]
+
 = Web =
 
 == REST ==
