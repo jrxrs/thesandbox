@@ -1,0 +1,5 @@
+#summary All things Security - ASC
+
+= Links =
+
+[http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
