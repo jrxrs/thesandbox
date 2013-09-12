@@ -113,6 +113,9 @@
 = U =
 = V =
 = W =
+
+ * [http://stackoverflow.com/questions/16741062/what-rules-does-ie-use-to-determine-whether-to-show-the-entity-body Why I don't use IE]
+
 = X =
 = Y =
 = Z =
