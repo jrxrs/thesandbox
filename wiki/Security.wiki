@@ -1,5 +1,190 @@
 #summary All things Security - ASC
 
+= Architecture Risk Analysis =
+
+== Why Bother? ==
+The techniques discussed below will help those involved in the design on software to:
+ * Evaluate & prioritise threats & attacks
+ * Build Trust & Threat Models for a software system
+ * Analyse threats and attacks using Trust & Threat Models
+ * Gain techniques for designing security controls
+
+== When? ==
+*When should we think about Architecture Risk Analysis?* The best time to think about security and risk analysis is during the early phases of requirements collection & design and then again when testing the code that implements that design, the list below outlines the usual phases of security related activity during the traditional software life-cycle:
+ # Abuse Cases
+ # Security Requirements
+ # *Risk Analysis* (occurring during both the Requirements & Use Cases & Architecture & Design phases)
+ # External Review
+ # Risk-based Security Tests
+ # Code Review (Tools)
+ # *Risk Analysis* (occurring again during the Test & Test Results phase)
+ # Penetration Testing
+ # Security Operations
+
+== What is a Secure Architecture? ==
+There are two popular models:
+
+=== CIA ===
+This is quite a abstract model which means a lot in down to personal interpretation.
+==== Confidentiality ====
+Limiting access and disclosure to "the right people"; preventing access by or disclosure to "the wrong people".
+==== Integrity ====
+The trustworthiness of information resources.
+==== Availability ====
+Information systems provide access to authorized users.
+=== Viega & McGraw ===
+Viega & McGraw present a more granular definition:
+ * Prevention
+ * Traceability & Auditing
+ * Monitoring
+ * Privacy & Confidentiality
+ * Multilevel Security
+ * Anonymity
+ * Authentication
+ * Integrity
+
+== Abuse & Misuse Cases ==
+These are just like user cases although they deal exclusively with situations to designers or developers might not have envisioned the systems being used for when they first designed and implemented it. An example of a misuse case might be users injecting HTML code into their Facebook profile responses, they just want to make the profile stand out and have no malicious intent however the misuse case exposes a bug. You could easily turn this situation in to an abuse case by making the user a mis-actor who maliciously injects JavaScript into the response block in an attempt to steal information from the computers of other users who visit their profile or take control of their accounts. 
+
+== What constitutes an Insecure Design? ==
+Both of the areas below contribute to insecure software, studies have shown that there is roughly a 50-50 split between the two categories.
+=== Implementation Bugs ===
+
+Broken code, for example:
+ * Buffer overflow
+  * String format
+  * One-stage attacks
+ * Race conditions
+  * Time of check to time of use (TOCTOU)
+  * Session & thread management
+ * Unsafe environment variables
+ * Unsafe system calls
+  * System()
+ * Untrusted input problems
+
+=== Architecture Flaws ===
+
+Design problems that create security vulnerabilities:
+ * Misuse of cryptography
+ * Duplicated data or code
+ * Lack of consistent input validation
+ * Missing authentication checks
+ * Insecure or lack of auditing
+ * Lack of authentication or session management on APIs
+ * Missing compartmentalization (*storing secure information on the client side where a smart hacker might be able to manipulate it*)
+
+== ARA Subprocesses ==
+
+There are 3 discrete subprocesses which must be carried out during ARA:
+ * Underlying Framework Weakness
+  * Shows dependencies on toolkits and frameworks using within the application
+  * How solid is the foundation?
+  * How solid is the usage of the foundation?
+  * Any know vulnerabilities in utilised version
+  * What are the security controls like?
+  * Does the framework require connectivity to any external parties?
+  * Is it necessary to explicitly turn security in the platform on?
+  * Framework Options:
+   * Cryptography: JCA (Java Cryptography Architecture) provides signing, hashing, encryption and decryption - there's a mix of client and server side cryptography solutions although we should favour server side wherever possible because client side requires the key to be distributed to the client which is a trust issue.
+   * Authentication & Authorization: JAAS (Java Authentication & Authorization Service) this is just a proxy essentially, it doesn't make any decisions itself, it merely delegates to something else to make those decisions. 
+   * Input Validation & Output Encoding: .NET validateRequest (good for cross-site scripting) must be used with other forms of checks.
+   * Sandboxing: JavaScript (single origin policy) 
+ * Attack Resistance Analysis
+  * Apply checklist of known attacks
+   * e.g. OWASP10
+  * Risk-based judgement of fitness
+ * Ambiguity Analysis
+  * Find attacks based on how the system works
+  * Expose invalid assumptions
+
+== Design Elements for Enterprise Applications ==
+
+=== Common Design Elements for Enterprise Applications ===
+ * Identify design elements that are historically vulnerable to attack
+ * Enterprise applications share many of the same design elements
+  * Distributed architecture
+  * Dynamic code generation and interpretation
+  * APIs across stateless protocols
+  * Rich Internet Applications
+  * Service-oriented Architecture
+
+== Enterprise Design Element: Distributed architecture ==
+Networks are susceptible to:
+ * Eavesdropping
+ * Tampering
+ * Spoofing
+ * Hijacking
+ * Observing 
+
+We can reduce these into three common patterns:
+ * Interposition attacks
+ * Sniffing attacks
+ * Replay attacks
+
+== Enterprise Design Element: Dynamic code generation and interpretation ==
+ * Languages and programming environments are moving more decisions from design-time to run-time
+ * Many attacks involve misinterpretation of data as code in these environments
+ * When and how will user input be used by runtime language interpreters?
+ * Relevant Attack Patterns
+  * Cross-site Scripting (XSS)
+  * SQL Injection
+  * Buffer overflow
+  * XML Injection
+  * Shell command Injection
+  * Cross-site Request Forgery (CSRF)
+(The idea of a computer being able to interpret user data as code is known as the von Neumann curse.)
+
+== Enterprise Design Element: APIs across stateless protocols ==
+ * Identifiers representing state can be abused
+  * Prediction
+  * Capture
+  * Fixation
+ * State sent to the client between requests is altered or replayed
+ * Relevant Attack Patterns
+  * Session hijacking/fixation
+  * CSRF
+  * Message replay
+  * Parameter manipulation
+
+== Enterprise Design Element: Rich Internet Applications ==
+ * Processing moves to the client-side
+ * Relevant Attack Patterns
+  * Direct API calls
+  * CSRF
+  * XSS
+ * Unique Attacks
+  * JavaScript hijacking
+  * Ajax interposition
+
+== JavaScript Hijacking ==
+ * JavaScript Hijacking requires that the application return JSON objects
+ * The attacker loads the attack script into the JavaScript environment
+ * The attacking page uses a `<SCRIPT>` tag to make the cross page reference
+
+== AJAX Interposition ==
+*1. Modify the XMLHTTPREquest prototype*
+{{{
+var xmlreqc=XMLHTTPRequest;
+XMLHTTPRequest = function() {
+   this.XHR = new xmlreqc();
+   return this;
+}
+}}}
+
+*2. Wrap the send method*
+
+
+== Enterprise Design Element: Service-oriented Architecture ==
+
+
+----
+
 = Links =
 
 [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
+
+
+
+
+
+
