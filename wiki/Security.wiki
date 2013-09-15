@@ -4,6 +4,13 @@
 
 = Architecture Risk Analysis =
 
+<tldr>
+If you remember nothing else from these pages it should be this:
+ * Who is attacking?
+ * What are they attacking?
+ * How they are attacking?
+</tldr>
+
 == Why Bother? ==
 The techniques discussed below will help those involved in the design on software to:
  * Evaluate & prioritise threats & attacks
