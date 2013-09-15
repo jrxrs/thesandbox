@@ -212,7 +212,7 @@ During trust modelling we attempt to identify different zones within the applica
 Insert Example Here...
 
 === Data Sensitivity Modelling ===
-
+https://thesandbox.googlecode.com/svn/images/trust_zones.png
 
 === Threat Modelling ===
 
@@ -222,7 +222,5 @@ Insert Example Here...
 = Links =
 
 [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
-
-
 
 
