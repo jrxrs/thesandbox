@@ -1,5 +1,7 @@
 #summary Introductory Cryptography Material
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 
 Here we'll discuss two different areas of cryptography, data confidentiality (both symmetric and asymmetric key encryption) and data integrity & authentication (secure hash functions, message authentication code ad digital signatures). _The_ most important thing to remember when it comes to cryptography is not to "roll your own" cryptographic algorithms!
