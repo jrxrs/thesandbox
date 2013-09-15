@@ -1,0 +1,5 @@
+#summary Introductory Cryptography Material
+
+= Introduction =
+
+There are two basic flavours of encryption; symmetric & asymmetric.
