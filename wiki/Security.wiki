@@ -32,8 +32,8 @@ Limiting access and disclosure to "the right people"; preventing access by or di
 The trustworthiness of information resources.
 ==== Availability ====
 Information systems provide access to authorized users.
-=== Viega & McGraw ===
-Viega & McGraw present a more granular definition:
+=== Viega & !McGraw ===
+Viega & !McGraw present a more granular definition:
  * Prevention
  * Traceability & Auditing
  * Monitoring
@@ -44,7 +44,7 @@ Viega & McGraw present a more granular definition:
  * Integrity
 
 == Abuse & Misuse Cases ==
-These are just like user cases although they deal exclusively with situations to designers or developers might not have envisioned the systems being used for when they first designed and implemented it. An example of a misuse case might be users injecting HTML code into their Facebook profile responses, they just want to make the profile stand out and have no malicious intent however the misuse case exposes a bug. You could easily turn this situation in to an abuse case by making the user a mis-actor who maliciously injects JavaScript into the response block in an attempt to steal information from the computers of other users who visit their profile or take control of their accounts. 
+These are just like user cases although they deal exclusively with situations to designers or developers might not have envisioned the systems being used for when they first designed and implemented it. An example of a misuse case might be users injecting HTML code into their Facebook profile responses, they just want to make the profile stand out and have no malicious intent however the misuse case exposes a bug. You could easily turn this situation in to an abuse case by making the user a mis-actor who maliciously injects !JavaScript into the response block in an attempt to steal information from the computers of other users who visit their profile or take control of their accounts. 
 
 == What constitutes an Insecure Design? ==
 Both of the areas below contribute to insecure software, studies have shown that there is roughly a 50-50 split between the two categories.
@@ -88,7 +88,7 @@ There are 3 discrete subprocesses which must be carried out during ARA:
    * Cryptography: JCA (Java Cryptography Architecture) provides signing, hashing, encryption and decryption - there's a mix of client and server side cryptography solutions although we should favour server side wherever possible because client side requires the key to be distributed to the client which is a trust issue.
    * Authentication & Authorization: JAAS (Java Authentication & Authorization Service) this is just a proxy essentially, it doesn't make any decisions itself, it merely delegates to something else to make those decisions. 
    * Input Validation & Output Encoding: .NET validateRequest (good for cross-site scripting) must be used with other forms of checks.
-   * Sandboxing: JavaScript (single origin policy) 
+   * Sandboxing: !JavaScript (single origin policy) 
  * Attack Resistance Analysis
   * Apply checklist of known attacks
    * e.g. OWASP10
@@ -153,12 +153,12 @@ We can reduce these into three common patterns:
   * CSRF
   * XSS
  * Unique Attacks
-  * JavaScript hijacking
+  * !JavaScript hijacking
   * Ajax interposition
 
-=== JavaScript Hijacking ===
- * JavaScript Hijacking requires that the application return JSON objects
- * The attacker loads the attack script into the JavaScript environment
+=== !JavaScript Hijacking ===
+ * !JavaScript Hijacking requires that the application return JSON objects
+ * The attacker loads the attack script into the !JavaScript environment
  * The attacking page uses a `<SCRIPT>` tag to make the cross page reference
 
 === AJAX Interposition ===
@@ -390,7 +390,7 @@ Small and self sufficient process which just deal with a very limited number of 
  * not all parts of the business can share the same information
 
 ==== What Goes Wrong ====
- * error messages sometimes give away way too much information
+ * Error messages sometimes give away way too much information
  * Malicious hackers use this information to further their attack
   * Error reporting is NOT a debugging tool
   * Use logging for that
