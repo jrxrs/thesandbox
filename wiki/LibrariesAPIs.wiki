@@ -33,6 +33,10 @@
     Esper is an event stream processing (ESP) and event correlation engine (CEP) written in Java. Basically instead of working as a database where you put stuff in to later poll it using SQL queries, Esper works as real time engine that triggers actions when event conditions occur among event streams. A tailored Event Processing Language (EPL) allows registering queries in the engine, using Java objects (POJO, JavaBean) to represent events. A listener class - which is basically also a POJO - will then be called by the engine when the EPL condition is matched as events come in. The EPL allows expressing complex matching conditions that include temporal windows, and join different event streams, as well as filter and sort them.
    A simple example could be to compute the average stock price of the BEA tick on a sliding window of 30 seconds. Given a StockTick event bean with a price and symbol property and the EPL "select avg(price) from StockTick.win:time(30 sec) where symbol='IBM'", a POJO would get notified as tick come in - and in real world millions of ticks can come in - so there's no way to store them all to later query them using a classical database architecture. Statements can be much more complex, and also be combined together with "followed by" conditions. 
 
+= Cryptography =
+
+ * [http://www.bouncycastle.org/ Bouncy Castle]
+
 = Databases =
 
  * [http://hsqldb.org/ HSQLDB]
