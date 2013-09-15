@@ -209,18 +209,195 @@ We can use different types of modelling to help us:
 === Trust Modelling ===
 During trust modelling we attempt to identify different zones within the application and how information should flow between those zones. A good way to begin this analysis is by identifying subsystems within the application, when control flows between subsystems we might encounter a trust boundary, at which point the callee must establish its level of trust. Demarcation should also be made between subsystems holding different levels of sensitive information, each touch point between those components should be analysed to ensure leakage from one level to the next isn't occurring.
 
-Insert Example Here...
-
-=== Data Sensitivity Modelling ===
 https://thesandbox.googlecode.com/svn/images/trust_zones.png
 
-=== Threat Modelling ===
+=== Data Sensitivity Modelling ===
+ * What different classifications of data exist?
+  * Security
+  * Non-Security
+ * Application data
+  * Personal or Regulated data
+  * Proprietary & Confidential data
+ * Identify sensitive data:
+  * At Rest - stores like the DBMS
+  * In Transit - transfer via network, queues
+  * In Use - in applications at runtime
 
+These could include usernames, passwords, key stores etc. An example of this type of analysis might be social engineering via a telephone customer services number, a clever hacker might be able to ask questions is such way as to reveal what information the operator has on screen, e.g. a list of addresses or National Insurance numbers, if so it's safe to assume that all this information has leaked through the entire system, from the persistent back-end right up to the UI, where it sits on the terminal of the operator, this means the operator can see the whole NI number and does the verification themselves, we could significantly increase the security of the system by factoring the decision making login into a trust zone out of which the data never leaks, so instead of viewing the entire NI no. on screen the operator would be required to enter what the customer told them into a field and submit it to the trust zone which would verify the entry and return a boolean to indicate whether to proceed or not. By preventing the leak to the operator from our newly established trust zone we can reduce the chance or a social engineer extracting sensitive data from our system.
+
+=== Threat Modelling ===
+What is a threat? A threat is an actor/user who has malicious intent. Just like a normal user they have capabilities within the system, the threats' goal is usually to subvert security control in order to find a "loophole" in the system. *A threat isn't classified as just an unknown user of the system, when modelling threats you should also consider the support staff, developers and administrators too.* I guess you have to decide how much you implicitly trust those members of staff.
+
+Formal definition: THREAT - a potential event that will have an unwelcome consequence. e.g. viewing sensitive data or elevating privilege. Ultimately a threat is a person or agent attempting to perform an unauthorized action.
+
+==== Rules of Engagement ====
+
+ * Capability
+  * Access to the system
+  * Able to reverse engineer binaries
+  * Able to sniff the network
+ * Motivation
+  * Personal gain
+  * Challenge / Ego
+  * Competitive advantage
+ * Skill Level
+  * Experienced hacker
+  * Script kiddie
+  * Insiders (administrators)
+ * Resources & Tools
+  * Simple manual execution
+  * Distributed bot army
+  * Well-funded organisation
+  * Access to internal information
+
+A full threat model:
+
+https://thesandbox.googlecode.com/svn-history/r337/images/threat_model.png
+
+=== Application Assets ===
+To help us model effectively we need to take time to understand what the assets of a application that we need to protect might be, these are things that would be of interest to an attacker and might include:
+ * The applications functions - the application can perform some action that the threat would like to invoke
+ * The applications sensitive data - this could be data stored in a database or even data leaked into log files
+ * The application's state - data generated as the application run e.g. sequence numbers, session identifiers, encryption keys, access credentials/privileges etc.
+ * Assets of the user and of the other systems the user uses - e.g. if we have a user who uses our application and uses internet backing then is it possible for our system to be exploited to allow a hacker to send code to the user browser allowing them to steal information when the user logs in to their bank?
+
+== Principles of Secure Design ==
+There are 9 guiding principles that help us achieve Secure Design
+
+=== 1. Secure the Weakest Link ===
+Securing your front door like Fort Knox is good but useless if you then leave your side window open! Software security != Secure software
+
+==== What Goes Wrong ====
+ * Obsess about the largest system of main functionality
+  * Example: IIS vs. Internet Hearts
+ * Forget that this application is part of a larger ecosystem
+  * Getting lost in the details
+
+=== 2. Practice Defence in Depth ===
+Don't reply on just a single point of security failure, complement at every level but don't  duplicate or overlap, e.g. encrypting data you're about to send to a client over SSL is pointless as SSL will handle encryption for you anyway, your encryption just duplicates your effort.
+
+ * Manage risk with multiple strategies
+ * Locks work better if you have alarms on them
+ * Adding motion sensors helps more
+ * Redundant subsystems can be as secure of as the _strongest_ link
+
+==== What Goes Wrong ====
+ * Some organisation do acceptance testing for functionality, but they do not test for security
+ * Most QA people can't do security testing without some expert guidance
+  * A risk analysis must inform the testing process
+ * Focus only on a security functionality
+  * Don't think like a bad guy
+
+=== 3. Be Reluctant to Trust ===
+When analysing a system make sure you're clear on where the trust points are and how you can validate them:
+ * Is that server hacked?
+ * Why trust that COTS (Commercial Off-The Shelf) software?
+ * Bad guys are more resourceful that you think
+ * Don't mimic everyone else
+  * Common protocols are often fundamentally flawed
+ * Trust is transitive
+  * Trusted programs should not invoke untrusted ones, especially indirectly!
+
+==== What Goes Wrong ====
+ * Servers trust client, even hackable ones
+ * Protocols are broken
+  * WEP (Wired Equivalent Privacy)
+  * SSL (Secure Sockets Layer)
+ * Some applications validate input only in the client
+ * Some insiders become threats
+  * Malicious intent, inadvertently 
+
+=== 4. Remember that Hiding Secrets is Hard ===
+ * "Security through obscurity" doesn't work
+ * You often don't have much control over the final program environment
+ * Secrets can often be inferred from behaviour
+ * Reverse engineering is not hard
+
+==== What Goes Wrong ====
+ * Storing passwords in code
+  * Inline SQL with db passwords in it
+  * Plaintext configuration files
+ * Temporary files leaking information
+ * Developers thinking "binaries" are not readable
+
+=== 5. Follow the Principle of Least Privilege ===
+These are massive warning signs that should flag up major concerns, especially when an application uses the "root" or "dba" password when accessing resources for example.
+
+ * Give out no more privilege than necessary
+ * Extend privilege for shortest possible time
+ * Minimize windows of vulnerability
+ * Don't hand out the key to your office
+ * Provide data on a "need to know" basis
+
+==== What Goes Wrong ====
+ * Development environments require full machine administrative privilege
+ * Programs in production have too much privilege
+  * Web applications use the database administrator login because developer had full admin
+
+=== 6. Fail and Recover Securely ===
+Don't skimp on error/exception handling - these areas are often where you spend most of you time when your software enters the maintenance phase, ideally we should include error handling with every use case so it's important to make error handling a first class citizen during the design and development phases or delivery.
+
+ * "Default to insecure" is bad but prevalent
+  * Backwards compatibility issues
+  * Web services allowing service submission
+ * Use *abuse cases* to drive additional requirements
+  * How important is security to the business?
+
+==== What Goes Wrong ====
+ * We want to deliver the service and not break existing users
+  * Choosing a toolkit of a lower version to create compatibility
+  * Encrypted versions that fails to cleartext
+ * Error messages that leak program structure and/or provide information is exception messages (stack traces)
+
+=== 7. Compartmentalise ===
+Small and self sufficient process which just deal with a very limited number of concerns are very beneficial to the overall system, helping to reduce risk (as components could be run in their own sandbox) and increase uptime because one component doesn't bring everything else down with it like a monolithic architecture might.
+
+ * Limit attackers ability to do damage
+ * Mimic real examples:
+  * Chambers in submarines
+  * Jail cells
+  * Money in your wallet
+ * Apply process protection, chroot()
+ * Use different keys for different devices
+ * ISAPI settings for IIS
+  * In process
+  * Out of process
+  * Pooled
+
+==== What Goes Wrong ====
+ * Simple buffer overflows cause entire security systems to give up the ghost
+ * One application in a shared environment exposes all applications in that environment
+
+=== 8. Keep it Simple ===
+ * Fewer links make the system easier to secure
+ * Complex code tends to be more buggy
+ * Users need simple UIs
+ * Don't use technology for technologies sake
+ * Provide "choke points" without back doors
+ * Seemingly contradicts defence-in-depth guideline
+  * "Don't put all your eggs in one basket" is different from making a rat's nest
+
+==== What Goes Wrong ====
+ * The cure is worse that the disease
+  * 20 passwords that al l must be different and change bi-weekly
+  * No real understanding of trust boundaries
+ * Changes over time to your environment or requirements may wreak havoc on code organization
+
+=== 9. Promote Privacy ===
+ * Hackers launch attacks based on easily collected information
+ * Do not give out more information that you must
+  * Example: Logins often provide OS version info
+ * not all parts of the business can share the same information
+
+==== What Goes Wrong ====
+ * error messages sometimes give away way too much information
+ * Malicious hackers use this information to further their attack
+  * Error reporting is NOT a debugging tool
+  * Use logging for that
+ * Services that cross business units leak information that is sensitive to one unit, but not sensitive to another
 
 ----
 
 = Links =
 
 [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
-
-
