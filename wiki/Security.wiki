@@ -97,9 +97,9 @@ There are 3 discrete subprocesses which must be carried out during ARA:
   * Find attacks based on how the system works
   * Expose invalid assumptions
 
-== Design Elements for Enterprise Applications ==
+=== Design Elements for Enterprise Applications ===
 
-=== Common Design Elements for Enterprise Applications ===
+==== Common Design Elements for Enterprise Applications ====
  * Identify design elements that are historically vulnerable to attack
  * Enterprise applications share many of the same design elements
   * Distributed architecture
@@ -108,7 +108,7 @@ There are 3 discrete subprocesses which must be carried out during ARA:
   * Rich Internet Applications
   * Service-oriented Architecture
 
-== Enterprise Design Element: Distributed architecture ==
+=== Enterprise Design Element: Distributed architecture ===
 Networks are susceptible to:
  * Eavesdropping
  * Tampering
@@ -121,7 +121,7 @@ We can reduce these into three common patterns:
  * Sniffing attacks
  * Replay attacks
 
-== Enterprise Design Element: Dynamic code generation and interpretation ==
+=== Enterprise Design Element: Dynamic code generation and interpretation ===
  * Languages and programming environments are moving more decisions from design-time to run-time
  * Many attacks involve misinterpretation of data as code in these environments
  * When and how will user input be used by runtime language interpreters?
@@ -134,7 +134,7 @@ We can reduce these into three common patterns:
   * Cross-site Request Forgery (CSRF)
 (The idea of a computer being able to interpret user data as code is known as the von Neumann curse.)
 
-== Enterprise Design Element: APIs across stateless protocols ==
+=== Enterprise Design Element: APIs across stateless protocols ===
  * Identifiers representing state can be abused
   * Prediction
   * Capture
@@ -146,7 +146,7 @@ We can reduce these into three common patterns:
   * Message replay
   * Parameter manipulation
 
-== Enterprise Design Element: Rich Internet Applications ==
+=== Enterprise Design Element: Rich Internet Applications ===
  * Processing moves to the client-side
  * Relevant Attack Patterns
   * Direct API calls
@@ -156,12 +156,14 @@ We can reduce these into three common patterns:
   * JavaScript hijacking
   * Ajax interposition
 
-== JavaScript Hijacking ==
+=== JavaScript Hijacking ===
  * JavaScript Hijacking requires that the application return JSON objects
  * The attacker loads the attack script into the JavaScript environment
  * The attacking page uses a `<SCRIPT>` tag to make the cross page reference
 
-== AJAX Interposition ==
+=== AJAX Interposition ===
+This is basically where a hacker overrides the functions that run in your clients side by loading scripts from the hackers site.
+
 *1. Modify the XMLHTTPREquest prototype*
 {{{
 var xmlreqc=XMLHTTPRequest;
@@ -172,9 +174,47 @@ XMLHTTPRequest = function() {
 }}}
 
 *2. Wrap the send method*
+{{{
+XMLHttpRequest.prototype.send = function(content){
+   //..add code to steal or alter content
+   Sniff_and_Modify(content);
+   //Pass call on
+   return this.HNR.send(pay);
+}
+}}}
+
+=== Enterprise Design Element: Service-oriented Architecture ===
+ * Security need for SOA components
+  * Web-services: SOAP/WSDL/UDDI
+  * Message-oriented Middleware
+  * Enterprise Service Bus
+ * Common Problems
+  * Exposing back-end code to dynamic attacks
+  * Channel versus Message security
+ * Relevant Attach Patterns:
+  * XML Injecion / SQL Injection
+  * Session Management Attacks
+  * Direct File Manipulation
+
+Specifically with XML a DOM parser is susceptible to a Denial of Service (DoS) attacks while SAX parsers are vulnerable to premature overriding of tags, i.e. the hacker inserts the end tag or something unrecognised to try and break parsing and cause an exception.
+
+== Ambiguity Analysis ==
+*Remember:* these are types of attacks that are specific to your system and how it is designed.
+
+We can use different types of modelling to help us:
+ # Trust Modelling - Identifies the boundaries of security policy for function and data.
+ # Data Sensitivity Modelling - Identifies the privacy and trust issues for application data.
+ # Threat Modelling - Identifies the function/data to protect; the person trying to attack; the vulnerability an attackers can exploit.
+
+=== Trust Modelling ===
+During trust modelling we attempt to identify different zones within the application and how information should flow between those zones. A good way to begin this analysis is by identifying subsystems within the application, when control flows between subsystems we might encounter a trust boundary, at which point the callee must establish its level of trust. Demarcation should also be made between subsystems holding different levels of sensitive information, each touch point between those components should be analysed to ensure leakage from one level to the next isn't occurring.
+
+Insert Example Here...
+
+=== Data Sensitivity Modelling ===
 
 
-== Enterprise Design Element: Service-oriented Architecture ==
+=== Threat Modelling ===
 
 
 ----
@@ -182,8 +222,6 @@ XMLHTTPRequest = function() {
 = Links =
 
 [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
-
-
 
 
 
