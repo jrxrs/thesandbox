@@ -185,7 +185,11 @@ http://www.quickfixj.org/
 
 = Screenshot Utilities =
 
- * [http://getgreenshot.org/ Greenshot]
+ * [http://getgreenshot.org/ Greenshot] (this is only really useful pre-Windows 7)
+
+= SSH =
+
+ * [http://www.jcraft.com/jsch/ Java Secure Channel by JCraft] - there is also a side project to provide JavaDocs [http://epaul.github.io/jsch-documentation/javadoc/ here].
 
 = Static Analysis =
 
