@@ -2,4 +2,34 @@
 
 = Introduction =
 
+Here we'll discuss two different areas of cryptography, data confidentiality (both symmetric and asymmetric key encryption) and data integrity & authentication (secure hash functions, message authentication code ad digital signatures). _The_ most important thing to remember when it comes to cryptography is not to "roll your own" cryptographic algorithms!
+
+== Data Confidentiality ==
 There are two basic flavours of encryption; symmetric & asymmetric.
+
+=== Symmetric Key Encryption ===
+  * No separation of read/write privileges
+  * Good performance (fast for both encryption & decryption)
+  * Small key sizes
+  * Example: Media streaming application, high speed, high throughput message buses
+
+==== Example ====
+ * Bob wants to send a message to Alice, `m`
+ * Bob and Alice share a secret key, `k`
+ * Function `F` - encrypts `m` using `k` producing `c`: {{{c = F(m, k)}}}
+ * Function `F-1` decrypts `c` using `k`: {{{m = F-1(F(m, k), k)}}}
+
+==== Things to Remember ====
+ * Symmetric key encryption is almost always acceptable when encryption and decryption needs to be performed by the same entity
+ * Do not share key among more than two nodes (one at each end of communication channel)
+
+=== Asymmetric Key Encryption ===
+  * Separation of read/write privileges (more below)
+  * Much slower than symmetric encryption
+  * Larger key sizes
+
+==== Example ====
+ * Alice has two keys: `ks` and `kp`
+ * Function `F`
+
+==== Things to Remember ====
