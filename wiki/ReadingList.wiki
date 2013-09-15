@@ -26,6 +26,7 @@
 == Java ==
  * [http://zeroturnaround.com/labs/java-8-the-first-taste-of-lambdas Lambdas in Java 8 - A First Look]
  * [http://www.oraclejavamagazine-digital.com/javamagazine/20121112#pg47 Java running on a RaspberryPi]
+ * [http://vijayrc.com/vectorclocks/vrc/post/jsch#.UjXA17zkbdE Tailing a remote file using JSCH] - I found this while google for [https://www.google.co.uk/search?q=java+use+jsch+to+tail+a+file java use jsch to tail a file]
 
 = K =
 = L =
