@@ -144,7 +144,7 @@ http://www.quickfixj.org/
 
 === Tooling (Performance & monitoring) ===
 
- * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS] - used to monitor and manipulate JMS brokers/queues/topics etc.
+ * [http://www.hermesjms.com/confluence/display/HJMS/Home HermesJMS] - used to monitor and manipulate JMS brokers/queues/topics etc. See [http://tibcoadmin.com/tibco/ems/configuring-hermesjms-for-tibco-ems/ here] for a configuration guide for Tibco EMS.
  * [https://h20392.www2.hp.com/portal/swdepot/displayProductInfo.do?productNumber=HPJMETER HP JMeter]
  * [http://jmeter.apache.org/ Apache JMeter]
  * [http://www.yourkit.com/ YourKit Java Profiler] (they also offer a .NET equiv.)
