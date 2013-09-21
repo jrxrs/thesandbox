@@ -407,6 +407,208 @@ Small and self sufficient process which just deal with a very limited number of 
 
 ----
 
+= OWASP Top 10 (+2) =
+
+<tldr>
+The key things to take away from OWASP are how security should be integrated with the dev lifecycle in order to create applications that are as secure as possible, we do this by recognising the details of and causes behind secure coding errors and mistakes and how these flaws can be exploited by hackers. OWASP outlines a number of practices to help prevent the most common mistakes creeping into projects.
+</tldr>
+
+== So what is OWASP? ==
+
+[https://www.owasp.org/index.php/About_OWASP OWASP] stands for *Open Web Application Security Project*.
+
+OWASP is a foundation which promotes online security, their mission statement is as follows:
+   OWASP is an open community dedicated to enabling organizations to conceive, develop, acquire, operate, and maintain applications that can be trusted.
+
+== Why is Security such a challenge? ==
+
+ * Connectivity
+  * The internet is everywhere and most software is on it
+ * Complexity
+  * Networked, distributed, mobile code is hard to get right (programming to a interface is OK but different people write different parts and often have different ideas on the problem and the solution)
+ * Extensibility
+  * Systems evolve in unexpected ways and are changed on the fly
+  * As new requirements emerge reconfiguration might take place, or a new plugin be issued to perform a new task, allowing any old code to run in an application you use to access your bank account isn't a great idea and we need to be cautious of such extensions.
+
+With complexity often comes more code, this is unavoidable as is the equation between code and bugs and potentials for exploitation - the more code you have the more bugs you're likely to have and the more potential for insecurity. We end up having to to make trade offs at many levels as often security just doesn't get a fair share of the pie:
+
+|| Security || Functionality ||
+||  || Technology ||
+||  || Budget ||
+||  || Time ||
+||  || Regulations ||
+
+It's important to involve stakeholders in these trades offs, they need to be aware of the risks that if you deliver insecure software with lots of functionality then you could expose the company to financial loss, reputational risk etc.
+
+== Injection ==
+
+Injection is the process by which an attacker can submit their own code using an otherwise normal feature of the site e.g filling in an order form or questionnaire, injection opportunities arise when proper care is not taken to maintain the separation between the data plane and the code plane. By exploiting this lack of separation a user can execute their own code in a program, common examples of injection attacks include:
+ * SQL Injection
+ * Command Injection 
+ * XML Injection
+
+Links
+ * http://www.theregister.co.uk/2010/01/12/bank_server_breached/
+ * http://www.startribune.com/business/83505102.html?elr=KArksUUUU
+ * http://www.infosecurity-us.com/view/7411/3000-small-dog-electronics-customers-credit-card-details-compromised/
+ * https://www.owasp.org/index.php/Top_10_2010-A1
+ * http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/
+ * https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OWASP-DV-005%29
+ * http://cwe.mitre.org/data/definitions/77.html
+ * http://cwe.mitre.org/data/definitions/89.html
+ * https://www.owasp.org/index.php/Testing_for_XML_Injection_%28OWASP-DV-008%29
+
+=== SQL Injection ===
+
+Normally an application interacts with a DB using either _Concatenated Queries_, _Prepared Statements_ or _Store Procedures_ - if devs choose to dynamically construct queries directly using user-data (i.e. without sanitising the data first) then this can be exploited by an attacker, e.g.:
+
+{{{
+public boolean authenticate(String name, String pass) {
+    Statement stmt = this.conn.createStatement();
+    String sql = "SELECT display_name FROM user_t WHERE name \'" + name + "\' AND passwd = \'" + pass + "\'";
+    ResultSet results = stmt.executeQuery(sql);
+    return results.first();
+}
+}}}
+
+The code above is a comical example of how easy it can be to inject SQL and bypass authentication, imagine passing the following parameters to the `authenticate` method above `authenticate("admin", "' or 'a' = 'a");`...boom you're IN!
+
+==== How can we test for SQL Injection? ====
+
+Testing for SQL injection vulnerabilities involves adding SQL fragments to anywhere statements are executed and observing the results, are error messages printed that give away the query or other internal details like stack traces or side effects. The fragments don't need to be that complicated, just comments, single or double quotes, boolean logic etc. Also be sure to try to attacks in as many different places as you can think of, e.g. GET & POST parameters, cookie values and header values.
+
+The safest way to mitigate the risk of SQL injection is to validate and sanitize all user input, ensuring that you check for special characters (using regex) that might leave you vulnerable, finally ensure that you only use secure means of interacting with the DB i.e. _Prepared Statements_ & _Parameterized Queries_ (i.e. `WHERE name = ?`). You've still got to follow best practice when using either of these structures however.
+
+=== Command Injection ===
+
+Command injection is when unaltered user controlled data becomes part of a command string used to execute a system call on the server, e.g.
+
+ * `system([user-input]); // C`
+ * `exec([user-input]) // Unix`
+ * `system.Runtime.getRuntime().exec([user-input]); // Java`
+
+Clearly the attacker will need to know which OS your server is running on when you're testing for this vulnerability (this would allow you to easily chain commands for instnace), also make sure you don't test using destructive commands and that you check both the reply to the user and the server to what was actually executed.
+
+Another helpful strategy to mitigate this attack is to run the process with the most limited set of privileges possible on that OS, that way even if an attacker does find a way in they will not be able to do anywhere near as much damage as they might have done.
+
+=== XML Injection ===
+
+XML is structured data which means that some characters have alternative meanings depending on their context, if you fail to validate the XML you're parsing against a DTD or XSD you might find that an attacker can alter the meaning and structure of your XML document for instance by:
+ * Introducing new elements/attributes
+ * Overriding new elements/attributes
+ * Causing a denial of service (DoS) situation by creating deeply nested XML fragments (I guess this does eats your processor and leaves you unable to service new requests)
+
+==== DTD Attacks ====
+
+In accordance with the XML specification, most XML parsers support *entity declarations* in an XML document's DOCTYPE, it is possible for defined entities to be supplied by a user at runtime by requesting a DTD which is external to the network, if the XML parser is able to reach the external DTD and load it then it will be able to resolve the additional entities and pass those into the application for further processing, this might cause the application to crash or expose its internals allowing the attacker to exploit more serious vulnerabilities.
+
+The classic example of a DTD Attack is the [http://en.wikipedia.org/wiki/Billion_laughs Billion Laughs Attack].
+
+XML injection is a bit like a gateway drug!
+
+==== How to test ====
+
+Again the testing strategy, similar to SQL Injection to is submit malformed XML fragments and observe XML parser errors, fragments examples might include:
+ * <foo
+ * <foo>
+ * Bar"
+ * /bar
+ * //foo
+
+== Cross-site Scripting (XSS) ==
+
+Cross-site scripting is possible when unaltered user provided content is included as part of a webserver response. If that data contains script elements the receiving browser will execute that script as if it were in the context of the we application, that is it will be processed by the browser as if it were script created by your web application since the browser has no way to distinguish that it was meant to be data and not code. This allows the script to violate the browsers same origin policy.
+
+There are two common type of cross-site scripting attacks:
+|| *Reflected/Non-persistent* || *Stored/Persistent* ||
+|| Scripts are reflected by websites and never stored || Scripts are permanently stored by the website in databases, XML files, etc. ||
+|| Example: Malicious links containing scripts || Example: Message boards, forum posts, user comments, etc. containing scripts ||
+
+Links
+ * http://www.zdnet.com/blog/security/obama-site-hacked-redirected-to-hillary-clinton/1042
+ * http://www.telegraph.co.uk/technology/twitter/7499228/Conservatives-embarrassed-as-hackers-exploit-loophole-on-anti-union-website.html
+ * http://praetorianprefect.com/archives/2010/06/persistent-xss-on-twitter-com/
+ * https://www.owasp.org/index.php/Top_10_2010-A2
+ * https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+ * http://www.cert.org/advisories/CA-2000-02.html
+ * http://www.blackhat.com/presentations/bh-jp-06/BH-JP-06-Grossman.pdf
+ * http://jtidy.sourceforge.net/
+
+=== Same Origin Policy (SOP) ===
+
+A browser's Same Origin Policy prevents documents or scripts loaded from one origin (domain) from getting or setting properties from a different origin. Origins are the same if the protocol, port and host are all equal.
+
+However an XSS exploit bypasses the SOP because the webserver itself serves up the content (script in this case) to the user, this allows the script access to cookies and the browser DOM etc. because it is from the same origin. 
+
+=== How to test for & Mitigate it ===
+
+General Approach
+ * In places that accept and display user input, check that:
+  * *Output Encoding* is performed, to ensure that data is not interpreted as code
+  * *Input Validation* is done at least on the server, so that data entered by users are semantically and syntactically correct
+ * Use *Static Analysis Tool* and/or a Dynamic Analysis Tool
+ * Malicious !JavaScript can be inserted in several parts of the HTTP Response:
+ # Between HTML tags
+ # Inside HTML attributes
+ # Within <SCRIPT> blocks
+ * Use commonly available output URL encoding library like java.net.URLEncoder
+
+== Broken Authentication & Session Management ==
+
+Why are we at risk of this type of attack?
+
+Well, HTTP is a stateless protocol which means requests made by users must be identified on each request, to prevent the user from having to enter the credentials before every request a Session ID token is used to authenticate the user, this token must be passed between the user and the server on each request and reply. Sessions IDs must:
+ * be Un-guessable
+ * be Non-colliding
+ * be Untrusted
+ * Have a defined life expectancy
+
+We tend to store the Session ID inside a cookie which passed automatically between the browser and the server on every request and reply. Clearly if a Session ID generated for two different users matches then we have a problem, similarly we have a problem if a hacker manages to capture our Session ID from the cookie as it would allow them to impersonate us during that session.
+
+Cookies can be hijacked using a variety of methods; XSS, packet sniffing (on unencrypted connections), brute force or session fixation for example.
+
+Links
+ * http://www.computerworld.com/s/article/63587/Privacy_hole_found_in_Verizon_Wireless_Web_site_?taxonomyId=084
+ * http://abcnews.go.com/print?id=10871229
+ * https://bugzilla.redhat.com/show_bug.cgi?id=500358
+ * http://dev.rubyonrails.org/ticket/10048
+ * https://www.owasp.org/index.php/Top_10_2010-A3
+ * http://www.imperva.com/resources/glossary/session_hijacking.html
+ * http://shiflett.org/articles/session-fixation
+
+=== Mitigation ===
+
+Best Practices:
+ * Use expiry time for session cookies
+ * Invalidate session on the server after the user logs out or after a specified timeout
+ * Do not accept session identifiers from GET/POST variables as these parameters are more difficult to protect from sniffing & hijacking
+ * Use cookie session ID with changing tokens
+ * Utilize SSL/TLS for the entire website t encrypt data passsed between parties and to mitigate man in the middle attacks
+ * Map Session IDs to IP addresses
+ * Have the user re-authenticate before any important transactions take place (e.g. large money transfers)
+ * Only accept IDS generated by the server
+ * Regenerate the IS after a successful login
+ * Set the 'secure' attribute in the cookie so that SSL/TLS is required to transmit it
+ * Mark cookies as HTTPOnly so they will not be accessible to potential malicious !JavaScript
+ * Use sufficiently random and large Session IDs (generally should reply on the application server to generate them)
+ * Minimise use of persistent cookies
+
+== Insecure Direct Object Reference ==
+
+...
+
+== Cross-site Request Forgery (CSRF) ==
+== Security Misconfiguration ==
+== Insecure Cryptographic Storage ==
+== Failure to Restrict URL Access ==
+== Insufficient Transport Layer Protection ==
+== Unvalidated Redirects & Forwards ==
+== Malicious File Execution ==
+== Information Leakage & Improper Error Handling ==
+
+----
+
 = Links =
 
-[http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
+ * [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
+ * [https://www.owasp.org/index.php/Top_10_2013-Top_10 OWASP 2013]
