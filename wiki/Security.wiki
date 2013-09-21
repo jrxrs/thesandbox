@@ -420,6 +420,8 @@ The key things to take away from OWASP are how security should be integrated wit
 OWASP is a foundation which promotes online security, their mission statement is as follows:
    OWASP is an open community dedicated to enabling organizations to conceive, develop, acquire, operate, and maintain applications that can be trusted.
 
+The OWASP Top 10 for 2013 can be found [https://www.owasp.org/index.php/Top_10_2013-Top_10 here]. 
+
 == Why is Security such a challenge? ==
 
  * Connectivity
@@ -595,20 +597,244 @@ Best Practices:
 
 == Insecure Direct Object Reference ==
 
-...
+What is it? A direct object reference occurs when a developer exposes as a URL or form parameter a reference to an internal implementation object, such as a file, directory, database record, or key. Attackers can then use parameter tampering to change references and violate the intended, but unenforced access control policy. There references often point to file systems and databases, but any exposed application construct could be vulnerable.
+
+Link
+ * http://www.ocregister.com/articles/information-254735-security-anthem.html
+ * http://www.abc.net.au/7.30/stories/s146760.htm
+ * https://www.owasp.org/index.php/Top_10_2010-A4
+ * http://cwe.mitre.org/data/definitions/22.html
+ * https://www.owasp.org/index.php/Testing_for_Path_Traversal
+ * http://owasp-esapi-java.googlecode.com/svn/trunk_doc/latest/org/owasp/esapi/AccessController.html
+
+=== Exploitations ===
+
+*Path Traversal* is when a path is used for File I/O operations and typically involves reading or modifying unauthoized files or used in conjunction with a DoS attack (by blocking access to key resources). Path traversal can also be used for remote code execution. E.g.
+ * http://company.com/../../../../../etc/passwd
+ * http://foo/bar?display=/etc/passwd
+ * Using null bytes (%00 when encoded as part of a URL string) to terminate a request early
+
+=== How to test for and mitigate against it ===
+
+Pass in varying forms of ../../.. to your parameters that accept file paths. To guard against this we need to perform input validation (via regex) and by using properly locked down file systems wrt. the user owning the webserver process. Using chrooted jails and code access policies to restrict where files can be obtained or saved to.
 
 == Cross-site Request Forgery (CSRF) ==
+
+Cross-site request forgery is an attack which tricks a victim into making a request for an operation that usually requires authentication and can be made through the user interface. The attacker can use this type of bug to request to make legitimate requests for actions such as changing profile information, email/password, transferring money, sending and message etc.
+
+How do they do this? One method is using the img tag, for instance the following HTML might be posted to a public forum:
+{{{
+<img scr="http://banksite.com/transfer?to=attacker&amt=200"/>
+}}}
+The HTTP request is hidden in the img tag and activated when the victim's browser attempts to load the image file, if the victim happens to have a session with the correct banking website open at the time the load the img (which due to inappropriate or absent Session ID expiry or the user failing to log out of the banking site correctly is all too common) then the request to the bank site will proceed. The img tab isn't the only method of achieving this goal, you could do the same think with !JavaScript or iframe for instance.
+
+Links
+ * http://www.theregister.co.uk/2010/05/19/facebook_private_data_leak/
+ * http://news.cnet.com/8301-1009_3-10234033-83.html
+ * https://www.owasp.org/index.php/Top_10_2010-A5
+ * https://www.owasp.org/index.php/Testing_for_CSRF_%28OWASP-SM-005%29
+ * http://owasp-esapi-java.googlecode.com/svn/trunk_doc/latest/org/owasp/esapi/HTTPUtilities.html
+
+=== How to test for it ===
+
+Use an HTTP proxy tool like Fiddler or Burp Proxy to intercept requests to your webserver while performing a generic operation. The proxy tool will allow you to examine the parameters being sent to the server and should help us understand how the request is assembled and the action performed. The proxy tool will also allow you to change the parameter values and see what the application does, if you can create a unique request that would perform the same action for any user making that request then you have a vulnerability. If however the requests require a value (or values) that are different for each user and which cannot be predicted then you should be OK.
+
+Even if you do take these measures you should make sure you attempt to replay the same requests when testing be sure the application doesn't allow duplicate requests. Essentially you need to be sure that your application is smart enough to detect and ignore requests that have been tampered with.
+
+=== Mitigation ===
+
+Basically use the method eluded to above to mitigate your risk here, but also not that mitigating this type of issue cannot be achieved in isolation, you need to be sure that you don't have any other vulnerabilities such as XSS because if you do then these can be exploited allowing the attacker very easy access to the cookies of a user.
+
 == Security Misconfiguration ==
+
+The crux of the point OWASP are making here is that if you fail to keep up to date with the latest patches and security configuration requirements of the software and libraries that you depend on then you're asking for trouble - as soon as a new release is available for a common platform e.g. Java then attacks will be made available allowing attackers to exploit them before organisations have a chance the update and protect themselves against the flaw.
+
+If you don't stay up to date then it's like leaving your bathroom window open. There's even a tool called Metasploit Framework which packages attacks into a nice interface to allow them to be reused quickly and efficiently. 
+
+Links
+ * [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
+ * http://www.pcworld.com/article/138193/article.html
+ * https://www.owasp.org/index.php/Top_10_2010-A6
+ * http://www.tenable.com/products/nessus
+ * http://bastille-linux.sourceforge.net/
+ * http://technet.microsoft.com/en-us/security/cc184924.aspx
+ * http://www.securityfocus.com/archive/1
+ * http://cve.mitre.org/
+
+=== How to test for it ===
+
+Nessus is an excellent method of scanning you systems to check for vulnerabilities such as open ports or services. 
+
+=== Mitigation ===
+
+ * Ensure you're using vendor-supported configurations of the 3rd-party software you use
+ * Stay up to date with vendor-issed patches, especially security patches
+  * Ensure you test patches properly before putting them into production
+ * Use system hardening tools on the servers that host your applications, such as:
+  * Bastille (Unix/Linux)
+  * Microsoft Baseline Security Analyzer (Windows)
+ * Keep an eye on bug reporting sites such as BugTraq & Mitre's CVE
+
 == Insecure Cryptographic Storage ==
+
+Developers often fail to properly protect the sensitive data that their software processes. The most common problems are:
+ * Not encrypting sensitive data
+ * Using home-grown algorithms
+ * Insecure use of string algorithms
+ * Continued use of proven weak algorithms (MD5, SHA-1, RC3, RC4, etc.)
+ * Hard-coding keys and placing key in unprotected stores
+
+Current best practice is use to key lengths of at least 1024-bits although the rapid increase in computing power is already making this length of key questionable. When using symmetric encryption keys should be at least 128-bits.
+
+FIPS from NIST offers guidelines for the use of cryptographic solutions which can help you ensure you're adhering to best practice. 
+
+We should also never [http://www.hpenterprisesecurity.com/vulncat/en/vulncat/cpp/weak_cryptographic_hash_hardcoded_salt.html hardcode salt].
+
+Links
+ * http://www.isaac.cs.berkeley.edu/isaac/wep-faq.html
+ * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1567
+ * http://www.theregister.co.uk/2007/05/04/txj_nonfeasance/
+ * https://www.owasp.org/index.php/Top_10_2010-A7
+ * http://csrc.nist.gov/groups/STM/cmvp/standards.html#02
+ * http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+ * http://www.emc.com/domains/rsa/index.htm?id=2227
+
 == Failure to Restrict URL Access ==
+
+Attackers will often employ an attack called forced browsing against wed applications, this encompasses guessing links and brute force techniques to find unprotected pages, some common examples of these flaws include:
+ * Hidden or Special URLs rendered only to administrators or privileged users in the presentation leayer, but accessible to all users if they know it exists
+ * Applications often allow access to hidden files such as static XML or system generated reports, trusting security through obscurity to hide them
+ * Code that evaluates privileges not on the server, but rather via !JavaScript on the browser
+
+All types of data could be exposed if not properly protected with permissions, for example:
+ * Administrative functionality
+ * Server log files
+ * Other valuable resources and private files
+
+Links
+ * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-0682
+ * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-1062
+ * https://www.owasp.org/index.php/Top_10_2010-A8
+ * http://capec.mitre.org/data/definitions/1.html
+ * https://www.owasp.org/index.php/Top_10_2007-Failure_to_Restrict_URL_Access
+ * http://cwe.mitre.org/data/definitions/285.html
+
+=== How to test for it ===
+
+ * Horizontal
+  * Look for operations accepting any 'ID' parameters, change the value of the parameter and ensure that access to restricted resources is not granted
+ * Vertical
+  * Look for operations that can be access only by certain roles, attempt to make the same requests while logged in as a different role, and ensure access is properly controlled
+
+=== Mitigation ===
+
+For web resources authorization checks can be declared in the deployment descriptor, just make sure that the URL patterns specified cover all of the resources that are supposed to be restricted. Architecture and design review should verify that Access Control Rules are in place and enforced. The example shows how we might achieve this in Java EE's web.xml:
+{{{
+// web.xml
+<security-constraint>
+   <web-resource-collection>
+      <web-resource-name>SelfServeApp</web-resource-name>
+      <url-pattern>/*</url-pattern>
+   <web-resource-collection>
+   <!-- [...] -->
+}}}
+
 == Insufficient Transport Layer Protection ==
+
+Two common issues with securing system functionality are missing SSL-enabled connections in the production environment and weak ciphers used in SSL. An attacker capable of intercepting the data transferred between the server and the client can:
+ * In the case of missing SSL-enabled connections, read the plaintext communications
+ * In the case of weak SSL cipher, easily decrypt the communications that are intended to be kept secure
+
+Links
+ * http://news.spotify.com/int/2009/03/04/spotify-security-notice/
+ * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4390
+ * https://www.owasp.org/index.php/Top_10_2010-A9
+ * http://oreilly.com/catalog/apache3/chapter/ch11.pdf
+ * https://www.ssllabs.com/ssltest/index.html
+
+=== How to test for it ===
+
+ * Ensure that the protocol is `https` and not plain old `http`.
+ * Using a network traffic "sniffer", you can analyse the communications that are intended to be secure. If the data intercepted is plaintext then SSL is obviously not employed
+ * A more accurate form of testing is scanning the configuration files of the server to determine whether SSL has been enabled, and which cipher has been applied to the SSL communication channel
+
+=== Mitigation ===
+
+ * Ensure that SSL is enabled for all transactions that require data to be secure. Obviously this will differ from system to system.
+ * Ensure that the cipher sued for the SSL communication is strong and uses a strong enough key to keep the data secure from the entire length of time it is required to be private
+
 == Unvalidated Redirects & Forwards ==
+
+It is very common for a web application to perform automatic redirection or forwarding or users from one URL to another, sometimes this can be in the forms of an unvalidated parameter allowing attackers to choose the destination page. Phishers can exploit this problem in one site (which the user might trust) to trick users into visiting an untrusted or evil site that might try to install some software or steal their credentials e.g. `http://www.example.com/redirect.jsp?url=evil.com`
+
+Links
+ * https://blog.commtouch.com/cafe/email-security-news/cnn-redirect-exploited-by-scammers/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+CommtouchCafe+%28Commtouch+Caf%25C3%25A9%29
+ * http://www.kmbc.com/news/10408223/detail.html
+ * https://www.owasp.org/index.php/Top_10_2010-A10
+ * http://cwe.mitre.org/data/definitions/601.html
+ * http://projects.webappsec.org/w/page/13246981/URL%20Redirector%20Abuse
+
+=== How to test for it ===
+
+You should already know under which situations you application will attempt to redirect a user so target those places and see if you can force the system to redirect you to a page which the server should not, under normal circumstances, choose as a redirection location. As well as testing redirection to a separate domain you should also test that redirection within your own site works as expected and that a user cannot gain access to otherwise protected content if accessing it via a redirection.
+
+=== Mitigation ===
+
+ * Always check the destination prior to redirecting or forwarding to that destination if that destination contains user controlled data
+ * It is good practice to only forward or redirect to a white-listed set of resources, which will help diminish impact of these types of vulnerabilities
+
 == Malicious File Execution ==
+
+The file inclusion attack forces malicious files to become part of the running application, specific functions like include, require, include_once and require_once are susceptible to this type of threat. This vulnerability leads to the execution of arbitrary code on the server:
+{{{
+<?php
+$report = $_POST['report_name']
+include $report;
+?>
+}}}
+
+Links
+ * http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-0263
+ * http://cxsecurity.com/issue/WLB-2008050085
+ * https://www.owasp.org/index.php/Top_10_2007-A3
+ * https://www.owasp.org/index.php/File_System#Includes_and_Remote_files
+ * http://projects.webappsec.org/w/page/13246950/OS%20Commanding
+
+=== How to test for it ===
+
+ * Look for places where file paths are determined dynamically.
+ * Attempt to define the dynamic path elements in a call to the page that is not meant to be called directly
+ * Determine if the application attempts to pull data from the wrong location
+
+=== Mitigation ===
+
+ * Review existing code for file operations, include/require, and eval() statements to ensure that user input is properly validated prior to first use
+ * When writing new code try to limit the use of dynamic inputs from users to vulnerable functions either directly or via wrappers
+ * Disable allow_url_fopen in php.ini by setting it to 0
+ * Lockdown the server environment to prevent the server from making new outbound requests.
+
 == Information Leakage & Improper Error Handling ==
 
+Attackers will typically begin their assault against an application by attempting to gather as much information about the system as possible. There are many sources of information for attackers, but one of the most common is error messages. Usability vs. Security tradeoff;
+ * Verbose error messages may help an attacker (stack traces for instance are way too verbose and very useful to an attacker)
+ * Obtuse error messages may frustrate users
+
+This can manifest itself in something as simple as replacing "Invalid Username"/"Invalid Password" with a generic "Username & Password do not match!".
+
+Links
+ * http://www.theregister.co.uk/2010/06/04/facebook_email_indexing_snafu/
+ * http://www.boston.com/business/technology/articles/2005/05/05/insurers_website_error_reveals_data_on_drivers/?rss_id=Boston+Globe
+ * https://www.owasp.org/index.php/Top_10_2007-A6
+ * http://www.adobepress.com/articles/article.asp?p=25445&seqNum=4 
+ * http://projects.webappsec.org/w/page/13246936/Information%20Leakage
+
+=== How to test for it ===
+
+Throw as much random crap as you can think of at your application until you manage to get it to show you something about it's internals. You may find that using this type of testing allows to you see which other types of attack you might be vulnerable to, like SQL Injection or XSS for instance. 
+
+=== Mitigation ===
+
+ * Use try/catch and ensure that you return a decent error message to the user if they do cause a exception during a request.
+ * You can often configure servers (via web.xml for instance) to return custom pages in the event of an error, this gives you much more control over what is leaked even if you do forget to catch something somewhere along the lines.
+
 ----
-
-= Links =
-
- * [http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/ Java 7 exploits reverse engineered and used to hack Java 6]
- * [https://www.owasp.org/index.php/Top_10_2013-Top_10 OWASP 2013]
