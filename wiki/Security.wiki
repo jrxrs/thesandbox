@@ -521,7 +521,16 @@ public boolean authenticate(String name, String pass) {
 
 The code above is a comical example of how easy it can be to inject SQL and bypass authentication, imagine passing the following parameters to the `authenticate` method above `authenticate("admin", "' or 'a' = 'a");`...boom you're IN!
 
+The list of potential exploits is long for SQL Injection, an attacker may:
+ * Cause the application to return different data to the attacker than what should normally be returned (authorization failure)
+ * Overwrite or delete data in the database (integrity failure)
+ * Overload the database server, impairing its ability to support the application (availability failure)
+ * Perform remote code execution with the privileges of the identity that the DBMS is running under (compute compromise)
+ * Steal private data (compliance failure)
+
 ==== How can we test for SQL Injection? ====
+
+One of the most efficient methods of testing for this type of vulnerability is to use static analysis tools that checks for dynamic strings which use unsanitized user input and are then used as input to SQL commands.
 
 Testing for SQL injection vulnerabilities involves adding SQL fragments to anywhere statements are executed and observing the results, are error messages printed that give away the query or other internal details like stack traces or side effects. The fragments don't need to be that complicated, just comments, single or double quotes, boolean logic etc. Also be sure to try to attacks in as many different places as you can think of, e.g. GET & POST parameters, cookie values and header values.
 
@@ -565,12 +574,18 @@ Again the testing strategy, similar to SQL Injection to is submit malformed XML 
 
 == Cross-site Scripting (XSS) ==
 
-Cross-site scripting is possible when unaltered user provided content is included as part of a webserver response. If that data contains script elements the receiving browser will execute that script as if it were in the context of the we application, that is it will be processed by the browser as if it were script created by your web application since the browser has no way to distinguish that it was meant to be data and not code. This allows the script to violate the browsers same origin policy.
+Cross-site scripting is possible when unaltered user provided content is included as part of a webserver response. If that data contains script elements the receiving browser will execute that script as if it were in the context of the web application, that is it will be processed by the browser as if it were script created by your web application since the browser has no way to distinguish that it was meant to be data and not code. This allows the script to violate the browsers Same Origin Policy (SOP).
 
 There are two common type of cross-site scripting attacks:
 || *Reflected/Non-persistent* || *Stored/Persistent* ||
 || Scripts are reflected by websites and never stored || Scripts are permanently stored by the website in databases, XML files, etc. ||
 || Example: Malicious links containing scripts || Example: Message boards, forum posts, user comments, etc. containing scripts ||
+
+The list of potential exploits is, unfortunately a long one;
+ * Capture a user's cookie and hijack their session
+ * Change the appearance of a web page so that malicious content is taken to authoritative (e.g. capturing credentials via a fake login page)
+ * Execute requests on a user's behalf and have the results sent back to the attacker
+ * Port scanning of the victims local network
 
 Links
  * http://www.zdnet.com/blog/security/obama-site-hacked-redirected-to-hillary-clinton/1042
@@ -590,7 +605,21 @@ A browser's Same Origin Policy prevents documents or scripts loaded from one ori
 
 However an XSS exploit bypasses the SOP because the webserver itself serves up the content (script in this case) to the user, this allows the script access to cookies and the browser DOM etc. because it is from the same origin.
 
-The SOP is evaluated when manipulating browser windows, frames, documents, cookies and XML HTTP requests, however it not evaluated when including documents from other domains in HTML tags such as images, scripts and style sheets.
+The SOP is evaluated when manipulating browser windows, frames, documents, cookies and XML HTTP requests, however it not evaluated when including documents from other domains in HTML tags such as images, scripts and style sheets. As a result it is still possible for malicious scripts to reach to client but those scripts are limited in what they can do, it does allow redirection though, which still leaves users vulnerable.
+
+*One weakness on your site leaves the entire application at risk! Therefore you can never do enough input verification and output filtering.*
+
+ * Escape/encode output so that input is never interpreted as code, you can use HTML and/or URL encoding (e.g. !JTidy)
+ * Properly validate all input on the server-side (never on the client-side just in case - this doesn't mean you should do nothing on the client-side, you can still do checks to prevent unnecessary round trips to the server but you should be mindful that hackers have full control over the client and can intercept outgoing calls in order to tamper with them with relative ease).
+ * Store and process raw data using safe methods
+
+Some example regular expressions for input validation are:
+
+|| *Field* || *Regular Expression* ||
+|| Alphanumeric (with space, underscore & period) || `/^[0-9a-zA-Z _.]+$/` ||
+|| Positive integer || `/^[1-9][0-9]*$/` ||
+|| Email address || `/^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+$/` ||
+|| Zip code || `/^[0-9]{5}(-[0-9]{4})?$/` ||
 
 ==== Document Object Model (DOM) ====
 
@@ -891,4 +920,29 @@ Throw as much random crap as you can think of at your application until you mana
  * Use try/catch and ensure that you return a decent error message to the user if they do cause a exception during a request.
  * You can often configure servers (via web.xml for instance) to return custom pages in the event of an error, this gives you much more control over what is leaked even if you do forget to catch something somewhere along the lines.
 
+== Header Manipulation ==
+
+Header manipulation is an attack where the attacker is able to manipulate the HTTP response headers of an application to generate an HTTP response of their choosing from a trusted web application.
+
+=== How does it work? ===
+
+A attacher sends a single HTTP request that forces the Web server to form a response that is interpreted by the target as two HTTP responses instead of one response, this allows the attacker to control contents of the second response. Older versions of Tomcat are vulnerable to this exploit but more recent version (5+) are not.
+
+Under normal circumstances an HTTP response contains just one set of headers and one body. Each individual header is separated from the next using `\r\n`, similarly the body is separated from the list of headers using an empty line containing only `\r\n`.
+
+Using this information it is possible for the attacker to insert their own body within the headers returned by the server, thus the attacker has gained full control over what the victim sees. `%0d%0a` is the URL encoding for `\r\n` and can be used in this attack. This is a very easy method of an attacker performing a XSS attack on a victim, it can also impact:
+ * Cross-site Scripting
+ * Cross-user Defacement
+ * Web Cache Poisoning
+ * Page Hijacking
+ * Browser Cache Poisoning
+
+=== Mitigation ===
+
+ * URL-encode any non-valid character before inclusion in HTTP headers
+ * Validate and remove/encode all user input for:
+  * CR LF
+  * `\r\n`
+  * `%0d%0a`
+  * Any other encoding of these or other malicious characters before using them in HTTP headers.
 ----
