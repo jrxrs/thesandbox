@@ -57,6 +57,15 @@ These are just like user cases although they deal exclusively with situations to
 
 == What constitutes an Insecure Design? ==
 Both of the areas below contribute to insecure software, studies have shown that there is roughly a 50-50 split between the two categories.
+
+First of all lets have some definitions:
+ * DEFECT
+   Both implementation vulnerabilities and design vulnerabilities are defects. A defect is a problem that may lie dormant in software for years only to surface in a fielded system to major consequences.
+ * BUGS
+   A bug is an implementation level software problem. Bugs may exist in code but never be executed, though the term bug is applied quite generally by many software practitioners in security terms we tend to think of them simply as implementation errors. Bugs can be easily discovered and remedied. 
+ * FLAW
+   A flaw is a problem at a deeper level, often much more subtle that an off-by-one reference in a array or use of an incorrect system call, that's not to say that they never exist in code but rather that they tend to exist at the design level as well. 
+
 === Implementation Bugs ===
 
 Broken code, for example:
@@ -81,6 +90,25 @@ Design problems that create security vulnerabilities:
  * Insecure or lack of auditing
  * Lack of authentication or session management on APIs
  * Missing compartmentalization (*storing secure information on the client side where a smart hacker might be able to manipulate it*)
+ * Broad trust between components
+ * Client-side trust
+ * Sub-classing causing unexpected behaviour/issues
+ * Poor error handing exposing system architecture/detail/state
+
+=== The Trinity of Trouble ===
+
+==== Connectivity ====
+
+The internet is everywhere and most software is on it! 
+   The Network is the computer - Sun Microsystems
+
+==== Complexity ====
+
+Networked distributed, mobile code is hard.
+
+==== Extensibility ====
+
+Systems evolve in unexpected ways and are changed on the fly.
 
 == ARA Subprocesses ==
 
@@ -97,7 +125,7 @@ There are 3 discrete subprocesses which must be carried out during ARA:
    * Cryptography: JCA (Java Cryptography Architecture) provides signing, hashing, encryption and decryption - there's a mix of client and server side cryptography solutions although we should favour server side wherever possible because client side requires the key to be distributed to the client which is a trust issue.
    * Authentication & Authorization: JAAS (Java Authentication & Authorization Service) this is just a proxy essentially, it doesn't make any decisions itself, it merely delegates to something else to make those decisions. 
    * Input Validation & Output Encoding: .NET validateRequest (good for cross-site scripting) must be used with other forms of checks.
-   * Sandboxing: !JavaScript (single origin policy) 
+   * Sandboxing: !JavaScript (same/single origin policy) 
  * Attack Resistance Analysis
   * Apply checklist of known attacks
    * e.g. OWASP10
@@ -442,6 +470,24 @@ With complexity often comes more code, this is unavoidable as is the equation be
 
 It's important to involve stakeholders in these trades offs, they need to be aware of the risks that if you deliver insecure software with lots of functionality then you could expose the company to financial loss, reputational risk etc.
 
+Other problems include the fact that in the consumer space customers implicitly expect their software to be secure but they won't tell you that until it comes to their attention that it is, again this is a problem with expectations, people what lots of features and functionality but they don't necessarily think of the impact these will have on security. 
+
+More general and cultural problems are:
+ * Software developers lack knowledge of vulnerabilities, attacks and threats
+ * IT security groups tend to not understand software development which results in the two groups pissing each other off e.g. when IT Security demands a software review right at the end of the development lifecycle when really they should have been working together throughout product development.
+
+=== Ignoring the Past ===
+
+Security is just a single part of software development, which is an extremely complex beast, just like Mechanical Engineering for instance. In Mechanical Engineering it is common to study failure but this isn't common place in Software Engineering.
+
+=== Over-reliance on Perimeter Security ===
+
+For years we've built metaphorical forts around our software, using fire walls and DMZs for instance but the fact is these can only work if there are no holes what-so-ever in them, as soon as you first open a port for IM or VoIP for instance you have a route into your network which can be exploited by the right mechanism.
+
+=== Penetration Testing doesn't provide solutions ===
+
+Simple penetrations can help identify problems with the solutions in place surrounding software but they don't actually help fix problems with the software itself. I.e. you might find that you've got a firewall misconfiguration using penetration testing, this can be fixed quite easily but if you find a problem with the software itself you might have to redesign significant parts of the software to achieve a fix.
+
 == Injection ==
 
 Injection is the process by which an attacker can submit their own code using an otherwise normal feature of the site e.g filling in an order form or questionnaire, injection opportunities arise when proper care is not taken to maintain the separation between the data plane and the code plane. By exploiting this lack of separation a user can execute their own code in a program, common examples of injection attacks include:
@@ -538,9 +584,17 @@ Links
 
 === Same Origin Policy (SOP) ===
 
+   Mechanism implemented in the Web browser to restrict interaction between components from different domains.
+
 A browser's Same Origin Policy prevents documents or scripts loaded from one origin (domain) from getting or setting properties from a different origin. Origins are the same if the protocol, port and host are all equal.
 
-However an XSS exploit bypasses the SOP because the webserver itself serves up the content (script in this case) to the user, this allows the script access to cookies and the browser DOM etc. because it is from the same origin. 
+However an XSS exploit bypasses the SOP because the webserver itself serves up the content (script in this case) to the user, this allows the script access to cookies and the browser DOM etc. because it is from the same origin.
+
+The SOP is evaluated when manipulating browser windows, frames, documents, cookies and XML HTTP requests, however it not evaluated when including documents from other domains in HTML tags such as images, scripts and style sheets.
+
+==== Document Object Model (DOM) ====
+
+The DOM is a platform and language independent standard object model for representing HTML, XML & related formats. A web browser is not obliged to use the DOM in order to render an HTML document however the DOM is required by !JavaScript script that wish to inspect of modify the content of a page dynamically. In other words the DOM is how a !JavaScript script seems its containing HTML page and browser state.
 
 === How to test for & Mitigate it ===
 
@@ -702,7 +756,7 @@ Links
 == Failure to Restrict URL Access ==
 
 Attackers will often employ an attack called forced browsing against wed applications, this encompasses guessing links and brute force techniques to find unprotected pages, some common examples of these flaws include:
- * Hidden or Special URLs rendered only to administrators or privileged users in the presentation leayer, but accessible to all users if they know it exists
+ * Hidden or Special URLs rendered only to administrators or privileged users in the presentation layer, but accessible to all users if they know it exists
  * Applications often allow access to hidden files such as static XML or system generated reports, trusting security through obscurity to hide them
  * Code that evaluates privileges not on the server, but rather via !JavaScript on the browser
 
