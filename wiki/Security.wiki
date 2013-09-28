@@ -661,6 +661,33 @@ Links
  * http://www.imperva.com/resources/glossary/session_hijacking.html
  * http://shiflett.org/articles/session-fixation
 
+=== Cookies ===
+
+A cookie is a small piece of text that a Web browser stores on a user's computer and consists of name-value pairs and is designed to allow a server to track a user's session details, authentications, preferences, shopping cart contents etc. Given the type of sensitive information cookies contain they are often targets of an attacker, security can be compromised in a number of ways: 
+ * Exposing the cookie to an insecure transfer protocol
+ * Exposing one cookie to multiple applications
+ * Not having a cookie expire in a reasonable amount of time
+ * Allowing the cookie to be accessed by client side scripts
+
+Cookies are often obtained by attackers using client side scripts, however some browsers include the HTTPOnly flag which prevents scripts from accessing cookies.
+
+Once an attacker has access to a users cookie they can:
+ * Obtain access to private data
+ * Overwrite a user's cookie data
+ * Obtain authentication/authorization credentials for the susceptible Web application
+
+==== How to test for it ====
+
+To test for script access to a cookie, visit the site you intend to test and after it has loaded type the following string into the address bar:
+
+{{{
+javascript:alert(document.cookie)
+}}}
+
+If a popup appears containing the cookie data then the HTTPOnly flag is not set. 
+
+You can also use proxy tools to help test.
+
 === Mitigation ===
 
 Best Practices:
@@ -690,6 +717,10 @@ Link
  * https://www.owasp.org/index.php/Testing_for_Path_Traversal
  * http://owasp-esapi-java.googlecode.com/svn/trunk_doc/latest/org/owasp/esapi/AccessController.html
 
+=== Path Manipulation ===
+
+Path Manipulation or Directory Traversal is an example of this type of attack where unaltered user input is inserted into parts of paths used in File I/O APIs allowing an attacker to access or modify otherwise protected system resources (see below).
+
 === Exploitations ===
 
 *Path Traversal* is when a path is used for File I/O operations and typically involves reading or modifying unauthoized files or used in conjunction with a DoS attack (by blocking access to key resources). Path traversal can also be used for remote code execution. E.g.
@@ -699,17 +730,21 @@ Link
 
 === How to test for and mitigate against it ===
 
-Pass in varying forms of ../../.. to your parameters that accept file paths. To guard against this we need to perform input validation (via regex) and by using properly locked down file systems wrt. the user owning the webserver process. Using chrooted jails and code access policies to restrict where files can be obtained or saved to.
+Pass in varying forms of ../../.. to your parameters that accept file paths. To guard against this we need to perform input validation (via regex) and by using properly locked down file systems wrt. the user owning the webserver process. Using chrooted jails and code access policies to restrict where files can be obtained or saved to (chroot essentially limits what the application can see on the filesystem from its current directory).
+
+Mitigation, as with most of these things is down to validating user input on the server side to present any undesired access to system resources, you can further reduce risk by running the process under a user account that is correctly locked down to ensure access to only required files is granted (especially when it comes to file modification or deletion). 
 
 == Cross-site Request Forgery (CSRF) ==
 
-Cross-site request forgery is an attack which tricks a victim into making a request for an operation that usually requires authentication and can be made through the user interface. The attacker can use this type of bug to request to make legitimate requests for actions such as changing profile information, email/password, transferring money, sending and message etc.
+Cross-site request forgery is an attack which tricks a victim into making a request for an operation that usually requires authentication and can be made through the user interface. The attacker can use this type of bug to request legitimate actions such as changing profile information, email/password details, transferring money, sending a message etc.
 
 How do they do this? One method is using the img tag, for instance the following HTML might be posted to a public forum:
 {{{
 <img scr="http://banksite.com/transfer?to=attacker&amt=200"/>
 }}}
 The HTTP request is hidden in the img tag and activated when the victim's browser attempts to load the image file, if the victim happens to have a session with the correct banking website open at the time the load the img (which due to inappropriate or absent Session ID expiry or the user failing to log out of the banking site correctly is all too common) then the request to the bank site will proceed. The img tab isn't the only method of achieving this goal, you could do the same think with !JavaScript or iframe for instance.
+
+Recall the online book store example that promoted books on the front page that had been added to many users shopping baskets
 
 Links
  * http://www.theregister.co.uk/2010/05/19/facebook_private_data_leak/
@@ -720,13 +755,20 @@ Links
 
 === How to test for it ===
 
-Use an HTTP proxy tool like Fiddler or Burp Proxy to intercept requests to your webserver while performing a generic operation. The proxy tool will allow you to examine the parameters being sent to the server and should help us understand how the request is assembled and the action performed. The proxy tool will also allow you to change the parameter values and see what the application does, if you can create a unique request that would perform the same action for any user making that request then you have a vulnerability. If however the requests require a value (or values) that are different for each user and which cannot be predicted then you should be OK.
+Use an HTTP proxy tool like Fiddler, Temper Data or Burp Proxy to intercept requests to your webserver while performing a generic operation. The proxy tool will allow you to examine the parameters being sent to the server and should help us understand how the request is assembled and the action performed. The proxy tool will also allow you to change the parameter values and see what the application does, if you can create a unique request that would perform the same action for any user making that request then you have a vulnerability. If however the requests require a value (or values) that are different for each user and which cannot be predicted then you should be OK.
 
 Even if you do take these measures you should make sure you attempt to replay the same requests when testing be sure the application doesn't allow duplicate requests. Essentially you need to be sure that your application is smart enough to detect and ignore requests that have been tampered with.
 
 === Mitigation ===
 
 Basically use the method eluded to above to mitigate your risk here, but also not that mitigating this type of issue cannot be achieved in isolation, you need to be sure that you don't have any other vulnerabilities such as XSS because if you do then these can be exploited allowing the attacker very easy access to the cookies of a user.
+
+ * We need a way too determine if the HTTP request is legitimately generated via the application's user interface
+ * Generate and store a dynamic security token on the server
+ * Add hidden 'token' parameter in the operation's HTML form
+ * For every important operation, sibmit this CSRF prevention toek (along with the regular POST parameters) to the application, which will then be checked on the server
+  * Token is unpredictable by attacker since it was generated dynamically by the server
+  * Although the user can see the value of the secret request specific token and circumvent the UI, a third party will not be able to do that (e.g. There is no way to steal the value of the hidden form field from someone's browser window).
 
 == Security Misconfiguration ==
 
@@ -784,6 +826,12 @@ Links
 
 == Failure to Restrict URL Access ==
 
+This is also know as Access Control Violation and broadly speaking falls into two categories:
+ * Horizontal
+  * Use can access data of other users at the same role level
+ * Vertical
+  * User can perform operations/access data outside of those specified for his/her role
+
 Attackers will often employ an attack called forced browsing against wed applications, this encompasses guessing links and brute force techniques to find unprotected pages, some common examples of these flaws include:
  * Hidden or Special URLs rendered only to administrators or privileged users in the presentation layer, but accessible to all users if they know it exists
  * Applications often allow access to hidden files such as static XML or system generated reports, trusting security through obscurity to hide them
@@ -821,6 +869,11 @@ For web resources authorization checks can be declared in the deployment descrip
    <web-resource-collection>
    <!-- [...] -->
 }}}
+
+Access Control Mitigation
+ * Make a distinction between system-wide information and user-specified information (data and functionality)
+ * Correctly use access control list on your system to control access to data and functionality of your application
+ * Apply the correct access permissions as close to the object as possible
 
 == Insufficient Transport Layer Protection ==
 
@@ -945,4 +998,22 @@ Using this information it is possible for the attacker to insert their own body 
   * `\r\n`
   * `%0d%0a`
   * Any other encoding of these or other malicious characters before using them in HTTP headers.
+
+== Hidden Field Manipulation ==
+
+Hidden field manipulation is a technique where attackers user various tools and techniques to change the values of hidden fields on an HTML form to produce unexpected results. The problem with this is that developers often assume that because a field is hidden it won't be seen and cannot be edited by an attacker, which is incorrect.
+
+As with everything we have to consider information from the client to be untrustworthy, there are a multitude of tools (like Firebug) that allow an attacker to modify the page you've sent them and potentially change what id submitted back to the server. On the other side there are also tools like Burp Proxy that will allow users to change the values being sent back to the server manually.
+
+=== How to test for it? ===
+
+Test for this type of vulnerability using exactly the same method as the attackers would use, e.g. a proxy which exposes the hidden parameters and allows them to be manipulated. If the application trusts that the values of hidden fields are invisible to the user, viewing the source of the page (after submitting your changed value) should show your changes as the values of the hidden field. You might also find that you get an error returned instead of a valid reply. You can also use the Web Developer Firefox plugin to test for this vulnerability. 
+
+=== Mitigation ===
+
+ * Ensure that all GET and POST parameters sent from the client are validated (on the server side) before they are passed to the applications for processing.
+ * Ensure that there are server side checks in place to verify the legitimacy of the request
+  * Do not reply on !JavaScript to disable certain operations in the Web application
+  * If the operation accepts a resource's ID parameter, first check (on the server side) that the user has permissions to access this resource
+
 ----
