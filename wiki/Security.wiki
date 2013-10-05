@@ -9,6 +9,8 @@ If you remember nothing else from these pages it should be this:
  * Who is attacking?
  * What are they attacking?
  * How they are attacking?
+ 
+The ARA uses all of the information available to the designers and developers of a system to come up with the top targets for focus on security.
 </tldr>
 
 == Why Bother? ==
@@ -43,14 +45,15 @@ The trustworthiness of information resources.
 Information systems provide access to authorized users.
 === Viega & !McGraw ===
 Viega & !McGraw present a more granular definition:
- * Prevention
- * Traceability & Auditing
- * Monitoring
- * Privacy & Confidentiality
- * Multilevel Security
- * Anonymity
- * Authentication
- * Integrity
+ * Prevention - build security into the software
+ * Traceability & Auditing - essential for forensics, allowing you to detect, dissect and demo attacks, aid recovery, understand transactions etc.
+ * Monitoring - real time log monitoring
+ * Privacy & Confidentiality - applicable to both information/data within the system and configuration details
+ * Multilevel Security - affording different types of information different levels of protection
+ * Anonymity - protecting users identities (must be designed from the ground up)
+ * Authentication - who can or can't we trust?
+ * Integrity - The trustworthiness of information resources
+ * Availability - Information systems provide access to authorized users
 
 == Abuse & Misuse Cases ==
 These are just like user cases although they deal exclusively with situations to designers or developers might not have envisioned the systems being used for when they first designed and implemented it. An example of a misuse case might be users injecting HTML code into their Facebook profile responses, they just want to make the profile stand out and have no malicious intent however the misuse case exposes a bug. You could easily turn this situation in to an abuse case by making the user a mis-actor who maliciously injects !JavaScript into the response block in an attempt to steal information from the computers of other users who visit their profile or take control of their accounts. 
@@ -101,6 +104,8 @@ Design problems that create security vulnerabilities:
 
 The internet is everywhere and most software is on it! 
    The Network is the computer - Sun Microsystems
+
+Now-a-days everything is connected to the internet, mobile phones, tablets, cars, laptops, PCs, e-readers, webcams, baby-monitors etc. and soon our fridges, toasters and washing machines will be hooked up to the 'net and will all therefore be open to attacks.
 
 ==== Complexity ====
 
@@ -302,7 +307,21 @@ To help us model effectively we need to take time to understand what the assets 
 There are 9 guiding principles that help us achieve Secure Design
 
 === 1. Secure the Weakest Link ===
-Securing your front door like Fort Knox is good but useless if you then leave your side window open! Software security != Secure software
+Securing your front door like Fort Knox is good, but ultimately useless if you then leave your side window open! 
+
+*Software security != Secure software*
+
+By Security Software we mean adding functions to software like
+ * SSL
+ * Cryptography libraries
+ * Identity and access management
+i.e. the "Security Features" built into or wrapped around the business logic we're implementing.
+
+By Software Security we mean the much larger picture, encompassing:
+ * Design
+ * Integration
+ * Use
+It's about building all the software properly from the ground up, which does of course mean using the appropriate Security Software in the right places.
 
 ==== What Goes Wrong ====
  * Obsess about the largest system of main functionality
@@ -1017,3 +1036,236 @@ Test for this type of vulnerability using exactly the same method as the attacke
   * If the operation accepts a resource's ID parameter, first check (on the server side) that the user has permissions to access this resource
 
 ----
+
+= Risk Based Security Testing =
+
+== What's the point? ==
+
+The main goal of a Risk Based Security Testing approach (or Risk Based Thinking) is to minimise the number of software defects that make it into Production. The main method of achieving this is by getting developers and testers to think about and test for the most common and dangerous security flaws out there, it doesn't mean exhaustive testing of every possible security testing scenario anyone can think of. One of the most important things with this approach is that you have an intimate understanding of your architecture and what possible problems may result because you've used it, when you design your tests - that way you can focus on the most important areas that you're vulnerable to.
+
+*Security is an non-functional requirement.*
+
+The crux of the matter comes back to the fact that trying to protect your assets using network based security isn't enough anymore, attacks are much more sophisticated, as is the software so we need to promote good software security principles across the board, on the whole this involves:
+ * Thinking about security early in the SDLC 
+ * Knowing and understanding common problems
+ * Designing for security
+ * Objective risk analyses and testing
+
+== Software Security ==
+
+There are three pillars of Software Security, Risk Management, Touchpoints and Knowledge.
+
+What are the knowledge catalogues?
+ * Principles - high level concepts that are the foundation of any software security initiative
+ * Guidelines - the management directives that define how the initiative is implemented
+ * Rules - refer specific instructions about how specific security issues should be handled
+ * Attack Patterns - these are detailled accounts from within your own company or outside of how previous attempts to attack an organisation succeeded
+ * Exploits - see above
+ * Vulnerabilities - these are code vulnerabilities, they are useful to have on hand when performing code reviews and analysis - they highlight the areas where developers tend to get things wrong
+ * Historical Risks - those who don't study history are doomed to repeat it
+ * Security Blueprints
+
+=== What is Software Security Testing?  ===
+Software Security Testing is a risk-based, white-box approach to assessing software security, we need to have a deep understanding of our software in order to pull this off!
+ * Inputs are:
+  * Business and design objectives
+  * The actual requirements
+  * Architectural and operational reality
+  * The current and near-future capabilities of potential attackers (threat model)
+  * The code
+
+ * Outputs are:
+  * Evidence that software security risks introduces in the software development lifecycle have been effectively mitigated
+  * Evidence that software does what it is supposed to do and nothing else
+  * Evidence that the software will withstand malicious attack
+
+*Why use black-box vs. white-box?*
+ * Black-box security testing
+  * Treats the system as being opaque; no knowledge of the internal structure
+  * Usually focuses on testing functional requirements
+
+ * White-box security testing
+  * Allows full internal knowledge
+  * Uses this knowledge to construct tests and test data
+  * Uses this knowledge to judge whether something is actually a flaw
+
+==== Functional Security Testing ====
+
+ * Test the security-related features of the system
+ * Ensure they behave in the prescribed manner (for example, login features)
+ * Often performed by QA
+ * Based on the formal security requirements
+ * Includes negative cases
+ 
+Examples
+ # When testing "encrypt file", also test whether the encryption ket is overwritten
+ # When testing that a "random number" is generated, also test how random it is
+ # When testing that "add read access" allows a user to read a file, also test whether it allows write access too
+
+==== Risk-based Security Testing ====
+
+ * Ensure secure behaviour of "other" requirements
+ * Testing non-functional and negative requirements (misuse and abuse cases)
+  * Ensure security goals are met
+ * Ensure security risks introduced during software development have been effectively mitigated
+ * Testing focused on whether identified risks have been appropriately mitigated - concentrate on what you're told "you can't do"
+ * Identified and prioritised risks come from
+  * Architectural risk analysis - artefact analysis usually done by development security architects or external consulting groups
+  * Abuse cases, attacks patterns, and threat models
+  * Informed red-teaming
+  
+*Types of Requirement that can be used to extract risks and testing approaches*
+
+===== Functional Requirements =====
+
+Functions that the system must perform e.g. The system shall...take some kind of input and produce some kind of output.
+
+===== Non-functional Requirements =====
+
+Properties or qualities system must possess, most of these and "...ilities":
+ * Auditability 
+ * Extensibility
+ * Maintainability
+ * Performance
+ * Portability
+ * Reliability
+ * Security
+ * Testability
+ * Usability
+
+===== Derived Requirements =====
+
+Functional/non-functional requirements implicit from stated requirements i.e. requirements that become apparent as a result of an original requirement e.g.
+   The system shall allow users to search for products using item name, model number or bar code.
+Might result in the following derived requirement:
+   All records shall contain product name, model number and bar code information.
+
+An example of a derived _security_ requirement is the eBay example where originally at eBay it was possible for each bidder to see the full username of all other bidders in auction, if you were and knew that after 5 unsuccessful attempts to log in to e-Bay your account would be locked (and a locked account cannot place bids) then you could wait until the last few minutes of the auction and then attempt to log in 5 times (incorrectly) as each of you competitors thus preventing them from placing last minute bids in the same auction as you.
+
+===== S.M.A.R.T Requirements =====
+
+ * *S*pecific
+ * *M*easurable
+ * *A*chievable
+ * *R*ealistic
+ * *T*estable
+
+The best security requirements are often dreamt up while attempting to think as an attacker and consider that they want. Gramatical negation can often be handy here.
+
+===== How to get started if you have nothing =====
+
+ * Learn from history:
+  * Some good security goals to test for
+   * This loops back to CIA (Confidentiality, Integrity & Availability) - see above
+  * Some guiding design principles to test for
+   # Secure the Weakest Link
+   # Practice Defence in Depth (layer your security features throughout the application/architecture)
+   # Fail Securely
+   # Follow the Principle of Least Privilege (only grant privileges for the shortest possible time when absolutely required, don't forget to revoke them!)
+   # Compartmentalise
+   # Keep it Simple (complexity increases the potential for problems, reuse what's already out there)
+   # Promote Privacy
+   # Remember that Hiding Secrets is Hard
+   # Be Reluctant to Trust
+   # Assume Nothing (question all assumptions and choices)
+  * Commons mistakes to look for
+   * There are various vulnerability taxonomies we can use to help us [http://cve.mitre.org], [http://cwe.mitre.org], [http://www.us-cert.gov], OSWSAP Top Ten (see above), [http://www.fortify.com/vulncat] and even [http://capec.mitre.org] for attack patterns.
+   * There are also a number of websites e.g. [http://www.securityfocus.com/archive/1 Bugtraq], [http://catless.ncl.ac.uk/Risks/ Risks] or [http://www.securecoding.org/list/ SC-L].
+  * Common test types and methods
+  * Some way to classify identified defects
+
+Even if you don't have a detailed Architecture Risk Analysis document with a supporting set of comprehensive Abuse Cases you more than likely still have enough information to get you started in the form of Requirements, Use Cases, Design, Operations Reality, Code and History. You can build the other pieces up over time.
+
+===== Expanding Test Strategy & Planning =====
+
+ * Test strategy and planning
+  * A formalised approach to determining where, when, and how testing should be performed to maximise the impact of software testing
+  * A phased approach that includes requirements validation, test strategy, and test planning
+ * Collect new artefacts
+  * Business and design objectives
+  * ARA results, abuse cases, prioritised list of risks, code
+  * Code component map, data flow diagrams
+ * Choose additional testing as driven by risk
+  * Basic security issues, security mechanisms, inter-component issues, abuse cases, misuse cases, failure checking, assumptions, design issues, other
+ * Building on current testing strategy, identify additional code areas or properties that require testing
+ * Augment the existing test plan
+  * Build test cases the way you do now, but look at new things (the main things are risks and attacks)
+
+===== Test Traceability =====
+
+*For every single test that we run we should be able to justify it by linking it back to an original functional, non-functional or derived requirement.*
+
+== Security Coding Errors ==
+
+=== Kingdom 1: Input aValidation & Representation ===
+
+E.g.
+ * SQL Injection (see above)
+ * Cross-site Scripting (XSS) (see above)
+ * Data & Character Representations (see the section on encoding above)
+
+=== Kingdom 2: API Abuse ===
+ * Ignoring Return Values
+ * Replying on Implied Randomness (never roll your own! Use /dev/urandom in UNIX, CryptGenRandom in Windows, SecureRandom in Java)
+ * Using Deprecated Methods
+
+=== Kingdom 3: Security Features ===
+ * Privacy Violation
+ * Default Authentication
+ * Privilege Bracketing
+ * Handling Secrets
+
+=== Kingdom 4: Time & State ===
+ * Time of Check to Time of Use
+ * Parameter Tampering
+ * URL Tampering
+ * Cookie Tampering
+
+=== Kingdom 5: Error Handling ===
+ * Exception Handling
+ * Triggering Errors
+
+=== Kingdom 6: Code Quality ===
+ * Memory Leaks
+ * Source Code Comments & Strings
+
+=== Kingdom 7: Encapsulation ===
+ * Violations of boundaries between code
+ * Violation of Trust Levels
+ 
+----
+
+= What are the bad guys trying? =
+
+== Alternate encodings ==
+== Bad random number generators ==
+== Buffer overflow ==
+== Capture-replay ==
+== Chosen protocol attack ==
+== Cross-site scripting ==
+== Dictionary attack ==
+== Denial of Service ==
+== Double Free ==
+== Format String Attacks ==
+== Hardcoded passwords ==
+== Hidden fields ==
+== Improper certificate checking ==
+== Improper escaping ==
+== Information Leaks ==
+== Integer overflow ==
+== Low entropy ==
+
+Related to random number generation.
+
+== Magic URLs ==
+== Man-in-the-middle ==
+== Partial truncation ==
+== Security through obscurity ==
+== Sequential Session IDs ==
+== Sessions fixation ==
+== Session hijacking ==
+== Social Engineering ==
+== SQL injection ==
+== Temp file attacks ==
+== Time-of-check to time-of-use ==
+== Usability work-arounds ==
