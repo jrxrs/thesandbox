@@ -1051,6 +1051,20 @@ The crux of the matter comes back to the fact that trying to protect your assets
  * Designing for security
  * Objective risk analyses and testing
 
+== Resources ==
+
+ * [http://www.swsec.com/ Gary McGraw's Software Security Book]
+ * [http://www.informit.com/imprint/index.aspx?st=61085 Addison-Wesley's Professional Software Series]
+ * [http://www.securecoding.org/list/ The Secure Coding Mailing List]
+ * [http://www.securitytracker.com/ Security Tracker]
+ * [http://catless.ncl.ac.uk/Risks/ The Risks Digest]
+ * [http://www.phrack.org/ Phrack]
+ * [http://archives.neohapsis.com/archives/fulldisclosure/ Full Disclosure]
+ * [https://buildsecurityin.us-cert.gov/ Build Security In]
+ * [http://www.us-cert.gov US Cert]
+ * [http://www.owasp.org]
+ * [http://www.securityfocus.com/archive/1]
+
 == Software Security ==
 
 There are three pillars of Software Security, Risk Management, Touchpoints and Knowledge.
@@ -1233,9 +1247,12 @@ E.g.
  * Violations of boundaries between code
  * Violation of Trust Levels
  
+=== Bonus Kingdom: Environment ===
+ * Execution Environment
+
 ----
 
-= What are the bad guys trying? =
+= What are the bad guys trying/exploiting? =
 
 == Alternate encodings ==
 == Bad random number generators ==
