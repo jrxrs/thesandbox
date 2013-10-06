@@ -177,6 +177,7 @@ http://www.quickfixj.org/
 
  * [http://www.hibernate.org/ Hibernate]
  * [http://en.wikipedia.org/wiki/List_of_object-relational_mapping_software#Java List of Alternatives]
+ * [http://mybatis.github.io/mybatis-3/ Mybatis] - sits between a full ORM & a general Database layer.
 
 = Reviews =
 
