@@ -104,6 +104,7 @@ http://www.quickfixj.org/
 == Groovyserv ==
 
  * [http://kobo.github.io/groovyserv/quickstart.html Groovyserv]
+ * [http://groovy.github.io/gmaven/groovy-maven-plugin/index.html The Groovy Maven Plugin, this allows you to run groovy scripts inside you build] e.g. to generate sources
 
 = HTML =
 
