@@ -239,7 +239,7 @@ Generating UML diagrams from Java source code
  * [http://subversion.tigris.org/ SubVersion]
  * [http://tortoisesvn.net/ TortoiseSVN]
  * [http://git-scm.com/ Git]
- * [https://github.com/FredrikNoren/ungit ungit]
+ * [https://github.com/FredrikNoren/ungit ungit] - [https://github.com/joyjit/git-jira-hook A hook into JIRA for git]
 
 = Web =
 
