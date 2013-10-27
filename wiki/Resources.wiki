@@ -945,6 +945,7 @@ http://code.google.com/p/thesandbox/wiki/LibrariesAPIs
 
 == Vim ==
 
+ * [http://www.worldtimzone.com/res/vi.html Vi/Vim Cheatsheet]
  * [http://vim.wikia.com/wiki/Search_and_replace Search & Replace] with Vim
  * [http://vim.wikia.com/wiki/PuTTY_numeric_keypad_mappings PuTTY & Vim - Using the Numpad]
 
