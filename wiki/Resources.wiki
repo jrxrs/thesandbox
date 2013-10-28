@@ -904,6 +904,8 @@ The invokedynamic ([http://www.oraclejavamagazine-digital.com/javamagazine_open/
 
 = Groovy =
 
+[http://www.itexto.com.br/devkico/en/?p=39 Why Groovy?]
+
 == Groovy Enums ==
 
 [http://mrhaki.blogspot.co.uk/2010/12/groovy-goodness-transform-string-into.html Coerce string into the appropriate Enum value at runtime]
@@ -1098,6 +1100,7 @@ YAML Ain't Markup Language]
 == General Information on RegEx ==
 
  * [http://www.regular-expressions.info/reference.html Reference]
+ * [http://fulmicoton.com/posts/multiregexp/ Multi RegExp]
 
 == In Java ==
 
