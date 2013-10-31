@@ -105,6 +105,7 @@
  * [http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/transaction.html Spring Transactions Management]
  * [http://java.dzone.com/articles/spring-3-makes-use-embedded-easy Using Embedded Databases]
  * [http://prystash.blogspot.co.uk/2012/03/injecting-hostname-with-spring.html Injecting Hostname with Spring]
+ * [http://stackoverflow.com/questions/8214862/propertyplaceholder-in-spring Defaulting Spring Property Placeholders]
 
 == Striped Executor Service ==
 
