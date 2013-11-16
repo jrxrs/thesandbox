@@ -63,14 +63,26 @@
 = I've Read About =
 
 = A =
+
+== Algorithmic Trading ==
+
+ * [http://m.cacm.acm.org/magazines/2013/11/169035-algorithmic-trading-review/fulltext Algo Trading - The Basics]
+
 = B =
 = C =
 = D =
+
+== Dev Ops ==
+
+[http://www.grahamlea.com/2013/02/what-is-devops-in-bullet-points-quotes-and-tweets/ WTF is DevOps?]
+
 = E =
 = F =
 = G =
 
+== Git ==
  * [http://lostechies.com/derickbailey/2010/06/09/git-oops-i-forgot-to-add-those-new-files-before-committing/ Amend your last commit to add a forgotten file]
+ * [http://www.grahamlea.com/2013/11/git-mercurial-anti-agile-continuous-integration/ Is Git Anti Agile/CI]
 
 = H =
 = I =
