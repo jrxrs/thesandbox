@@ -83,6 +83,7 @@
 == Git ==
  * [http://lostechies.com/derickbailey/2010/06/09/git-oops-i-forgot-to-add-those-new-files-before-committing/ Amend your last commit to add a forgotten file]
  * [http://www.grahamlea.com/2013/11/git-mercurial-anti-agile-continuous-integration/ Is Git Anti Agile/CI]
+ * [http://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remote Git - Delete a git branch both locally and remotely]
 
 = H =
 = I =
