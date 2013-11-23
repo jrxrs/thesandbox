@@ -114,6 +114,7 @@
 
  * [http://www.guardian.co.uk/info/developer-blog/2012/sep/21/funtional-programming-principles-scala-setting-up-intellij Functional Programming Principles Scala - Setting Up IntelliJ]
  * [http://tersesystems.com/2012/12/16/problems-scala-fixes Problems Scala Fixes]
+ * [http://oldfashionedsoftware.com/2009/07/10/scala-code-review-foldleft-and-foldright/ Fold Left & Fold Right]
 
 == Spring ==
 
