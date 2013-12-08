@@ -38,3 +38,17 @@
   * [https://class.coursera.org/progfun-002/lecture/index Coursera Lectures - Functional Programming Principles in Scala]
   * [http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/ MIT's Electrical Engineering & Computer Science Course Catalogue]
   * [http://www.codecademy.com/]
+
+*Cooking*
+
+  * [http://www.bbcgoodfood.com/recipes/251615/caramel-apple-loaf-cake Caramel Loaf Cake]
+  * [http://www.channel4.com/4food/recipes/tv-show-recipes/sunday-brunch-recipes/salted-caramel-and-chocolate-mincemeat-pudding-recipe Salted Caramel & Chocolate Mincemeat Pudding Recipe]
+  * [http://www.cookuk.co.uk/cake/banana-cake.htm Banana Loaf Cake]
+  * [http://www.bbc.co.uk/food/recipes/millionaires_mousse_51330 Millionaires Mousse]
+  * [http://www.jamieoliver.com/recipes/fish-recipes/fish-pie Jamie's Fish Pie]
+  * [http://www.bbc.co.uk/food/recipes/peanutbutterfudge_93630 Peanut Butter Fudge]
+  * [http://www.bbc.co.uk/food/recipes/chocolate_orange_69109 Chocolate Orange Cupcakes]
+  * [http://www.tasteofhome.com/recipes/yogurt-pancakes Yogurt Pancakes]
+  * [http://www.channel4.com/4food/recipes/tv-show-recipes/the-fabulous-baker-brothers-recipes/pulled-pork-recipe Pulled Pork]
+  * [http://www.flapjackrecipe.com/healthy-flapjack-recipe/ Healthy Flapjacks]
+  * [http://en.allexperts.com/q/Desserts-747/Yogurt-covered-strawberries.htm Yogurt Coating ]
