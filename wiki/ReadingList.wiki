@@ -70,6 +70,9 @@
 
 = B =
 = C =
+
+ * [http://daniel.haxx.se/docs/curl-vs-wget.html curl vs wget]
+
 = D =
 
 == Dev Ops ==
