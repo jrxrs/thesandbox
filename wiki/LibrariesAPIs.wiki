@@ -89,6 +89,8 @@ http://www.quickfixj.org/
  * [http://www.fixionary.com/ Fixionary]
  * [http://www.fixprotocol.org/specifications/fix4.4fiximate/index.html Fiximate for FIX 4.4]
 
+The FIX Protocol has gradually evolved over the years however not all organisations have managed to upgrade legacy systems to cope with the latest specs. the most common specs. I've found in use are 4.4 and 4.2, 4.2 in particular can be very confusing when it comes to execution reports due in part to the user of ExecTransType[20] which was later streamlined semantically into ExecType[150]. A good resource to check examples and behaviours is [http://www.onixs.biz/fix-dictionary/4.2/app_d.html Appendix D of the Specification] which lists Order State Change Matrices.
+
 = Google =
 
 == Go Lang ==
