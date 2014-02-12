@@ -130,6 +130,10 @@ The FIX Protocol has gradually evolved over the years however not all organisati
  * [http://www.varaneckas.com/jad/ JAD]
  * [http://java.decompiler.free.fr/ JD - Java Decompiler]
 
+= JGroups =
+
+[http://www.jgroups.org/overview.html JGroups] is a Java implementation of reliable multicast.
+
 = JSON =
 
  * [http://code.google.com/p/google-gson/ GSON from Google]
