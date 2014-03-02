@@ -985,6 +985,7 @@ This is an excellent summary of Syntactic Sugar from the [http://www.manning.com
  * [http://java-success.blogspot.co.uk/ 400+ Java Interview Questions & Answers]
  * [http://java-interview-material.blogspot.co.uk/ Java Interview Material Blog]
  * [http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=303&p_certName=SQ1Z0-851 Oracle Java Certificate Questions] - more in the book of course!
+ * [http://javarevisited.blogspot.sg/2014/02/top-30-java-phone-interview-questions.html 30 Java Phone Interview Questions] 
 
 == Logic ==
 
