@@ -19,6 +19,10 @@
 = E =
 = F =
 = G =
+
+== Git ==
+ * [http://stackoverflow.com/questions/15316601/why-is-git-pull-considered-harmful Why is git pull considered harmful?]
+
 = H =
 = I =
 = J =
