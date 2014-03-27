@@ -1692,3 +1692,5 @@ http://books4career.blogspot.co.uk/
 [http://agilewarrior.wordpress.com/ Agile Warrior]
 
 [http://martinfowler.com/ Martin Fowler of ThoughtWorks]
+
+[http://www.takipiblog.com Takipi Blog]
