@@ -21,7 +21,8 @@
 = G =
 
 == Git ==
- * [http://stackoverflow.com/questions/15316601/why-is-git-pull-considered-harmful Why is git pull considered harmful?]
+ * [http://stackoverflow.com/questions/15316601/why-is-git-pull-considered-harmful Why is git pull considered harmful?] 
+ * [https://github.com/goldmansachs/gs-collections-kata The GS Collections Kata - A JCF Extension Framework Tutorial] which is a good resource for understanding and using Lambdas & Method References in Java 8.
 
 = H =
 = I =
