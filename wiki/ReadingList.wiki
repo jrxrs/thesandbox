@@ -100,7 +100,8 @@
 
 == Java ==
  * [http://www.ustream.tv/channel/nighthacking Fork/Join in Java 7 with Heinz Kabutz]
-* [http://javarevisited.blogspot.co.uk/2012/05/how-to-use-threadlocal-in-java-benefits.html ThreadLocal] contains the basics and [http://stackoverflow.com/questions/1490919/purpose-of-threadlocal this] answer on stack overflow mentions the pitfalls of `ThreadLocal` in !AppServers that use thread pools.
+ * [http://javarevisited.blogspot.co.uk/2012/05/how-to-use-threadlocal-in-java-benefits.html ThreadLocal] contains the basics and [http://stackoverflow.com/questions/1490919/purpose-of-threadlocal this] answer on stack overflow mentions the pitfalls of `ThreadLocal` in !AppServers that use thread pools.
+
  * [http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html Java 8's Optional] - Avoiding null references
 
 = K =
