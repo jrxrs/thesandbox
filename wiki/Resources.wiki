@@ -221,7 +221,7 @@ For the questions below we depends on the definition of subtypes in generic cont
 
 *Q9.* Explain the differences between an ArrayList and a LinkedList?
 
-*A9.*
+*A9.* Include points from [http://stackoverflow.com/questions/322715/when-to-use-linkedlist-over-arraylist here].
 
 == P.I.E. - The Pillars of Object Orientation ==
 
