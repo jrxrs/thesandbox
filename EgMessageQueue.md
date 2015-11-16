@@ -1,0 +1,204 @@
+# Introduction #
+This shows example of how to use `wait()` and `notify()` on an Object's monitor.
+
+# Example 1 - using the Object itself #
+
+**Notes:** This approach is viable and will work however it's worth pointing out that it doesn't encapsulate your queue very well, for instance by synchronizing the methods themselves you are forcing the calling thread to lock the entire object so that no other threads can execute other synchronized methods on the same object concurrently, therefore if some other thread has already obtained your objects lock then any other threads attempting to execute synchronized methods will be blocked.
+
+```
+package thesandbox;
+
+import java.util.LinkedList;
+
+public class MessageQueue
+{
+    private final LinkedList<Object> queue;
+
+    public MessageQueue() {
+        queue = new LinkedList<Object>();
+    }
+
+    public synchronized void add(Object o) {
+        queue.add(o);
+
+        notify();
+    }
+
+    public synchronized Object remove() {
+        Object rv = null;
+        long start = System.currentTimeMillis();
+        while (queue.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException ie) {
+                return rv;
+            }
+        }
+        System.out.println(Thread.currentThread() + " waited for: " + (System.currentTimeMillis() - start));
+        rv = queue.remove();
+
+        return rv;
+    }
+
+    public static void main(String[] args) {
+        final MessageQueue mq = new MessageQueue();
+
+        Thread producer = new Thread("producer1") {
+            @Override
+            public void run() {
+                mq.add("producer1 put this here!");
+            }
+        };
+
+        Thread producer2 = new Thread("producer2") {
+            @Override
+            public void run() {
+                mq.add("producer2 put this here!");
+            }
+        };
+
+        Thread consumer = new Thread("consumer") {
+            @Override
+            public void run() {
+                for (;;) {
+                    System.out.println(Thread.currentThread() + " got an Object: " + mq.remove());
+                }
+            }
+        };
+        consumer.start();
+
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (InterruptedException ie) {
+            System.err.println("Main thread was Interrupted");
+            ie.printStackTrace();
+        }
+
+        producer2.start();
+        producer.start();
+    }
+}
+
+```
+
+# Example 2 - using a lock Object #
+
+This exactly the same class as above, although it uses a specific/separate object as the monitor rather then the monitor of the instance of MessageQueue, essentially the only difference between the two is that this one solves the encapsulation problem mentioned above because the lock object is private and therefore cannot be locked by any other threads.
+
+```
+package thesandbox;
+
+import java.util.LinkedList;
+
+public class MessageQueue
+{
+    private final LinkedList<Object> queue;
+    private final Object lock = new Object();
+
+    public MessageQueue() {
+        queue = new LinkedList<Object>();
+    }
+
+    public void add(Object o) {
+        synchronized (lock) {
+            queue.add(o);
+
+            lock.notify();
+        }
+    }
+
+    public Object remove() {
+        Object rv = null;
+        synchronized (lock) {
+            long start = System.currentTimeMillis();
+            while (queue.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException ie) {
+                    return rv;
+                }
+            }
+            System.out.println(Thread.currentThread() + " waited for: " + (System.currentTimeMillis() - start));
+            rv = queue.remove();
+        }
+
+        return rv;
+    }
+
+    public static void main(String[] args) {
+        final MessageQueue mq = new MessageQueue();
+
+        Thread producer = new Thread("producer1") {
+            @Override
+            public void run() {
+                mq.add("producer1 put this here!");
+            }
+        };
+
+        Thread producer2 = new Thread("producer2") {
+            @Override
+            public void run() {
+                mq.add("producer2 put this here!");
+            }
+        };
+
+        Thread consumer = new Thread("consumer") {
+            @Override
+            public void run() {
+                for (;;) {
+                    System.out.println(Thread.currentThread() + " got an Object: " + mq.remove());
+                }
+            }
+        };
+        consumer.start();
+
+        try {
+            Thread.sleep(1000 * 5);
+        } catch (InterruptedException ie) {
+            System.err.println("Main thread was Interrupted");
+            ie.printStackTrace();
+        }
+
+        producer2.start();
+        producer.start();
+    }
+}
+
+```
+
+# Example 3 - Locking on the queue itself #
+
+Equiv. to Example 2 but without the overhead of an extra object simply for locking.
+
+```
+package thesandbox;
+
+import java.util.List;
+import java.util.LinkedList;
+
+public class PCQueue {
+
+    final List<Object> queue = new LinkedList<Object>();
+
+    public Object take() {
+        synchronized (queue) {
+            while(queue.size() < 1) {
+                try {
+                    queue.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return queue.remove(queue.size()-1);
+        }
+    }
+
+    public void put(Object value) {
+        synchronized (queue) {
+            queue.add(value);
+            queue.notifyAll();
+        }
+    }
+
+}
+```

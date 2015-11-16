@@ -1,0 +1,1320 @@
+
+
+# Architecture Risk Analysis #
+
+
+
+&lt;tldr&gt;
+
+
+If you remember nothing else from these pages it should be this:
+  * Who is attacking?
+  * What are they attacking?
+  * How they are attacking?
+
+The ARA uses all of the information available to the designers and developers of a system to come up with the top targets for focus on security.
+
+
+&lt;/tldr&gt;
+
+
+
+## Why Bother? ##
+The techniques discussed below will help those involved in the design on software to:
+  * Evaluate & prioritise threats & attacks
+  * Build Trust & Threat Models for a software system
+  * Analyse threats and attacks using Trust & Threat Models
+  * Gain techniques for designing security controls
+
+## When? ##
+**When should we think about Architecture Risk Analysis?** The best time to think about security and risk analysis is during the early phases of requirements collection & design and then again when testing the code that implements that design, the list below outlines the usual phases of security related activity during the traditional software life-cycle:
+  1. Abuse Cases
+  1. Security Requirements
+  1. **Risk Analysis** (occurring during both the Requirements & Use Cases & Architecture & Design phases)
+  1. External Review
+  1. Risk-based Security Tests
+  1. Code Review (Tools)
+  1. **Risk Analysis** (occurring again during the Test & Test Results phase)
+  1. Penetration Testing
+  1. Security Operations
+
+## What is a Secure Architecture? ##
+There are two popular models:
+
+### CIA ###
+This is quite a abstract model which means a lot in down to personal interpretation.
+#### Confidentiality ####
+Limiting access and disclosure to "the right people"; preventing access by or disclosure to "the wrong people".
+#### Integrity ####
+The trustworthiness of information resources.
+#### Availability ####
+Information systems provide access to authorized users.
+### Viega & McGraw ###
+Viega & McGraw present a more granular definition:
+  * Prevention - build security into the software
+  * Traceability & Auditing - essential for forensics, allowing you to detect, dissect and demo attacks, aid recovery, understand transactions etc.
+  * Monitoring - real time log monitoring
+  * Privacy & Confidentiality - applicable to both information/data within the system and configuration details
+  * Multilevel Security - affording different types of information different levels of protection
+  * Anonymity - protecting users identities (must be designed from the ground up)
+  * Authentication - who can or can't we trust?
+  * Integrity - The trustworthiness of information resources
+  * Availability - Information systems provide access to authorized users
+
+## Abuse & Misuse Cases ##
+These are just like user cases although they deal exclusively with situations to designers or developers might not have envisioned the systems being used for when they first designed and implemented it. An example of a misuse case might be users injecting HTML code into their Facebook profile responses, they just want to make the profile stand out and have no malicious intent however the misuse case exposes a bug. You could easily turn this situation in to an abuse case by making the user a mis-actor who maliciously injects JavaScript into the response block in an attempt to steal information from the computers of other users who visit their profile or take control of their accounts.
+
+## What constitutes an Insecure Design? ##
+Both of the areas below contribute to insecure software, studies have shown that there is roughly a 50-50 split between the two categories.
+
+First of all lets have some definitions:
+  * DEFECT
+> > Both implementation vulnerabilities and design vulnerabilities are defects. A defect is a problem that may lie dormant in software for years only to surface in a fielded system to major consequences.
+  * BUGS
+> > A bug is an implementation level software problem. Bugs may exist in code but never be executed, though the term bug is applied quite generally by many software practitioners in security terms we tend to think of them simply as implementation errors. Bugs can be easily discovered and remedied.
+  * FLAW
+> > A flaw is a problem at a deeper level, often much more subtle that an off-by-one reference in a array or use of an incorrect system call, that's not to say that they never exist in code but rather that they tend to exist at the design level as well.
+
+### Implementation Bugs ###
+
+Broken code, for example:
+  * Buffer overflow
+    * String format
+    * One-stage attacks
+  * Race conditions
+    * Time of check to time of use (TOCTOU)
+    * Session & thread management
+  * Unsafe environment variables
+  * Unsafe system calls
+    * System()
+  * Untrusted input problems
+
+### Architecture Flaws ###
+
+Design problems that create security vulnerabilities:
+  * Misuse of cryptography
+  * Duplicated data or code
+  * Lack of consistent input validation
+  * Missing authentication checks
+  * Insecure or lack of auditing
+  * Lack of authentication or session management on APIs
+  * Missing compartmentalization (**storing secure information on the client side where a smart hacker might be able to manipulate it**)
+  * Broad trust between components
+  * Client-side trust
+  * Sub-classing causing unexpected behaviour/issues
+  * Poor error handing exposing system architecture/detail/state
+
+### The Trinity of Trouble ###
+
+#### Connectivity ####
+
+The internet is everywhere and most software is on it!
+
+> The Network is the computer - Sun Microsystems
+
+Now-a-days everything is connected to the internet, mobile phones, tablets, cars, laptops, PCs, e-readers, webcams, baby-monitors etc. and soon our fridges, toasters and washing machines will be hooked up to the 'net and will all therefore be open to attacks.
+
+#### Complexity ####
+
+Networked distributed, mobile code is hard.
+
+#### Extensibility ####
+
+Systems evolve in unexpected ways and are changed on the fly.
+
+## ARA Subprocesses ##
+
+There are 3 discrete subprocesses which must be carried out during ARA:
+  * Underlying Framework Weakness
+    * Shows dependencies on toolkits and frameworks using within the application
+    * How solid is the foundation?
+    * How solid is the usage of the foundation?
+    * Any know vulnerabilities in utilised version
+    * What are the security controls like?
+    * Does the framework require connectivity to any external parties?
+    * Is it necessary to explicitly turn security in the platform on?
+    * Framework Options:
+      * Cryptography: JCA (Java Cryptography Architecture) provides signing, hashing, encryption and decryption - there's a mix of client and server side cryptography solutions although we should favour server side wherever possible because client side requires the key to be distributed to the client which is a trust issue.
+      * Authentication & Authorization: JAAS (Java Authentication & Authorization Service) this is just a proxy essentially, it doesn't make any decisions itself, it merely delegates to something else to make those decisions.
+      * Input Validation & Output Encoding: .NET validateRequest (good for cross-site scripting) must be used with other forms of checks.
+      * Sandboxing: JavaScript (same/single origin policy)
+  * Attack Resistance Analysis
+    * Apply checklist of known attacks
+      * e.g. OWASP10
+    * Risk-based judgement of fitness
+  * Ambiguity Analysis
+    * Find attacks based on how the system works
+    * Expose invalid assumptions
+
+### Design Elements for Enterprise Applications ###
+
+#### Common Design Elements for Enterprise Applications ####
+  * Identify design elements that are historically vulnerable to attack
+  * Enterprise applications share many of the same design elements
+    * Distributed architecture
+    * Dynamic code generation and interpretation
+    * APIs across stateless protocols
+    * Rich Internet Applications
+    * Service-oriented Architecture
+
+### Enterprise Design Element: Distributed architecture ###
+Networks are susceptible to:
+  * Eavesdropping
+  * Tampering
+  * Spoofing
+  * Hijacking
+  * Observing
+
+We can reduce these into three common patterns:
+  * Interposition attacks
+  * Sniffing attacks
+  * Replay attacks
+
+### Enterprise Design Element: Dynamic code generation and interpretation ###
+  * Languages and programming environments are moving more decisions from design-time to run-time
+  * Many attacks involve misinterpretation of data as code in these environments
+  * When and how will user input be used by runtime language interpreters?
+  * Relevant Attack Patterns
+    * Cross-site Scripting (XSS)
+    * SQL Injection
+    * Buffer overflow
+    * XML Injection
+    * Shell command Injection
+    * Cross-site Request Forgery (CSRF)
+(The idea of a computer being able to interpret user data as code is known as the von Neumann curse.)
+
+### Enterprise Design Element: APIs across stateless protocols ###
+  * Identifiers representing state can be abused
+    * Prediction
+    * Capture
+    * Fixation
+  * State sent to the client between requests is altered or replayed
+  * Relevant Attack Patterns
+    * Session hijacking/fixation
+    * CSRF
+    * Message replay
+    * Parameter manipulation
+
+### Enterprise Design Element: Rich Internet Applications ###
+  * Processing moves to the client-side
+  * Relevant Attack Patterns
+    * Direct API calls
+    * CSRF
+    * XSS
+  * Unique Attacks
+    * JavaScript hijacking
+    * Ajax interposition
+
+### JavaScript Hijacking ###
+  * JavaScript Hijacking requires that the application return JSON objects
+  * The attacker loads the attack script into the JavaScript environment
+  * The attacking page uses a `<SCRIPT>` tag to make the cross page reference
+
+### AJAX Interposition ###
+This is basically where a hacker overrides the functions that run in your clients side by loading scripts from the hackers site.
+
+**1. Modify the XMLHTTPREquest prototype**
+```
+var xmlreqc=XMLHTTPRequest;
+XMLHTTPRequest = function() {
+   this.XHR = new xmlreqc();
+   return this;
+}
+```
+
+**2. Wrap the send method**
+```
+XMLHttpRequest.prototype.send = function(content){
+   //..add code to steal or alter content
+   Sniff_and_Modify(content);
+   //Pass call on
+   return this.HNR.send(pay);
+}
+```
+
+### Enterprise Design Element: Service-oriented Architecture ###
+  * Security need for SOA components
+    * Web-services: SOAP/WSDL/UDDI
+    * Message-oriented Middleware
+    * Enterprise Service Bus
+  * Common Problems
+    * Exposing back-end code to dynamic attacks
+    * Channel versus Message security
+  * Relevant Attach Patterns:
+    * XML Injecion / SQL Injection
+    * Session Management Attacks
+    * Direct File Manipulation
+
+Specifically with XML a DOM parser is susceptible to a Denial of Service (DoS) attacks while SAX parsers are vulnerable to premature overriding of tags, i.e. the hacker inserts the end tag or something unrecognised to try and break parsing and cause an exception.
+
+## Ambiguity Analysis ##
+**Remember:** these are types of attacks that are specific to your system and how it is designed.
+
+We can use different types of modelling to help us:
+  1. Trust Modelling - Identifies the boundaries of security policy for function and data.
+  1. Data Sensitivity Modelling - Identifies the privacy and trust issues for application data.
+  1. Threat Modelling - Identifies the function/data to protect; the person trying to attack; the vulnerability an attackers can exploit.
+
+### Trust Modelling ###
+During trust modelling we attempt to identify different zones within the application and how information should flow between those zones. A good way to begin this analysis is by identifying subsystems within the application, when control flows between subsystems we might encounter a trust boundary, at which point the callee must establish its level of trust. Demarcation should also be made between subsystems holding different levels of sensitive information, each touch point between those components should be analysed to ensure leakage from one level to the next isn't occurring.
+
+![https://thesandbox.googlecode.com/svn/images/trust_zones.png](https://thesandbox.googlecode.com/svn/images/trust_zones.png)
+
+### Data Sensitivity Modelling ###
+  * What different classifications of data exist?
+    * Security
+    * Non-Security
+  * Application data
+    * Personal or Regulated data
+    * Proprietary & Confidential data
+  * Identify sensitive data:
+    * At Rest - stores like the DBMS
+    * In Transit - transfer via network, queues
+    * In Use - in applications at runtime
+
+These could include usernames, passwords, key stores etc. An example of this type of analysis might be social engineering via a telephone customer services number, a clever hacker might be able to ask questions is such way as to reveal what information the operator has on screen, e.g. a list of addresses or National Insurance numbers, if so it's safe to assume that all this information has leaked through the entire system, from the persistent back-end right up to the UI, where it sits on the terminal of the operator, this means the operator can see the whole NI number and does the verification themselves, we could significantly increase the security of the system by factoring the decision making login into a trust zone out of which the data never leaks, so instead of viewing the entire NI no. on screen the operator would be required to enter what the customer told them into a field and submit it to the trust zone which would verify the entry and return a boolean to indicate whether to proceed or not. By preventing the leak to the operator from our newly established trust zone we can reduce the chance or a social engineer extracting sensitive data from our system.
+
+### Threat Modelling ###
+What is a threat? A threat is an actor/user who has malicious intent. Just like a normal user they have capabilities within the system, the threats' goal is usually to subvert security control in order to find a "loophole" in the system. **A threat isn't classified as just an unknown user of the system, when modelling threats you should also consider the support staff, developers and administrators too.** I guess you have to decide how much you implicitly trust those members of staff.
+
+Formal definition: THREAT - a potential event that will have an unwelcome consequence. e.g. viewing sensitive data or elevating privilege. Ultimately a threat is a person or agent attempting to perform an unauthorized action.
+
+#### Rules of Engagement ####
+
+  * Capability
+    * Access to the system
+    * Able to reverse engineer binaries
+    * Able to sniff the network
+  * Motivation
+    * Personal gain
+    * Challenge / Ego
+    * Competitive advantage
+  * Skill Level
+    * Experienced hacker
+    * Script kiddie
+    * Insiders (administrators)
+  * Resources & Tools
+    * Simple manual execution
+    * Distributed bot army
+    * Well-funded organisation
+    * Access to internal information
+
+A full threat model:
+
+![https://thesandbox.googlecode.com/svn-history/r337/images/threat_model.png](https://thesandbox.googlecode.com/svn-history/r337/images/threat_model.png)
+
+### Application Assets ###
+To help us model effectively we need to take time to understand what the assets of a application that we need to protect might be, these are things that would be of interest to an attacker and might include:
+  * The applications functions - the application can perform some action that the threat would like to invoke
+  * The applications sensitive data - this could be data stored in a database or even data leaked into log files
+  * The application's state - data generated as the application run e.g. sequence numbers, session identifiers, encryption keys, access credentials/privileges etc.
+  * Assets of the user and of the other systems the user uses - e.g. if we have a user who uses our application and uses internet backing then is it possible for our system to be exploited to allow a hacker to send code to the user browser allowing them to steal information when the user logs in to their bank?
+
+## Principles of Secure Design ##
+There are 9 guiding principles that help us achieve Secure Design
+
+### 1. Secure the Weakest Link ###
+Securing your front door like Fort Knox is good, but ultimately useless if you then leave your side window open!
+
+**Software security != Secure software**
+
+By Security Software we mean adding functions to software like
+  * SSL
+  * Cryptography libraries
+  * Identity and access management
+i.e. the "Security Features" built into or wrapped around the business logic we're implementing.
+
+By Software Security we mean the much larger picture, encompassing:
+  * Design
+  * Integration
+  * Use
+It's about building all the software properly from the ground up, which does of course mean using the appropriate Security Software in the right places.
+
+#### What Goes Wrong ####
+  * Obsess about the largest system of main functionality
+    * Example: IIS vs. Internet Hearts
+  * Forget that this application is part of a larger ecosystem
+    * Getting lost in the details
+
+### 2. Practice Defence in Depth ###
+Don't reply on just a single point of security failure, complement at every level but don't  duplicate or overlap, e.g. encrypting data you're about to send to a client over SSL is pointless as SSL will handle encryption for you anyway, your encryption just duplicates your effort.
+
+  * Manage risk with multiple strategies
+  * Locks work better if you have alarms on them
+  * Adding motion sensors helps more
+  * Redundant subsystems can be as secure of as the _strongest_ link
+
+#### What Goes Wrong ####
+  * Some organisation do acceptance testing for functionality, but they do not test for security
+  * Most QA people can't do security testing without some expert guidance
+    * A risk analysis must inform the testing process
+  * Focus only on a security functionality
+    * Don't think like a bad guy
+
+### 3. Be Reluctant to Trust ###
+When analysing a system make sure you're clear on where the trust points are and how you can validate them:
+  * Is that server hacked?
+  * Why trust that COTS (Commercial Off-The Shelf) software?
+  * Bad guys are more resourceful that you think
+  * Don't mimic everyone else
+    * Common protocols are often fundamentally flawed
+  * Trust is transitive
+    * Trusted programs should not invoke untrusted ones, especially indirectly!
+
+#### What Goes Wrong ####
+  * Servers trust client, even hackable ones
+  * Protocols are broken
+    * WEP (Wired Equivalent Privacy)
+    * SSL (Secure Sockets Layer)
+  * Some applications validate input only in the client
+  * Some insiders become threats
+    * Malicious intent, inadvertently
+
+### 4. Remember that Hiding Secrets is Hard ###
+  * "Security through obscurity" doesn't work
+  * You often don't have much control over the final program environment
+  * Secrets can often be inferred from behaviour
+  * Reverse engineering is not hard
+
+#### What Goes Wrong ####
+  * Storing passwords in code
+    * Inline SQL with db passwords in it
+    * Plaintext configuration files
+  * Temporary files leaking information
+  * Developers thinking "binaries" are not readable
+
+### 5. Follow the Principle of Least Privilege ###
+These are massive warning signs that should flag up major concerns, especially when an application uses the "root" or "dba" password when accessing resources for example.
+
+  * Give out no more privilege than necessary
+  * Extend privilege for shortest possible time
+  * Minimize windows of vulnerability
+  * Don't hand out the key to your office
+  * Provide data on a "need to know" basis
+
+#### What Goes Wrong ####
+  * Development environments require full machine administrative privilege
+  * Programs in production have too much privilege
+    * Web applications use the database administrator login because developer had full admin
+
+### 6. Fail and Recover Securely ###
+Don't skimp on error/exception handling - these areas are often where you spend most of you time when your software enters the maintenance phase, ideally we should include error handling with every use case so it's important to make error handling a first class citizen during the design and development phases or delivery.
+
+  * "Default to insecure" is bad but prevalent
+    * Backwards compatibility issues
+    * Web services allowing service submission
+  * Use **abuse cases** to drive additional requirements
+    * How important is security to the business?
+
+#### What Goes Wrong ####
+  * We want to deliver the service and not break existing users
+    * Choosing a toolkit of a lower version to create compatibility
+    * Encrypted versions that fails to cleartext
+  * Error messages that leak program structure and/or provide information is exception messages (stack traces)
+
+### 7. Compartmentalise ###
+Small and self sufficient process which just deal with a very limited number of concerns are very beneficial to the overall system, helping to reduce risk (as components could be run in their own sandbox) and increase uptime because one component doesn't bring everything else down with it like a monolithic architecture might.
+
+  * Limit attackers ability to do damage
+  * Mimic real examples:
+    * Chambers in submarines
+    * Jail cells
+    * Money in your wallet
+  * Apply process protection, chroot()
+  * Use different keys for different devices
+  * ISAPI settings for IIS
+    * In process
+    * Out of process
+    * Pooled
+
+#### What Goes Wrong ####
+  * Simple buffer overflows cause entire security systems to give up the ghost
+  * One application in a shared environment exposes all applications in that environment
+
+### 8. Keep it Simple ###
+  * Fewer links make the system easier to secure
+  * Complex code tends to be more buggy
+  * Users need simple UIs
+  * Don't use technology for technologies sake
+  * Provide "choke points" without back doors
+  * Seemingly contradicts defence-in-depth guideline
+    * "Don't put all your eggs in one basket" is different from making a rat's nest
+
+#### What Goes Wrong ####
+  * The cure is worse that the disease
+    * 20 passwords that al l must be different and change bi-weekly
+    * No real understanding of trust boundaries
+  * Changes over time to your environment or requirements may wreak havoc on code organization
+
+### 9. Promote Privacy ###
+  * Hackers launch attacks based on easily collected information
+  * Do not give out more information that you must
+    * Example: Logins often provide OS version info
+  * not all parts of the business can share the same information
+
+#### What Goes Wrong ####
+  * Error messages sometimes give away way too much information
+  * Malicious hackers use this information to further their attack
+    * Error reporting is NOT a debugging tool
+    * Use logging for that
+  * Services that cross business units leak information that is sensitive to one unit, but not sensitive to another
+
+
+---
+
+
+# OWASP Top 10 (+2) #
+
+
+
+&lt;tldr&gt;
+
+
+The key things to take away from OWASP are how security should be integrated with the dev lifecycle in order to create applications that are as secure as possible, we do this by recognising the details of and causes behind secure coding errors and mistakes and how these flaws can be exploited by hackers. OWASP outlines a number of practices to help prevent the most common mistakes creeping into projects.
+
+
+&lt;/tldr&gt;
+
+
+
+## So what is OWASP? ##
+
+[OWASP](https://www.owasp.org/index.php/About_OWASP) stands for **Open Web Application Security Project**.
+
+OWASP is a foundation which promotes online security, their mission statement is as follows:
+> OWASP is an open community dedicated to enabling organizations to conceive, develop, acquire, operate, and maintain applications that can be trusted.
+
+The OWASP Top 10 for 2013 can be found [here](https://www.owasp.org/index.php/Top_10_2013-Top_10).
+
+## Why is Security such a challenge? ##
+
+  * Connectivity
+    * The internet is everywhere and most software is on it
+  * Complexity
+    * Networked, distributed, mobile code is hard to get right (programming to a interface is OK but different people write different parts and often have different ideas on the problem and the solution)
+  * Extensibility
+    * Systems evolve in unexpected ways and are changed on the fly
+    * As new requirements emerge reconfiguration might take place, or a new plugin be issued to perform a new task, allowing any old code to run in an application you use to access your bank account isn't a great idea and we need to be cautious of such extensions.
+
+With complexity often comes more code, this is unavoidable as is the equation between code and bugs and potentials for exploitation - the more code you have the more bugs you're likely to have and the more potential for insecurity. We end up having to to make trade offs at many levels as often security just doesn't get a fair share of the pie:
+
+| Security | Functionality |
+|:---------|:--------------|
+|          | Technology    |
+|          | Budget        |
+|          | Time          |
+|          | Regulations   |
+
+It's important to involve stakeholders in these trades offs, they need to be aware of the risks that if you deliver insecure software with lots of functionality then you could expose the company to financial loss, reputational risk etc.
+
+Other problems include the fact that in the consumer space customers implicitly expect their software to be secure but they won't tell you that until it comes to their attention that it is, again this is a problem with expectations, people what lots of features and functionality but they don't necessarily think of the impact these will have on security.
+
+More general and cultural problems are:
+  * Software developers lack knowledge of vulnerabilities, attacks and threats
+  * IT security groups tend to not understand software development which results in the two groups pissing each other off e.g. when IT Security demands a software review right at the end of the development lifecycle when really they should have been working together throughout product development.
+
+### Ignoring the Past ###
+
+Security is just a single part of software development, which is an extremely complex beast, just like Mechanical Engineering for instance. In Mechanical Engineering it is common to study failure but this isn't common place in Software Engineering.
+
+### Over-reliance on Perimeter Security ###
+
+For years we've built metaphorical forts around our software, using fire walls and DMZs for instance but the fact is these can only work if there are no holes what-so-ever in them, as soon as you first open a port for IM or VoIP for instance you have a route into your network which can be exploited by the right mechanism.
+
+### Penetration Testing doesn't provide solutions ###
+
+Simple penetrations can help identify problems with the solutions in place surrounding software but they don't actually help fix problems with the software itself. I.e. you might find that you've got a firewall misconfiguration using penetration testing, this can be fixed quite easily but if you find a problem with the software itself you might have to redesign significant parts of the software to achieve a fix.
+
+## Injection ##
+
+Injection is the process by which an attacker can submit their own code using an otherwise normal feature of the site e.g filling in an order form or questionnaire, injection opportunities arise when proper care is not taken to maintain the separation between the data plane and the code plane. By exploiting this lack of separation a user can execute their own code in a program, common examples of injection attacks include:
+  * SQL Injection
+  * Command Injection
+  * XML Injection
+
+Links
+  * http://www.theregister.co.uk/2010/01/12/bank_server_breached/
+  * http://www.startribune.com/business/83505102.html?elr=KArksUUUU
+  * http://www.infosecurity-us.com/view/7411/3000-small-dog-electronics-customers-credit-card-details-compromised/
+  * https://www.owasp.org/index.php/Top_10_2010-A1
+  * http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/
+  * https://www.owasp.org/index.php/Testing_for_SQL_Injection_%28OWASP-DV-005%29
+  * http://cwe.mitre.org/data/definitions/77.html
+  * http://cwe.mitre.org/data/definitions/89.html
+  * https://www.owasp.org/index.php/Testing_for_XML_Injection_%28OWASP-DV-008%29
+
+### SQL Injection ###
+
+Normally an application interacts with a DB using either _Concatenated Queries_, _Prepared Statements_ or _Store Procedures_ - if devs choose to dynamically construct queries directly using user-data (i.e. without sanitising the data first) then this can be exploited by an attacker, e.g.:
+
+```
+public boolean authenticate(String name, String pass) {
+    Statement stmt = this.conn.createStatement();
+    String sql = "SELECT display_name FROM user_t WHERE name \'" + name + "\' AND passwd = \'" + pass + "\'";
+    ResultSet results = stmt.executeQuery(sql);
+    return results.first();
+}
+```
+
+The code above is a comical example of how easy it can be to inject SQL and bypass authentication, imagine passing the following parameters to the `authenticate` method above `authenticate("admin", "' or 'a' = 'a");`...boom you're IN!
+
+The list of potential exploits is long for SQL Injection, an attacker may:
+  * Cause the application to return different data to the attacker than what should normally be returned (authorization failure)
+  * Overwrite or delete data in the database (integrity failure)
+  * Overload the database server, impairing its ability to support the application (availability failure)
+  * Perform remote code execution with the privileges of the identity that the DBMS is running under (compute compromise)
+  * Steal private data (compliance failure)
+
+#### How can we test for SQL Injection? ####
+
+One of the most efficient methods of testing for this type of vulnerability is to use static analysis tools that checks for dynamic strings which use unsanitized user input and are then used as input to SQL commands.
+
+Testing for SQL injection vulnerabilities involves adding SQL fragments to anywhere statements are executed and observing the results, are error messages printed that give away the query or other internal details like stack traces or side effects. The fragments don't need to be that complicated, just comments, single or double quotes, boolean logic etc. Also be sure to try to attacks in as many different places as you can think of, e.g. GET & POST parameters, cookie values and header values.
+
+The safest way to mitigate the risk of SQL injection is to validate and sanitize all user input, ensuring that you check for special characters (using regex) that might leave you vulnerable, finally ensure that you only use secure means of interacting with the DB i.e. _Prepared Statements_ & _Parameterized Queries_ (i.e. `WHERE name = ?`). You've still got to follow best practice when using either of these structures however.
+
+### Command Injection ###
+
+Command injection is when unaltered user controlled data becomes part of a command string used to execute a system call on the server, e.g.
+
+  * `system([user-input]); // C`
+  * `exec([user-input]) // Unix`
+  * `system.Runtime.getRuntime().exec([user-input]); // Java`
+
+Clearly the attacker will need to know which OS your server is running on when you're testing for this vulnerability (this would allow you to easily chain commands for instnace), also make sure you don't test using destructive commands and that you check both the reply to the user and the server to what was actually executed.
+
+Another helpful strategy to mitigate this attack is to run the process with the most limited set of privileges possible on that OS, that way even if an attacker does find a way in they will not be able to do anywhere near as much damage as they might have done.
+
+### XML Injection ###
+
+XML is structured data which means that some characters have alternative meanings depending on their context, if you fail to validate the XML you're parsing against a DTD or XSD you might find that an attacker can alter the meaning and structure of your XML document for instance by:
+  * Introducing new elements/attributes
+  * Overriding new elements/attributes
+  * Causing a denial of service (DoS) situation by creating deeply nested XML fragments (I guess this does eats your processor and leaves you unable to service new requests)
+
+#### DTD Attacks ####
+
+In accordance with the XML specification, most XML parsers support **entity declarations** in an XML document's DOCTYPE, it is possible for defined entities to be supplied by a user at runtime by requesting a DTD which is external to the network, if the XML parser is able to reach the external DTD and load it then it will be able to resolve the additional entities and pass those into the application for further processing, this might cause the application to crash or expose its internals allowing the attacker to exploit more serious vulnerabilities.
+
+The classic example of a DTD Attack is the [Billion Laughs Attack](http://en.wikipedia.org/wiki/Billion_laughs).
+
+XML injection is a bit like a gateway drug!
+
+#### How to test ####
+
+Again the testing strategy, similar to SQL Injection to is submit malformed XML fragments and observe XML parser errors, fragments examples might include:
+  * <foo
+  * 
+
+&lt;foo&gt;
+
+
+  * Bar"
+  * /bar
+  * //foo
+
+## Cross-site Scripting (XSS) ##
+
+Cross-site scripting is possible when unaltered user provided content is included as part of a webserver response. If that data contains script elements the receiving browser will execute that script as if it were in the context of the web application, that is it will be processed by the browser as if it were script created by your web application since the browser has no way to distinguish that it was meant to be data and not code. This allows the script to violate the browsers Same Origin Policy (SOP).
+
+There are two common type of cross-site scripting attacks:
+| **Reflected/Non-persistent** | **Stored/Persistent** |
+|:-----------------------------|:----------------------|
+| Scripts are reflected by websites and never stored | Scripts are permanently stored by the website in databases, XML files, etc. |
+| Example: Malicious links containing scripts | Example: Message boards, forum posts, user comments, etc. containing scripts |
+
+The list of potential exploits is, unfortunately a long one;
+  * Capture a user's cookie and hijack their session
+  * Change the appearance of a web page so that malicious content is taken to authoritative (e.g. capturing credentials via a fake login page)
+  * Execute requests on a user's behalf and have the results sent back to the attacker
+  * Port scanning of the victims local network
+
+Links
+  * http://www.zdnet.com/blog/security/obama-site-hacked-redirected-to-hillary-clinton/1042
+  * http://www.telegraph.co.uk/technology/twitter/7499228/Conservatives-embarrassed-as-hackers-exploit-loophole-on-anti-union-website.html
+  * http://praetorianprefect.com/archives/2010/06/persistent-xss-on-twitter-com/
+  * https://www.owasp.org/index.php/Top_10_2010-A2
+  * https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+  * http://www.cert.org/advisories/CA-2000-02.html
+  * http://www.blackhat.com/presentations/bh-jp-06/BH-JP-06-Grossman.pdf
+  * http://jtidy.sourceforge.net/
+
+### Same Origin Policy (SOP) ###
+
+> Mechanism implemented in the Web browser to restrict interaction between components from different domains.
+
+A browser's Same Origin Policy prevents documents or scripts loaded from one origin (domain) from getting or setting properties from a different origin. Origins are the same if the protocol, port and host are all equal.
+
+However an XSS exploit bypasses the SOP because the webserver itself serves up the content (script in this case) to the user, this allows the script access to cookies and the browser DOM etc. because it is from the same origin.
+
+The SOP is evaluated when manipulating browser windows, frames, documents, cookies and XML HTTP requests, however it not evaluated when including documents from other domains in HTML tags such as images, scripts and style sheets. As a result it is still possible for malicious scripts to reach to client but those scripts are limited in what they can do, it does allow redirection though, which still leaves users vulnerable.
+
+**One weakness on your site leaves the entire application at risk! Therefore you can never do enough input verification and output filtering.**
+
+  * Escape/encode output so that input is never interpreted as code, you can use HTML and/or URL encoding (e.g. !JTidy)
+  * Properly validate all input on the server-side (never on the client-side just in case - this doesn't mean you should do nothing on the client-side, you can still do checks to prevent unnecessary round trips to the server but you should be mindful that hackers have full control over the client and can intercept outgoing calls in order to tamper with them with relative ease).
+  * Store and process raw data using safe methods
+
+Some example regular expressions for input validation are:
+
+| **Field** | **Regular Expression** |
+|:----------|:-----------------------|
+| Alphanumeric (with space, underscore & period) | `/^[0-9a-zA-Z _.]+$/`  |
+| Positive integer | `/^[1-9][0-9]*$/`      |
+| Email address | `/^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+$/` |
+| Zip code  | `/^[0-9]{5}(-[0-9]{4})?$/` |
+
+#### Document Object Model (DOM) ####
+
+The DOM is a platform and language independent standard object model for representing HTML, XML & related formats. A web browser is not obliged to use the DOM in order to render an HTML document however the DOM is required by JavaScript script that wish to inspect of modify the content of a page dynamically. In other words the DOM is how a JavaScript script seems its containing HTML page and browser state.
+
+### How to test for & Mitigate it ###
+
+General Approach
+  * In places that accept and display user input, check that:
+    * **Output Encoding** is performed, to ensure that data is not interpreted as code
+    * **Input Validation** is done at least on the server, so that data entered by users are semantically and syntactically correct
+  * Use **Static Analysis Tool** and/or a Dynamic Analysis Tool
+  * Malicious JavaScript can be inserted in several parts of the HTTP Response:
+  1. Between HTML tags
+  1. Inside HTML attributes
+  1. Within 
+
+&lt;SCRIPT&gt;
+
+ blocks
+  * Use commonly available output URL encoding library like java.net.URLEncoder
+
+## Broken Authentication & Session Management ##
+
+Why are we at risk of this type of attack?
+
+Well, HTTP is a stateless protocol which means requests made by users must be identified on each request, to prevent the user from having to enter the credentials before every request a Session ID token is used to authenticate the user, this token must be passed between the user and the server on each request and reply. Sessions IDs must:
+  * be Un-guessable
+  * be Non-colliding
+  * be Untrusted
+  * Have a defined life expectancy
+
+We tend to store the Session ID inside a cookie which passed automatically between the browser and the server on every request and reply. Clearly if a Session ID generated for two different users matches then we have a problem, similarly we have a problem if a hacker manages to capture our Session ID from the cookie as it would allow them to impersonate us during that session.
+
+Cookies can be hijacked using a variety of methods; XSS, packet sniffing (on unencrypted connections), brute force or session fixation for example.
+
+Links
+  * http://www.computerworld.com/s/article/63587/Privacy_hole_found_in_Verizon_Wireless_Web_site_?taxonomyId=084
+  * http://abcnews.go.com/print?id=10871229
+  * https://bugzilla.redhat.com/show_bug.cgi?id=500358
+  * http://dev.rubyonrails.org/ticket/10048
+  * https://www.owasp.org/index.php/Top_10_2010-A3
+  * http://www.imperva.com/resources/glossary/session_hijacking.html
+  * http://shiflett.org/articles/session-fixation
+
+### Cookies ###
+
+A cookie is a small piece of text that a Web browser stores on a user's computer and consists of name-value pairs and is designed to allow a server to track a user's session details, authentications, preferences, shopping cart contents etc. Given the type of sensitive information cookies contain they are often targets of an attacker, security can be compromised in a number of ways:
+  * Exposing the cookie to an insecure transfer protocol
+  * Exposing one cookie to multiple applications
+  * Not having a cookie expire in a reasonable amount of time
+  * Allowing the cookie to be accessed by client side scripts
+
+Cookies are often obtained by attackers using client side scripts, however some browsers include the HTTPOnly flag which prevents scripts from accessing cookies.
+
+Once an attacker has access to a users cookie they can:
+  * Obtain access to private data
+  * Overwrite a user's cookie data
+  * Obtain authentication/authorization credentials for the susceptible Web application
+
+#### How to test for it ####
+
+To test for script access to a cookie, visit the site you intend to test and after it has loaded type the following string into the address bar:
+
+```
+javascript:alert(document.cookie)
+```
+
+If a popup appears containing the cookie data then the HTTPOnly flag is not set.
+
+You can also use proxy tools to help test.
+
+### Mitigation ###
+
+Best Practices:
+  * Use expiry time for session cookies
+  * Invalidate session on the server after the user logs out or after a specified timeout
+  * Do not accept session identifiers from GET/POST variables as these parameters are more difficult to protect from sniffing & hijacking
+  * Use cookie session ID with changing tokens
+  * Utilize SSL/TLS for the entire website t encrypt data passsed between parties and to mitigate man in the middle attacks
+  * Map Session IDs to IP addresses
+  * Have the user re-authenticate before any important transactions take place (e.g. large money transfers)
+  * Only accept IDS generated by the server
+  * Regenerate the IS after a successful login
+  * Set the 'secure' attribute in the cookie so that SSL/TLS is required to transmit it
+  * Mark cookies as HTTPOnly so they will not be accessible to potential malicious JavaScript
+  * Use sufficiently random and large Session IDs (generally should reply on the application server to generate them)
+  * Minimise use of persistent cookies
+
+## Insecure Direct Object Reference ##
+
+What is it? A direct object reference occurs when a developer exposes as a URL or form parameter a reference to an internal implementation object, such as a file, directory, database record, or key. Attackers can then use parameter tampering to change references and violate the intended, but unenforced access control policy. There references often point to file systems and databases, but any exposed application construct could be vulnerable.
+
+Link
+  * http://www.ocregister.com/articles/information-254735-security-anthem.html
+  * http://www.abc.net.au/7.30/stories/s146760.htm
+  * https://www.owasp.org/index.php/Top_10_2010-A4
+  * http://cwe.mitre.org/data/definitions/22.html
+  * https://www.owasp.org/index.php/Testing_for_Path_Traversal
+  * http://owasp-esapi-java.googlecode.com/svn/trunk_doc/latest/org/owasp/esapi/AccessController.html
+
+### Path Manipulation ###
+
+Path Manipulation or Directory Traversal is an example of this type of attack where unaltered user input is inserted into parts of paths used in File I/O APIs allowing an attacker to access or modify otherwise protected system resources (see below).
+
+### Exploitations ###
+
+**Path Traversal** is when a path is used for File I/O operations and typically involves reading or modifying unauthoized files or used in conjunction with a DoS attack (by blocking access to key resources). Path traversal can also be used for remote code execution. E.g.
+  * http://company.com/../../../../../etc/passwd
+  * http://foo/bar?display=/etc/passwd
+  * Using null bytes (%00 when encoded as part of a URL string) to terminate a request early
+
+### How to test for and mitigate against it ###
+
+Pass in varying forms of ../../.. to your parameters that accept file paths. To guard against this we need to perform input validation (via regex) and by using properly locked down file systems wrt. the user owning the webserver process. Using chrooted jails and code access policies to restrict where files can be obtained or saved to (chroot essentially limits what the application can see on the filesystem from its current directory).
+
+Mitigation, as with most of these things is down to validating user input on the server side to present any undesired access to system resources, you can further reduce risk by running the process under a user account that is correctly locked down to ensure access to only required files is granted (especially when it comes to file modification or deletion).
+
+## Cross-site Request Forgery (CSRF) ##
+
+Cross-site request forgery is an attack which tricks a victim into making a request for an operation that usually requires authentication and can be made through the user interface. The attacker can use this type of bug to request legitimate actions such as changing profile information, email/password details, transferring money, sending a message etc.
+
+How do they do this? One method is using the img tag, for instance the following HTML might be posted to a public forum:
+```
+<img scr="http://banksite.com/transfer?to=attacker&amt=200"/>
+```
+The HTTP request is hidden in the img tag and activated when the victim's browser attempts to load the image file, if the victim happens to have a session with the correct banking website open at the time the load the img (which due to inappropriate or absent Session ID expiry or the user failing to log out of the banking site correctly is all too common) then the request to the bank site will proceed. The img tab isn't the only method of achieving this goal, you could do the same think with JavaScript or iframe for instance.
+
+Recall the online book store example that promoted books on the front page that had been added to many users shopping baskets
+
+Links
+  * http://www.theregister.co.uk/2010/05/19/facebook_private_data_leak/
+  * http://news.cnet.com/8301-1009_3-10234033-83.html
+  * https://www.owasp.org/index.php/Top_10_2010-A5
+  * https://www.owasp.org/index.php/Testing_for_CSRF_%28OWASP-SM-005%29
+  * http://owasp-esapi-java.googlecode.com/svn/trunk_doc/latest/org/owasp/esapi/HTTPUtilities.html
+
+### How to test for it ###
+
+Use an HTTP proxy tool like Fiddler, Temper Data or Burp Proxy to intercept requests to your webserver while performing a generic operation. The proxy tool will allow you to examine the parameters being sent to the server and should help us understand how the request is assembled and the action performed. The proxy tool will also allow you to change the parameter values and see what the application does, if you can create a unique request that would perform the same action for any user making that request then you have a vulnerability. If however the requests require a value (or values) that are different for each user and which cannot be predicted then you should be OK.
+
+Even if you do take these measures you should make sure you attempt to replay the same requests when testing be sure the application doesn't allow duplicate requests. Essentially you need to be sure that your application is smart enough to detect and ignore requests that have been tampered with.
+
+### Mitigation ###
+
+Basically use the method eluded to above to mitigate your risk here, but also not that mitigating this type of issue cannot be achieved in isolation, you need to be sure that you don't have any other vulnerabilities such as XSS because if you do then these can be exploited allowing the attacker very easy access to the cookies of a user.
+
+  * We need a way too determine if the HTTP request is legitimately generated via the application's user interface
+  * Generate and store a dynamic security token on the server
+  * Add hidden 'token' parameter in the operation's HTML form
+  * For every important operation, sibmit this CSRF prevention toek (along with the regular POST parameters) to the application, which will then be checked on the server
+    * Token is unpredictable by attacker since it was generated dynamically by the server
+    * Although the user can see the value of the secret request specific token and circumvent the UI, a third party will not be able to do that (e.g. There is no way to steal the value of the hidden form field from someone's browser window).
+
+## Security Misconfiguration ##
+
+The crux of the point OWASP are making here is that if you fail to keep up to date with the latest patches and security configuration requirements of the software and libraries that you depend on then you're asking for trouble - as soon as a new release is available for a common platform e.g. Java then attacks will be made available allowing attackers to exploit them before organisations have a chance the update and protect themselves against the flaw.
+
+If you don't stay up to date then it's like leaving your bathroom window open. There's even a tool called Metasploit Framework which packages attacks into a nice interface to allow them to be reused quickly and efficiently.
+
+Links
+  * [Java 7 exploits reverse engineered and used to hack Java 6](http://arstechnica.com/security/2013/09/security-of-java-takes-a-dangerous-turn-for-the-worse-experts-say/)
+  * http://www.pcworld.com/article/138193/article.html
+  * https://www.owasp.org/index.php/Top_10_2010-A6
+  * http://www.tenable.com/products/nessus
+  * http://bastille-linux.sourceforge.net/
+  * http://technet.microsoft.com/en-us/security/cc184924.aspx
+  * http://www.securityfocus.com/archive/1
+  * http://cve.mitre.org/
+
+### How to test for it ###
+
+Nessus is an excellent method of scanning you systems to check for vulnerabilities such as open ports or services.
+
+### Mitigation ###
+
+  * Ensure you're using vendor-supported configurations of the 3rd-party software you use
+  * Stay up to date with vendor-issed patches, especially security patches
+    * Ensure you test patches properly before putting them into production
+  * Use system hardening tools on the servers that host your applications, such as:
+    * Bastille (Unix/Linux)
+    * Microsoft Baseline Security Analyzer (Windows)
+  * Keep an eye on bug reporting sites such as BugTraq & Mitre's CVE
+
+## Insecure Cryptographic Storage ##
+
+Developers often fail to properly protect the sensitive data that their software processes. The most common problems are:
+  * Not encrypting sensitive data
+  * Using home-grown algorithms
+  * Insecure use of string algorithms
+  * Continued use of proven weak algorithms (MD5, SHA-1, RC3, RC4, etc.)
+  * Hard-coding keys and placing key in unprotected stores
+
+Current best practice is use to key lengths of at least 1024-bits although the rapid increase in computing power is already making this length of key questionable. When using symmetric encryption keys should be at least 128-bits.
+
+FIPS from NIST offers guidelines for the use of cryptographic solutions which can help you ensure you're adhering to best practice.
+
+We should also never [hardcode salt](http://www.hpenterprisesecurity.com/vulncat/en/vulncat/cpp/weak_cryptographic_hash_hardcoded_salt.html).
+
+Links
+  * http://www.isaac.cs.berkeley.edu/isaac/wep-faq.html
+  * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-1567
+  * http://www.theregister.co.uk/2007/05/04/txj_nonfeasance/
+  * https://www.owasp.org/index.php/Top_10_2010-A7
+  * http://csrc.nist.gov/groups/STM/cmvp/standards.html#02
+  * http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+  * http://www.emc.com/domains/rsa/index.htm?id=2227
+
+## Failure to Restrict URL Access ##
+
+This is also know as Access Control Violation and broadly speaking falls into two categories:
+  * Horizontal
+    * Use can access data of other users at the same role level
+  * Vertical
+    * User can perform operations/access data outside of those specified for his/her role
+
+Attackers will often employ an attack called forced browsing against wed applications, this encompasses guessing links and brute force techniques to find unprotected pages, some common examples of these flaws include:
+  * Hidden or Special URLs rendered only to administrators or privileged users in the presentation layer, but accessible to all users if they know it exists
+  * Applications often allow access to hidden files such as static XML or system generated reports, trusting security through obscurity to hide them
+  * Code that evaluates privileges not on the server, but rather via JavaScript on the browser
+
+All types of data could be exposed if not properly protected with permissions, for example:
+  * Administrative functionality
+  * Server log files
+  * Other valuable resources and private files
+
+Links
+  * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-0682
+  * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-1062
+  * https://www.owasp.org/index.php/Top_10_2010-A8
+  * http://capec.mitre.org/data/definitions/1.html
+  * https://www.owasp.org/index.php/Top_10_2007-Failure_to_Restrict_URL_Access
+  * http://cwe.mitre.org/data/definitions/285.html
+
+### How to test for it ###
+
+  * Horizontal
+    * Look for operations accepting any 'ID' parameters, change the value of the parameter and ensure that access to restricted resources is not granted
+  * Vertical
+    * Look for operations that can be access only by certain roles, attempt to make the same requests while logged in as a different role, and ensure access is properly controlled
+
+### Mitigation ###
+
+For web resources authorization checks can be declared in the deployment descriptor, just make sure that the URL patterns specified cover all of the resources that are supposed to be restricted. Architecture and design review should verify that Access Control Rules are in place and enforced. The example shows how we might achieve this in Java EE's web.xml:
+```
+// web.xml
+<security-constraint>
+   <web-resource-collection>
+      <web-resource-name>SelfServeApp</web-resource-name>
+      <url-pattern>/*</url-pattern>
+   <web-resource-collection>
+   <!-- [...] -->
+```
+
+Access Control Mitigation
+  * Make a distinction between system-wide information and user-specified information (data and functionality)
+  * Correctly use access control list on your system to control access to data and functionality of your application
+  * Apply the correct access permissions as close to the object as possible
+
+## Insufficient Transport Layer Protection ##
+
+Two common issues with securing system functionality are missing SSL-enabled connections in the production environment and weak ciphers used in SSL. An attacker capable of intercepting the data transferred between the server and the client can:
+  * In the case of missing SSL-enabled connections, read the plaintext communications
+  * In the case of weak SSL cipher, easily decrypt the communications that are intended to be kept secure
+
+Links
+  * http://news.spotify.com/int/2009/03/04/spotify-security-notice/
+  * http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2008-4390
+  * https://www.owasp.org/index.php/Top_10_2010-A9
+  * http://oreilly.com/catalog/apache3/chapter/ch11.pdf
+  * https://www.ssllabs.com/ssltest/index.html
+
+### How to test for it ###
+
+  * Ensure that the protocol is `https` and not plain old `http`.
+  * Using a network traffic "sniffer", you can analyse the communications that are intended to be secure. If the data intercepted is plaintext then SSL is obviously not employed
+  * A more accurate form of testing is scanning the configuration files of the server to determine whether SSL has been enabled, and which cipher has been applied to the SSL communication channel
+
+### Mitigation ###
+
+  * Ensure that SSL is enabled for all transactions that require data to be secure. Obviously this will differ from system to system.
+  * Ensure that the cipher sued for the SSL communication is strong and uses a strong enough key to keep the data secure from the entire length of time it is required to be private
+
+## Unvalidated Redirects & Forwards ##
+
+It is very common for a web application to perform automatic redirection or forwarding or users from one URL to another, sometimes this can be in the forms of an unvalidated parameter allowing attackers to choose the destination page. Phishers can exploit this problem in one site (which the user might trust) to trick users into visiting an untrusted or evil site that might try to install some software or steal their credentials e.g. `http://www.example.com/redirect.jsp?url=evil.com`
+
+Links
+  * https://blog.commtouch.com/cafe/email-security-news/cnn-redirect-exploited-by-scammers/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed:+CommtouchCafe+%28Commtouch+Caf%25C3%25A9%29
+  * http://www.kmbc.com/news/10408223/detail.html
+  * https://www.owasp.org/index.php/Top_10_2010-A10
+  * http://cwe.mitre.org/data/definitions/601.html
+  * http://projects.webappsec.org/w/page/13246981/URL%20Redirector%20Abuse
+
+### How to test for it ###
+
+You should already know under which situations you application will attempt to redirect a user so target those places and see if you can force the system to redirect you to a page which the server should not, under normal circumstances, choose as a redirection location. As well as testing redirection to a separate domain you should also test that redirection within your own site works as expected and that a user cannot gain access to otherwise protected content if accessing it via a redirection.
+
+### Mitigation ###
+
+  * Always check the destination prior to redirecting or forwarding to that destination if that destination contains user controlled data
+  * It is good practice to only forward or redirect to a white-listed set of resources, which will help diminish impact of these types of vulnerabilities
+
+## Malicious File Execution ##
+
+The file inclusion attack forces malicious files to become part of the running application, specific functions like include, require, include\_once and require\_once are susceptible to this type of threat. This vulnerability leads to the execution of arbitrary code on the server:
+```
+<?php
+$report = $_POST['report_name']
+include $report;
+?>
+```
+
+Links
+  * http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-0263
+  * http://cxsecurity.com/issue/WLB-2008050085
+  * https://www.owasp.org/index.php/Top_10_2007-A3
+  * https://www.owasp.org/index.php/File_System#Includes_and_Remote_files
+  * http://projects.webappsec.org/w/page/13246950/OS%20Commanding
+
+### How to test for it ###
+
+  * Look for places where file paths are determined dynamically.
+  * Attempt to define the dynamic path elements in a call to the page that is not meant to be called directly
+  * Determine if the application attempts to pull data from the wrong location
+
+### Mitigation ###
+
+  * Review existing code for file operations, include/require, and eval() statements to ensure that user input is properly validated prior to first use
+  * When writing new code try to limit the use of dynamic inputs from users to vulnerable functions either directly or via wrappers
+  * Disable allow\_url\_fopen in php.ini by setting it to 0
+  * Lockdown the server environment to prevent the server from making new outbound requests.
+
+## Information Leakage & Improper Error Handling ##
+
+Attackers will typically begin their assault against an application by attempting to gather as much information about the system as possible. There are many sources of information for attackers, but one of the most common is error messages. Usability vs. Security tradeoff;
+  * Verbose error messages may help an attacker (stack traces for instance are way too verbose and very useful to an attacker)
+  * Obtuse error messages may frustrate users
+
+This can manifest itself in something as simple as replacing "Invalid Username"/"Invalid Password" with a generic "Username & Password do not match!".
+
+Links
+  * http://www.theregister.co.uk/2010/06/04/facebook_email_indexing_snafu/
+  * http://www.boston.com/business/technology/articles/2005/05/05/insurers_website_error_reveals_data_on_drivers/?rss_id=Boston+Globe
+  * https://www.owasp.org/index.php/Top_10_2007-A6
+  * http://www.adobepress.com/articles/article.asp?p=25445&seqNum=4
+  * http://projects.webappsec.org/w/page/13246936/Information%20Leakage
+
+### How to test for it ###
+
+Throw as much random crap as you can think of at your application until you manage to get it to show you something about it's internals. You may find that using this type of testing allows to you see which other types of attack you might be vulnerable to, like SQL Injection or XSS for instance.
+
+### Mitigation ###
+
+  * Use try/catch and ensure that you return a decent error message to the user if they do cause a exception during a request.
+  * You can often configure servers (via web.xml for instance) to return custom pages in the event of an error, this gives you much more control over what is leaked even if you do forget to catch something somewhere along the lines.
+
+## Header Manipulation ##
+
+Header manipulation is an attack where the attacker is able to manipulate the HTTP response headers of an application to generate an HTTP response of their choosing from a trusted web application.
+
+### How does it work? ###
+
+A attacher sends a single HTTP request that forces the Web server to form a response that is interpreted by the target as two HTTP responses instead of one response, this allows the attacker to control contents of the second response. Older versions of Tomcat are vulnerable to this exploit but more recent version (5+) are not.
+
+Under normal circumstances an HTTP response contains just one set of headers and one body. Each individual header is separated from the next using `\r\n`, similarly the body is separated from the list of headers using an empty line containing only `\r\n`.
+
+Using this information it is possible for the attacker to insert their own body within the headers returned by the server, thus the attacker has gained full control over what the victim sees. `%0d%0a` is the URL encoding for `\r\n` and can be used in this attack. This is a very easy method of an attacker performing a XSS attack on a victim, it can also impact:
+  * Cross-site Scripting
+  * Cross-user Defacement
+  * Web Cache Poisoning
+  * Page Hijacking
+  * Browser Cache Poisoning
+
+### Mitigation ###
+
+  * URL-encode any non-valid character before inclusion in HTTP headers
+  * Validate and remove/encode all user input for:
+    * CR LF
+    * `\r\n`
+    * `%0d%0a`
+    * Any other encoding of these or other malicious characters before using them in HTTP headers.
+
+## Hidden Field Manipulation ##
+
+Hidden field manipulation is a technique where attackers user various tools and techniques to change the values of hidden fields on an HTML form to produce unexpected results. The problem with this is that developers often assume that because a field is hidden it won't be seen and cannot be edited by an attacker, which is incorrect.
+
+As with everything we have to consider information from the client to be untrustworthy, there are a multitude of tools (like Firebug) that allow an attacker to modify the page you've sent them and potentially change what id submitted back to the server. On the other side there are also tools like Burp Proxy that will allow users to change the values being sent back to the server manually.
+
+### How to test for it? ###
+
+Test for this type of vulnerability using exactly the same method as the attackers would use, e.g. a proxy which exposes the hidden parameters and allows them to be manipulated. If the application trusts that the values of hidden fields are invisible to the user, viewing the source of the page (after submitting your changed value) should show your changes as the values of the hidden field. You might also find that you get an error returned instead of a valid reply. You can also use the Web Developer Firefox plugin to test for this vulnerability.
+
+### Mitigation ###
+
+  * Ensure that all GET and POST parameters sent from the client are validated (on the server side) before they are passed to the applications for processing.
+  * Ensure that there are server side checks in place to verify the legitimacy of the request
+    * Do not reply on JavaScript to disable certain operations in the Web application
+    * If the operation accepts a resource's ID parameter, first check (on the server side) that the user has permissions to access this resource
+
+
+---
+
+
+# Risk Based Security Testing #
+
+## What's the point? ##
+
+The main goal of a Risk Based Security Testing approach (or Risk Based Thinking) is to minimise the number of software defects that make it into Production. The main method of achieving this is by getting developers and testers to think about and test for the most common and dangerous security flaws out there, it doesn't mean exhaustive testing of every possible security testing scenario anyone can think of. One of the most important things with this approach is that you have an intimate understanding of your architecture and what possible problems may result because you've used it, when you design your tests - that way you can focus on the most important areas that you're vulnerable to.
+
+**Security is an non-functional requirement.**
+
+The crux of the matter comes back to the fact that trying to protect your assets using network based security isn't enough anymore, attacks are much more sophisticated, as is the software so we need to promote good software security principles across the board, on the whole this involves:
+  * Thinking about security early in the SDLC
+  * Knowing and understanding common problems
+  * Designing for security
+  * Objective risk analyses and testing
+
+## Resources ##
+
+  * [Gary McGraw's Software Security Book](http://www.swsec.com/)
+  * [Addison-Wesley's Professional Software Series](http://www.informit.com/imprint/index.aspx?st=61085)
+  * [The Secure Coding Mailing List](http://www.securecoding.org/list/)
+  * [Security Tracker](http://www.securitytracker.com/)
+  * [The Risks Digest](http://catless.ncl.ac.uk/Risks/)
+  * [Phrack](http://www.phrack.org/)
+  * [Full Disclosure](http://archives.neohapsis.com/archives/fulldisclosure/)
+  * [Build Security In](https://buildsecurityin.us-cert.gov/)
+  * [US Cert](http://www.us-cert.gov)
+  * http://www.owasp.org
+  * http://www.securityfocus.com/archive/1
+
+## Software Security ##
+
+There are three pillars of Software Security, Risk Management, Touchpoints and Knowledge.
+
+What are the knowledge catalogues?
+  * Principles - high level concepts that are the foundation of any software security initiative
+  * Guidelines - the management directives that define how the initiative is implemented
+  * Rules - refer specific instructions about how specific security issues should be handled
+  * Attack Patterns - these are detailled accounts from within your own company or outside of how previous attempts to attack an organisation succeeded
+  * Exploits - see above
+  * Vulnerabilities - these are code vulnerabilities, they are useful to have on hand when performing code reviews and analysis - they highlight the areas where developers tend to get things wrong
+  * Historical Risks - those who don't study history are doomed to repeat it
+  * Security Blueprints
+
+### What is Software Security Testing? ###
+Software Security Testing is a risk-based, white-box approach to assessing software security, we need to have a deep understanding of our software in order to pull this off!
+  * Inputs are:
+    * Business and design objectives
+    * The actual requirements
+    * Architectural and operational reality
+    * The current and near-future capabilities of potential attackers (threat model)
+    * The code
+
+  * Outputs are:
+    * Evidence that software security risks introduces in the software development lifecycle have been effectively mitigated
+    * Evidence that software does what it is supposed to do and nothing else
+    * Evidence that the software will withstand malicious attack
+
+**Why use black-box vs. white-box?**
+  * Black-box security testing
+    * Treats the system as being opaque; no knowledge of the internal structure
+    * Usually focuses on testing functional requirements
+
+  * White-box security testing
+    * Allows full internal knowledge
+    * Uses this knowledge to construct tests and test data
+    * Uses this knowledge to judge whether something is actually a flaw
+
+#### Functional Security Testing ####
+
+  * Test the security-related features of the system
+  * Ensure they behave in the prescribed manner (for example, login features)
+  * Often performed by QA
+  * Based on the formal security requirements
+  * Includes negative cases
+
+Examples
+  1. When testing "encrypt file", also test whether the encryption ket is overwritten
+  1. When testing that a "random number" is generated, also test how random it is
+  1. When testing that "add read access" allows a user to read a file, also test whether it allows write access too
+
+#### Risk-based Security Testing ####
+
+  * Ensure secure behaviour of "other" requirements
+  * Testing non-functional and negative requirements (misuse and abuse cases)
+    * Ensure security goals are met
+  * Ensure security risks introduced during software development have been effectively mitigated
+  * Testing focused on whether identified risks have been appropriately mitigated - concentrate on what you're told "you can't do"
+  * Identified and prioritised risks come from
+    * Architectural risk analysis - artefact analysis usually done by development security architects or external consulting groups
+    * Abuse cases, attacks patterns, and threat models
+    * Informed red-teaming
+
+**Types of Requirement that can be used to extract risks and testing approaches**
+
+##### Functional Requirements #####
+
+Functions that the system must perform e.g. The system shall...take some kind of input and produce some kind of output.
+
+##### Non-functional Requirements #####
+
+Properties or qualities system must possess, most of these and "...ilities":
+  * Auditability
+  * Extensibility
+  * Maintainability
+  * Performance
+  * Portability
+  * Reliability
+  * Security
+  * Testability
+  * Usability
+
+##### Derived Requirements #####
+
+Functional/non-functional requirements implicit from stated requirements i.e. requirements that become apparent as a result of an original requirement e.g.
+> The system shall allow users to search for products using item name, model number or bar code.
+Might result in the following derived requirement:
+> All records shall contain product name, model number and bar code information.
+
+An example of a derived _security_ requirement is the eBay example where originally at eBay it was possible for each bidder to see the full username of all other bidders in auction, if you were and knew that after 5 unsuccessful attempts to log in to e-Bay your account would be locked (and a locked account cannot place bids) then you could wait until the last few minutes of the auction and then attempt to log in 5 times (incorrectly) as each of you competitors thus preventing them from placing last minute bids in the same auction as you.
+
+##### S.M.A.R.T Requirements #####
+
+  * **S\*pecific
+  ***M\*easurable
+  * **A\*chievable
+  ***R\*ealistic
+  * **T\*estable**
+
+The best security requirements are often dreamt up while attempting to think as an attacker and consider that they want. Gramatical negation can often be handy here.
+
+##### How to get started if you have nothing #####
+
+  * Learn from history:
+    * Some good security goals to test for
+      * This loops back to CIA (Confidentiality, Integrity & Availability) - see above
+    * Some guiding design principles to test for
+      1. Secure the Weakest Link
+      1. Practice Defence in Depth (layer your security features throughout the application/architecture)
+      1. Fail Securely
+      1. Follow the Principle of Least Privilege (only grant privileges for the shortest possible time when absolutely required, don't forget to revoke them!)
+      1. Compartmentalise
+      1. Keep it Simple (complexity increases the potential for problems, reuse what's already out there)
+      1. Promote Privacy
+      1. Remember that Hiding Secrets is Hard
+      1. Be Reluctant to Trust
+      1. Assume Nothing (question all assumptions and choices)
+    * Commons mistakes to look for
+      * There are various vulnerability taxonomies we can use to help us http://cve.mitre.org, http://cwe.mitre.org, http://www.us-cert.gov, OSWSAP Top Ten (see above), http://www.fortify.com/vulncat and even http://capec.mitre.org for attack patterns.
+      * There are also a number of websites e.g. [Bugtraq](http://www.securityfocus.com/archive/1), [Risks](http://catless.ncl.ac.uk/Risks/) or [SC-L](http://www.securecoding.org/list/).
+    * Common test types and methods
+    * Some way to classify identified defects
+
+Even if you don't have a detailed Architecture Risk Analysis document with a supporting set of comprehensive Abuse Cases you more than likely still have enough information to get you started in the form of Requirements, Use Cases, Design, Operations Reality, Code and History. You can build the other pieces up over time.
+
+##### Expanding Test Strategy & Planning #####
+
+  * Test strategy and planning
+    * A formalised approach to determining where, when, and how testing should be performed to maximise the impact of software testing
+    * A phased approach that includes requirements validation, test strategy, and test planning
+  * Collect new artefacts
+    * Business and design objectives
+    * ARA results, abuse cases, prioritised list of risks, code
+    * Code component map, data flow diagrams
+  * Choose additional testing as driven by risk
+    * Basic security issues, security mechanisms, inter-component issues, abuse cases, misuse cases, failure checking, assumptions, design issues, other
+  * Building on current testing strategy, identify additional code areas or properties that require testing
+  * Augment the existing test plan
+    * Build test cases the way you do now, but look at new things (the main things are risks and attacks)
+
+##### Test Traceability #####
+
+**For every single test that we run we should be able to justify it by linking it back to an original functional, non-functional or derived requirement.**
+
+## Security Coding Errors ##
+
+### Kingdom 1: Input aValidation & Representation ###
+
+E.g.
+  * SQL Injection (see above)
+  * Cross-site Scripting (XSS) (see above)
+  * Data & Character Representations (see the section on encoding above)
+
+### Kingdom 2: API Abuse ###
+  * Ignoring Return Values
+  * Replying on Implied Randomness (never roll your own! Use /dev/urandom in UNIX, CryptGenRandom in Windows, SecureRandom in Java)
+  * Using Deprecated Methods
+
+### Kingdom 3: Security Features ###
+  * Privacy Violation
+  * Default Authentication
+  * Privilege Bracketing
+  * Handling Secrets
+
+### Kingdom 4: Time & State ###
+  * Time of Check to Time of Use
+  * Parameter Tampering
+  * URL Tampering
+  * Cookie Tampering
+
+### Kingdom 5: Error Handling ###
+  * Exception Handling
+  * Triggering Errors
+
+### Kingdom 6: Code Quality ###
+  * Memory Leaks
+  * Source Code Comments & Strings
+
+### Kingdom 7: Encapsulation ###
+  * Violations of boundaries between code
+  * Violation of Trust Levels
+
+### Bonus Kingdom: Environment ###
+  * Execution Environment
+
+
+---
+
+
+# What are the bad guys trying/exploiting? #
+
+## Alternate encodings ##
+## Bad random number generators ##
+## Buffer overflow ##
+## Capture-replay ##
+## Chosen protocol attack ##
+## Cross-site scripting ##
+## Dictionary attack ##
+## Denial of Service ##
+## Double Free ##
+## Format String Attacks ##
+## Hardcoded passwords ##
+## Hidden fields ##
+## Improper certificate checking ##
+## Improper escaping ##
+## Information Leaks ##
+## Integer overflow ##
+## Low entropy ##
+
+Related to random number generation.
+
+## Magic URLs ##
+## Man-in-the-middle ##
+## Partial truncation ##
+## Security through obscurity ##
+## Sequential Session IDs ##
+## Sessions fixation ##
+## Session hijacking ##
+## Social Engineering ##
+## SQL injection ##
+## Temp file attacks ##
+## Time-of-check to time-of-use ##
+## Usability work-arounds ##

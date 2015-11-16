@@ -1,0 +1,9 @@
+
+
+# Demilitarised Zone (DMZ) #
+
+What is a DMZ? This description is from the Tullett's documentation of their **Post:market** Service, Gateway and API, it does a nice job of explaining what a DMZ is and why you might want to use one:
+
+> There are instances where a client does not wish the in-house application using the Post:marker Java or C# API to directly access the Internet.  In these cases the Post:marker Gateway can be placed in a Demilitarised Zone (DMZ) which does have access to the Internet.  The Post:marker Java API then communicates remotely with the Post:marker Gateway.  The in-house application therefore only needs access to the DMZ and not the wider network. This configuration is shown below:
+
+http://thesandbox.googlecode.com/files/dmz.PNG

@@ -1,0 +1,80 @@
+
+
+# Column Oriented Databases #
+
+A column-oriented DBMS is a database management system (DBMS) that stores data tables as sections of columns of data rather than as rows of data, like most relational DBMSs. As a consequence they are very quick when retrieving a selection of columns rather than entire rows.
+
+  * http://en.wikipedia.org/wiki/Column-oriented_DBMS
+  * http://www.slideshare.net/srudra25/rise-of-column-oriented-database
+
+# Oracle #
+
+## Datatypes ##
+
+  * [Compare Sybase ASE/M$ SQL with Oracle data types](http://docs.oracle.com/cd/E12151_01/doc.150/e12156/ss_oracle_compared.htm#i1026427)
+
+
+---
+
+
+# SQuirreL SQL #
+
+## MS SQL ##
+
+When using MS SQL with SQuirreL it's important that you don't include both sqljdbc.jar & sqljdbc4.jar on the class path regardless of which on eyou think the Driver is pointing at, see [here](http://www.java-forums.org/new-java/62586-jdk-7-connecting-remote-ms-sql-2005-server.html) for more information.
+
+
+---
+
+
+# Sybase ASE #
+
+## Java & Sybase ##
+
+  * [Sybase &lt;--&gt; Java data type mapping](http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.help.ase_15.0.java/html/java/java197.htm)
+
+## Scripts ##
+
+### Batch commands using `set rowcount` ###
+
+```
+set rowcount 10000
+{delete|update} from TableName where ...
+while (@@rowcount > 0)
+begin
+  {delete|update} from TableName where ...
+end
+set rowcount 0
+```
+
+### Server Space Report ###
+
+```
+/* This will say 1 row affected when run  */
+
+declare @pagesize numeric(12)
+select @pagesize=(select @@maxpagesize)
+SELECT "Database Name" = CONVERT(varchar(50), db_name(D.dbid)),
+"Data Size" = STR(SUM(CASE WHEN U.segmap != 4 THEN U.size*@pagesize/1048576 END),10,1),
+"Used Data" = STR(SUM(CASE WHEN U.segmap != 4 THEN size - curunreservedpgs(U.dbid, U.lstart, U.unreservedpgs)END)*@pagesize/1048576,10,1),
+"Data Full%" = STR(100 * (1 - 1.0 * SUM(CASE WHEN U.segmap != 4 THEN curunreservedpgs(U.dbid, U.lstart, U.unreservedpgs) END)/SUM(CASE WHEN U.segmap != 4 THEN U.size END)),9,1) + "%",
+"Log Size" = STR(SUM(CASE WHEN U.segmap = 4 THEN U.size*@pagesize/1048576 END),10,1),
+"Free Log" = STR(lct_admin("logsegment_freepages",D.dbid)*@pagesize/1048576,10,1),
+"Log Full%" = STR(100 * (1 - 1.0 * lct_admin("logsegment_freepages",D.dbid) /
+SUM(CASE WHEN U.segmap = 4 THEN U.size END)),8,1) + "%"
+FROM master..sysdatabases D,
+master..sysusages U
+WHERE U.dbid = D.dbid
+AND ((D.dbid > 3) AND (D.dbid < 31513) AND (D.status != 256))
+GROUP BY D.dbid
+ORDER BY db_name(D.dbid)
+go
+```
+
+### List of the largest tables in a database ###
+
+```
+SELECT TOP 10 name, reserved_pages(db_id(), id) / (1024.0 / (@@maxpagesize / 1024.0)) AS "Allocated MB"
+FROM sysobjects 
+ORDER BY reserved_pages(db_id(),id) DESC
+```
