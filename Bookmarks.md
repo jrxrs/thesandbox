@@ -62,6 +62,9 @@
   * [Peanut Butter Cups](http://lemon-sugar.com/2012/09/peanut-butter-cups.html)
   * [Cheese & Bacon Baked Potatoes](http://www.bbcgoodfood.com/recipes/1759659/bonfire-night-baked-potatoes)
   * http://www.kevinandamanda.com/recipes/dessert/dark-chocolate-salted-caramel-oreo-pie.html
+  * [Two Ingredient Banana Pancakes](http://www.thekitchn.com/how-to-make-2-ingredient-banana-pancakes-cooking-lessons-from-the-kitchn-218658)
+  * [Peanut Butter and Chocolate Energy Bars](http://www.thekitchn.com/recipe-peanut-butter-amp-chocolate-energy-bars-recipes-from-the-kitchn-204806)
+  * [Three Ingredient Energy Bars](http://www.thekitchn.com/how-to-make-easy-3-ingredient-energy-bars-at-home-cooking-lessons-from-the-kitchn-184306#_)
 
 **London Bars**
 
