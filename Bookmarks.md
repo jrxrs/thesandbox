@@ -65,6 +65,7 @@
   * [Two Ingredient Banana Pancakes](http://www.thekitchn.com/how-to-make-2-ingredient-banana-pancakes-cooking-lessons-from-the-kitchn-218658)
   * [Peanut Butter and Chocolate Energy Bars](http://www.thekitchn.com/recipe-peanut-butter-amp-chocolate-energy-bars-recipes-from-the-kitchn-204806)
   * [Three Ingredient Energy Bars](http://www.thekitchn.com/how-to-make-easy-3-ingredient-energy-bars-at-home-cooking-lessons-from-the-kitchn-184306#_)
+  * [Chorizo and Chickpea Stew](https://www.bbcgoodfood.com/recipes/3147690/chorizo-and-chickpea-stew)
 
 **London Bars**
 
