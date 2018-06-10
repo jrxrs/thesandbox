@@ -269,6 +269,8 @@ public class MessageParserTestCase {
 
 ## Writing Comma Separated Lists the Easy Way ##
 
+**Note**: With Java 8 this is even easier provided the list contains Strings (See Java 8 section).
+
 ```
 public static String listToString(List<?> list) {
     final StringBuilder sb = new StringBuilder();
@@ -279,5 +281,17 @@ public static String listToString(List<?> list) {
     }
 
     return sb.toString();
+}
+```
+
+## New Java 8 Concepts ##
+
+See here for an overview of these features.
+
+```
+public static String join(Collection collection, String delimiter){
+    return collection.stream()
+            .map(Object::toString) // <- Method Reference
+            .collect(Collectors.joining(delimiter));
 }
 ```
