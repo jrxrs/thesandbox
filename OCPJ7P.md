@@ -112,7 +112,7 @@ Classes covered in the course were `LocalDate`, `LocalTime`, `LocalDateTime`, `I
 `StringBuilder` is a `StringBuffer` for which you don't have to pay the price of synchronization, `StringBuffer` has always been a part of the Java API but `StringBuilder` was only introduced in Java 1.5 (5).
 
 ## Streams ##
-A ``Stream` can only be operated on once, for example the following code will through an `IllegalStateException` because the stream has already been operated upon or closed:
+A `Stream` can only be operated on once, for example the following code will through an `IllegalStateException` because the stream has already been operated upon or closed:
 
 ```java
 Stream<Integer> numStream = Stream.of(10, 20, 30);
