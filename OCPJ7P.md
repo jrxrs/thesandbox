@@ -100,3 +100,25 @@
   * A DAO design pattern essentially separates your core business logic from your persistence logic.
 
 ## Generics & Collections ##
+
+-----
+
+# OJCP11 #
+
+## Date & Time ##
+Classes covered in the course were `LocalDate`, `LocalTime`, `LocalDateTime`, `Instant`, `Duration` and `Period`.
+
+## Strings ##
+`StringBuilder` is a `StringBuffer` for which you don't have to pay the price of synchronization, `StringBuffer` has always been a part of the Java API but `StringBuilder` was only introduced in Java 1.5 (5).
+
+## Streams ##
+A ``Stream` can only be operated on once, for example the following code will through an `IllegalStateException` because the stream has already been operated upon or closed:
+
+```java
+Stream<Integer> numStream = Stream.of(10, 20, 30);
+numStream.map(n -> n + 10).peek(s -> System.out.print(s));
+numStream.forEach(s -> System.out.println(s));
+```
+
+## Collections ##
+In Java 9 a number of convenience method were introduced to allow small collections to be initialised via static methods on the collection class, e.g. `List.of(...)`, the caveat with these methods is that they return unmodifiable/immutable collections.
