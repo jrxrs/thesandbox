@@ -1,11 +1,9 @@
-
-
 # Java Class Design #
 
 ## Foundations of Object Orientates Programming ##
 
   * _Abstraction_: Hiding lower-level details and exposing only the essential and relevant details to the users.
-  * _Encapsulation_: Combining data and the functions operating on it as a single unit.
+  * _Encapsulation_: Combining data and the functions operating on it as a single unit. Encapsulation also allows you to control access to infomration, validate data, or modify data format without the risk of breaking another class.
   * _Inheritance_: Creating hierarchical relationships between related classes.
   * _Polymorphism_: Interpreting the same message (i.e. method call) with different meanings depending on the context.
 
@@ -17,6 +15,13 @@
   * You can access the _protected_ methods either from a class in the same package (just like package private or default) as well as from a derived class.
   * You can also access a method with a _default access modifier_ if it is in the same package.
   * You can access _public_ methods of a class from any other class.
+
+| / | any class | classes in the same package and subclasses | classes in the same package only | same class |
+| - |:---------:|:------------------------------------------:|:--------------------------------:|:----------:|
+| public    | y | y | y | y |
+| protected | x | y | y | y |
+| default   | x | x | y | y |
+| private   | x | x | x | y |
 
 ## Overloading ##
 
@@ -72,7 +77,63 @@
   * Enums are a typesafe way to achieve restricted input from users.
   * You cannot use `new` with enums, even inside the enum definition.
   * Enum classes are by default final classes.
+  * Enum values are implicitly `public`, `static` and `final`.
   * All enum classes are implicitly derived from `java.lang.Enum`.
+
+## Immutability ##
+
+Immutable objects present read-only data. (You cannot modify it after object construction.)
+  * Instance variables must be encapsulated (`private`) to prevent direct access.
+  * Instance variables are initialized immediately or via constructors.
+  * No setter methods are provided.
+  * Immutable objects are thread-safe, without an overhead cost of coordinating synchronized access.
+  * Many JDK classes are designed this way: primitive wrapper, local date and time, string etc.
+
+## Initializers ##
+
+You might already be familiar with a static initalizer that is executed only once when the class if first loaded, e.g.
+
+```
+public class Product {
+    private static int maxId;
+    
+    static {
+        maxId = 100;
+    }
+}
+```
+
+But did you know that you can use instance initalizers that are invoked everytime an object of that class is constructed:
+
+```
+public class Product {
+
+    private static int maxId;
+    private final int id;
+
+    static {
+        maxId = 0;
+    }
+
+    {
+        id = ++maxId;
+    }
+    
+}
+```
+
+There are three rules for the instance initializer block. They are as follows:
+1. The instance initializer block is created when instance of the class is created.
+2. The instance initializer block is invoked after the parent class constructor is invoked (**i.e. after super() constructor call**).
+3. The instance initializer block comes in the order in which they appear.
+
+## Java Memory Allocation ##
+
+Java has the following memory contexts: stack and heap.
+  * Stack is a memory context of a thread, storing local method variables.
+  * Heap is a shared memory area, accessible from different method variables.
+  * Stack can hold only primitives and object references.
+  * Classes and Objects are stored in the heap.
 
 # Object-Orientated Design Principles #
 
@@ -98,6 +159,7 @@
   * The factory design pattern "manufactures" the required type of product on demand.
   * You should consider using the abstract factory design pattern when you have a family of objects to be created.
   * A DAO design pattern essentially separates your core business logic from your persistence logic.
+  * The Visitor pattern works on the basis of double displatch, each class accepts a Vistor and then invokes a method on that Vistor passing itself as a parameter to the method it calls.
 
 ## Generics & Collections ##
 
