@@ -135,6 +135,10 @@ Java has the following memory contexts: stack and heap.
   * Stack can hold only primitives and object references.
   * Classes and Objects are stored in the heap.
 
+The stack and the heap are key to how parameter passing works in Java, basically passing parameters means copying stack values:
+  * A copy of an object reference value
+  * A copy of a primitive value
+
 # Object-Orientated Design Principles #
 
 ## Interfaces ##
