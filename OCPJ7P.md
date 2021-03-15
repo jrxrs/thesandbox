@@ -39,6 +39,7 @@
   * Overloading is an example of _static polymorphism_ (_early binding_) while overriding is an example of _dynamic polymorphism_ (_late binding_).
   * You don't need to do an explicit cast for doing an _upcast_. An upcast will always succeed.
   * You **do** need to do an explicit cast for doing a _downcast_. A downcast may fail. So you cn use the `instanceof` operator to see if a downcast is valid.
+  * When overriding a method the child class may siden the access modifier, i.e. a `protected` method is the super class may become a `public` method in the child class.
 
 ## Java Packages ##
 
@@ -126,6 +127,51 @@ There are three rules for the instance initializer block. They are as follows:
 1. The instance initializer block is created when instance of the class is created.
 2. The instance initializer block is invoked after the parent class constructor is invoked (**i.e. after super() constructor call**).
 3. The instance initializer block comes in the order in which they appear.
+
+**Example**
+Consider the following code snippets:
+```
+public class Object {
+    static { }
+    public Object() { }
+}
+```
+```
+public class Product {
+    static  { }
+    { }
+    public Product() { }
+}
+```
+```
+public class Food extends Product {
+    static { }
+    { }
+    public Food() { }
+}
+```
+```
+public class Shop {
+    static { }
+    public static void main (String[] args) {
+        Product p1 = new Food();
+        Product p2 = new Food();
+    }
+}
+```
+
+Class loading and initalization execute order (the following is executed only once):
+1. Object class static initializer
+2. Show class static initializer
+3. Product class static initializer
+4. Foob class static initializer
+
+Object instantiation execution order (the following code is executed for each object that is initalised):
+1. Object class constructor
+2. Product instance initializer
+3. Product constructor
+4. Food instance initializer
+5. Food constructor
 
 ## Java Memory Allocation ##
 
