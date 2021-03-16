@@ -23,6 +23,8 @@
 | default   | x | x | y | y |
 | private   | x | x | x | y |
 
+Note: When implementing a method from an interface, the concrete class may only widen the access modifier, i.e. a `public` method in the interface must also be a `public` method in the concrete class.
+
 ## Overloading ##
 
   * _Method overloading_: Creating methods with the same name but different types and/or numbers of parameters.
@@ -39,7 +41,7 @@
   * Overloading is an example of _static polymorphism_ (_early binding_) while overriding is an example of _dynamic polymorphism_ (_late binding_).
   * You don't need to do an explicit cast for doing an _upcast_. An upcast will always succeed.
   * You **do** need to do an explicit cast for doing a _downcast_. A downcast may fail. So you cn use the `instanceof` operator to see if a downcast is valid.
-  * When overriding a method the child class may siden the access modifier, i.e. a `protected` method is the super class may become a `public` method in the child class.
+  * When overriding a method the child class may widen the access modifier, i.e. a `protected` method is the super class may become a `public` method in the child class.
 
 ## Java Packages ##
 
@@ -193,6 +195,12 @@ The stack and the heap are key to how parameter passing works in Java, basically
   * An interface cannot be instantiated; however, an interface can extend another interface.
   * All methods declared in an interface are implicitly considered to be abstract.
   * Abstract classes and interfaces are quite similar concepts. However, you should be careful to use the appropriate construct based on the context.
+  * When implementing multiple interfaces or extending a parent class:
+    * Private interface method do not cause conflicts, because they are not visivle outside of that interface.
+    * Static interface methods do not cause conflicts, because they are invoked cia specific parent types and do not rely on the super reference.
+    * If there is a conflict between `default` methods,, it must be resolved by overriding this default method within the implementation class.
+    * Otherwise, the default method implementation can be inherited.
+    * If multiple implemented interfaces declare the same method name and return type then the implementing class must override it as normal.
 
 ## Object Composition ##
 
