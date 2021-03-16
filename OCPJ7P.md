@@ -234,3 +234,6 @@ numStream.forEach(s -> System.out.println(s));
 
 ## Collections ##
 In Java 9 a number of convenience method were introduced to allow small collections to be initialised via static methods on the collection class, e.g. `List.of(...)`, the caveat with these methods is that they return unmodifiable/immutable collections.
+
+## .equals() and .hashCode() ##
+The `hashCode` method must consistenly return the same `int` value for the same instance (i.e. don't include any mutable variables in your hashCode logic), it must also return the same `int` value for any pair of objects that are considered to be the same when compared with the `equals` method.
