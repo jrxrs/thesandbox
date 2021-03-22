@@ -208,6 +208,14 @@ The stack and the heap are key to how parameter passing works in Java, basically
   * Favour composition over inheritance whenever feasible.
   * Program to an interface, not to an implementation.
 
+## Functional Interfaces ##
+
+A Functional Interface is an interface that defines a ingle abstract operation (function). Functional interfaces are a reccommended approach now-a-days because they prents the implementing class from having to implement methods that they may not otherwise be interested in, thus they provide us more flexibility. 
+
+## Cloneable ##
+
+`Cloneable` is an example of a "type-marker" or "tag-interface" as it doesn't have any abstract methods that must be implemented, instead it simply marks a class as something which can be cloned using the `.clone()` method overridden from `Object`, note that if you don't implement `Cloneable` then the `Object.clone()` method (which you'll reach by calling `super.clone()`) will throw a `CloneNotSupportedException`.
+
 ## Design Patterns ##
 
   * Design patterns are reusable solutions of frequently recurring design problems.
@@ -218,6 +226,11 @@ The stack and the heap are key to how parameter passing works in Java, basically
   * You should consider using the abstract factory design pattern when you have a family of objects to be created.
   * A DAO design pattern essentially separates your core business logic from your persistence logic.
   * The Visitor pattern works on the basis of double displatch, each class accepts a Vistor and then invokes a method on that Vistor passing itself as a parameter to the method it calls.
+  * The composition pattern can be used to solve the multiple inheritance problem in Java:
+    * Interfaces describe capabilities.
+    * Classes implement these capabilities.
+    * Capabilities are aggregated.
+    * A (wrapper) class that needs to provide a wide spectrum of features, e.g. a Bank that must support `Depositing`, `Withdrawing` and `Athentication` can simply compose objects that implement those features and then delegate behaviour to them, e.g. an `Account` might implement `Depositing` & `Withdrawing`, where as a Secutiry class might provide the `Athentication`.
 
 ## Generics & Collections ##
 
