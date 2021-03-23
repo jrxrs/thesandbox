@@ -224,7 +224,7 @@ When you extend an interface that contains a default method, you can do the foll
 
 ## Functional Interfaces ##
 
-A Functional Interface is an interface that defines a ingle abstract operation (function). Functional interfaces are a reccommended approach now-a-days because they prents the implementing class from having to implement methods that they may not otherwise be interested in, thus they provide us more flexibility. 
+A Functional Interface is an interface that defines a single abstract operation (function/method). Functional interfaces are a reccommended approach now-a-days because they prents the implementing class from having to implement methods that they may not otherwise be interested in, thus they provide us more flexibility. 
 
 ## Cloneable ##
 
