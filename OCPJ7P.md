@@ -198,9 +198,23 @@ The stack and the heap are key to how parameter passing works in Java, basically
   * When implementing multiple interfaces or extending a parent class:
     * Private interface method do not cause conflicts, because they are not visivle outside of that interface.
     * Static interface methods do not cause conflicts, because they are invoked cia specific parent types and do not rely on the super reference.
-    * If there is a conflict between `default` methods,, it must be resolved by overriding this default method within the implementation class.
+    * If there is a conflict between `default` methods, it must be resolved by overriding this default method within the implementation class.
     * Otherwise, the default method implementation can be inherited.
     * If multiple implemented interfaces declare the same method name and return type then the implementing class must override it as normal.
+  * An interface may also define `static` methods, these don't cause any conflicts when implementing multiple interfaces even if static methods have the same name because they can simply be reference via the class name.
+
+### `default` methods ###
+
+Default methods enable you to add new functionality to existing interfaces and ensure binary compatibility with code written for older versions of those interfaces. In particular, default methods enable you to add methods that accept lambda expressions as parameters to existing interfaces.
+
+One of their key advantages is that you can add methods without having to provide an implementation in every implementing class.
+
+#### Extending Interfaces That Contain Default Methods ####
+
+When you extend an interface that contains a default method, you can do the following:
+  * Not mention the default method at all, which lets your extended interface inherit the default method.
+  * Redeclare the default method, which makes it abstract.
+  * Redefine the default method, which overrides it.
 
 ## Object Composition ##
 
