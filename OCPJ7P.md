@@ -272,3 +272,14 @@ In Java 9 a number of convenience method were introduced to allow small collecti
 
 ## .equals() and .hashCode() ##
 The `hashCode` method must consistenly return the same `int` value for the same instance (i.e. don't include any mutable variables in your hashCode logic), it must also return the same `int` value for any pair of objects that are considered to be the same when compared with the `equals` method.
+
+## Loops ##
+
+A `for` loop is slightly odd in Java because it uses the semicolon as a position separator rather than a statement separator, so instead of using `;` to separate statements we use `,` instead, e.g. in the example below name the comma between the `i++` and `j--`.
+
+```
+int [][] values = {{1,2,3},{4,5,6},{7,8,9}};
+for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
+    int value = matrix[i][j];
+}
+```
