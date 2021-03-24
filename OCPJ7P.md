@@ -283,3 +283,10 @@ for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
     int value = matrix[i][j];
 }
 ```
+
+
+# Links #
+
+  * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
+  * https://javarevisited.blogspot.com/2019/07/top-4-java-11-certification-free-mock-exams-practice-tests-ocajp11-ocpjp11-1z0-815-16-questions.html
+  * http://java.boot.by/ocpjd11-upgrade-quiz/
