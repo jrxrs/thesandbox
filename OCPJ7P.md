@@ -270,6 +270,18 @@ numStream.forEach(s -> System.out.println(s));
 ## Collections ##
 In Java 9 a number of convenience method were introduced to allow small collections to be initialised via static methods on the collection class, e.g. `List.of(...)`, the caveat with these methods is that they return unmodifiable/immutable collections.
 
+### Collections and Concurrency ###
+A collection can be corrupted if accessed concurrently from multiple threads.
+  * If two or more threads within your program try to access a collection at the same time, they can corrupt it, if this collection is not immutable.
+  * Any object in a heap is not thread-safe if it is not immutable. Any thread can be inturrupted, even when it is modifying an object, making other threads observe incomplete modifiation state.
+  * Making a collection thread-safe does not guarantee the thread safety of the objects it contains. Only immutable objects are automatically thread-safe.
+
+There are three main strategies to prevent your collection being corrupted, make it:
+  * Unmodifiable (fast, but read only): `Collections.unmodifiableSet(set)`
+  * Synchronized (slow and unscalable): `Collections.synchronizedSet(set)`
+  * Copy-on-write (fast, but consumes memory): `new CopyOnWriteArryList(list)`
+    * The [`CopyOnWriteArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CopyOnWriteArrayList.html) Java Docs are very clear and concise about it's intended use, i.e. you should read from the collection more than your write to it, but it's not very clear on the writing behaviour, what actually happens behind the scenes if two threads attempt to write to a `CopyOnWriteArrayList` at the same time is that both threads create a copy of the original list to perform their update operations on, once they complete, the contents of the list will be merged in the background, after the merge all reading threads will see the combined contents with all modifications made by both threads.
+
 ## .equals() and .hashCode() ##
 The `hashCode` method must consistenly return the same `int` value for the same instance (i.e. don't include any mutable variables in your hashCode logic), it must also return the same `int` value for any pair of objects that are considered to be the same when compared with the `equals` method.
 
@@ -284,9 +296,9 @@ for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
 }
 ```
 
-
 # Links #
 
   * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
   * https://javarevisited.blogspot.com/2019/07/top-4-java-11-certification-free-mock-exams-practice-tests-ocajp11-ocpjp11-1z0-815-16-questions.html
   * http://java.boot.by/ocpjd11-upgrade-quiz/
+  * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html#MemoryVisibility - this text details happens-before
