@@ -303,3 +303,4 @@ for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
   * http://java.boot.by/ocpjd11-upgrade-quiz/
   * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html#MemoryVisibility - this text details happens-before
   * http://tutorials.jenkov.com/java-concurrency/index.html
+  * https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
