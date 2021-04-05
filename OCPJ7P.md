@@ -267,6 +267,15 @@ numStream.map(n -> n + 10).peek(s -> System.out.print(s));
 numStream.forEach(s -> System.out.println(s));
 ```
 
+Stream processing can be sequential (default) or parallel. The Stream pipeline is traversed using method chaining so intermediate operations also return streams. **The chain of activities could be fused into a single pass on data**, meaning that operations don't happen piecemeal.
+
+To avoid autoboxing and unboxing of primativies the Streams API provides specifc implementations: `DoubleStream`, `IntStream` and `LongStream`, using these prevents you from having to copy values back and forth between the stack (where primitives are stored) and the heap (where objects are stored) which can be slow and degrade performance.
+
+There are 3 main types of pipeline processing operations:
+  * Intermediate - perform some action and produce another stream, e.g. `filter`, `map`, `flatMap`, `peek`, `distinct`, `sorted`, `dropWhile`, `skip`, `limit*`, `takeWhile*`
+  * Terminal - terverse a stream pipeline and end the stream processing, e.g. `forEach`, `forEachOrdered`, `count`, `min`, `max`, `sum`, `average`, `collect`, `reduce`, `allMatch*`, `anyMatch*`, `noneMatch*`, `findAny*`, `findFirst*`
+  * Short-circuit - produce a finite result, even if presented with an infinite input
+
 ## Collections ##
 In Java 9 a number of convenience method were introduced to allow small collections to be initialised via static methods on the collection class, e.g. `List.of(...)`, the caveat with these methods is that they return unmodifiable/immutable collections.
 
