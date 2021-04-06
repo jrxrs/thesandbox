@@ -274,7 +274,61 @@ To avoid autoboxing and unboxing of primativies the Streams API provides specifc
 There are 3 main types of pipeline processing operations:
   * Intermediate - perform some action and produce another stream, e.g. `filter`, `map`, `flatMap`, `peek`, `distinct`, `sorted`, `dropWhile`, `skip`, `limit*`, `takeWhile*`
   * Terminal - terverse a stream pipeline and end the stream processing, e.g. `forEach`, `forEachOrdered`, `count`, `min`, `max`, `sum`, `average`, `collect`, `reduce`, `allMatch*`, `anyMatch*`, `noneMatch*`, `findAny*`, `findFirst*`
-  * Short-circuit - produce a finite result, even if presented with an infinite input
+  * Short-circuit - produce a finite result, even if presented with an infinite input (short-circuit operators are marked with a `*` above)
+
+Note that `peek` and `forEach` are actually very similar, the only difference is that `peek` is an intermediate and `forEach` is terminal.
+
+There are five basic functions that can be used with Streams, they are all come from the `java.util.function` package and can be implemented using lambda expressions:
+  * `Predicate` performs tests
+  * `Function` converts types
+  * `UnaryOperator` (a variant of Function) converts values
+  * `Consumer` processes elements
+  * `Supplier` produces elements
+
+You might stitch these together as follows:
+```
+Stream.generate(<Supplier>)
+      .filter(<Predicate>)
+      .peek(<Consumer>)
+      .map(<Function>/<UnaryOperator>)
+      .forEach(<Consumer>);
+```
+
+Note that all of the types functions listed above also have pimitive specific versions as well.
+
+### Collectors ###
+The `Collectors` class provides two methods of subdividng a stream of elements, into partitions or groups:
+  * Partitioning divides content into a map with two key values (boolean true/false) using a `Predicate`.
+  * Grouping fivides content into a map of multiple key values using a `Function`.
+
+```
+Map<Boolean, List<Product>> productTypes = list.stream()
+                                               .collect(Collectors.partitioningBy(p -> p instanceof Drink));
+Map<LocalDate, List<Product>> productGroups = list.stream()
+                                                  .collect(Collections.groupingBy(p -> p.getBestBefore()));
+```
+
+Groups and Partitions can also be mapped and filtered in a multilevel reduction, using the downstream groupsing and partitioning:
+  * `flatMapping` collector is applied is applied to each input element in the stream before accumulation.
+  * `filtering` collector eliminates content from the stream without removing an entire group, even if the group turns out empty.
+
+**Exmaples**
+Consider we have an `Order` object consisting of a `Customer`, `LocalDate` and `List<Product>`, the following orders are in the stream:
+  * Joe, 2018-11-21, [Tea, Cake]
+  * Bob, 2018-11-21, [Coffee]
+  * Joe, 2018-11-22, [Coffee, Cake]
+
+```
+/* Find all the unique products ordered by a customer */
+Map<Customer, Set<Product>> customerProducts = orders.collect(Collectors.groupingBy(o -> o.getCustomer(),
+                                                              Collectors.flatMapping(o -> o.getItems().streams(), Collections.toSet())));
+/* Result: {Joe=[Tea, Coffee, Cake], Bob=[Coffee]} */
+
+/* Find all the orders on a specific date organised by customer */
+Map<Customer, Set<Order>> customerOrdersOnDate = orders.collect(Collectors.groupingBy(o -> o.getCustomer(),
+                                                                Collectors.filtering(o -> o.getDate().equals(LocalDate.of(2018, 11, 22)), Collectors.toSet())));
+/* Result: {Joe=[Order[date=2018-11-22, customer Joe, products=[Coffee, Cake]]], Bob=[]} */
+```
 
 ## Collections ##
 In Java 9 a number of convenience method were introduced to allow small collections to be initialised via static methods on the collection class, e.g. `List.of(...)`, the caveat with these methods is that they return unmodifiable/immutable collections.
