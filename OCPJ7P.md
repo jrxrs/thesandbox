@@ -312,6 +312,23 @@ Groups and Partitions can also be mapped and filtered in a multilevel reduction,
   * `flatMapping` collector is applied is applied to each input element in the stream before accumulation.
   * `filtering` collector eliminates content from the stream without removing an entire group, even if the group turns out empty.
 
+### Parallel Stream Procesing ###
+Parallel stream processing should observe the following guidelines:
+  * Stateless - the state of one element must not affect another element
+  * Non-interfering - the data source must not be affected
+  * Associative - the result must not be affected by the order of the operands
+
+Other rules of thumb to use which help avoid memory corruption and slow processing:
+  * Do not perform operations that require sequential access to a shared resource, e.g. printing something to the console
+  * Do not perform operations that modify shared resources, e.g. accessing any synchronised object
+  * Use appropriate collectors, such as:
+    * `toMap` in sequential mode
+    * `toConcurrentMap` in parallel mode
+Generally speaking parallel streams should only be used in the following cases:
+  * Stream contains large number of elements
+  * Multiple CPU cores are available to physically parallelise conputations
+  * Processing of stream elements requires significant CPU resources
+
 **Exmaples**
 Consider we have an `Order` object consisting of a `Customer`, `LocalDate` and `List<Product>`, the following orders are in the stream:
   * Joe, 2018-11-21, [Tea, Cake]
@@ -359,6 +376,12 @@ for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
 }
 ```
 
+## Local Variable Type Inference (`var`) ##
+
+As the name states `var` can only be used for loval variables inside methods, `var` is simply a means of matking the code more readable by inferring the type of the local variable from the initialisation, `var` essentially makes the variable name and constructor call stand out more to someone reading the code.
+
+https://openjdk.java.net/projects/amber/LVTIFAQ.html#:~:text=In%20Java%2C%20var%20can%20be,the%20type%20were%20declared%20explicitly.
+
 # Links #
 
   * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
@@ -367,3 +390,4 @@ for (int i = 0, j = 2; ! (i == 3 || j == -1; i++, j--)) {
   * https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/package-summary.html#MemoryVisibility - this text details happens-before
   * http://tutorials.jenkov.com/java-concurrency/index.html
   * https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html
+  * https://www.marcobehler.com/guides/a-guide-to-java-versions-and-features
