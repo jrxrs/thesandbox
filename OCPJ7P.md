@@ -382,6 +382,94 @@ As the name states `var` can only be used for loval variables inside methods, `v
 
 https://openjdk.java.net/projects/amber/LVTIFAQ.html#:~:text=In%20Java%2C%20var%20can%20be,the%20type%20were%20declared%20explicitly.
 
+## Threading and Concurrency ##
+
+### Implementing Executor Service Tasks ###
+`ExecutorService` supports two types of task inplementations:
+  * Runnable objects
+    * Implementing `public void run();` method of `Runnable` interface
+    * Launched using the `execute` or `submit` methods of the `ExecutorService`
+  * Callable objects
+    * Implemtning the `public <T> call()` throws Exception; method of `Callable` interface
+    * Launched using the `submit` method of the `ExecutorService`
+    * Returned value is wrapped into a `Future` ojbect, which is returned immediately
+    * Method `get` blocks invoking thread until time out or when the value within the `Future` object becomes availble
+
+### Locking Problems ###
+#### Starvation ####
+The thread is waiting for a resource blocked by another busy thread.
+```
+synchronized (a) {
+    /* actions taking a very long time */
+}
+```
+
+#### Livelock ####
+Threads form an indefitite loop, expecting confirmation of completion from each other.
+```
+while (b.isOver()) {
+    // fo A actions
+}
+aOver = true;
+
+while (a.over()) {
+    // do B actions
+}
+bOver = true;
+```
+
+#### Deadlock ####
+Two or more threads are blocked forever, waiting for each other.
+```
+synchronized (a) {
+     synchronized (b) { }
+}
+
+synchronized (b) {
+     synchronized (a) { }
+}
+```
+
+### Writing Thread-Safe Code ###
+Stack values such as local variables and method argumetns are thread-safe.
+  * Each thread operates ith its own stack.
+  * No other thread can see this portions of memory.
+Immutable objects in a shared heap memory are thread-safe because they cannot be changed at all.
+Mutable objects in a shraed heap memory are thread-undafe.
+  * Heap memory is shared between all threads.
+  * Heap values undergoing modifications may be:
+    * Inconsistent - observered by other threads before modification is complete
+    * Corrupted - partially changed by another thread writing to memory at the same time
+  * The comiler may choose to **cache heap value locally** within a thread, causing a thread to not notice that data has been changed by another thread.
+
+### Ensure Consistent Access to Shared Data ###
+Disable compiler otimization that is caching the shared value locally within a thread.
+The `volatile` keywork instructs the Java compiler:
+  * Not to cache the variable values locally
+  * Always read it from the main memory (heap)
+  * Applies all changes to the main memoty that occurred in a thread before the update of the volatile variable
+For example:
+```
+public class Shared {
+    public int x;
+    public volatile int y;
+}
+
+Shared s = new Shared();
+new Thread(() -> {
+        while (s.y < 1) {
+            int x = s.x;
+        }
+    }).start();
+new Thread(() -> {
+        s.x = 2;
+        s.y = 2;
+    }).start();
+```
+The `while` loop in the example could become indefinite without the `volatile` instruction if the compiler chooses to cache variable `y` locally.
+Even with the `volatile` keyword, it is not really possible to predict how many iteractions this while loop is going to perform, because there is no way to tell the order in which these threads would get CPU time to execute their instrucitons.
+**Note**: Using volatile will inevitable have some kind of performance impact on your application because it can no longer cache anything on the threads stack and will need to read and write to the heap every time that variable is accessed.
+
 # Links #
 
   * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
