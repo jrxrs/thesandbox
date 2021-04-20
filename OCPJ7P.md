@@ -584,6 +584,39 @@ public class PriceList {
 }
 ```
 
+## Open Modules ##
+### Non-Modular Java Characteristics ###
+There were no modules in Java before version 9.
+  * Packages provided logical grouping of classes.
+  * Packages did not impose physical restrictions on how they are used.
+  * Classes are packaged into jar files and accessed via classpath.
+  * Common deployment of related classes is not enforced.
+  * Visibility of classes is controlled with public and default access modifiers.
+  * Encapsulation can always be bypassed using reflections.
+  * Impossible to restrict in which exact other packages your code can be used.
+
+### What is a Module? ###
+Module is a high-level code aggregation.
+  * It comprises one or more closely related packages and other resources such as images or xml files.
+  * Module descriptor `module-info.class` stored in the module's root folder contains:
+    * Unique module name (reccommended reverse-dns convention e.g. `com.youcompany.whatever`)
+    * Required module dependencies (other modules that this module depends on)
+    * Packages that this module exports, making them available to other modules (all other packages contained within the module are unavailble to other modules)
+    * Permissions to open content of this module to other modules using relection
+    * Services this module offers to other modules
+    * Services this module consumes
+    * Modules do not allow splitting java packages even when they are not exported (private)
+```
+module <this module name> {
+    requires <other module names>;
+    exports <packages of this module to other modules that require them>;
+    opens <packages of this module to other modules via reflection>;
+    uses <services provides by other modules>;
+    provides <services to other modules> with <service implementations>;
+    version <value>;
+}
+```
+
 # Links #
 
   * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
