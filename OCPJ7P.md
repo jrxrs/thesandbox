@@ -470,6 +470,120 @@ The `while` loop in the example could become indefinite without the `volatile` i
 Even with the `volatile` keyword, it is not really possible to predict how many iteractions this while loop is going to perform, because there is no way to tell the order in which these threads would get CPU time to execute their instrucitons.
 **Note**: Using volatile will inevitable have some kind of performance impact on your application because it can no longer cache anything on the threads stack and will need to read and write to the heap every time that variable is accessed.
 
+### Non-Blocking Atomic Actions ###
+Action is atomic if it is guaranteed to be perform by a thread without an interruption.
+  * Atomic actions cannot be interleaved.
+  * Only action performed by a CPU in a single cycle are by default atomic.
+  * Variable assignments are atomic actions, expect `long` and `double` as these are 64-bit values, and it takes more than a single step to assign these **on a 32-bit platform**.
+  * Other operations such as `+ - / * % ++ --` etc are not atmic.
+  * Package `java.util.concurrent.atomic` provides classes that implement lock-free thread-safe programming of atomic behaviours on single variables e.g.
+    * `AtomicBoolean`
+    * `AtomicInteger`
+    * `AtomicLong`
+    * `AtomicReference<V>`
+  * Atomic variables also behave as if they are volatile.
+
+### Ensure Exclusive Object Access Using Intrinsic Locks ###
+Use intrinsic lock to enforce an exclusive access to a shared object.
+  * Order of execution and object consistency are ensured.
+  * Synchronized logic creates a bottleneck in a multithreaded application.
+  * Performance and scalability can be significantly degraded.
+```
+List<String> list = new ArrayList<>();
+Runnable r = () -> {
+    String name = Thread.currentThread().getName();
+    for (int i = 0; i < 10; i++) {
+        synchronized(list) {
+            list.add(name + ' ' + i);
+        }
+    }
+};
+for (int i = 0; i < 10; i++) {
+    new Thread(r).start();
+}
+```
+
+### Intrinsic Lock Automation ###
+Some Java APIs provide synchronized versions of objects, for example:
+  * Class `Collections` provides synchronized wrapper for `Collection`, `List`, `Set` and `Map` objects.
+  * Operations such as add and remove are already synchronized to ensure consistent access to the collection content.
+  * However, note that iterating through a synchronized collection would still require a explicity synchronized block.
+```
+List<String> list = new ArrayList<>();
+List<String> sList = Collections.synchronizedList(list);
+Runnable r = () -> {
+    String name = Thread.currentThread().getName();
+    for (int i = 0; i < 10; i++) {
+        sList.add(name + ' ' + i);
+    }
+};
+/* start threads and wait for their completions (using .join()) */
+synchronized (sList) {
+    Iterator i = sList.iterator();
+    while (i.hasNext()) {
+        System.out.println(i.next());
+    }
+}
+```
+ This implies that the synchronisation occurs on the `sList` iself.
+ 
+ ### Non-Blocking Concurrency Automation ###
+   * Package `java.util.concurrent` provides classes to manage concurrency.
+   * For example, classes such as `CopyOnWriteArraylist` or `CopyOnWriteArraySet` provide thread-safe variants of `List` and `Set`.
+     * All mutative operations (add, remove, and so on) make fresh copies of the underlying collection.
+     * The read-only snapshot of merge content is used for traversal.
+     * These types of construct are best suited to **small collections**, where **read-only operations vastly outnumber mutative operations** and prevent interference among threads during traversal.
+     * Each thread that mutates the collection acquires its own local copy which is then merged back to the master copy automatically.
+     * There is no need to synchronise during iteration.
+```
+List<String> list = new ArrayList<>();
+List<String> copyOnWriteList = new CopyOnWriteArrayList(list);
+Runnable r = () -> {
+    String name = Thread.currentThread().getName();
+    for (int i = 0; i < 10; i++) {
+        copyOnWriteList.add(name + ' ' + i);
+    }
+};
+/* start threads and wait for their completions (using .join()) */
+Iterator i = copyOnWriteList.iterator();
+while (i.hasNext()) {
+    System.out.println(i.next());
+}
+```
+
+### Alternative Locking Mechanisims ###
+Locking API provides flexible programtic concurrency control mechanisms.
+  * Allows actions to be performed on an object, without interference from other threads
+  * Available from the `java.util.concurrent.locks` package
+  * Write lock prevents other threads from concurrently modifiying the object
+  * Read lock can be acquired if Write lock is not held by another thread, allowing concurrent read actions
+```
+public class PriceList {
+    private List<Product> menu = new ArrayList<>();
+    private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+    private Lock rl = rwl.readLock();
+    private Lock wl = rwl.writeList();
+    
+    public Product get(int id) {
+        rl.lock();
+        try {
+            return menu.stream.findFirst(p -> p.getId() == id);
+        } finally {
+            rl.unlock();
+        }
+    }
+    
+    public void add (Product product) {
+        wl.lock();
+        try {
+            return menu.add(product);
+        } finally {
+            wl.unlock();
+        }
+    }
+}
+```
+
 # Links #
 
   * https://blogs.oracle.com/certification/test-your-java-knowledge-with-free-sample-questions
