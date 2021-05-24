@@ -533,7 +533,7 @@ synchronized (a) {
 Threads form an indefitite loop, expecting confirmation of completion from each other.
 ```
 while (b.isOver()) {
-    // fo A actions
+    // do A actions
 }
 aOver = true;
 
