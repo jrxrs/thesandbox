@@ -69,8 +69,8 @@ Purge all docker images that you've previously deleted.
 
 ## ```run```
 
-```-it``` - iteractive mode
-```-d``` - detach - run the container in the background but print its' ID
-```rm``` - remove - automatically delete a container as soon as it is stopped
-```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
-```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
+* ```-it``` - iteractive mode
+* ```-d``` - detach - run the container in the background but print its' ID
+* ```rm``` - remove - automatically delete a container as soon as it is stopped
+* ```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
+* ```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
