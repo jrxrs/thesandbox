@@ -1,6 +1,6 @@
 # Dockers
 
-## Commands
+## Simple Commands
 
 ```bash
 docker pull <image_name>
@@ -40,7 +40,7 @@ If you wanted to start one of the stopped containers list above then use the com
 ```bash
 docker attach <container_identifier>
 ```
-The ```start``` command will restart your container but it will not attach to it automatically like ```run -it``` did, so use ```attach``` instead.
+The ```start``` command will restart your container but it will not attach to it automatically like ```run -it``` did, so use ```attach``` instead. Note that you an use either the container ID or the container name as an argument here.
 
 ```bash
 docker stop <container_identifier>
@@ -66,3 +66,11 @@ Delete a docker image that you've built locally or pulled from a container regis
 docker image prune -af
 ```
 Purge all docker images that you've previously deleted.
+
+## ```run```
+
+```-it``` - iteractive mode
+```-d``` - detach - run the container in the background but print its' ID
+```rm``` - remove - automatically delete a container as soon as it is stopped
+```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
+```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
