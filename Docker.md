@@ -74,3 +74,8 @@ Purge all docker images that you've previously deleted.
 * ```rm``` - remove - automatically delete a container as soon as it is stopped
 * ```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
 * ```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
+* ```-v``` - volume - mount a volume to your contianer, e.g. ```-v ${PWD}:/myvol``` would share a folder on your host machine with the container
+* ```-c "commands"``` - a list of commands to be executed inside your container
+* ```-w <dir>``` - set the working directory, the allows you to omit leading paths from your volume, e.g. 
+  * ```docker run --rm -v ${PWD}:/files klutchell/rar a /files/myrar.rar /files/myfile.txt``` can become
+  * ```docker run --rm -v ${PWD}:/files -w files klutchell/rar a myrar.rar myfile.txt```
