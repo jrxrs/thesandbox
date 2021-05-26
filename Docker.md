@@ -20,7 +20,7 @@ If you wanted to start one of the stopped containers list above then use the com
 ```bash
 docker attach <container_identifier>
 ```
-The start command will restart your container but it will not attach to it automatically like ```run -it``` did, so use ```attach``` instead.
+The ```start``` command will restart your container but it will not attach to it automatically like ```run -it``` did, so use ```attach``` instead.
 
 ```bash
 docker stop <container_identifier>
