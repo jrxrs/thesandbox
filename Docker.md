@@ -1,4 +1,4 @@
-# Dockers
+# Docker
 
 ## Simple Commands
 
@@ -79,3 +79,23 @@ Purge all docker images that you've previously deleted.
 * ```-w <dir>``` - set the working directory, the allows you to omit leading paths from your volume, e.g. 
   * ```docker run --rm -v ${PWD}:/files klutchell/rar a /files/myrar.rar /files/myfile.txt``` can become
   * ```docker run --rm -v ${PWD}:/files -w files klutchell/rar a myrar.rar myfile.txt```
+
+## Docker Namespaces and Control Groups
+
+* The pid namespace: Process isolation
+* The net namespace: Managing network interfaces
+* The ipc namespace: Managing acces to IPC resources (IPC: InterProcess Communication)
+* The mnt namespace: Managing filesystem mount points
+* The uts namespace: Isolating kernal and version identifiers (UTS: Unit Timesharing System)
+
+These namespaces are how Docker archives high levels of process isolation. It also uses Control Groups to limit how much of a system a particular process can use, this prevents one process hogging everything, the groups are:
+
+* Resource limiting: groups can be set to not exceed a configured memory limit
+* Prioritisation: some groups may get a larger share of CPU utilisation or disk I/O throughput
+* Accounting: measures a group's resource usage
+* Control: freezing groups of processes
+
+## UnionFS
+
+The Union Filesystem is how Docker keeps images slime and lightweight, each image starts with a base image into which changes are merged, this prevents duplication etc. 
+UnionFS also allows Read/Write control so that braches can be read-only or read-write. 
