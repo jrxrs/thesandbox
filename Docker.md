@@ -99,3 +99,7 @@ These namespaces are how Docker archives high levels of process isolation. It al
 
 The Union Filesystem is how Docker keeps images slime and lightweight, each image starts with a base image into which changes are merged, this prevents duplication etc. 
 UnionFS also allows Read/Write control so that braches can be read-only or read-write. 
+
+## Installation
+
+I used the following guide to install Docker on CentOS: https://docs.docker.com/engine/install/centos/
