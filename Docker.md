@@ -5,12 +5,17 @@
 ```bash
 docker pull <image_name>
 ```
-Pull an image down from the container registry.
+Pull an image down from the container registry. **Note**: images pulled from a container registry are stored under ```/var/lib/docker/image/overlay2/imagedb/content/sha256```, the SHAs you see in this folder are the ones displayed in the output of ```docker images``` (see below). Also see ```docker inspect```.
 
 ```bash
 docker images
 ```
 List all of your local images.
+
+```bash
+docker inspect <image_name>
+```
+This command prints the JSON file which describes a container image. This is a lightweight version of cat'ing the files under ```/var/lib/docker/image/overlay2/imagedb/content/sha256``` mentioned above.
 
 ```bash
 docker build --tag <tag_name>
@@ -69,7 +74,7 @@ Purge all docker images that you've previously deleted.
 
 ## ```run```
 
-* ```-it``` - iteractive mode
+* ```-it``` - iteractive mode with tty mode (making it act like a standard terminal)
 * ```-d``` - detach - run the container in the background but print its' ID
 * ```rm``` - remove - automatically delete a container as soon as it is stopped
 * ```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
