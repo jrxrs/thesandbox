@@ -1,5 +1,7 @@
 # Docker
 
+Don't forget that in Docker, Containers are just running versions of Images.
+
 ## Simple Commands
 
 ```bash
@@ -31,7 +33,7 @@ Show what happened to your image while it was being built (including information
 docker run -it <image_name> /bin/bash
 ```
 This runs a container and attaches to stdin, /bin/bash is the processed which is opened and ```-it``` is the interactive flag.
-**Note**: to detach from a container without stopping it press: CTRL+P followed by CTRL+Q
+**Note**: to detach from a container without stopping it press: CTRL+P followed by CTRL+Q, then can then use the ```attach``` command to re-attach later.
 
 ```bash
 docker ps
@@ -78,6 +80,21 @@ docker volume ls
 ```
 List all of your persistent volumes.
 
+```bash
+docker volume inspect <volume_name>
+```
+View the location of a volume you have added to a container (note: Docker manages these volumes for you).
+
+```bash
+docker tag <original_repository>:<tag> <new_repository>:<new_tag>
+```
+This applies a new tag to an existing image, note that the repository names can be the same if you like. The resulting image will have the same IMAGE ID as the original image just a different set of tags. Note that you can just include the desired tag name in the build command e.g. ```docker build -t tag_demo:v2 .```
+
+```bash
+docker push ...
+```
+Used to push an image to a container registry.
+
 ## ```run```
 
 * ```-it``` - iteractive mode with tty mode (making it act like a standard terminal)
@@ -87,7 +104,9 @@ List all of your persistent volumes.
 * ```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
 * ```-P``` - Publish all exposed ports to random ports
 * ```-v``` - volume - mount a volume to your contianer, e.g. ```-v ${PWD}:/myvol``` would share a folder on your host machine with the container
+* ```--mount type=volume,src="logs",dst=/logs``` - mount a volume to your container
 * ```--mount type=bind,src="/var/demo/logs",dst=/logs``` - mount a bind volume to your container
+* ```--mount type=tmpfs,dst=/logs``` - mount a tmpfs volume to your container (everything is in-memory here so there is no source required)
 * ```-c "commands"``` - a list of commands to be executed inside your container
 * ```-w <dir>``` - set the working directory, the allows you to omit leading paths from your volume, e.g. 
   * ```docker run --rm -v ${PWD}:/files klutchell/rar a /files/myrar.rar /files/myfile.txt``` can become
@@ -179,6 +198,8 @@ Volumes are the preferred way to persist data in Docker containers and services.
 * When you want to store your container's data on a remote host or a cloud provider, rather than locally.
 * When you need to be able to back up, restore, or migrate data from one Docker host to another, volumes are a better choice. You can stop containers using the volume, then back up the volume's directory (such as ```/var/lib/docker/volumes/<volume-name>```).
 
+To mount a volume in your container use the ```--mount``` option to run (see ```run``` above).
+
 You can view all your volumes using the ```docker volume ls``` command (see above).
 
 ### Bind Mounts
@@ -187,7 +208,20 @@ In general, you should use volumes where possible. Bind mounts are appropriate f
 * Sharing source code or build artifacts between a development environment on the Docker host and a container. For instance, you may mount a Maven ```target/``` directory into a container, and each time you build the Maven project on the Docker host, the container gets access to the rebuilt artifacts. If you use Docker for development this way, your production Dockerfile would copy the production-ready artifacts directly into the image, rather than relying on a bind mount.
 * When the file or directory structure of the Docker host is guaranteed to be consistent with the bind mounts the containers require.
 
-To mount a bind volume in your container use the ```--mount``` option to run (see above).
+To mount a bind volume in your container use the ```--mount``` option to run (see ```run``` above).
 
 ### tmpfs Mounts
-```tmpfs``` mounts are best used for cases when you do not want the data to persist either on the host machine or within the container. This may be for security reasons or to protect the performance of the container when your application needs to write a large volume of non-persistent state data.
+```tmpfs``` mounts are best used for cases when you do not want the data to persist either on the host machine or within the container. This may be for security reasons or to protect the performance of the container when your application needs to write a large volume of non-persistent state data. This type of volume doesn't even persist between invocations of the same container, e.g. run a new container, detach and stop it, then restart and reattach - in this case the tmpfs volume will have been cleaned up when you stopped so you'll start from scratch again when you restart. This is great for sensitive things like passwords or access tokens etc.
+
+To mount a tmpfs volume in your container use the ```--mount``` option to run (see ```run``` above).
+
+## Tagging
+
+The ```latest``` is always implied if you don't specify a tag.
+
+In Docker an image can have more than one tag, e.g. a version number and a version name like ubuntu does. 
+Docker has a couple of type of tag, in the ```build``` command you can specify a ```-t <tag_name>``` to label your new image, if you don't specify a version then it will default to ```latest``` as above. You can then apply further tags to that image using the ```docker tag``` command (see above).
+
+## Pushing an Image
+
+You can push a docker image using the ```docker push``` command. By default you will push to Docker Hub (for which you'll need a account set up).
