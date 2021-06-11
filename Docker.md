@@ -95,13 +95,18 @@ docker push ...
 ```
 Used to push an image to a container registry.
 
+```bash
+docker info
+```
+This will output system-wide information about Docker.
+
 ## ```run```
 
 * ```-it``` - iteractive mode with tty mode (making it act like a standard terminal)
 * ```-d``` - detach - run the container in the background but print its' ID
 * ```rm``` - remove - automatically delete a container as soon as it is stopped
 * ```--name``` - name - give the container a name (if you don't specify one then Docker will give the container a random name for you)
-* ```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container
+* ```-p 8080:8080``` - port - configure port forwarding, this basically says map port 8080 from the docker host through to port 8080 of this container, i.e. ```host_port:container_port```
 * ```-P``` - Publish all exposed ports to random ports
 * ```-v``` - volume - mount a volume to your contianer, e.g. ```-v ${PWD}:/myvol``` would share a folder on your host machine with the container
 * ```--mount type=volume,src="logs",dst=/logs``` - mount a volume to your container
@@ -112,6 +117,15 @@ Used to push an image to a container registry.
   * ```docker run --rm -v ${PWD}:/files klutchell/rar a /files/myrar.rar /files/myfile.txt``` can become
   * ```docker run --rm -v ${PWD}:/files -w files klutchell/rar a myrar.rar myfile.txt```
 * ```--network=?``` - specify the network you would like your container to join
+
+## Running Commands without elevating to root permissions
+
+1. Verify the docker group exists by searching for it in the groups file: ```grep docker /etc/group````
+2. If you don't see a line beginning with "docker:", you will need to add the group yourself by entering: ```sudo groupadd docker```
+3. Add your user to the docker group: ```sudo gpasswd -a $USER docker```
+4. You can login again to have your groups updated by entering: ```newgrp docker```
+5. Verify that your user can successfully issue Docker commands by entering: ```docker info```
+*Note*: if you don't see the system-wide Docker information, you may need to restart the Docker daemon by entering ```sudo systemctl restart docker```
 
 ## Docker Namespaces and Control Groups
 
