@@ -239,3 +239,7 @@ Docker has a couple of type of tag, in the ```build``` command you can specify a
 ## Pushing an Image
 
 You can push a docker image using the ```docker push``` command. By default you will push to Docker Hub (for which you'll need a account set up).
+
+# Docker Compose
+
+Compose is used to help manage orchestration of multiple containers.
