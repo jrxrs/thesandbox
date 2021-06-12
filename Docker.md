@@ -243,3 +243,6 @@ You can push a docker image using the ```docker push``` command. By default you 
 # Docker Compose
 
 Compose is used to help manage orchestration of multiple containers.
+
+Compose files are written in YAML and there is a little compleity around which version of the Compose file fomrat will work with which version of the Dcoker Engine, you can find a compatibilty matrix at http://docs.docker.com/compose/compose-file
+
