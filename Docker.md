@@ -307,7 +307,7 @@ As a final note on the routing mesh, if you are planning to use the routing mesh
 ### docker_gwbridge
 Besides the ingress network, Docker also creates a second network when running in swarm mode called docker_gwbridge. The docker_gwbridge is a virtual bridge that connects the overlay networks (including the ingress network) to an individual Docker daemon's physical network. This interface provides default gateway functionality for all containers attached to the network. Docker creates it automatically when you initialize a swarm or join a Docker host to a swarm, but it is not a Docker device. It exists in the kernel of the Docker host. You can see it if you list the network interfaces on your host.
 
-## Recap
+### Recap
 There was quite a few topics related to networking in swarm mode. Let's recap the main points:
 " Swarm mode includes a new type of Docker network, the overlay network. Overlay networks make it easy to use multi-host networking in a swarm.
 " The same internal DNS service discovery mechanism used when not running in swarm mode is used in swarm mode. The internal DNS naturally extends to multi-host networks.
@@ -316,3 +316,122 @@ There was quite a few topics related to networking in swarm mode. Let's recap th
 o In host mode each service replica publishes it's container port on the host. No load balancing is used.
 o In ingress mode, every node in the swarm publishes the port and requests are load balanced across all the replicas of a service. Any node can handle requests for the service even if the node doesn't have a replica of the service itself.
 " Ingress mode is made possible by the swarm routing mesh which uses two default swarm networks: the ingress overlay network and docker_gwbridge network
+
+## Orchestration
+
+Swarm mode is made to be familiar to single host Docker users. When you deploy a service, it is similar to running a container. You can specify an image, volumes, networks, published ports, After all, service tasks ultimately run containers. But there are container orchestration features of swarm mode that are unique to running services in a swarm.
+
+Agenda
+We'll look at the following orchestration features of swarm mode:
+" (Service placement) Which nodes service tasks are placed on
+" (Update behavior) how service updates are rolled out, and
+" (Rollback behavior) how services can be rolled back to a previous version.
+
+
+### Service placement
+As we've discussed, services can declare a set number of replicas as a replicated service or can be started on every worker node in a cluster as a global service. For replicated services, decisions need to be made by swarm managers for where service tasks will be scheduled, or where the service will be placed. A replicated service's tasks will be spread across nodes by default. That is to promote high availability in case a node fails. But there are three ways that you can influence where a service is placed:
+1. CPU and Memory reservations
+2. Placement constraints
+3. Placement preferences
+You can specify each at service creation time. Global services can also be restricted to a subset of nodes with these conditions. Although a node will never have more than one task for a global service. Let's take a closer look at each.
+
+### CPU and Memory reservations
+Similar to running individual containers, you can declare CPU and memory reservations for services. Each service task can only be scheduled on a node that has enough available CPU and memory to meet the given reservations. Any tasks that remain stay in a pending state until a node with sufficient resources becomes available. Global services will only run on nodes that meet a given resource reservation.
+
+Setting sufficient memory reservations for services is important when there isn't an abundance of CPU and memory available for the applications you are running. If services attempt to use more memory than is available, the container or Docker daemon could get killed by the out of memory or OOM killer.
+
+### Placement constraints
+Placement constraints allow you to restrict the placement of tasks by providing equality and inequality conditions. The conditions compare node attributes to a string value. There are a few built-in attributes for each node
+1. node.id matches the ID of a node
+2. node.hostname matches a node's hostname
+3. node.role matches a node's role, either manager or worker
+
+You can also define your own labels. You can configure labels on a Docker engine or on a node. Engine labels are usually used to indicate things like operating system, system architecture, available drivers. An example is engine.labels.operatingsystem and values could be Ubuntu 14.04 or Windows Server 2016. Node labels are added by Swarm administrators for operational purposes. Node labels can indicate they type of application a node is intended to run, the datacenter location a node is in, the server rack a node is in, et cetera. An example is node.labels.datacenter and values could be north, south, east, or west.
+
+When you provide multiple placement constraints for a service, all constraints must be satisfied by a node in order to be scheduled a service task. If resource reservations are also provided, all constraints and resource reservations must be met. This is true for replicated and global services.
+
+
+### Placement Preference
+Placement preference is not required as was the case for resource reservations and placement constraints. Instead, placement preferences influence how tasks are distributed across appropriate nodes. Currently the only distribution option is spread which will evenly spread tasks.
+Labels are again used as the attribute for spreading tasks. For example, assume every node in a swarm has a datacenter label with either east or west as the value. Using the datacenter label and the spread placement preference, half of the tasks will be scheduled on east datacenter nodes and the other half on west datacenter nodes.
+
+Multiple placement preferences can be specified. In this case a hierarchy of preferences is created. For example, if the first preference is datacenter and the second Is server-rack, tasks will be evenly spread across nodes in each datacenter, and within each datacenter tasks are spread evenly across racks.
+
+Nodes that are missing a placement preference label are included in the spread and receive tasks in proportion equal to all other label values. They are treated as the group having the null value for the label. Placement preferences are ignored by global services.
+
+That's all that there is to influencing service placement in swarm.
+
+### Update Behavior
+You can also configure the way that swarm applies updates to services. Swarm supports rolling updates where a fixed number of replicas are updated at a time until all service replicas have been updated.
+
+You can configure several update parameters:
+1. Update parallelism, which sets the number of tasks the scheduler updates at a time
+2. Update delay, which sets the amount of time between updating sets of tasks, and
+3. Update failure action, which can be set to pause, continue or automatically rollback if an update fails. The default is to pause.
+These are the three main settings. There are also settings to configure what qualifies as failure. You can set a ratio for the number of failed task updates to tolerate before failing a service update, and set the frequency for monitoring for a failure.
+
+These parameters give you some flexibility in how aggressively or conservatively you roll out an update to the swarm.
+
+### Rolling Back Updates
+Docker swarm keeps track of the previous configuration for services. This allows you to rollback manually at any time or automatically when an update fails, as we discussed.
+
+The same options available for configuring update behavior are available separately for configuring rollbacks. For example, rollback parallelism sets how many nodes to roll back at a time.
+
+### Recap
+In this lesson, we saw how you can influence the nodes that swarm schedules services on by using resource reservations, placement constraints, and placement preferences. Resource reservations and placement constraints must be satisfied, while placement preferences won't prevent a task from being scheduled. We also discussed how rolling updates and rollbacks can be configured in Swarm. Updates and rollbacks share the same available configuration options.
+
+## Consistency
+
+Consistency is an important consideration for any distributed system. In this lesson, we'll look at the consistency model of swarm mode and how it can impact how you operate a swarm.
+
+Agenda
+To kick things off we'll discuss:
+" (Consistency) the consistency problem and
+" (Raft) how swarm mode goes about solving it, in particular the Raft Consensus algorithm.
+" (Tradeoffs) We'll cover just what you need to know of Raft to understand key tradeoffs that you should consider when deciding on the composition of your swarm.
+" (Raft Logs) Lastly, we'll talk about the raft logs where the cluster state is stored.
+
+### Consistency
+We have seen that swarm mode can include several manager and worker nodes in a swarm. This provides fault tolerance if a node were to go down and ensures services are highly available. But with multiple managers, how does swarm make decisions regarding the state of the cluster? Do nodes in the swarm share a consistent view of the cluster or could one node have a different view than the other? And if so, for how long? These questions all touch on the issue of consistency.
+
+In swarm mode, managers all share a consistent internal state of the entire swarm. This avoids any potential issues that could arise if managers were allowed to eventually converge to a shared state. Workers, on the other hand, do not share a view of the entire swarm. That is exclusively a manager responsibility.
+
+The managers maintain a consistent view of the state of the cluster by using a consensus algorithm. There are several consensus algorithms to choose from and the implementation details are outside the scope of this course. But the consensus algorithm has an impact on how the swarm operates. We'll look at the basics of swarm modes consensus algorithm so we can understand the implications in operating a swarm.
+
+### Raft Consensus
+The consensus algorithm used by managers to maintain a consistent view of the state of the cluster is called Raft. Raft achieves consensus by electing one manager as the leader. The elected leader makes all of the decisions for changing the state of the cluster to bring it to the desired state. For example, the leader accepts new service requests and service updates and also decides how to schedule tasks.
+
+In order to maintain a consistent view across the managers, the decisions aren't acted upon until a majority of managers agree on the proposed changes to the cluster. A manager "agrees" simply by receiving a proposed change and acknowledging they received it. When the leader is certain a majority of managers have received the proposed change, the change can be implemented. In this context, the majority of managers are referred to as a quorum.
+
+The reason why a quorum is enough to proceed is because Raft limits how many managers failures it can tolerate. If you have N managers in a swarm, Raft allows for (N-1)/2 failures. In the case of a three manager swarm, that means 3 minus 1 divided by two is one, so one manager can fail and the swarm can continue to operate as usual. If two managers were to fail, the cluster state would freeze until a quorum of managers again became available. In the absence of a quorum, currently running services will continue to run but no new scheduling decisions take place.
+
+Regarding leader elections, when a swarm is initialized the first manager is automatically the leader. If the currently elected leader fails or voluntarily steps down, say to perform system updates, an election between remaining manager nodes takes place. Until a newly elected leader is chosen, the cluster state is frozen.
+
+### Manager Tradeoffs
+After that overview of Raft consensus, you might be tempted to add a lot of managers to your swarm. The more managers, the more failures your swarm can tolerate and remain fully operational. Although, that is true, the more managers that are in the swarm also increases the amount of managerial traffic required for maintaining a consistent view of the cluster and the amount of time it takes to achieve reach consensus with every state change. Although increasing managers does increase fault-tolerance it generally decreases performance and scalability.
+
+There are some general rules for setting the number of managers:
+You should usually have an odd number of managers. Having an even number of managers doesn't improve the fault tolerance compared to having one less manager and increases communication overhead.
+A single manager swarm is acceptable for development and test swarms. Because a single manager swarm can't tolerate any failures, it is not something you should use in production.
+A three manager swarm can tolerate one failure, while a five manager swarm can tolerate two.
+Docker recommends a maximum of seven managers which can tolerate three manager failures. Above seven has too much of an impact on performance to be beneficial.
+
+However many managers you settle on, you will want to distribute them across availability zones to maintain a fully operational swarm in the event of a datacenter outage. Docker recommends distributing across at least three availability zones in production.
+
+### Working Manager
+There is another tradeoff when considering managers in a swarm. Have you heard the bad joke that goes "Don't stand around doing nothing. People will think you're the boss." In swarm mode, you need to consider whether or not you let the boss, or the managers, do work. By default managers perform worker responsibilities, namely running tasks. But that has more to do with enabling single node swarms than anything.
+
+Because managers participate in the Raft consensus process, it can be detrimental to the performance of the swarm if managers are overly utilized. You can use conservative resource reservations to make sure that managers won't become starved for resources. To be on the safe side, you can also prevent any work from being scheduled on manager nodes by draining them. Draining essentially removes any tasks currently on a node and preventing new tasks from being scheduled to it.
+
+### Worker Node Tradeoffs?
+You might be wondering if there are any tradeoffs to consider when adding worker nodes to a swarm. There really isn't much to worry about in the case of adding more worker nodes. More workers give you more capacity for running services and improves service fault tolerance. More workers don't affect the manager's raft consensus process so the swarm performance isn't harmed.
+
+Workers actually do participate in a consensus process. To exchange overlay network information nodes participate in a weakly-consistent, highly scalable gossip protocol called SWIM. The details are outside the scope of this course and the performance implications are negligible. The protocol is an example of an eventually consistent model where the network state is allowed to differ between nodes but eventually they converge on a consistent view.
+
+### Raft logs
+The last topic we'll discuss in this lesson is Raft logs. If you arrived at this lesson from a search for log rafts, I'm afraid you'll need to continue your search. The logs we're talking about are where the leader manager records the Raft consensus state changes, such as creating a new service or adding a new worker. These logs are what get shared with other managers to establish a quorum.
+
+The Raft logs are persisted to disk. The logs are stored in the raft subdirectory of your Docker swarm data directory. This is /var/lib/docker/swarm on Linux by default. As part of a disaster recovery strategy, you can back up a swarm cluster by backing up the entire swarm directory which includes certificates and other files in addition to the raft change logs in the raft subdirectory. You can restore a new swarm from a backup by replacing the directory swarm directory with the backed-up copy.
+
+### Recap
+That's everything for this lesson. We started by understanding how swarm mode solves consistency challenges by electing a leader manager and ensuring a majority of managers acknowledge swarm changes. This strategy comes from the Raft consensus algorithm. We understood the tradeoffs between fault tolerance and performance when choosing the number of managers in a swarm, as well as whether or not managers should do work. We finished by discussing the raft logs which are persisted on disk and record all the changes the leader makes to a swarm.
