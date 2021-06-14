@@ -435,3 +435,38 @@ The Raft logs are persisted to disk. The logs are stored in the raft subdirector
 
 ### Recap
 That's everything for this lesson. We started by understanding how swarm mode solves consistency challenges by electing a leader manager and ensuring a majority of managers acknowledge swarm changes. This strategy comes from the Raft consensus algorithm. We understood the tradeoffs between fault tolerance and performance when choosing the number of managers in a swarm, as well as whether or not managers should do work. We finished by discussing the raft logs which are persisted on disk and record all the changes the leader makes to a swarm.
+
+## Security
+
+Docker takes security seriously. All the security features that you can use when not running in swarm mode can be used in swarm mode. This includes using trusted images, encrypted communication with docker engines, and kernel security features leveraged by Docker. This lesson covers the security provisions in Docker swarm mode.
+
+Agenda
+We'll begin by covering the
+" (Cluster Management) cluster management aspects of swarm security
+" (Data Plane) Next, we will discuss security of data communicated between services
+" (Secrets) After that, we'll see how swarm secrets are kept secure.
+" (Locking a Swarm) Lastly, the locking functionality of a swarm will be described.
+
+### Cluster Management
+Docker swarm mode uses public key infrastructure (PKI) to secure swarm communication and state. Swarm nodes encrypt all control plane communication using mutual transport level security (TLS). When you initialize a swarm, Docker assigns the node that executed the command as a manager. The manager automatically creates several resources for security:
+" A root Certificate Authority (CA): This plays the standard role of a CA in PKI by being a trusted entity that issues certificates verifying the identity of certificate holders.
+" A key pair: This is the public and private key used for secure communication between nodes in the swarm.
+" A worker token: This token is used to by nodes to join the swarm as a worker node. The token is a digest of the root CA and a secret.
+" A manager token: This is similar to the worker token but used to join nodes as managers in the swarm.
+Whenever a new node joins the swarm, the manager issues a new certificate identifying the node. The node uses the certificate for communicating in the swarm. New manager nodes also get a copy of the root CA certificate so that they can take over leadership in the event of an election.
+
+You can use an alternate CA instead of allowing Docker to automatically handle their creation for you. The CA can also be rotated out whenever your security policies require it. Rotating the CA will automatically rotate the TLS certificates of all swarm nodes in the cluster.
+
+### Data Plane
+As for the data plane, you can enable encryption of overlay networks at the time of creation. Any time traffic leaves a host an IPSec encrypted channel is used to communicate with a destination host where the traffic is decrypted. The swarm leader periodically regenerates and distributes the key used for encrypting IPSec data plane traffic. Overlay network encryption is not supported for Windows as of Docker version 17.12.
+
+### Raft Logs/Secrets
+The Raft logs are encrypted at rest on the manger nodes. This protects against intruders that gain access to the raft logs on disk. The encryption is particularly important because swarm secrets are stored in the raft logs. Secrets are a feature of swarm that allows you to securely store secrets that can be used by services. This could include passwords, API keys, or any other information you wouldn't want to be exposed over the network or in a Dockerfile. In Windows, secrets are supported in version 17.06 an above.
+
+### Locking a Swarm
+A challenge with encrypting the raft logs is that the keys used to encrypt the logs needs to be stored somewhere a manager has access to. By default, the keys are stored on disk along with the raft logs. If an attacker gains access to the raft logs, there is a good chance they could gain access to the keys used to encrypt them. They could then decrypt the logs and expose any secrets therein.
+
+For an extra layer of security, a swarm allows you to take control of the key used for encrypting the logs. This allows you to implement strategies where the key is never persisted to disk. This works with a swarm feature called autolock. When a swarm is autolocked, you must provide the key when starting a docker daemon. For greatly improved security, you have to pay that price of requiring manual intervention when a manager is restarted. You can rotate the key at any point or disable autolock so managers can be restarted without intervention.
+
+### Recap
+In this lesson, we saw the security measures that are in place in out of the box when using swarm mode. This included several security layers with regards to managing a cluster. We also saw how overlay network communication can optionally be encrypted to secure communication between services. Swarm supports sharing secrets and uses encryption to protect the secrets on disk in the manager Raft logs. The keys for decrypting the logs are stored on disk by default, but you can use autolocking to take control of the keys and improve the defense of your swarm.
