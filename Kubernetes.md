@@ -4,6 +4,11 @@ Kubernetes, often abbreviate as K8s, is an open-source container-orchestration t
 
 Kubernetes was born out of Google's experience running workloads in production on their internal Borg cluster manager for well over a decade, it is designed to grow from tens, thousands, or even millions of containers. Organizations adopting Kubernetes increased their velocity by having the ability to release faster and recover faster with Kubernetes self healing mechanisms. Kubernetes is a distributed system. Multiple machines are configured to form a cluster. Machines may be a mix of physical and virtual and they may exist on-prem or in cloud infrastructure each with their own unique hardware configurations.
 
+## Offical Documentation
+
+https://kubernetes.io/docs/home/
+https://kubernetes.io/docs/reference/glossary/?all=true
+
 ## Alternativers to K8s
 
 ### Data Center Operating System (DCOS)
@@ -31,3 +36,28 @@ To have full control over your cluster, you should check out kubespray, kops, an
 1. "Are you concerned about vendor lock-in?" If you are, you should focus on open source solutions, like kubespray and Rancher that can deploy Kubernetes clusters to a wide variety of platforms.
 1. "Do you want to run Linux containers, Windows containers, or a mix? To support Linux containers, you need to ensure you have Linux nodes in your cluster. To support Windows containers, you need to ensure that you have Windows nodes in your cluster. Both Linux and Windows nodes can exist in the same cluster to support both types of containers.
 
+## Architecture
+
+### Cluster
+The Kubernetes cluster is the highest level of abstraction to start with. Kubernetes clusters are composed of nodes and the term cluster refers to all of the machines collectively and can be thought of as the entire running system.
+
+### Nodes
+The machines in the cluster are referred to as nodes. A node may be a VM or a physical machine. Nodes are categorized as worker nodes or master nodes.
+
+### Worker
+Each worker node includes software to run containers managed by the Kubernetes control plane and the control plane runs on master nodes.
+
+### Master
+The control plane is a set of APIs and software that Kubernetes users interact with. These APIs and software are collectively referred to as master components.
+
+### The Control Plane (Scheduler)
+The control plane schedules containers onto nodes. So the term scheduling does not actually refer to time in this context. Think of it from a Kernel perspective the Kernel schedules processes onto CPU's according to multiple factors. Certain processes need more or less compute or may have different quality of service rules. Ultimately the scheduler does its best to ensure that every container runs. Scheduling in this case refers to the decision process of placing containers onto nodes in accordance with their declared compute requirements.
+
+### Pods
+In Kubernetes containers are grouped into Pods. Pods may include one or more containers but generally it is best practice to have just a single container per pod. All containers in a Pod run on the same node. And the Pod is actually the smallest building block in Kubernetes. More complex and useful abstractions sit on top of Pods.
+
+### Services
+Services, define networking rules for exposing Pods to other Pods or exposing Pods to the internet.
+
+### Deployments
+Kubernetes uses deployments to manage the deployment configuration and changes to running Pods as well as horizontal scaling. These are fundamental terms you need to understand before we can move forward.
