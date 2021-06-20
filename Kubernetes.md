@@ -6,8 +6,8 @@ Kubernetes was born out of Google's experience running workloads in production o
 
 ## Offical Documentation
 
-https://kubernetes.io/docs/home/
-https://kubernetes.io/docs/reference/glossary/?all=true
+* https://kubernetes.io/docs/home/
+* https://kubernetes.io/docs/reference/glossary/?all=true
 
 ## Alternativers to K8s
 
@@ -60,4 +60,22 @@ In Kubernetes containers are grouped into Pods. Pods may include one or more con
 Services, define networking rules for exposing Pods to other Pods or exposing Pods to the internet.
 
 ### Deployments
-Kubernetes uses deployments to manage the deployment configuration and changes to running Pods as well as horizontal scaling. These are fundamental terms you need to understand before we can move forward.
+Kubernetes uses deployments to manage the deployment configuration and changes to running Pods as well as horizontal scaling. These are fundamental terms you need to understand before we can move forward. Effectively Kubernetes Deployments control rollout and rollback of Pods.
+
+## ```kubectl```
+The ```kubectl``` command is the primary mechanism of interacting with a Kubernetes cluster, details of some of the fundamental commands are given below:
+
+### ```create```
+```kubectl create``` creates new Kubernetes resources, e.g. Pods, Services, etc. You can create several resources using the built-in sub commands of create, or you can use resources specified in a file. The files are most commonly in YAML format and are referred to, as manifests.
+
+### ```delete```
+```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
+
+### ```get```
+```kubectl get``` returns a list of all the resources for a specified type. For example, ```kubectl get pods``` lists all the pods and the current namespace.
+
+### ```describe ```
+```kubectl describe``` is going to print detailed information about a particular resource or a list of resources. As an example, ```kubectl describe pod server``` gives detailed information about the pod named server.
+
+### ```logs```
+```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
