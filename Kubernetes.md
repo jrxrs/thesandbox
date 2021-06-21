@@ -65,6 +65,8 @@ Kubernetes uses deployments to manage the deployment configuration and changes t
 ## ```kubectl```
 The ```kubectl``` command is the primary mechanism of interacting with a Kubernetes cluster, details of some of the fundamental commands are given below:
 
+[Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
 ### ```create```
 ```kubectl create``` creates new Kubernetes resources, e.g. Pods, Services, etc. You can create several resources using the built-in sub commands of create, or you can use resources specified in a file. The files are most commonly in YAML format and are referred to, as manifests.
 
