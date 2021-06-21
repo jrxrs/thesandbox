@@ -68,14 +68,61 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 ### ```create```
 ```kubectl create``` creates new Kubernetes resources, e.g. Pods, Services, etc. You can create several resources using the built-in sub commands of create, or you can use resources specified in a file. The files are most commonly in YAML format and are referred to, as manifests.
 
+#### Options
+* ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file.
+
 ### ```delete```
 ```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
 
+#### Options
+* ```kubectl delete pod mypod``` - deletes the pod called "mypod".
+* ```kubectl delete -f <file_name>``` - deletes all the resources declared in the manifest file.
+
 ### ```get```
-```kubectl get``` returns a list of all the resources for a specified type. For example, ```kubectl get pods``` lists all the pods and the current namespace.
+```kubectl get``` returns a list of all the resources for a specified type. 
+
+#### Options
+* ```kubectl get pods``` - lists all the pods in the current namespace.
+* ```kubectl get services``` - lists all services in the current namespace.
 
 ### ```describe ```
-```kubectl describe``` is going to print detailed information about a particular resource or a list of resources. As an example, ```kubectl describe pod server``` gives detailed information about the pod named server.
+```kubectl describe``` is going to print detailed information about a particular resource or a list of resources. The "Events" section of the ```describe``` output can be very helpful for debugging. 
+
+#### Options
+* ```kubectl describe pod``` gives detailed information about all pods.
+* ```kubectl describe pod server``` gives detailed information about the pod named server.
+* ```kubectl describe service webserver``` gives detailed information about the pod named server.
+* ```kubectl describe nodes | grep -i address -A 1``` - used to get the node address for accessing a service (note that you might see multiple addresses here if you have multiple nodes in your cluster, but if you're using a NodePort service then it won't matter which node in the cluster you hit)
 
 ### ```logs```
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
+
+## Pods
+Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
+* Kubernetes supports multiple ```apiVersion```s and version 1 is the core API version containing many of the most common resources such as pods and nodes.
+* ```kind``` indicates what the resource is. 
+* ```metadata``` then includes information relevant to the resource that can help identify resources. The minimum amount of metadata is a name which is set to ```"mypod"```. **Names must be unique within a Kubernetes name space**.
+* ```spec``` is specification with a clear kind and must match what is expected by the defined API version. The spec is essentially where all of the meat goes.
+
+### Exposing Ports
+Just like in Docker, by default Kubernetes will not expose a port unless you explicitly tell it to do so. See [1.2-port_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.2-port_pod.yaml) for an example, we can see the ports mapping is added and the container port field is set to 80 for HTTP. Kubernetes is also going to be using TCP as the protocol by default and will assign it an available host port automatically so that we don't need to declare anything more. Kubernetes can apply certain changes to different kinds of resources on the fly. Unfortunately, Kubernetes cannot update ports on a running pod so we need to delete the pod and recreate it. We're going to be running our kubectl delete pod my pod to delete this pod. You can also specify with the -f with referencing to the 1.1 file and Kubernetes will delete all of the resources declared in that file. 
+
+However, even after exposing the port port on the container a request to that port will still not work, this is because the pod's IP is on the container network and this lab instance is not part of the container network. Note that if we sent the request from a container in a Kubernetes pod, the request would succeed since pods can communicate with all other pods by default.
+
+### Labels
+Labels are key value pairs that identify resource attributes. For example, the application tier, whether it's front end or back end or maybe a region such as US East or US West. In addition to providing meaningful and identifying information, labels are used to make selections in Kubernetes. For example, you could tell kubectl to get only resources in the US West region. So, our [1.3-labeled_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.3-labeled_pod.yaml) manifest has a label added to identify the type of app that the pod is a part of. We're using an Nginx web server and the label value is web server. You could have multiple labels but one is enough in this example.
+
+### Setting Resource Constraints
+Kubernetes can schedule pods based on their resource requests. The pods that we've seen so far don't have any resource requests set which makes it easier to schedule them because the scheduler doesn't need to find nodes that have these requests for amounts of resources. It'll just throw them onto any node that isn't under pressure or starved of resources. However, these pods will be the first to be evicted if a node becomes under pressure and it needs to free up resources. This is called best effort quality of service (which was displayed in the "QOS Class" field of the ```describe``` output. Best effort pods can also create resource contention with other pods on the same node and usually it's a good idea to set resource requests. [1.4-resources_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.4-resources_pod.yaml) sets a resource request and limit for the pod's container. **Request** sets the **minimum** required resources to schedule the pod onto a node and the **limit** is the **maximum** amount of resources you want the node to ever give the pod. You can set resource requests and limits for each container. There's also support for requesting amounts with local disk by using the ephemeral storage. If we delete and recreate our pod using this latest file it will switch to QOS Class: Guaranteed.
+
+## Services
+In the Pods section we saw that we could expose a port on a container but were unable to access it from outside the container network, to solve this problem we need to employ a Service. Services allow us to deal with pod failure or reallocation of a pod to a different node in the cluster. A service defines networking rules for accessing Pods in the cluster and from the internet. For example it is possible to declare a service to access a group of Pods using labels, the service receives a fixed IP address that can be use externally to reach it, Kubernetes then handles the internal routing (and load balacing) so that the resuest reaches a pod with the target lebel, e.g. webserver.
+
+How do we achieve this in a manifest file? Let's consider [2.1-web_service.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/2.1-web_service.yaml),  our first three fields are set to the same as before. The ```kind``` is now Service, ```metadata``` uses the same ```label``` as the Pod since it is related to the same application. This isn't required but it is a good practice to stay organized. Now for the ```spec```, the ```selector``` is our important field. The selector defines the labels to match the Pods against. At this example of targets Pods with the ```app: webserver```, which will select the Pod that we've already created. Services must also define ```port``` mappings. So, this service targets Port 80. This is the value of the Pods' container port. Lastly, is the optional ```type```. This value defines actually how to expose the Service and we're gonna set it to ```NodePort```. NodePort allocates a port over this service on each node in the cluster. By doing this, you can send a request to any node in the cluster on the designated port and be able to reach that Service. The designated port will be chosen from the set of available ports on the nodes, unless you specify a NodePort as part of the specs ports. Usually it is better to let Kubernetes choose the NodePort from the available ports to avoid the chance that your specified port is already taken. That would cause the service to fail to create.
+
+When you use ```kubectl get services```, kubectl will display the name, Cluster-IP, External-IP, Ports, and Age of each service:
+* Cluster-IP is our private IP for each service. 
+* External-IP is not available for NodePort services but if it were, then this would be the public IP for a service. 
+* Note that the Ports column, Kubernetes will automatically allocate a Port in the Port range allocated for NodePorts which is commonly port numbers between 30,000 and 32,767.
+
+We have seen that services allow us to expose Pods using a static address, even though the addresses of the underlying Pods may be changing. We also specifically used a NodePort service to gain access to the service from outside of the cluster on a static port that is reserved on each node in the cluster. This allowed us to access the service by sending a request to any of the nodes, just not the node that is running the Pod. There is more to say about Pods and services. We will use more complex application in the future to illustrate some of the remaining topics in the next couple of lessons. Think microservices will start by covering multi-container Pods, to continue on when you're ready.
