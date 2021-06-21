@@ -62,6 +62,9 @@ Services, define networking rules for exposing Pods to other Pods or exposing Po
 ### Deployments
 Kubernetes uses deployments to manage the deployment configuration and changes to running Pods as well as horizontal scaling. These are fundamental terms you need to understand before we can move forward. Effectively Kubernetes Deployments control rollout and rollback of Pods.
 
+### Namespace
+A Namespace separates different Kubernetes resources. Namespaces may be used to isolate users, environments, or applications. You can also use Kubernetes' role-based authentication to manage users as access to resources in a given Namespace. Using Namespaces is a best practice.
+
 ## ```kubectl```
 The ```kubectl``` command is the primary mechanism of interacting with a Kubernetes cluster, details of some of the fundamental commands are given below:
 
@@ -86,6 +89,8 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 #### Options
 * ```kubectl get pods``` - lists all the pods in the current namespace.
 * ```kubectl get services``` - lists all services in the current namespace.
+* ```kubectl get namespace``` - list all the available namespaces.
+* ```kubectl get nodes``` - list all the nodes in the cluster, e.g. master and worker nodes.
 
 ### ```describe ```
 ```kubectl describe``` is going to print detailed information about a particular resource or a list of resources. The "Events" section of the ```describe``` output can be very helpful for debugging. 
@@ -128,3 +133,10 @@ When you use ```kubectl get services```, kubectl will display the name, Cluster-
 * Note that the Ports column, Kubernetes will automatically allocate a Port in the Port range allocated for NodePorts which is commonly port numbers between 30,000 and 32,767.
 
 We have seen that services allow us to expose Pods using a static address, even though the addresses of the underlying Pods may be changing. We also specifically used a NodePort service to gain access to the service from outside of the cluster on a static port that is reserved on each node in the cluster. This allowed us to access the service by sending a request to any of the nodes, just not the node that is running the Pod. There is more to say about Pods and services. We will use more complex application in the future to illustrate some of the remaining topics in the next couple of lessons. Think microservices will start by covering multi-container Pods, to continue on when you're ready.
+
+## Multi-Container Pods
+You can see an example of how to create a namespace in the [3.1-namespace.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/3.1-namespace.yaml) file. The  namespace is created, just like any other Kubernetes resource. Here is our Namespace manifest. Namespaces don't require a spec. The main part is the name which is set to microservices and is a good idea to label it as well. Everything in this Namespace will relate to the counter microservices app. It's important to **note** that the ```--namespace``` or ```-n``` option must be used to specify the namespace on all ```kubectl``` commands we run from now on, otherwise the default namespace will be used. 
+
+We now move to look at creating a pod in this namespace, [3.2-multi_container.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/3.2-multi_container.yaml) will do this for us. You could actaully specify the nameapce inside the ```metadata``` of the pod, however this wouldn't be very portable as it would mean we couldn't override the namespace later at the command line. This manifest file contains some other interesting points, such as the ```imagePullPolicy``` tag, this is handy to use when you want to use the latest version of an image as Kuberentes will always pull the image whenever the Pod started, however this can introduce bugs, if a pod restarts and pulls the new latest version without you realizing it. Setting```imagePullPolicy: IfNotPresent``` will prevent this as Kubernetes will a version cached locally if available but generally speaking it is considered **best practice** to specify a specific tag rather than the latest. When specific tags are used, the default image pull behavior is, ```IfNotPresent```.
+
+There is an obvious problem with the solution created here, namely that it will not scale well because Pods are our smallest union of work, Kubernetes can only scale out by increasing the number of Pods and not the containers inside of the Pod. If we want to scale out the application tier with the current design we have to also scale out all other containers proportionately. This means that there would be multiple Redis containers running, each would have their own copy of the counter. That's certainly not what we're gonna be going for. It is a much better approach, if we were able to scale each of these services independently. Breaking the application out into multiple Pods and connecting them with services is our ideal implementation. We'll walk through the design in next lesson but before moving on, it's worth noting that sometimes you do want each container in a Pod to scale proportionately. It comes down to how tightly coupled the containers are, and if it makes sense to be thinking of them as a single unit.
