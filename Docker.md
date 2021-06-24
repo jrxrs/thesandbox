@@ -2,6 +2,8 @@
 
 Don't forget that in Docker, Containers are just running versions of Images.
 
+[Docker (```docker```) CLI Reference](https://docs.docker.com/engine/reference/commandline/cli/)
+
 ## Simple Commands
 
 ```bash
@@ -243,6 +245,8 @@ You can push a docker image using the ```docker push``` command. By default you 
 # Docker Compose
 
 Compose is used to help manage orchestration of multiple containers.
+
+[Docker Compose CLI Reference](https://docs.docker.com/compose/reference/)
 
 Compose files are written in YAML and there is a little compleity around which version of the Compose file fomrat will work with which version of the Dcoker Engine, you can find a compatibilty matrix at http://docs.docker.com/compose/compose-file
 
