@@ -9,6 +9,10 @@ Kubernetes was born out of Google's experience running workloads in production o
 * https://kubernetes.io/docs/home/
 * https://kubernetes.io/docs/reference/glossary/?all=true
 
+### Other Links
+* https://blog.arima.eu/en/2020/04/28/examen-ckad
+* https://dzone.com/articles/my-experience-with-the-cka-exam
+
 ## Alternativers to K8s
 
 ### Data Center Operating System (DCOS)
