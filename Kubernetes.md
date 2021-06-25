@@ -78,7 +78,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 ```kubectl create``` creates new Kubernetes resources, e.g. Pods, Services, etc. You can create several resources using the built-in sub commands of create, or you can use resources specified in a file. The files are most commonly in YAML format and are referred to, as manifests.
 
 #### Options
-* ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file.
+* ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file (note that you can pass multiple ```-f``` switches on the command line or entire sub-directories).
 
 ### ```delete```
 ```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
@@ -108,6 +108,21 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 ### ```logs```
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
+
+### ```scale```
+```kubectl scale``` allows a resource to be scaled to a specifc number of replicas at runtime.
+
+#### Options
+* ```kubectl scale -n <namespace> deployments <deployment_name> --replicas=5``` - this scales the deployment named <deployment_name> to have 5 replicas without modifying the manifest for that deployment
+
+### ```top```
+```kubectl top``` displays runtime information, CPU usage and memory utilisation for a resource. Note that the m stands for milli, 1000 milli CPUs equals one CPU.
+
+#### Options
+* ```kubectl top pods``` - 
+
+### ```apply```
+```kubectl apply``` is like ```create``` but can be used to apply manifest chanegs to a resource which is already running.
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
@@ -172,3 +187,18 @@ Let's have a look at some example manifests, we'll start by declaring a new name
 * Just like we saw with services, deployments use label ```selector```s to group pods that are in the deployment. The match labels mapping should overlap with the labels declared in the pod template below, and kubectrl will complain if they don't overlap. The pod template metadata includes labels on the pods.
 
 The same deployment specification can be added to the other layers of the application, i.e. [5.3-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/5.3-app_tier.yaml) and [5.4-support_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/5.4-support_tier.yaml).
+
+Once our deployments have been started by Kubernetes it's possible for us to manually scale the tiers we'd like to (namely the data and app tiers as the data tier cannot be scaled), to do this we can use the ```scale``` command, however in reality we don't want scale to be done manually, we want this to be controlled automatically, for which we need Autoscaling. 
+
+## Autoscaling
+Kubernetes supports CPU-based autoscaling and autoscaling based on a custom metric that you can define. We're gonna be focusing on CPU-scaling. Autoscaling works by specifying a desired target CPU percentage and a minimum and a maximum number of allowed replicas. The CPU percentage is expressed as a percentage of the CPU resource request of that Pod. Recall that Pods can set resource requests for CPU to ensure that they're scheduled on a node with at least that much CPU available. If no CPU request is set, autoscaling won't take any action. Kubernetes will increase or decrease the number of replicas according to the average CPU usage of all of the replicas. The autoscaler will also increase the number of replicas when the actual CPU usage of the current Pods exceeds the target and vice versa for decreasing the number of Pods. It will never create more replicas than the maximum nor will they decrease the number of replicas below your configuring minimum. You can configure some of the parameters of the autoscaler, but the default will work fine for us. With the defaults, the autoscaler will compare the actual CPU usage to the target CPU usage. And either increase the replicas if the actual CPU is sufficiently higher than the target, or it will decrease the replicas if the actual CPU is sufficiently below the target. Otherwise it will keep the status quo. Autoscaling depends on metrics being collected in the cluster.
+
+Kubernetes integrates with several solutions for collecting metrics. We're going to be using the Metrics Server which is a solution that is maintained by Kubernetes itself. There are several manifest files on the Kubernetes Metrics Server GitHub repo that declare all of the resources. We will need to get Metrics Server up and running before we can use autoscaling. Once Metrics Server is running, autoscalers will retrieve those metrics and then make calls with the Kubernetes metrics API. The lab instance includes a Metrics Server manifest in the Metrics Server [sub-directory](https://github.com/cloudacademy/intro-to-k8s/tree/master/src/metrics-server). It's outside the scope of this course to discuss all the resources that comprise of the Metrics Server. So all we need to do is create them and we can count on metrics being collected in the cluster.
+
+### Configuration
+[6.2-autoscale.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/6.2-autoscale.yaml) shows how configure autoscaling for a Deployment, the ```app-tier``` deployment in this case.
+* Autoscaling has it's own ```apiVersion```, ```autoscaling/v1```
+* The ```kind``` is ```HorizontalPodAutoscaler```
+* The ```spec``` contains the maximum and minimum number of replicas along with a reference to the target resource to scale and finally the ```targetCPUUtilizationPercentage``` field sets the target average CPU percentage across the replicas. With the target set to 70%, Kubernetes will decrease the number of replicas if the average CPU utilization is 63% or below and increase replicas if it is 77% or higher
+
+Note the contents of this file could have been achieved at the command line using ```kubectl autoscale deployment app-tier --max=5 --min=1 --cpu-percent=70```.
