@@ -246,3 +246,53 @@ spec:
       maxUnavailable: 25%
     type: RollingUpdate
 ```
+
+## Probes
+Kubernetes assumes that a Pod is ready as soon the container is started, but that's not always true. For example, if the container needs time to warm up Kubernetes should wait before sending any traffic to the new Pod. It's also possible that a Pod is fully operational but after some time it becomes un-responsive. For example, if it enters a deadlock state, Kubernetes shouldn't send any more requests to that Pod and will be better off to restart a new Pod.
+
+Kubernetes supports a few different types of probe:
+* The first type of probe is for **readiness** checks, these are used to probe when a Pod is ready to serve traffic.
+* The second type of probe is called a liveness probe. They are used to detect when a Pod has entered a broken state and can no longer serve traffic. In this case, Kubernetes will restart the Pod for you.
+
+That is the key difference between these two types of probes. Readiness probes determine when a service can send traffic to a Pod because it is temporarily not ready and a liveness probe decides when a Pod should be restarted because it won't come back to life. You declare both probes in the same way. You just have to decide which course of action is appropriate if a probe fails. Stop serving traffic or restart. These do seem very similar however consider what would happen if an external service that a pod depends on goes offline, if your pod can only recover when that service is back online then there is no point restarting it, provided it can recovery gracefully from the external service being unavailable.
+
+Probes can be declared on containers in a Pod. All of the Pod's container probes must pass for the Pod to pass. You can define any of the following as the action probe to check the container:
+* A simple command that runs inside of a container (the command probes succeeds if the exit code of the command is zero, else, it will fail)
+* An HTTP GET request (a GET request succeeds if the response code is between 200 and 399)
+* The opening of a TCP socket (a TCP socket probes succeeds if a connection can be established)
+
+By default, the probes check the Pods every 10 seconds.
+
+[7.2-data_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/7.2-data_tier.yaml) contains the probes below:
+```yaml
+        livenessProbe:
+          tcpSocket:
+            port: redis # named port
+          initialDelaySeconds: 15
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+```
+
+Note that a command is specified as a list of strings, so in this case the command that will be executed in the container is ```redis-cli ping```.
+
+By default three sequential probes need to fail before a probe is marked as failed, so that we have some buffer. Kubernetes won't immediately restart the Pod the first time the probe fails, but we can configure it that way if we need to.
+
+[7.3-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/7.3-app_tier.yaml) contains more probe definitions:
+```yaml
+          - name: DEBUG
+            value: express:*
+        livenessProbe:
+          httpGet:
+            path: /probe/liveness
+            port: server
+          initialDelaySeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /probe/readiness
+            port: server
+          initialDelaySeconds: 3
+```
