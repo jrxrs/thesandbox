@@ -69,6 +69,8 @@ A deployment represents multiple replicas of a pod. Kubernetes uses deployments 
 ### Namespace
 A Namespace separates different Kubernetes resources. Namespaces may be used to isolate users, environments, or applications. You can also use Kubernetes' role-based authentication to manage users as access to resources in a given Namespace. Using Namespaces is a best practice.
 
+It's vital to note that using the default namespace is discouraged, so a namespace should be used in alsmost every circumstance, all of the ```kubectl``` command below take a ```--namespace <name_space>``` and ```-n <name_space>``` command line option to allow you to specify which namespace you're querying for.
+
 ## ```kubectl```
 The ```kubectl``` command is the primary mechanism of interacting with a Kubernetes cluster, details of some of the fundamental commands are given below:
 
@@ -105,6 +107,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 * ```kubectl describe pod server``` gives detailed information about the pod named server.
 * ```kubectl describe service webserver``` gives detailed information about the pod named server.
 * ```kubectl describe nodes | grep -i address -A 1``` - used to get the node address for accessing a service (note that you might see multiple addresses here if you have multiple nodes in your cluster, but if you're using a NodePort service then it won't matter which node in the cluster you hit)
+* ```kubectl describe hpa``` - in this case ```hpa``` is shorthand for horizonal pod autoscalers and this will show us what the autoscaler is doing to meet our requirements behind the scenes.
 
 ### ```logs```
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
@@ -123,6 +126,22 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 ### ```apply```
 ```kubectl apply``` is like ```create``` but can be used to apply manifest chanegs to a resource which is already running.
+
+### ```edit```
+```kubectl edit``` is the equivalent of editing an manifest, e.g. updating the number of replicas, saving the file and then using ```kubectl apply``` to apply the changes. Note that the default editor is ```vi``` and when you use ```edit``` you're actually modifying the server side version of the manifest, not your local copy, as a result you'll see some additional fields that ```kubectl``` has defaulted for you.
+
+### ```rollout```
+```kubectl rollout <command> <resource_type> <resource_name>``` allows you to view and control rollouts as they occur. Rollouts are most commonly used with deployments.
+
+#### Options
+* ```kubectl rollout status <resource_type> <resource_name>``` prints details of the process of a rollout as it happens.
+* ```kubectl rollout pause <resource_type> <resource_name>``` prints details of the process of a rollout as it happens. Pausing won't pause replicas that were created before the pausing, they will continue to progress to ready. However, there will be no new replicas created after the rollout is paused.
+* ```kubectl rollout resume <resource_type> <resource_name>``` resume a paused rollout.
+* ```kubectl rollout undo <resource_type> <resource_name>``` this will rollback to the previous revision
+* ```kubectl rollout history <resource_type> <resource_name>``` will get a list of all versions allowing you to get a specific version and pass that in
+
+### ```api-resources```
+```kubectl api-resources``` prints a fulll list of all the short hand annotations that kubectl supports.
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
@@ -199,6 +218,31 @@ Kubernetes integrates with several solutions for collecting metrics. We're going
 [6.2-autoscale.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/6.2-autoscale.yaml) shows how configure autoscaling for a Deployment, the ```app-tier``` deployment in this case.
 * Autoscaling has it's own ```apiVersion```, ```autoscaling/v1```
 * The ```kind``` is ```HorizontalPodAutoscaler```
-* The ```spec``` contains the maximum and minimum number of replicas along with a reference to the target resource to scale and finally the ```targetCPUUtilizationPercentage``` field sets the target average CPU percentage across the replicas. With the target set to 70%, Kubernetes will decrease the number of replicas if the average CPU utilization is 63% or below and increase replicas if it is 77% or higher
+* The ```spec``` contains the maximum and minimum number of replicas along with a reference to the target resource to scale and finally the ```targetCPUUtilizationPercentage``` field sets the target average CPU percentage across the replicas. With the target set to 70%, Kubernetes will decrease the number of replicas if the average CPU utilization is 63% or below and increase replicas if it is 77% or higher.
 
 Note the contents of this file could have been achieved at the command line using ```kubectl autoscale deployment app-tier --max=5 --min=1 --cpu-percent=70```.
+
+## Rolling Updates and Rollbacks
+The last topic we will discuss on deployments is how updates work. Kubernetes uses rollouts to update deployments. And a Kubernetes rollout is a process of updating or replacing replicas with new replicas matching a new deployment template. Changes may be configurations such as environment variables or labels, or also code changes which result in the updating of an image key of the deployment template. In a nutshell, any change to the deployment's template will trigger a rollout.
+
+Kubernetes has two different types of rollout strategy:
+* Rolling is the default option, replicas are updated in groups, instead of all at once until the rollout is complete. This allows service to continue uninterrupted while the update is being rolled out. However, you need to consider that during the rollout there will be pods using both the old and new configuration of the application. In such, it should gracefully handle that.
+* As an alternative deployments can also be configured to use the recreate strategy which kills all of the old template pods before creating the new ones. That, of a course, incurs downtime.
+
+Note that auto-scaling and rollouts are compatible with each other.
+
+The deployment strategy forms part of the ```spec``` in a section called ```strategy```:
+* The ```type``` is ```RollingUpdate```
+* ```matchSurge``` specifies how many replicas over the desired total are allowed during a rollout i.e. if this value was ```25%``` and the number of replicas was 8 then we could have up to 10 replicas live during a rollout, so higher surge allows new pods to be created without waiting for old ones to be deleted
+* The ```maxUnavailable``` controls how many old pods can be to be deleted without waiting for new pods to be ready
+
+You may want to configure these values if you want to trade off the impact on availability or resource utilization with the speed of the rollout. For example, you can have all of the new pods start immediately, but in the worst case you can have all of the new pods and all the old pods consuming resources at the same time effectively doubling the resource utilization for a short period.
+
+```yaml
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+```
