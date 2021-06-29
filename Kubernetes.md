@@ -296,3 +296,29 @@ By default three sequential probes need to fail before a probe is marked as fail
             port: server
           initialDelaySeconds: 3
 ```
+
+## Init Containers
+Sometimes you need to perform some tasks or check some prerequisites before a main application container starts. Some examples include waiting for a service to be created, downloading files, or dynamically deciding which port the application is going to use. The code that performs those tasks could be crammed into the main application, but it is better to keep a clean separation between the main application and supporting functionality to keep the smallest footprint you can for the images. However, the tasks are closely linked to the main application and are required to run before the main application starts. So Kubernetes provides us with an init container as a way to run these tasks that are required to complete before our main container starts. Pods may declare any number of init containers. They run in a sequence in the order they are declared. Each init container must run to completion before the following init container begins. And once all of the init containers have completed the main containers in the pods can start.
+
+Init containers use different images from the containers in the pod, and this can provide some benefits. They can contain utilities that are not desirable to include in the actual application image for security reasons. They can also contain utilities or custom code for setup that is not present in the application image. For example, there is no need to include utilities like sed or awk or dig in an application image if they are only used for setup. Init containers also provide an easy way to block or delay the start-up of an application until some pre-conditions are met. They are similar to readiness probes in this sense but only run at pod startup.
+
+**Init Containers run every time a pod is created.** This means they will run once for every replica in a deployment. And if a pod restarts, to say, due to failed live-ness probes the init containers would run again as part of that restart. Thus, you have to assume that init containers run at least once. This usually means that init containers should be unique. Running it more than once should have no additional effect.
+
+[8.1-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/8.1-app_tier.yaml) contains an example init container:
+```yaml
+      initContainers:
+        - name: await-redis
+          image: lrakai/microservices:server-v1
+          env:
+          - name: REDIS_URL
+            value: redis://$(DATA_TIER_SERVICE_HOST):$(DATA_TIER_SERVICE_PORT_REDIS)
+          command:
+            - npm
+            - run-script
+            - await-redis
+```
+
+## Volumes
+Containers in a pod share the same network stack, but each has their own file system. It could be useful to share your data between containers. For example, having an init container prepare some files that the main container depends upon. The file system of containers are also limited to the lifetime of the container, so this could present some undesirable effects. For example, if the data tier container we are using in our examples crashes or fails a likeness probe, it will be restarted, and all of our data will be lost forever. So this lesson is going to cover the different ways Kubernetes handles non-ephemeral data that bring data from containers, Kubernetes volumes, and Kubernetes persistent volumes. Our goal for this lesson is to deploy the data tier from our sample application, using a persistent volume so the data can outlive the data tier pod. Again, this lesson builds on the code from the previous lessons, so let's first discuss more about the options for storing persistent data and then apply them to our data tier.
+
+Kubernetes includes two different data storage types. Both are used by mounting a directory in one container, and then that could be shared by containers in the same pod. Pods can also use more than one volume or persistent volume. Their differences are mainly in how their lifetime is managed. One type exists for the lifetime of a particular pod and the other is independent from the lifetime of the pods. Volumes are tied to a pod and their life cycle. Volumes are used to share data between containers in a pod and to tolerate container restarts.
