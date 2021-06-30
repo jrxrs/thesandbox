@@ -357,7 +357,14 @@ spec:
     requests:
       storage: 128Mi # 128 mebibytes 
 ---
-
+...
+        volumeMounts:
+          - mountPath: /data
+            name: data-tier-volume
+      volumes:
+      - name: data-tier-volume
+        persistentVolumeClaim:
+          claimName: data-tier-volume-claim
 ```
 
 * First is our persistent volume. This is the raw storage where the data is ultimately written to by the pod's container. It has a declared storage capacity and other attributes. Here we've allocated one gibibyte. The access mode of read-write once means this volume may be mounted for reading and writing by a single node at a time. **Note that it is a limit on the node attachment, not pod attachment.** Persistent volumes may list multiple access modes in the claim that specifies the mode it requires. The persistent volume can only be claimed in a single access mode at any time. Lastly, we have an AWS Elastic Block Store mapping, which is specific to the type of storage backed by the PV. You would use a different mapping if you were not using an EBS volume for storage. And the only required key for AWS's Elastic Block Store is the volume ID, which is uniquely identified by the EBS volume. It will be different in your environment than mine, so I've added an insert volume ID placeholder that we will place before we recreate the PV. 
