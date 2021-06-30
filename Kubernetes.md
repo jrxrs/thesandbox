@@ -143,6 +143,9 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 ### ```api-resources```
 ```kubectl api-resources``` prints a fulll list of all the short hand annotations that kubectl supports.
 
+### ```exec```
+```kubectl exec <target_resource> -it -- <command>``` The ```exec``` command allows you to execute a command inside a container just like ```docker exec``` does.
+
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
 * Kubernetes supports multiple ```apiVersion```s and version 1 is the core API version containing many of the most common resources such as pods and nodes.
@@ -321,4 +324,46 @@ Init containers use different images from the containers in the pod, and this ca
 ## Volumes
 Containers in a pod share the same network stack, but each has their own file system. It could be useful to share your data between containers. For example, having an init container prepare some files that the main container depends upon. The file system of containers are also limited to the lifetime of the container, so this could present some undesirable effects. For example, if the data tier container we are using in our examples crashes or fails a likeness probe, it will be restarted, and all of our data will be lost forever. So this lesson is going to cover the different ways Kubernetes handles non-ephemeral data that bring data from containers, Kubernetes volumes, and Kubernetes persistent volumes. Our goal for this lesson is to deploy the data tier from our sample application, using a persistent volume so the data can outlive the data tier pod. Again, this lesson builds on the code from the previous lessons, so let's first discuss more about the options for storing persistent data and then apply them to our data tier.
 
-Kubernetes includes two different data storage types. Both are used by mounting a directory in one container, and then that could be shared by containers in the same pod. Pods can also use more than one volume or persistent volume. Their differences are mainly in how their lifetime is managed. One type exists for the lifetime of a particular pod and the other is independent from the lifetime of the pods. Volumes are tied to a pod and their life cycle. Volumes are used to share data between containers in a pod and to tolerate container restarts.
+Kubernetes includes two different data storage types. Both are used by mounting a directory in one container, and then that could be **shared by containers in the same pod**. Pods can also use more than one volume or persistent volume. Their differences are mainly in how their lifetime is managed. One type exists for the lifetime of a particular pod and the other is independent from the lifetime of the pods. Volumes are tied to a pod and their life cycle. Volumes are used to share data between containers in a pod and to tolerate container restarts. Although you can configure volumes to use durable storage types that survive pod deletion, you should consider using volumes for non-durable storage that is deleted when the pod is deleted. Default type of volume is called emptyDir and it creates an initially empty directory on the node running the pod to back the storage used by the volume. Any data written to the directory remains if a container in the pod is restarted. Once the pod is deleted, the data in the volume is permanently deleted. It's worth noting that since the data is stored on a specific node, if a pod is rescheduled to a different node, that data will be lost. **If the data is too valuable to lose when a pod is deleted or rescheduled, you should consider using persistent volumes.** Persistent volumes are independent from the lifetime of pods and are separately managed by Kubernetes. They work a little bit differently.
+
+Pods may claim a persistent volume and use it throughout their lifetime. The persistent volumes will continue to exist outside of their pods. Persistent volumes can even be mounted by multiple pods on different nodes if the underlying storage supports multiple readers or writers. Persistent volumes can be provisioned statically in advance by a cluster admin or dynamically for a far more flexible self-serve use case. Pods must make a request for storage before they can use a persistent volume. The request is made using a persistent volume claim, or PVC. A PVC declares how much storage the pod needs, the type of persistent volume, and the access mode. The access mode describes the persistent volume and whether it is mounted in read-only, read-write, or read-write many. **There are three supported access modes to choose from, read-write once, read-only many, or read-write many.** If there isn't a persistent volume available to satisfy the claim and dynamic provisioning isn't enabled, the claim will stay in a pending state until such persistent volume is ready. The persistent volume claim is connected to the pod by using a regular volume with the type set to persistent volume claim.
+
+Both volumes and persistent volumes may be backed by a wide variety of volume types. It is usually preferable to use persistent volumes for more durable types and volumes for more ephemeral storage needs. Durable volume types include the persistent disks in many cloud vendors, such as Google Cloud Engine persistent Disks, Azure Disks, and Amazon Elastic Block Store. There's also support for more generic volume types, such as network file system or NFS and iSCSI.
+
+For the purpose of this example a new namespace will be used, it is declared in [9.1-namespace.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/9.1-namespace.yaml). There are three additions to the manifest (vs. [7.2-data_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/7.2-data_tier.yaml)), a persistent volume, a persistent volume claim, and a volume to connect the claim to the pod.
+
+```yaml
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-tier-volume
+spec:
+  capacity:
+    storage: 1Gi # 1 gibibyte
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore: 
+    volumeID: INSERT_VOLUME_ID # replace with actual ID
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-tier-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 128Mi # 128 mebibytes 
+---
+
+```
+
+* First is our persistent volume. This is the raw storage where the data is ultimately written to by the pod's container. It has a declared storage capacity and other attributes. Here we've allocated one gibibyte. The access mode of read-write once means this volume may be mounted for reading and writing by a single node at a time. **Note that it is a limit on the node attachment, not pod attachment.** Persistent volumes may list multiple access modes in the claim that specifies the mode it requires. The persistent volume can only be claimed in a single access mode at any time. Lastly, we have an AWS Elastic Block Store mapping, which is specific to the type of storage backed by the PV. You would use a different mapping if you were not using an EBS volume for storage. And the only required key for AWS's Elastic Block Store is the volume ID, which is uniquely identified by the EBS volume. It will be different in your environment than mine, so I've added an insert volume ID placeholder that we will place before we recreate the PV. 
+* Next, we have the persistent volume claim. The PVC spec outlines what it is looking for in a persistent volume. For a persistent volume to be bound to a PVC, it must satisfy all the constraints in the claim. We are looking for a persistent volume that provides the read-write once access mode and has at least 128 mebibytes of storage. The claim request is less than or equal to the persistent volume's capacity and the access mode overlaps with the available access modes in the persistent volume. This means that the PVC request is satisfied by our persistent volume and will be bound to it.
+* Lastly, the appointment's template now includes a volume which links the PVC to deployments pod. This is accomplished by using the persistent volume claim mapping and setting the claim name to the name of the persistent volume, which is data tier volume claim. You will always use persistent volume claim when working with PVs. If you wanted to use an ephemeral storage volume, you would replace it with an emptyDir mapping or other types that don't connect to a persistent volume.
+
+Volumes can be used in the pods containers and init containers, but they must be mounted to be available in the containers. The volume mounts list includes all the volume mounts for given container. The mount pass for different containers could be different even if the volume is the same. In our case, we only have one, and we are mounting the volume at slash data, which is where the Redis is configured to store its data. This will cause all of the data to be written to the persistent volume.
+
+To round off the example (in the new namespace) we will need to create the [9.3-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/9.3-app_tier.yaml) and [9.4-support_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/9.4-support_tier.yaml).
