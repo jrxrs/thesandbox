@@ -374,3 +374,44 @@ spec:
 Volumes can be used in the pods containers and init containers, but they must be mounted to be available in the containers. The volume mounts list includes all the volume mounts for given container. The mount pass for different containers could be different even if the volume is the same. In our case, we only have one, and we are mounting the volume at slash data, which is where the Redis is configured to store its data. This will cause all of the data to be written to the persistent volume.
 
 To round off the example (in the new namespace) we will need to create the [9.3-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/9.3-app_tier.yaml) and [9.4-support_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/9.4-support_tier.yaml).
+
+## ConfigMaps and Secrets
+Up until now, the deployment template has included all of the configuration required by Pod containers. This is a big improvement over storing the configuration inside the binary or container image. Having configuration in the Pod spec, also makes it a lot less portable. Furthermore, if the configuration involves sensitive information, such as passwords, API keys, this also presents a security issue.
+
+So Kubernetes provides us with ConfigMaps and Secrets, which are Kubernetes resources that you can use to separate the configuration from the Pod specs. This operation makes it easier to manage and change configurations. It also makes for more portable manifests. ConfigMaps and Secrets are very similar and used in the same way when it comes to Pods. One key difference is that Secrets are specifically for storing sensitive information. Secrets reduce the risk of their data being exposed. However, the cluster admin also needs to ensure that all the proper encryption and access control safeguards are in place to actually consider Secrets being safe. We'll focus on Secrets and leave out the security details from this introductory course. Another difference is that Secrets have specialized types for storing credentials, such as requiring to pull images from registries. They also are good at storing TLS private keys and certificates. But I'll refer you to the official documentation we need to make use of those capabilities. ConfigMaps and Secret store data as key value pairs. Pods must reference ConfigMaps or Secrets to use their data. Pods can use the data by mounting them as files through a volume or as environment variables. We'll see examples of these in the demo.
+
+We're going to be using a ConfigMap to configure Redis using a volume to mount a Config file will use and a Secret to inject sensitive environment variables into the app tier. First, let's create a Config namespace for this demo. With [10.1.namespace.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.1-namespace.yaml). Next consider the config file itself [10.2-data_tier_config.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.2-data_tier_config.yaml):
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+data:
+  config: | # YAML for multi-line string
+    # Redis config file
+    tcp-keepalive 240
+    maxmemory 1mb
+```
+
+First notice that there is no spec rather than we have key value payers of the ConfigMap stores and they're under a mapping named data. Here we have a single key named Config. You can have more than one but one is enough for our purpose. The value of Config is a multiline string that represents the file contents of a Redis configuration file. The bar or pipe symbol after ConfigMap is Yaml for starting a multiline string and causes all the following lines to be the value of Config including the Redis Config comment. The configuration files set the TCP keep alive in max memory of Redis. These are arbitrarily chosen for this example. Separating the configuration makes it easy to manage configuration separately from the Pod spec. we will have to make some initial changes to the Pod to make use of the ConfigMap but after that, the two can be managed separately.
+
+To add this ConfigMap to the data tier itself we need to map it as a volume, see [10.3-data_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.3-data_tier.yaml).
+
+```yaml
+        command:
+          - redis-server
+          - /etc/redis/redis.conf
+        volumeMounts:
+          - mountPath: /etc/redis
+            name: config
+      volumes:
+        - name: config
+          configMap:
+            name: redis-config
+            items:
+            - key: config
+              path: redis.conf
+```
+
+A new ```configMap``` type of volume is added and it references the ```redis-config``` ConfigMap we just saw. Items declare which key value pair we want to use from the ConfigMaps. We only have one in our case, and that is ```config```.
