@@ -380,6 +380,7 @@ Up until now, the deployment template has included all of the configuration requ
 
 So Kubernetes provides us with ConfigMaps and Secrets, which are Kubernetes resources that you can use to separate the configuration from the Pod specs. This operation makes it easier to manage and change configurations. It also makes for more portable manifests. ConfigMaps and Secrets are very similar and used in the same way when it comes to Pods. One key difference is that Secrets are specifically for storing sensitive information. Secrets reduce the risk of their data being exposed. However, the cluster admin also needs to ensure that all the proper encryption and access control safeguards are in place to actually consider Secrets being safe. We'll focus on Secrets and leave out the security details from this introductory course. Another difference is that Secrets have specialized types for storing credentials, such as requiring to pull images from registries. They also are good at storing TLS private keys and certificates. But I'll refer you to the official documentation we need to make use of those capabilities. ConfigMaps and Secret store data as key value pairs. Pods must reference ConfigMaps or Secrets to use their data. Pods can use the data by mounting them as files through a volume or as environment variables. We'll see examples of these in the demo.
 
+### ConfigMap
 We're going to be using a ConfigMap to configure Redis using a volume to mount a Config file will use and a Secret to inject sensitive environment variables into the app tier. First, let's create a Config namespace for this demo. With [10.1.namespace.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.1-namespace.yaml). Next consider the config file itself [10.2-data_tier_config.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.2-data_tier_config.yaml):
 
 ```yaml
@@ -415,3 +416,41 @@ To add this ConfigMap to the data tier itself we need to map it as a volume, see
 ```
 
 A new ```configMap``` type of volume is added and it references the ```redis-config``` ConfigMap we just saw. Items declare which key value pair we want to use from the ConfigMaps. We only have one in our case, and that is ```config```.
+
+If you have multiple environments, you could easily do things like referencing a dev configuration in one environment and a production configuration in another. The ```mountPath``` sets the path of the file that will be mounted with a ```config``` value. This is relative to the mount point of the volume. Up above in the container spec, the volume mounts mapping declares the use of the Config volume and mounts it at ```/etc/redis```. So the full absolute path of the ```config``` path, will be ```/etc/redis/redis.conf```. The last change that we need is to use a custom command for the container so that Redis knows to load the Config file when it starts. We do that by setting the ```redis-server```, ```/etc/redis/redis.conf``` as the command. With this setup, we can now independently configure Redis without touching the deployment template. As a quick side note, before we create the resources, if we're dealing with a Secret rather than a ConfigMap, the volume type would be ```secret``` rather than ```configMap```  and the ```name``` key would be replaced with ```secret``` name. Everything else would be the same.
+
+### Secret
+Now we can quickly see how secrets work and see the similarities they have with a ConfigMap. We will add a secret to the app-tier using [10.4-app_tier_secret.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.4-app_tier_secret.yaml) and an environment variable. It won't have any functional impact but it will show the idea. Here is our Secret manifest, I mentioned upfront that you usually don't wanna check in secrets to source control given their sensitive nature. It makes more sense to have secrets managed separately. You could still use manifest files as we are here, or the Secret could be created directly with kube control:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-tier-secret
+stringData: # unencoded data
+  api-key: LRcAmM1904ywzK3esX
+  decoded: hello
+data: #for base-64 encoded data
+  encoded: aGVsbG8= # hello in base-64
+
+# api-key secret (only) is equivalent to
+# kubectl create secret generic app-tier-secret --from-literal=api-key=LRcAmM1904ywzK3esX
+```
+
+The command at the bottom of the file shows how to create the same Secret without a manifest file.
+
+Focusing on the manifest file, we can see that itself has a similar structure as our ConfigMap, except for the ```kind``` being ```Secret``` rather than ```ConfigMap```. And Secrets can use a string data mapping in addition to the data one we use in our ConfigMap. **As part of the effort to reduce the risk of Secrets being exposed in plain text, they are stored as base-64 encoded strings and Kubernetes automatically decodes them when using a container.** I also have to point out that ```base-64``` encoding does not really offer any additional security. It's not encrypting the values, and anyone can decode ```base-64```, so to continue to treat the encoded strings as sensitive data. With that cautionary statement out of the way, the ```stringData``` mapping allows you to specify Secrets without first encoding them because kubernetes will coding them for you. It's simply a convenience. **If you use the ```data``` mapping, you must specify in encoded values.** The API key secret is the one that we will use in the app tier, but I've included the encoded and decoded key value pairs to illustrate the ```base-64``` encoding.
+
+Looking at the manifest which supports this secret [10.5-app_tier.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/10.5-app_tier.yaml) we can see the following has been added:
+
+```yaml
+          - name: API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: app-tier-secret
+                key: api-key
+```
+
+The ```API_KEY``` environment variable is added. The ```valueFrom``` mapping is used to reference it from the source for the value. Here, the source is Secret, so the ```secretKeyRef``` is used. If you need to get the environment variable from a ConfigMap rather than a Secret, you would use the ```configMapKeyRef``` instead of ```secretKeyRef```. The name is the name of the Secret, and the key is the name of the key in the Secret you want to get the value from.
+
+Just like with using volumes to reference Secrets or Config maps, you should restart a roll out to how the deployment pods restart with a new version of the environment variables. Environment variables do not update on the flight like volumes. So actively managing the rollout is must.
