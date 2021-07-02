@@ -456,3 +456,10 @@ Looking at the manifest which supports this secret [10.5-app_tier.yaml](https://
 The ```API_KEY``` environment variable is added. The ```valueFrom``` mapping is used to reference it from the source for the value. Here, the source is Secret, so the ```secretKeyRef``` is used. If you need to get the environment variable from a ConfigMap rather than a Secret, you would use the ```configMapKeyRef``` instead of ```secretKeyRef```. The name is the name of the Secret, and the key is the name of the key in the Secret you want to get the value from.
 
 Just like with using volumes to reference Secrets or Config maps, you should restart a roll out to how the deployment pods restart with a new version of the environment variables. Environment variables do not update on the flight like volumes. So actively managing the rollout is must.
+
+## Conececting to EC2 from WSL2
+Begin by donwloading the PEM file and copying it into the Linux filesystem, this can be done by navigating to the directory you want to file to be (in Linux) and typing ```explorer.exe .``` which will open a normal file explorer in that dir. Copy the file in via the GUI and then back at the command line ensure it has the correct permissions: ```chmod 600 file.pem```. Finally connect to the Bastion Public IP: ```ssh -i file.pem username@ip-address```.
+
+**Links**
+* https://www.clickittech.com/aws/connect-ec2-instance-using-ssh/#3
+* https://www.howtogeek.com/fyi/windows-10-will-finally-offer-easy-access-to-linux-files/
