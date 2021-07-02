@@ -76,6 +76,8 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 [Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
+**Note**: ```kubectl``` will accept the singular or plural form of resource kinds. For example ```kubectl get pods``` and ```kubectl get pod``` are equivalent.
+
 ### ```create```
 ```kubectl create``` creates new Kubernetes resources, e.g. Pods, Services, etc. You can create several resources using the built-in sub commands of create, or you can use resources specified in a file. The files are most commonly in YAML format and are referred to, as manifests.
 
