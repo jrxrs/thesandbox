@@ -114,6 +114,9 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 ### ```logs```
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
 
+#### Options
+* ```kubectl logs <resource> <image_name>
+
 ### ```scale```
 ```kubectl scale``` allows a resource to be scaled to a specifc number of replicas at runtime.
 
