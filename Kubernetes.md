@@ -466,3 +466,38 @@ Begin by donwloading the PEM file and copying it into the Linux filesystem, this
 **Links**
 * https://www.clickittech.com/aws/connect-ec2-instance-using-ssh/#3
 * https://www.howtogeek.com/fyi/windows-10-will-finally-offer-easy-access-to-linux-files/
+
+## The Kubernetes Ecosystem
+
+### Helm
+Helm is Kubernetes' package manager. You write packages called charts. Then you use the helm CLI to install and upgrade charts as releases on your cluster. Charts contain all the resources like services and deployments required to run a particular application. Helm charts make it easy to share and complete applications built for Kubernetes.
+
+Helm charts can be found on the Helm hub at [hub.helm.sh](https://artifacthub.io/)
+
+### Kustomize
+Kustomize allows you to customize YAML manifests in Kubernetes. It can help you manage the complexity of your applications running inside of Kubernetes. An obvious example is managing different environments such as tests and stage. We saw how we could use config maps and secrets to help with that. But Kustomize makes it even easier. Kustomize works by using customization dot YAML file that declares rules for customizing or transforming resource manifest files. The original manifests are untouched and remained usable as they are, which is an, a massive benefit compared to other tools that required templating in the manifest, rendering them unusable on their own.
+
+Examples
+* Generating ConfigMaps and Secrects from files
+* Configure common fields across multiple resources
+* Apply patches to any field in a manifest
+* Use overlays to customize base groups of resources
+
+Kustomize has been directly integrated with kubectl since Kubernetes 1.14. The kubectl customized command prints the customized resource manifests with customization defined in customization dot YAML. To accept the customization and then realize them in your cluster you can include the --kustomize or - k option to cube control create or apply.
+
+### Prometheus
+Prometheus is an open source monitoring and alerting system. Prometheus's built on top of many components, but at its core is a server for pulling in time series metric data and storing it. Prometheus was originally inspired by an internal monitoring tool at Google called borgmon. Similar to how Kubernetes itself was inspired by the board project at Google. Given that history it should come as no surprise that Prometheus is the de facto standard solution for monitoring Kubernetes.
+
+Prometheus and Kubernetes play very nicely together
+* Kubernetes components supply all their own metris in Prometheus format
+  * Many more metrics than the build in Metrics Server
+* Adapter available to autoscale using metrics in Prometheus rather than CPU utilisation
+* Commonly paired with Grafana for visulatsations and dashboards
+* Define alert rules and send notifications
+* Easily installed via a Helm chart
+
+### Kubeflow
+Kubeflow is aimed at making deployment of machine learning workloads on Kubernetes simple, scalable, and portable. Kubeflow is a complete machine learning stack. You can use it for complete end to end machine learning including building models, training them, and serving them all within Kubeflow. Being built on Kubernetes, you can deploy it anywhere and get all of the nice features that Kubernetes provides like auto-scaling. Definitely check out Kubeflow if your requirements involve machine learning. 
+
+### Knative
+Knative is a platform built on top of Kubernetes for building, deploying, and managing serverless workloads. Serverless has gained a lot more momentum because it allows developers and companies to focus more on the code and less on the servers that run it. This trend started with AWS Lambda which is synonymous with serverless. However, as the industry shifts to multi-cloud and avoiding vendor lock-in solutions built on top of Kubernetes can be deployed anywhere. This gives you the portability that you would get with containers, but for your entire serverless platform. Knative is not the only game in town when it comes to serverless but it does have the support of industry heavyweights like Google, IBM, and SAP. 
