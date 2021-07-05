@@ -42,6 +42,8 @@ To have full control over your cluster, you should check out kubespray, kops, an
 
 ## Architecture
 
+[Understanding Nodes, Pods, Containers and Clusters](https://faun.pub/understanding-nodes-pods-containers-and-clusters-778dbd56ade8)
+
 ### Cluster
 The Kubernetes cluster is the highest level of abstraction to start with. Kubernetes clusters are composed of nodes and the term cluster refers to all of the machines collectively and can be thought of as the entire running system.
 
