@@ -85,6 +85,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 #### Options
 * ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file (note that you can pass multiple ```-f``` switches on the command line or entire sub-directories).
+* ```--dry-run -o yaml``` - if you know how to create a resource from the command line then you can use the dry run option to prevent the resource actually being created but instead emit the equavalent yaml file to the terminal, you can then redirect this to a file and use it later to create and delete all your resources in one go - just remember to number the files in the correct order, e.g. create the namespace fisrt and so on.
 
 ### ```delete```
 ```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
@@ -98,10 +99,26 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 #### Options
 * ```kubectl get pods``` - lists all the pods in the current namespace.
+* ```kubectl get pods --all-namespaces --show-labels``` - display all the label for each pod across all namespaces.
+* ```kubectl get pods --all-namespaces -L <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, no pod filtering.
+* ```kubectl get pods --all-namespaces -l <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, but with filtering to exclude pods which do not define those labels.
+* ```kubectl get pods --all-namespaces -l <target_label=value>``` - display just the pods which define a label and whose value matches, ```value```. You can negate this command by using ```!=``` instead of ```=``` in the list (note that if you use negation then pods which do no define the label will also show up in the output).
+* ```kubectl get pods -n kube-system -o wide``` - print pods information using a wide output (```--output```) format, this includes information such as the IP address and which node the pod currently resides on.
 * ```kubectl get services``` - lists all services in the current namespace.
 * ```kubectl get namespace``` - list all the available namespaces.
 * ```kubectl get nodes``` - list all the nodes in the cluster, e.g. master and worker nodes.
 * ```kubectl get deployments``` - list all the deployments.
+
+##### Sorting
+You can sort out from ```get``` using metadata about the pods, e.g.
+* ```kubectl get pods -n kube-system --sort-by='{.metadata.creationTimestamp}'``` - note that using single quotes and curly braces around the json path expression is advisable to avoid any shell substitutions. 
+
+To list the metadata fields of a pod you can use the following command:
+* ```kubectl get pods -n kube-system kube-proxy-..... --output=yaml```
+
+##### jsonpath
+You might list to output metadata about a resource to the console for all resources of a certain type, for example the IP address of all your pods, to do this you can utilise ```jsonpath``` expression, note that when you don't specify a single pod to get kubectl will return a list and you need to index into that list in the jsonpath in order to show results for each pod:
+* ```kubectl get pods -n kube-system --sort-by='{.status.podIP}' -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.podIP}{"\n"}{end}'``` 
 
 ### ```describe ```
 ```kubectl describe``` is going to print detailed information about a particular resource or a list of resources. The "Events" section of the ```describe``` output can be very helpful for debugging. 
@@ -148,10 +165,18 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 * ```kubectl rollout history <resource_type> <resource_name>``` will get a list of all versions allowing you to get a specific version and pass that in
 
 ### ```api-resources```
-```kubectl api-resources``` prints a fulll list of all the short hand annotations that kubectl supports.
+```kubectl api-resources``` prints a full list of all the short hand annotations that kubectl supports.
 
 ### ```exec```
 ```kubectl exec <target_resource> -it -- <command>``` The ```exec``` command allows you to execute a command inside a container just like ```docker exec``` does.
+
+### ```completion```
+```kubectl completion --help``` will list the commands required to enable command line auto-completion for various Operating Systems.
+
+### ```explain```
+Earlier when I was explaining how to craft json path's sort by expressions, I said you could use yaml or json output of the get command to show all the fields of resources. There is actually another way and it's very useful, it can help you with customizing generated manifests as well. It not only gives you the field names of paths but also tells you the purpose of each field and other useful information, all of that goodness is bundled up into the kubectl explain command. There are a couple of ways to use explain, they both require you to specify a simple path that is similar to a json path, but you give the kind of resource first without a leading dot and follow it with the field path that you are interested in. For example, if you want to see the top-level fields of a pod resource, you enter ```kubectl explain pod``` and the output gives you a description of a pod and the top-level fields in a pod. If you wanted to dive into the details of a field that's further down in the hierarchy, let's say, a pod specs container resources field, you just join the fields with dots, in this case, ```pod.spec.containers.resources```. You can traverse the fields up and down in this fashion to understand what fields are used for and if you want to see examples, you can navigate to the provided info links when available. The other way to use explain is to provide the entire schema of a field or resource by using the recursive option.
+
+ For example, to see all the fields in a pod's container field along with their types, you can enter kubectl explain pod.spec.containers and specify the recursive option. Explain can save you quite a few trips to your search engine of choice when writing resource manifests. During Kubernetes certification exams, you won't be able to use search engines, so it's important to know how to get the most out of kubectl for exams as well. 
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
@@ -550,5 +575,3 @@ Service accounts provide an identity to pods running in the cluster. Unlike user
 In a new cluster, the most interesting namespace from a service account perspective is ```kube-system```, the namespace reserved for system resources. Let's list the service accounts in ```kube-system``` using ```kubectl get -n kube-system serviceaccounts```. Because a lot of the pods in Kube system need access to different APIs and resources, there are many different service accounts. For example, cluster dns is provided by coredns and there is a service account for that. The default service account is also here as it would be in any other namespace. Just to get an idea of what a role looks like. Let's see the role that is bound to the coredns service account. In this case, it is actually a cluster role which means that it is not scoped to a specific namespace, instead, the role grabs permissions to all namespaces in the cluster. The cluster role is cloud system coredns and the described output gives the table showing the permissions granted. 
 
 Image pull secrets come into play when you're using a private container registry for your container images. The way that you authenticate with the container registry so that you can pull an image into Kubernetes is by using image pull secrets. The secrets may be a docker registry server address user name and a password, for example, you can specify image pull secrets in pod specs directly but service accounts can also reference image pull secrets. Service accounts can provide both an authentication token and image pull secrets. It creates a nice separation of responsibilities when uses a service account for managing image pull secrets rather than hard coring your reference into pods specs. You can only modify the default service account to have image pull secrets so that any pod and a namespace can use images for your trusted registry without specifying a service account.
-
-## Leaveraging kubectl
