@@ -98,7 +98,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 ```kubectl get``` returns a list of all the resources for a specified type. 
 
 #### Options
-* ```kubectl get pods``` - lists all the pods in the current namespace.
+* ```kubectl get pods``` - lists all the pods in the current namespace. See [here](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) for a list of possible pod statuses and their explanations.
 * ```kubectl get pods --all-namespaces --show-labels``` - display all the label for each pod across all namespaces.
 * ```kubectl get pods --all-namespaces -L <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, no pod filtering.
 * ```kubectl get pods --all-namespaces -l <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, but with filtering to exclude pods which do not define those labels.
