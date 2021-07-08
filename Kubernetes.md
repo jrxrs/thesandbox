@@ -85,7 +85,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 
 #### Options
 * ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file (note that you can pass multiple ```-f``` switches on the command line or entire sub-directories).
-* ```--dry-run -o yaml``` - if you know how to create a resource from the command line then you can use the dry run option to prevent the resource actually being created but instead emit the equavalent yaml file to the terminal, you can then redirect this to a file and use it later to create and delete all your resources in one go - just remember to number the files in the correct order, e.g. create the namespace fisrt and so on.
+* ```--dry-run=client -o yaml``` - if you know how to create a resource from the command line then you can use the dry run option to prevent the resource actually being created but instead emit the equavalent yaml file to the terminal, you can then redirect this to a file and use it later to create and delete all your resources in one go - just remember to number the files in the correct order, e.g. create the namespace fisrt and so on.
 
 ### ```delete```
 ```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
