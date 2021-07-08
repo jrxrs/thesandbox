@@ -116,7 +116,7 @@ You can sort out from ```get``` using metadata about the pods, e.g.
 To list the metadata fields of a pod you can use the following command:
 * ```kubectl get pods -n kube-system kube-proxy-..... --output=yaml```
 
-##### jsonpath
+##### ```jsonpath```
 You might list to output metadata about a resource to the console for all resources of a certain type, for example the IP address of all your pods, to do this you can utilise ```jsonpath``` expression, note that when you don't specify a single pod to get kubectl will return a list and you need to index into that list in the jsonpath in order to show results for each pod:
 * ```kubectl get pods -n kube-system --sort-by='{.status.podIP}' -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.podIP}{"\n"}{end}'``` 
 
@@ -176,7 +176,13 @@ You might list to output metadata about a resource to the console for all resour
 ### ```explain```
 Earlier when I was explaining how to craft json path's sort by expressions, I said you could use yaml or json output of the get command to show all the fields of resources. There is actually another way and it's very useful, it can help you with customizing generated manifests as well. It not only gives you the field names of paths but also tells you the purpose of each field and other useful information, all of that goodness is bundled up into the kubectl explain command. There are a couple of ways to use explain, they both require you to specify a simple path that is similar to a json path, but you give the kind of resource first without a leading dot and follow it with the field path that you are interested in. For example, if you want to see the top-level fields of a pod resource, you enter ```kubectl explain pod``` and the output gives you a description of a pod and the top-level fields in a pod. If you wanted to dive into the details of a field that's further down in the hierarchy, let's say, a pod specs container resources field, you just join the fields with dots, in this case, ```pod.spec.containers.resources```. You can traverse the fields up and down in this fashion to understand what fields are used for and if you want to see examples, you can navigate to the provided info links when available. The other way to use explain is to provide the entire schema of a field or resource by using the recursive option.
 
- For example, to see all the fields in a pod's container field along with their types, you can enter kubectl explain pod.spec.containers and specify the recursive option. Explain can save you quite a few trips to your search engine of choice when writing resource manifests. During Kubernetes certification exams, you won't be able to use search engines, so it's important to know how to get the most out of kubectl for exams as well. 
+For example, to see all the fields in a pod's container field along with their types, you can enter kubectl explain pod.spec.containers and specify the recursive option. Explain can save you quite a few trips to your search engine of choice when writing resource manifests. During Kubernetes certification exams, you won't be able to use search engines, so it's important to know how to get the most out of kubectl for exams as well. 
+
+### ```config```
+The config command can be used to default things about your environment, such as the namespace you'd like to operate within.
+
+#### Options
+```kubectl config set-context $(kubectl config current-context) --namespace=<namespace_name>```
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
