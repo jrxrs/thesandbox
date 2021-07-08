@@ -103,6 +103,8 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 * ```kubectl get pods --all-namespaces -L <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, no pod filtering.
 * ```kubectl get pods --all-namespaces -l <comma_sep_label_list>``` - display just the values of each label in comma_sep_label_list, but with filtering to exclude pods which do not define those labels.
 * ```kubectl get pods --all-namespaces -l <target_label=value>``` - display just the pods which define a label and whose value matches, ```value```. You can negate this command by using ```!=``` instead of ```=``` in the list (note that if you use negation then pods which do no define the label will also show up in the output).
+* ```kubectl get pods -L color,tier -l 'color==red,tier!=frontend'``` - a slightly more complex label query.
+* ```kubectl get pods -L color,tier -l 'color in (blue,green)'``` - an example of using ```in``` in a label query.
 * ```kubectl get pods -n kube-system -o wide``` - print pods information using a wide output (```--output```) format, this includes information such as the IP address and which node the pod currently resides on.
 * ```kubectl get services``` - lists all services in the current namespace.
 * ```kubectl get namespace``` - list all the available namespaces.
@@ -134,7 +136,7 @@ You might list to output metadata about a resource to the console for all resour
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
 
 #### Options
-* ```kubectl logs <resource> <image_name>
+* ```kubectl logs <resource> <image_name>``` show the logs for a specific resource.
 
 ### ```scale```
 ```kubectl scale``` allows a resource to be scaled to a specifc number of replicas at runtime.
@@ -183,6 +185,18 @@ The config command can be used to default things about your environment, such as
 
 #### Options
 ```kubectl config set-context $(kubectl config current-context) --namespace=<namespace_name>```
+
+### ```annotate```
+```kubectl annotate``` is used to manage annotations on Kubernetes resources.
+
+#### Options
+* ```kubectl annotate --help``` - print information and examples.
+
+### ```label```
+```kubectl label``` is used to manage labels on Kubernetes resources.
+
+#### Options
+* ```kubectl annotate --help``` - print information and examples.
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
