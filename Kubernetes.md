@@ -86,6 +86,9 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 #### Options
 * ```-f <name_name>``` - the ```-f``` switch tells kubectl to create a resouce from the specified manifest file (note that you can pass multiple ```-f``` switches on the command line or entire sub-directories).
 * ```--dry-run=client -o yaml``` - if you know how to create a resource from the command line then you can use the dry run option to prevent the resource actually being created but instead emit the equavalent yaml file to the terminal, you can then redirect this to a file and use it later to create and delete all your resources in one go - just remember to number the files in the correct order, e.g. create the namespace fisrt and so on.
+  * ```kubectl create namespace deployment --dry-run=client -o yaml > 1-deployment-ns.yaml``` - create a new namespace (see ```config``` below for a command to default your namespace)
+  * ```kubectl create deployment --image=http:2.4.38 web-server --dry-run=client -o yaml``` - create a deployment template.
+  * ```kubectl create job one-off --image=alpine -- sleep 30``` - this create a jobs which sleeps for 30 seconds.
 
 ### ```delete```
 ```kubectl delete``` does the opposite of create, in that it deletes a particular resource. You can do the same with a file, with resources declared inside of it.
@@ -110,6 +113,7 @@ The ```kubectl``` command is the primary mechanism of interacting with a Kuberne
 * ```kubectl get namespace``` - list all the available namespaces.
 * ```kubectl get nodes``` - list all the nodes in the cluster, e.g. master and worker nodes.
 * ```kubectl get deployments``` - list all the deployments.
+* ```kubectl get jobs``` - list all the jobs.
 
 ##### Sorting
 You can sort out from ```get``` using metadata about the pods, e.g.
@@ -156,6 +160,17 @@ You might list to output metadata about a resource to the console for all resour
 ### ```edit```
 ```kubectl edit``` is the equivalent of editing an manifest, e.g. updating the number of replicas, saving the file and then using ```kubectl apply``` to apply the changes. Note that the default editor is ```vi``` and when you use ```edit``` you're actually modifying the server side version of the manifest, not your local copy, as a result you'll see some additional fields that ```kubectl``` has defaulted for you.
 
+#### Options
+```kubectl edit deployment web-server --record``` - this command will open the manifest of an existing deployment called ```web-server``` for editing, the ```record``` flag captures the command and applying it as an annotation on the rollout history of the deployment (see ```rollout``` below). e.g.
+
+```bash
+ubuntu@ip-10-0-128-5:~$ kubectl rollout history deployment web-server
+deployment.apps/web-server
+REVISION  CHANGE-CAUSE
+1         <none>
+2         kubectl edit deployment web-server --record=true
+```
+
 ### ```rollout```
 ```kubectl rollout <command> <resource_type> <resource_name>``` allows you to view and control rollouts as they occur. Rollouts are most commonly used with deployments.
 
@@ -198,6 +213,23 @@ The config command can be used to default things about your environment, such as
 #### Options
 * ```kubectl annotate --help``` - print information and examples.
 
+### ```set```
+```kubectl set``` allows you to configure certain aspects of a resource on the fly.
+
+#### Options
+* ```kubectl set image deployment web-server httpd=httpd:2.4.38-alpine --record``` - set the image of a deployment called ```web-server``` to somethign else.
+* ```env``` - Update environment variables on a pod template
+* ```image``` - Update image of a pod template
+* ```resources``` - Update resource requests/limits on objects with pod templates
+* ```selector``` - Set the selector on a resource
+* ```serviceaccount``` - Update ServiceAccount of a resource
+* ```subject``` - Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding
+
+### ```expose```
+```kubectl expose deployment web-server --type=LoadBalancer --port=80```
+
+Services provide a single endpoint for communicating with a set of Pods. Services also use label selectors to define the set of Pods. Although this lab step focuses on Deployments, it is common to have a Service to provide an endpoint for accessing the Pods in a Deployment. The load balancer type of Service allows communication with clients outside of the Kubernetes cluster. The ClusterIP and NodePort Service types are useful for accessing a set of Pods only within a cluster.
+
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
 * Kubernetes supports multiple ```apiVersion```s and version 1 is the core API version containing many of the most common resources such as pods and nodes.
@@ -227,6 +259,58 @@ When you use ```kubectl get services```, kubectl will display the name, Cluster-
 * Note that the Ports column, Kubernetes will automatically allocate a Port in the Port range allocated for NodePorts which is commonly port numbers between 30,000 and 32,767.
 
 We have seen that services allow us to expose Pods using a static address, even though the addresses of the underlying Pods may be changing. We also specifically used a NodePort service to gain access to the service from outside of the cluster on a static port that is reserved on each node in the cluster. This allowed us to access the service by sending a request to any of the nodes, just not the node that is running the Pod. There is more to say about Pods and services. We will use more complex application in the future to illustrate some of the remaining topics in the next couple of lessons. Think microservices will start by covering multi-container Pods, to continue on when you're ready.
+
+## Jobs
+Deployments are best suited for long-running Pods that should not normally exit, such as web servers. There are other higher-level resources for Pods that perform batch work and run to completion. They are Jobs and CronJobs.
+
+Jobs allow you to set a specific number of Pods that must run to completion. If a Pod fails, the Job will start a new Pod until the desired number of Pods reaching completion is met. Jobs can run multiple Pods in parallel. When the desired number of Pods successfully complete, the Job is complete. The Pods the Job creates are not automatically deleted allowing you to view their logs and statuses. When you are ready, you can delete the Job with kubectl and the associated Pods will be automatically deleted.
+
+CronJobs run Jobs based on a declared schedule, similar to the Unix cron tool.
+
+Once create you can view information about a job using the following command: ```kubectl get jobs <job_name> -o yaml```, e.g.
+
+```yaml
+spec:
+  backoffLimit: 6
+  completions: 1
+  parallelism: 1
+  selector:
+    matchLabels:
+      controller-uid: 676468ca-810e-43d2-bf36-f26cd545696e
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        controller-uid: 676468ca-810e-43d2-bf36-f26cd545696e
+        job-name: one-off
+    spec:
+      containers:
+      - command:
+        - sleep
+        - "30"
+        image: alpine
+        imagePullPolicy: Always
+        name: one-off
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+```
+
+Some important fields to highlight are:
+
+* ```backoffLimit``` - Number of times a Job will retry before marking a Job as failed
+* ```completions``` - Number of Pod completions the Job needs before being considered a success
+* ```parallelism``` - Number of Pods the Job is allowed to run in parallel
+*```spec.template.spec.restartPolicy``` - Job Pods default to never attempting to restart. Instead, the Job is responsible for managing the restart of failed Pods.
+
+Also, note the Job uses a selector to track its Pods.
+
+The ```activeDeadlineSeconds``` and ```ttlSecondsAfterFinished``` are useful for automatically terminating and deleting Jobs.
 
 ## Multi-Container Pods
 You can see an example of how to create a namespace in the [3.1-namespace.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/3.1-namespace.yaml) file. The  namespace is created, just like any other Kubernetes resource. Here is our Namespace manifest. Namespaces don't require a spec. The main part is the name which is set to microservices and is a good idea to label it as well. Everything in this Namespace will relate to the counter microservices app. It's important to **note** that the ```--namespace``` or ```-n``` option must be used to specify the namespace on all ```kubectl``` commands we run from now on, otherwise the default namespace will be used. 
