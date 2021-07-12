@@ -12,6 +12,7 @@ Kubernetes was born out of Google's experience running workloads in production o
 ### Other Links
 * https://blog.arima.eu/en/2020/04/28/examen-ckad
 * https://dzone.com/articles/my-experience-with-the-cka-exam
+* https://dzone.com/articles/kubernetes-service-types?edition=682396
 
 ## Alternativers to K8s
 
