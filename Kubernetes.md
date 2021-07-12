@@ -157,7 +157,10 @@ You might list to output metadata about a resource to the console for all resour
 ```kubectl top``` displays runtime information, CPU usage and memory utilisation for a resource. Note that the m stands for milli, 1000 milli CPUs equals one CPU.
 
 #### Options
-* ```kubectl top pods``` - 
+* ```kubectl top node``` - display CPU and memory stats for each of the nodes in the cluster.
+* ```kubectl top pods``` - display CPU and memory stats for each of the active pods.
+* ```kubectl top pod --containers``` - a more granular view of the output in the command above, showing the CPU and memory stats for all containers in all pods.
+* ```kubectl top pod --containers -l test``` - the same command as above but restricting the view to just those containers with a label called ```test```.
 
 ### ```apply```
 ```kubectl apply``` is like ```create``` but can be used to apply manifest chanegs to a resource which is already running.
@@ -418,6 +421,14 @@ spec:
 ```
 
 ## Probes
+
+### Overview
+* **Readiness probes** are used to detect when a Pod is unable to serve traffic, such as during startup when large amounts of data are being loaded or caches are being warmed. When a readiness probe fails, it means that the Pod needs more time to become ready to serve traffic. When the Pod is accessed through a Kubernetes Service, the Service will not serve traffic to any Pods that have a failing readiness probe. ```kubectl explain pod.spec.containers.readinessProbe```
+* **Liveness probes** are used to detect when a Pod fails to make progress after entering a broken state, such as deadlock. The issues causing the Pod to enter such a broken state are bugs, but by detecting a Pod is in a broken state allows Kubernetes to restart the Pod and allow progress to be made, perhaps only temporarily until arriving at the broken state again. The application availability is improved compared to leaving the Pod in the broken state.
+* **Startup probes** are used when an application starts slowly and may otherwise be killed due to failed liveness probes. The startup probe runs before both readiness and liveness probes. The startup probe can be configured with a startup time that is longer than the time needed to detect a broken state for a container after it has started.
+
+### The Details
+
 Kubernetes assumes that a Pod is ready as soon the container is started, but that's not always true. For example, if the container needs time to warm up Kubernetes should wait before sending any traffic to the new Pod. It's also possible that a Pod is fully operational but after some time it becomes un-responsive. For example, if it enters a deadlock state, Kubernetes shouldn't send any more requests to that Pod and will be better off to restart a new Pod.
 
 Kubernetes supports a few different types of probe:
