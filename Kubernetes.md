@@ -140,7 +140,12 @@ You might list to output metadata about a resource to the console for all resour
 ```kubectl logs``` prints container logs for a particular pod or a specific container inside of a multi container pod.
 
 #### Options
-* ```kubectl logs <resource> <image_name>``` show the logs for a specific resource.
+* ```kubectl logs --help``` - print the help information for the logs command.
+* ```kubectl logs <pod_name> <conainer_name>``` show the logs for a specific resource. Note that the ```container_name``` can be omitted if a Pod only has one container.
+* ```kubectl logs --tail=1``` - tail the logs, showing the most recent line
+* ```kubectl logs -f``` - follow the logs.
+* ```kubectl logs --timestamps``` - show event timestamps.
+* * ```kubectl exec webserver-logs -- tail -10 conf/httpd.conf``` - if you've containerized a legacy application that logs to file then you can retrieve those logs using ```exec```. Also see the ```cp``` command below. 
 
 ### ```scale```
 ```kubectl scale``` allows a resource to be scaled to a specifc number of replicas at runtime.
@@ -226,9 +231,35 @@ The config command can be used to default things about your environment, such as
 * ```subject``` - Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding
 
 ### ```expose```
-```kubectl expose deployment web-server --type=LoadBalancer --port=80```
+* ```kubectl expose deployment web-server --type=LoadBalancer --port=80``` - expose a load balancer over the web-server on port 80. Also see the command below.
+* ```kubectl expose pod webserver-logs --type=LoadBalancer``` - The expose command uses the container port for the Service's port when the --port option isn't provided. In this case, the Service uses port 80 (HTTP). See the yaml at the end of this section for the associated manifest.
 
 Services provide a single endpoint for communicating with a set of Pods. Services also use label selectors to define the set of Pods. Although this lab step focuses on Deployments, it is common to have a Service to provide an endpoint for accessing the Pods in a Deployment. The load balancer type of Service allows communication with clients outside of the Kubernetes cluster. The ClusterIP and NodePort Service types are useful for accessing a set of Pods only within a cluster.
+
+**Example manifest for pod load balancer in example 2 above**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: logs
+  name: webserver-logs
+spec:
+  containers:
+  - name: server
+    image: httpd:2.4.38-alpine
+    ports:
+    - containerPort: 80
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+```
+
+### ```cp```
+```kubectl cp webserver-logs:conf/httpd.conf local-copy-of-httpd.conf```
+
+The ```cp``` command takes a source file spec (```webserver-logs:conf/httpd.conf```) and a destination file spec (```local-copy-of-httpd.conf```). You can also copy from the local file system to a container using ```cp```. To indicate the Pod file system, begin the file spec with the Pod name followed by a colon and then the path. There are several examples in the help if you ever forget the syntax (```kubectl cp --help```).
 
 ## Pods
 Let's look at the most basic manifest file for a Pod, see [1.1-basic_pod.yaml](https://github.com/cloudacademy/intro-to-k8s/blob/master/src/1.1-basic_pod.yaml). This manifest declares a pod with one container that uses the latest Nginx image. All manifests have the same top level keys, ```apiVersion```, ```kind`, and ```metadata``` followed by the ```spec```.
